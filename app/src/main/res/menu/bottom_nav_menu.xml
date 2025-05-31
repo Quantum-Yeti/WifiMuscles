@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/donate"
+        android:icon="@drawable/coffee_donate_icon_24"
+        android:title="@string/donate_txt"
+        />
+    <item
+        android:id="@+id/rate"
+        android:icon="@drawable/favorite_icon_24"
+        android:title="@string/rate_txt"
+        />
+    <item
+        android:id="@+id/knowledge"
+        android:icon="@drawable/info_icon_24"
+        android:title="@string/knowledge_txt"
+        />
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/share_icon_24"
+        android:title="@string/share_txt"
+
+        />
+
+
+
+
+</menu>

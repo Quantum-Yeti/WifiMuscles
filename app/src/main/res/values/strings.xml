@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Wifi Muscles</string>
+
+    <!-- Menu Strings -->
+    <string name="contact_txt">Contact</string>
+    <string name="donate_txt">Donate</string>
+    <string name="help_txt">Help</string>
+    <string name="faq_txt">FAQS</string>
+    <string name="knowledge_txt">Info</string>
+    <string name="rate_txt">Rate</string>
+    <string name="share_txt">Share</string>
+    <string name="support_txt">Support</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
