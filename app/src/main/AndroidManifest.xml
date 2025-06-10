@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+
 
     <application
         android:allowBackup="true"
@@ -17,6 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WifiMuscles"
         tools:targetApi="31">
+        <!-- AdMob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4546178742356403~5630786920"/>
         <activity
             android:name=".view.activities.MainActivity"
             android:exported="true">

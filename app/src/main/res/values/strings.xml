@@ -10,10 +10,20 @@
     <string name="rate_txt">Rate</string>
     <string name="share_txt">Share</string>
     <string name="support_txt">Support</string>
+    <string name="radar_txt">Radar Chart</string>
+    <string name="combo_txt">Combo Chart</string>
 
 
+    <!-- RSSI Level UI Labels -->
+    <string name="rssi">RSSI</string>
+    <string name="label_excellent">Excellent</string>
+    <string name="label_good">Good</string>
+    <string name="label_fair">Fair</string>
+    <string name="label_weak">Weak</string>
+    <string name="label_terrible">Terrible</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
 </resources>

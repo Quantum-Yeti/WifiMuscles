@@ -3,16 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
+    <item
+        android:id="@+id/comboChart"
+        android:icon="@drawable/chart_icon_24"
+        android:title="@string/combo_txt"
+        />
+    <item
+        android:id="@+id/radarChart"
+        android:icon="@drawable/bubble_chart_24"
+        android:title="@string/radar_txt"
+        />
     <item
         android:id="@+id/donate"
         android:icon="@drawable/coffee_donate_icon_24"
         android:title="@string/donate_txt"
-        />
-    <item
-        android:id="@+id/rate"
-        android:icon="@drawable/favorite_icon_24"
-        android:title="@string/rate_txt"
         />
     <item
         android:id="@+id/knowledge"
@@ -25,8 +29,4 @@
         android:title="@string/share_txt"
 
         />
-
-
-
-
 </menu>

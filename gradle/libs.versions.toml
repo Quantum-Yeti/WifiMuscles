@@ -2,6 +2,7 @@
 agp = "8.9.3"
 androidplotCoreVersion = "1.5.11"
 githubMpandroidchart = "v3.1.0"
+hellochartsAndroid = "v1.5.8"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -9,10 +10,12 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
+playServicesAds = "24.3.0"
 
 [libraries]
 androidplot-androidplot-core = { module = "com.androidplot:androidplot-core", version.ref = "androidplotCoreVersion" }
 github-mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "githubMpandroidchart" }
+hellocharts-android = { module = "com.github.lecho:hellocharts-android", version.ref = "hellochartsAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -20,6 +23,7 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
