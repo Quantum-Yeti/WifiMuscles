@@ -30,15 +30,16 @@ public class ChartViewModel extends AndroidViewModel {
             WifiInfo info = wifiManager.getConnectionInfo();
             if (info != null) {
                 int rssi = info.getRssi();
+                int signalLevel = mapRssiToLevels(rssi);
                 long timestamp = System.currentTimeMillis();
 
-                signalList.add(new WifiSignal(timestamp, rssi));
+                signalList.add(new WifiSignal(timestamp, rssi, signalLevel));
                 if (signalList.size() > 30) signalList.remove(0);
 
                 rssiLiveData.setValue(new ArrayList<>(signalList));
             }
 
-            handler.postDelayed(this, 1000); // every 1s
+            handler.postDelayed(this, 2000); // every 1s
         }
     };
 
@@ -57,4 +58,13 @@ public class ChartViewModel extends AndroidViewModel {
         super.onCleared();
         handler.removeCallbacks(updateTask);
     }
+
+    private int mapRssiToLevels (int rssi) {
+        if (rssi >=-50) return 5;
+        else if (rssi >= -60) return 4;
+        else if (rssi >= -70) return 3;
+        else if (rssi >= -80) return 2;
+        else return 1;
+    }
+
 }

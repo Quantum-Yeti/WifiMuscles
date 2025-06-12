@@ -2,11 +2,13 @@ package me.theoria.wifimuscles.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -15,7 +17,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.model.ChartMarkerView;
@@ -29,36 +30,19 @@ public class ChartConfigurator {
         public LineData lineData;
     }
 
-    /**
-     * Method: flipRSSI
-     * Changes negative values to positive values for visual aspects of the charts
-     */
-    public static Entry flipRSSIEntry(float x, float rssi){
-        Entry entry = new Entry(x, Math.abs(rssi));
-        entry.setData(rssi);
-        return entry;
+    public static int mapRssiToLevel(int rssi) {
+        if (rssi >= -50) return 5;
+        else if (rssi >= -60) return 4;
+        else if (rssi >= -70) return 3;
+        else if (rssi >= -80) return 2;
+        else return 1;
     }
 
-    /**
-     * Function: createThresholdDataSet
-     * Visually highlight quality wifi bands on a chart.
-     * @param context
-     * @param level
-     * @return
-     */
-    private static LineDataSet createThresholdDataSet(Context context, RSSILevel level) {
-        LineDataSet set = new LineDataSet(new ArrayList<>(), context.getString(level.getRssiLabel()));
-        set.setDrawFilled(true);
-        //set.setFillDrawable();
-        set.setColor(Color.BLACK);
-        set.setLineWidth(3f);
-        set.setDrawCircles(false);
-        set.setDrawValues(false);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-
-        set.setFillDrawable(ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient));
-        set.setDrawFilled(true);
-        return set;
+    public static void addRssiEntry(LineDataSet dataSet, float x, int rssi) {
+        int signalLevel = mapRssiToLevel(rssi);
+        Entry entry = new Entry(x, signalLevel);
+        entry.setData("RSSI: " + rssi + " dBm | Level: " + signalLevel);
+        dataSet.addEntry(entry);
     }
 
     /**
@@ -79,54 +63,70 @@ public class ChartConfigurator {
         chart.setScaleEnabled(true);
         chart.getLegend().setEnabled(true);
         chart.getLegend().setTextSize(14f);
+        chart.getDescription().setEnabled(true);
 
         // Configure X Axis
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setDrawLabels(true);
+        Description description = new Description();
+        description.setText("(Seconds Elapsed)");
+        description.setTextSize(14f);
+        chart.setDescription(description);
 
-        // Configure Y Axis
+
+        // Configure Y Axis for signal levels
         YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setAxisMinimum(-127f);
-        leftAxis.setAxisMaximum(0f);
-        leftAxis.setDrawGridLines(false);
-        /*leftAxis.setValueFormatter(new ValueFormatter() {
+        leftAxis.setAxisMinimum(1f);
+        leftAxis.setAxisMaximum(5f);
+        leftAxis.setGranularity(1f);
+        leftAxis.setLabelCount(5, true);
+        leftAxis.setDrawGridLines(true);
+        leftAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return String.format(Locale.getDefault(), "-%.0f", value);
+                switch ((int) value) {
+                    case 5: return "5";
+                    case 4: return "4";
+                    case 3: return "3";
+                    case 2: return "2";
+                    case 1: return "1";
+                    default: return "";
+                }
             }
-        });*/
+        });
+        chart.getAxisLeft().setTextSize(14f);
+        leftAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         chart.getAxisRight().setEnabled(false);
 
-        // Primary LineDataSet RSSI
-        LineDataSet rssiValueDataSet = new LineDataSet(new ArrayList<>(), "WiFi RSSI (dBm)");
+        // Main signal level line
+        LineDataSet rssiValueDataSet = new LineDataSet(new ArrayList<>(), "WiFi Signal Level (1–5)");
         rssiValueDataSet.setDrawCircles(false);
         rssiValueDataSet.setDrawValues(true);
         rssiValueDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         rssiValueDataSet.setCubicIntensity(0.2f);
-        rssiValueDataSet.setColor(Color.CYAN);
+        rssiValueDataSet.setColor(Color.BLACK);
         rssiValueDataSet.setLineWidth(2f);
-
-        // Enable and set gradient fill
         rssiValueDataSet.setDrawFilled(true);
+
         Drawable gradientFill = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient);
         rssiValueDataSet.setFillDrawable(gradientFill);
 
-
-        // Add marker
+        // Marker view setup
         ChartMarkerView marker = new ChartMarkerView(context, R.layout.marker_rssi);
         marker.setChartView(chart);
         chart.setMarker(marker);
 
-        // RSSI Thresholds from RSSILevel ENUM
+        // Threshold lines by signal level
         LineDataSet excellentSet = createLineThresholdDataSet(context, RSSILevel.EXCELLENT);
         LineDataSet goodSet = createLineThresholdDataSet(context, RSSILevel.GOOD);
         LineDataSet fairSet = createLineThresholdDataSet(context, RSSILevel.FAIR);
         LineDataSet weakSet = createLineThresholdDataSet(context, RSSILevel.WEAK);
         LineDataSet terribleSet = createLineThresholdDataSet(context, RSSILevel.TERRIBLE);
 
-        LineData lineData = new LineData(rssiValueDataSet);
+        // Combine all datasets
+        LineData lineData = new LineData();
         lineData.addDataSet(rssiValueDataSet);
         lineData.addDataSet(excellentSet);
         lineData.addDataSet(goodSet);
@@ -134,10 +134,10 @@ public class ChartConfigurator {
         lineData.addDataSet(weakSet);
         lineData.addDataSet(terribleSet);
 
-        // Set data to chart and redraw chart
         chart.setData(lineData);
         chart.invalidate();
 
+        // Return all components for access
         ChartSetupResult result = new ChartSetupResult();
         result.chart = chart;
         result.primaryDataSet = rssiValueDataSet;
@@ -148,28 +148,23 @@ public class ChartConfigurator {
         result.terribleSet = terribleSet;
         result.lineData = lineData;
         return result;
-
     }
 
+    /**
+     * Creates a threshold dataset with default styling for the given RSSI level.
+     */
     private static LineDataSet createLineThresholdDataSet(Context context, RSSILevel level) {
         LineDataSet set = new LineDataSet(new ArrayList<>(), context.getString(level.getRssiLabel()));
         set.setColor(Color.BLACK);
         set.setLineWidth(3.5f);
-        set.setDrawValues(true);
         set.setDrawCircles(false);
         set.setDrawValues(false);
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setDrawFilled(true);
-        Drawable gradientFill = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient);
-        set.setFillDrawable(gradientFill);
-        set.setFillColor(Color.BLUE);
         return set;
     }
 
-    public static void addRssiEntry(LineDataSet dataSet, float x, int rssi) {
-        float flipped = Math.abs(rssi); // e.g. -85 becomes 85
-        dataSet.addEntry(new Entry(x, flipped));
-    }
+
 }
 
 

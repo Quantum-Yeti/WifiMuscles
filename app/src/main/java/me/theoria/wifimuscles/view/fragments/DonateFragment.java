@@ -1,41 +1,30 @@
 package me.theoria.wifimuscles.view.fragments;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import me.theoria.wifimuscles.databinding.FragmentDonateBinding;
 
+import androidx.fragment.app.Fragment;
+
+import me.theoria.wifimuscles.R;
+
+/**
+ *{@code DonateFragment} is a {@link Fragment} that displays the donation UI.
+ * {@link #onCreate(Bundle)} is called to initialize the fragment creation.
+ * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} is called to inflate the fragment's view.
+ */
 public class DonateFragment extends Fragment {
 
-    private FragmentDonateBinding binding;
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        binding = FragmentDonateBinding.inflate(inflater, container, false);
-
-        binding.btnDonate.setOnClickListener(v -> {
-            // Replace this URL with your PayPal donation link
-            String paypalUrl = "https://www.paypal.com/donate?hosted_button_id=YOUR_BUTTON_ID";
-
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalUrl));
-            startActivity(intent);
-        });
-
-        return binding.getRoot();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_donate, container, false);
     }
 }

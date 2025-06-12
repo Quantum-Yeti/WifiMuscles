@@ -18,15 +18,20 @@ import me.theoria.wifimuscles.utils.ChartConfigurator;
 import me.theoria.wifimuscles.utils.ChartUpdater;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
-
-public class HomeChartFragment extends Fragment {
+/**
+ * {@code ChartFragment} is a {@link Fragment} that displays the dynamic wifi RSSI (Wi-Fi signal strength)
+ * combo chart with the help of the MPAndroidChart library.
+ * The {@link ChartViewModel} is used to observe the live RSSI data and update the chart dynamically.
+ * The chart contains the primary RSSI data as well as threshold designations for the drawing of the lines.
+ */
+public class ChartFragment extends Fragment {
 
     private LineChart chart;
     private LineDataSet lineDataSet;
     private LineDataSet excellentSet, goodSet, fairSet, weakSet, terribleSet;
     private LineData lineData;
 
-    private boolean chartResizing = true;
+    //private boolean chartResizing = true;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,11 +68,5 @@ public class HomeChartFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public boolean isChartResizing() {
-        return chartResizing;
-    }
 
-    public void setChartResizing(boolean chartResizing) {
-        this.chartResizing = chartResizing;
-    }
 }

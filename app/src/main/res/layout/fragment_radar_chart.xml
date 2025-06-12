@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".view.fragments.RadarChartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.github.mikephil.charting.charts.RadarChart
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/radarChart"/>
 
 </FrameLayout>

@@ -1,6 +1,7 @@
 package me.theoria.wifimuscles.utils;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -32,10 +33,12 @@ public class ChartUpdater {
         fairSet.clear();
         weakSet.clear();
         terribleSet.clear();
+        mainDataSet.clear(); // Clear to prevent duplication on next update
 
         for (int i = 0; i < signals.size(); i++) {
             float rssi = signals.get(i).getRssi();
-            Entry entry = new Entry(i, rssi);
+            int signalLevel = ChartConfigurator.mapRssiToLevel((int) rssi);
+            Entry entry = new Entry(i, signalLevel);
 
             RSSILevel rssiLevel = RSSILevel.mapRssi(rssi);
             switch (rssiLevel) {
@@ -70,10 +73,11 @@ public class ChartUpdater {
         chart.notifyDataSetChanged();
         chart.invalidate();
 
-        chart.setVisibleXRangeMaximum(30);
+        chart.setVisibleXRangeMaximum(100);
         chart.moveViewToX(lineData.getEntryCount());
 
-        mainDataSet.clear(); // Clear to prevent duplication on next update
+
     }
+
 
 }

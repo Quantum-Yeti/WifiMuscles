@@ -1,7 +1,9 @@
 package me.theoria.wifimuscles.view.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,15 +18,12 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import me.theoria.wifimuscles.R;
+import me.theoria.wifimuscles.view.fragments.ChartFragment;
 import me.theoria.wifimuscles.view.fragments.DonateFragment;
 import me.theoria.wifimuscles.view.fragments.HomeFragment;
-import me.theoria.wifimuscles.view.fragments.HomeChartFragment;
 import me.theoria.wifimuscles.view.fragments.RadarChartFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    private AdView mAdView;
-
 
 
     @Override
@@ -39,10 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new HomeChartFragment())
-                .commit();*/
+
 
         /**
          * Navigation methods for movement between fragments manually
@@ -51,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Fragment declaration
         Fragment homeFragment = new HomeFragment();
-        Fragment comboWifiFragment = new HomeChartFragment();
+        Fragment comboWifiFragment = new ChartFragment();
         Fragment secondChartFragment = new RadarChartFragment();
         Fragment donateFragment = new DonateFragment();
 
@@ -68,7 +64,12 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.radarChart) {
                 setCurrentFragment(secondChartFragment);
             } else if (itemId == R.id.donate) {
-                setCurrentFragment(donateFragment);
+                findViewById(R.id.donate).setOnClickListener(v -> {
+                    String paypalDonationUrl = "https://www.paypal.com/ncp/payment/T62DKS2TW4GRN";
+
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalDonationUrl));
+                    startActivity(browserIntent);
+                });
             }
             return true;
         });
@@ -80,14 +81,15 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(this, initializationStatus -> {});
 
         // Reference AdView and load ad
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
 
     /**
      * Method: setCurrentFragment
-     * Replaces the fragment within the fragment container
+     * Description: Replaces the fragment within the fragment container block from
+     * the main activity.
      * @param fragment
      */
     private void setCurrentFragment(Fragment fragment) {
