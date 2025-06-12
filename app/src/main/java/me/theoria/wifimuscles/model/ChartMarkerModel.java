@@ -10,23 +10,25 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import me.theoria.wifimuscles.R;
 
-public class ChartMarkerView extends MarkerView {
+public class ChartMarkerModel extends MarkerView {
 
     private final TextView markerContent;
 
-    public ChartMarkerView(Context context, int layoutResource) {
+    public ChartMarkerModel(Context context, int layoutResource) {
         super(context, layoutResource);
         markerContent = findViewById(R.id.markerContent);
     }
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        markerContent.setText(String.format("RSSI: %.0f dBm", e.getY()));
+        float rssi = e.getY();
+        String strengthMarkerDescription = String.valueOf(RSSILevelModel.mapRssi(rssi));
+        markerContent.setText("Strength: " + strengthMarkerDescription);
         super.refreshContent(e, highlight);
     }
 
     @Override
     public MPPointF getOffset() {
-        return new MPPointF(-(getWidth() / 2f), -getHeight());
+        return new MPPointF(-(getWidth() / 3f), -getHeight());
     }
 }

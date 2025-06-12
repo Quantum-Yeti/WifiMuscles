@@ -1,30 +1,37 @@
 package me.theoria.wifimuscles.utils;
 
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.List;
+import java.util.Objects;
 
-import me.theoria.wifimuscles.model.RSSILevel;
-import me.theoria.wifimuscles.model.WifiSignal;
+import me.theoria.wifimuscles.R;
+import me.theoria.wifimuscles.model.RSSILevelModel;
+import me.theoria.wifimuscles.model.WifiSignalModel;
+import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 public class ChartUpdater {
 
     public static void updateChart(
+            TextView rssiTextView,
+            ImageView rssiEmojiView,
             LineChart chart,
-            LineDataSet mainDataSet,
+            LineDataSet rssiDataSet,
             LineDataSet excellentSet,
             LineDataSet goodSet,
             LineDataSet fairSet,
             LineDataSet weakSet,
             LineDataSet terribleSet,
             LineData lineData,
-            List<WifiSignal> signals
+            List<WifiSignalModel> signals
     ) {
-        if (chart == null || mainDataSet == null || lineData == null) {
+        if (chart == null || rssiDataSet == null || lineData == null) {
             return;
         }
 
@@ -33,33 +40,37 @@ public class ChartUpdater {
         fairSet.clear();
         weakSet.clear();
         terribleSet.clear();
-        mainDataSet.clear(); // Clear to prevent duplication on next update
+        rssiDataSet.clear(); // Clear to prevent duplication on next update
 
         for (int i = 0; i < signals.size(); i++) {
+            // Retrieve float RSSI
             float rssi = signals.get(i).getRssi();
-            int signalLevel = ChartConfigurator.mapRssiToLevel((int) rssi);
+            // Retrieve integer RSSI
+            int textRSSI = signals.get(i).getRssi();
+            rssiTextView.setText("RSSI: " +textRSSI+ " dBm");
+            // Retrieve emoji for RSSI level
+            int emoji = getRssiEmoji(textRSSI);
+            rssiEmojiView.setImageResource(emoji);
+
+            // Map integer RSSI to String
+            int signalLevel = ChartViewModel.mapRssiToLevels((int) rssi);
+
             Entry entry = new Entry(i, signalLevel);
 
-            RSSILevel rssiLevel = RSSILevel.mapRssi(rssi);
-            switch (rssiLevel) {
-                case EXCELLENT:
-                    excellentSet.addEntry(entry);
-                    break;
-                case GOOD:
-                    goodSet.addEntry(entry);
-                    break;
-                case FAIR:
-                    fairSet.addEntry(entry);
-                    break;
-                case WEAK:
-                    weakSet.addEntry(entry);
-                    break;
-                case TERRIBLE:
-                    terribleSet.addEntry(entry);
-                    break;
+            RSSILevelModel rssiLevelModel = RSSILevelModel.mapRssi(rssi);
+            if (Objects.requireNonNull(rssiLevelModel) == RSSILevelModel.EXCELLENT) {
+                excellentSet.addEntry(entry);
+            } else if (rssiLevelModel == RSSILevelModel.GOOD) {
+                goodSet.addEntry(entry);
+            } else if (rssiLevelModel == RSSILevelModel.FAIR) {
+                fairSet.addEntry(entry);
+            } else if (rssiLevelModel == RSSILevelModel.WEAK) {
+                weakSet.addEntry(entry);
+            } else if (rssiLevelModel == RSSILevelModel.TERRIBLE) {
+                terribleSet.addEntry(entry);
             }
 
-            mainDataSet.addEntry(entry);
+            rssiDataSet.addEntry(entry);
         }
 
         excellentSet.notifyDataSetChanged();
@@ -67,16 +78,25 @@ public class ChartUpdater {
         fairSet.notifyDataSetChanged();
         weakSet.notifyDataSetChanged();
         terribleSet.notifyDataSetChanged();
-        mainDataSet.notifyDataSetChanged();
+        rssiDataSet.notifyDataSetChanged();
         lineData.notifyDataChanged();
 
         chart.notifyDataSetChanged();
         chart.invalidate();
 
-        chart.setVisibleXRangeMaximum(100);
+        chart.setVisibleXRangeMaximum(30);
         chart.moveViewToX(lineData.getEntryCount());
 
 
+    }
+
+    private static int getRssiEmoji(int rssi) {
+        if (rssi >= -50) {
+            return R.drawable.emoji_happy_24;
+        }
+        else if (rssi >= -70) {
+            return R.drawable.emoji_blue_24;
+        } else return R.drawable.emoji_red_24;
     }
 
 

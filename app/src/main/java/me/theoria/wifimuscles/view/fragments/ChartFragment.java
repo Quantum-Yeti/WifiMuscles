@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,6 +28,9 @@ import me.theoria.wifimuscles.viewmodel.ChartViewModel;
  */
 public class ChartFragment extends Fragment {
 
+    private TextView rssiTextView;
+    private ImageView rssiEmojiView;
+
     private LineChart chart;
     private LineDataSet lineDataSet;
     private LineDataSet excellentSet, goodSet, fairSet, weakSet, terribleSet;
@@ -36,9 +41,11 @@ public class ChartFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         me.theoria.wifimuscles.databinding.FragmentChartBinding binding = FragmentChartBinding.inflate(inflater, container, false);
-        ChartViewModel viewModel = new ViewModelProvider(this).get(ChartViewModel.class);
 
+        ChartViewModel viewModel = new ViewModelProvider(this).get(ChartViewModel.class);
         chart = binding.lineChart;
+        rssiTextView = binding.rssiTextView;
+        rssiEmojiView = binding.rssiEmoji;
 
 
         ChartConfigurator.ChartSetupResult chartSetup = ChartConfigurator.setupLineChart(chart, requireContext());
@@ -53,6 +60,8 @@ public class ChartFragment extends Fragment {
         // Observe LiveData for RSSI updates
         viewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
             ChartUpdater.updateChart(
+                    rssiTextView,
+                    rssiEmojiView,
                     chart,
                     lineDataSet,
                     excellentSet,

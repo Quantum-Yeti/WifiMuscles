@@ -1,5 +1,7 @@
 package me.theoria.wifimuscles.utils;
 
+import static me.theoria.wifimuscles.viewmodel.ChartViewModel.mapRssiToLevels;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -19,8 +21,8 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.util.ArrayList;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.model.ChartMarkerView;
-import me.theoria.wifimuscles.model.RSSILevel;
+import me.theoria.wifimuscles.model.ChartMarkerModel;
+import me.theoria.wifimuscles.model.RSSILevelModel;
 
 public class ChartConfigurator {
 
@@ -30,18 +32,12 @@ public class ChartConfigurator {
         public LineData lineData;
     }
 
-    public static int mapRssiToLevel(int rssi) {
-        if (rssi >= -50) return 5;
-        else if (rssi >= -60) return 4;
-        else if (rssi >= -70) return 3;
-        else if (rssi >= -80) return 2;
-        else return 1;
-    }
+
 
     public static void addRssiEntry(LineDataSet dataSet, float x, int rssi) {
-        int signalLevel = mapRssiToLevel(rssi);
+        int signalLevel = mapRssiToLevels(rssi);
         Entry entry = new Entry(x, signalLevel);
-        entry.setData("RSSI: " + rssi + " dBm | Level: " + signalLevel);
+        entry.setData(mapRssiToLevels(rssi));
         dataSet.addEntry(entry);
     }
 
@@ -57,41 +53,49 @@ public class ChartConfigurator {
         // Chart configuration
         chart.setDrawGridBackground(false);
         chart.setBackgroundColor(Color.TRANSPARENT);
-        chart.getDescription().setEnabled(true);
+        //chart.getDescription().setEnabled(true);
         chart.setTouchEnabled(true);
         chart.setDragEnabled(true);
         chart.setScaleEnabled(true);
         chart.getLegend().setEnabled(true);
+        //chart.getLegend().getEntries();
         chart.getLegend().setTextSize(14f);
-        chart.getDescription().setEnabled(true);
+        chart.setExtraBottomOffset(10f);
+        chart.setExtraTopOffset(10f);
+        //chart.getDescription().setEnabled(true);
 
         // Configure X Axis
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawLabels(true);
+        //xAxis.setSpaceMax(5f);
+        xAxis.setDrawGridLines(true);
+        xAxis.setDrawLabels(false);
+        xAxis.setDrawAxisLine(false);
         Description description = new Description();
-        description.setText("(Seconds Elapsed)");
+        description.setText("(Seconds)");
         description.setTextSize(14f);
         chart.setDescription(description);
 
 
         // Configure Y Axis for signal levels
         YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setDrawGridLines(true);
+        //leftAxis.setSpaceTop(2f);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        leftAxis.setYOffset(-6f);
         leftAxis.setAxisMinimum(1f);
         leftAxis.setAxisMaximum(5f);
         leftAxis.setGranularity(1f);
         leftAxis.setLabelCount(5, true);
-        leftAxis.setDrawGridLines(true);
         leftAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 switch ((int) value) {
-                    case 5: return "5";
-                    case 4: return "4";
-                    case 3: return "3";
-                    case 2: return "2";
-                    case 1: return "1";
+                    case 5: return "Excellent";
+                    case 4: return "Good";
+                    case 3: return "Fair";
+                    case 2: return "Weak";
+                    case 1: return "Terrible";
                     default: return "";
                 }
             }
@@ -101,29 +105,29 @@ public class ChartConfigurator {
         chart.getAxisRight().setEnabled(false);
 
         // Main signal level line
-        LineDataSet rssiValueDataSet = new LineDataSet(new ArrayList<>(), "WiFi Signal Level (1–5)");
+        LineDataSet rssiValueDataSet = new LineDataSet(new ArrayList<>(), context.getString(R.string.wifi_strength));
         rssiValueDataSet.setDrawCircles(false);
-        rssiValueDataSet.setDrawValues(true);
+        rssiValueDataSet.setDrawValues(false);
         rssiValueDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        rssiValueDataSet.setCubicIntensity(0.2f);
+        rssiValueDataSet.setCubicIntensity(0.1f);
         rssiValueDataSet.setColor(Color.BLACK);
-        rssiValueDataSet.setLineWidth(2f);
+        rssiValueDataSet.setLineWidth(2.5f);
         rssiValueDataSet.setDrawFilled(true);
 
         Drawable gradientFill = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient);
         rssiValueDataSet.setFillDrawable(gradientFill);
 
         // Marker view setup
-        ChartMarkerView marker = new ChartMarkerView(context, R.layout.marker_rssi);
+        ChartMarkerModel marker = new ChartMarkerModel(context, R.layout.marker_rssi);
         marker.setChartView(chart);
         chart.setMarker(marker);
 
         // Threshold lines by signal level
-        LineDataSet excellentSet = createLineThresholdDataSet(context, RSSILevel.EXCELLENT);
-        LineDataSet goodSet = createLineThresholdDataSet(context, RSSILevel.GOOD);
-        LineDataSet fairSet = createLineThresholdDataSet(context, RSSILevel.FAIR);
-        LineDataSet weakSet = createLineThresholdDataSet(context, RSSILevel.WEAK);
-        LineDataSet terribleSet = createLineThresholdDataSet(context, RSSILevel.TERRIBLE);
+        LineDataSet excellentSet = createLineThresholdDataSet(context, RSSILevelModel.EXCELLENT);
+        LineDataSet goodSet = createLineThresholdDataSet(context, RSSILevelModel.GOOD);
+        LineDataSet fairSet = createLineThresholdDataSet(context, RSSILevelModel.FAIR);
+        LineDataSet weakSet = createLineThresholdDataSet(context, RSSILevelModel.WEAK);
+        LineDataSet terribleSet = createLineThresholdDataSet(context, RSSILevelModel.TERRIBLE);
 
         // Combine all datasets
         LineData lineData = new LineData();
@@ -153,7 +157,7 @@ public class ChartConfigurator {
     /**
      * Creates a threshold dataset with default styling for the given RSSI level.
      */
-    private static LineDataSet createLineThresholdDataSet(Context context, RSSILevel level) {
+    private static LineDataSet createLineThresholdDataSet(Context context, RSSILevelModel level) {
         LineDataSet set = new LineDataSet(new ArrayList<>(), context.getString(level.getRssiLabel()));
         set.setColor(Color.BLACK);
         set.setLineWidth(3.5f);

@@ -5,7 +5,7 @@ import androidx.annotation.StringRes;
 
 import me.theoria.wifimuscles.R;
 
-public enum RSSILevel {
+public enum RSSILevelModel {
 
     EXCELLENT(R.string.label_excellent, R.drawable.fill_blue), // 0 to -50
     GOOD(R.string.label_good, R.drawable.fill_green), // -50 to -70
@@ -18,7 +18,7 @@ public enum RSSILevel {
     @DrawableRes
     private final int fillDrawableRes;
 
-    RSSILevel(@StringRes int wifiStrengthLabel, @DrawableRes int fillDrawableRes) {
+    RSSILevelModel(@StringRes int wifiStrengthLabel, @DrawableRes int fillDrawableRes) {
         this.wifiStrengthLabel = wifiStrengthLabel;
         this.fillDrawableRes = fillDrawableRes;
     }
@@ -31,7 +31,7 @@ public enum RSSILevel {
         return fillDrawableRes;
     }
 
-    public static RSSILevel mapRssi (float rssi) {
+    public static RSSILevelModel mapRssi (float rssi) {
         if (rssi >= -50) {
             return EXCELLENT;
         } else if (rssi >= -70) {

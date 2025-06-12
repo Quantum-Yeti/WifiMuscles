@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         /**
-         * Navigation methods for movement between fragments manually
+         * Navigation methods for setting the current fragment, movement between fragments and
+         * initializing them on the MainActivity.
          * TODO: Move into NavigationComponent
          */
 
@@ -51,12 +52,11 @@ public class MainActivity extends AppCompatActivity {
         Fragment secondChartFragment = new RadarChartFragment();
         Fragment donateFragment = new DonateFragment();
 
-        // Set current fragment from choice in navigation
+        // Set current fragment from setCurrentFragment
         setCurrentFragment(comboWifiFragment);
-
         // Initialize bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
+        // Bottom navigation logic
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.comboChart) {
@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.donate) {
                 findViewById(R.id.donate).setOnClickListener(v -> {
                     String paypalDonationUrl = "https://www.paypal.com/ncp/payment/T62DKS2TW4GRN";
-
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalDonationUrl));
                     startActivity(browserIntent);
                 });

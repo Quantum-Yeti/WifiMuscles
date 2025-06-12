@@ -1,6 +1,5 @@
 package me.theoria.wifimuscles.view.fragments;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -10,6 +9,9 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -17,89 +19,162 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.model.WifiSignal;
-import me.theoria.wifimuscles.utils.ChartConfigurator;
+import me.theoria.wifimuscles.model.WifiSignalModel;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 
 public class RadarChartFragment extends Fragment {
 
+    // Initialize UI component objects
+    private TextView rssiTextView;
+    private ImageView rssiEmojiView;
     private RadarChart radarChart;
 
-    @SuppressLint("MissingInflatedId")
+    private ChartViewModel chartViewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_radar_chart, container, false);
+
         radarChart = root.findViewById(R.id.radarChart);
+
+        rssiTextView = root.findViewById(R.id.rssiTextView);
+        rssiEmojiView = root.findViewById(R.id.rssiEmoji);
+
         setupRadarChart();
-        setupViewModel();
+
+        // Initialize ChartViewModel (RSSI)
+        chartViewModel = new ViewModelProvider(this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication())).get(ChartViewModel.class);
+
+        chartViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChart);
         return root;
     }
 
     private void setupRadarChart() {
+        // RadarChart Configuration
         radarChart.getDescription().setEnabled(false);
-        radarChart.setWebColor(Color.GRAY);
+        radarChart.setWebColor(Color.BLACK);
         radarChart.setWebLineWidth(1f);
         radarChart.setWebColorInner(Color.LTGRAY);
         radarChart.setWebLineWidthInner(1f);
 
-        // X Axis (labels per entry)
+        // X Axis
         XAxis xAxis = radarChart.getXAxis();
         xAxis.setTextSize(14f);
-        //xAxis.setValueFormatter((value, axis) -> "S" + ((int) value % 30)); // Label format: S0, S1, etc.
+        xAxis.setDrawLabels(true);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                switch ((int) value) {
+                    case 5: return "Excellent";
+                    case 4: return "Good";
+                    case 3: return "Fair";
+                    case 2: return "Weak";
+                    case 1: return "Terrible";
+                    default: return "";
+                }
+            }
+        });
 
-        // Y Axis (signal level)
+        // Y Axis (signal level 1-5)
         YAxis yAxis = radarChart.getYAxis();
-        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMinimum(1f);
         yAxis.setAxisMaximum(5f);
         yAxis.setLabelCount(5, true);
         yAxis.setDrawLabels(false); // hide level numbers
+        yAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                switch ((int) value) {
+                    case 5: return "Excellent";
+                    case 4: return "Good";
+                    case 3: return "Fair";
+                    case 2: return "Weak";
+                    case 1: return "Terrible";
+                    default: return "";
+                }
+            }
+        });
     }
 
-    private void setupViewModel() {
-        ChartViewModel chartViewModel = new ViewModelProvider(requireActivity()).get(ChartViewModel.class);
-        chartViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChart);
-    }
 
-    private void updateRadarChart(List<WifiSignal> signals) {
+    private void updateRadarChart(List<WifiSignalModel> signals) {
         if (signals == null || signals.isEmpty()) return;
 
-        List<RadarEntry> entries = new ArrayList<>();
-        List<String> labels = new ArrayList<>();
-
-        int count = Math.min(6, signals.size()); // Limit to 6 latest entries for readability
+        int count = Math.min(6, signals.size());
         int start = signals.size() - count;
 
+        List<RadarEntry> entries = new ArrayList<>();
+        List<String> radarLabels = new ArrayList<>();
+
         for (int i = start; i < signals.size(); i++) {
-            WifiSignal signal = signals.get(i);
-            int level = ChartConfigurator.mapRssiToLevel(signal.getRssi()); // Use mapped 1–5 level
-            entries.add(new RadarEntry(level));
-            labels.add("S" + i); // Label for axis
+            WifiSignalModel signal = signals.get(i);
+            // Use signal level from your model directly
+            int signalLevel = signal.getSignalLevel();
+            entries.add(new RadarEntry(signalLevel));
+            radarLabels.add("S" + i);
         }
 
-        RadarDataSet dataSet = new RadarDataSet(entries, "WiFi Signal Level");
+        // Show latest RSSI value and emoji
+        WifiSignalModel latestSignal = signals.get(signals.size() - 1);
+        int latestRssi = latestSignal.getRssi();
+        rssiTextView.setText("RSSI: " + latestRssi + " dBm");
+        rssiEmojiView.setImageResource(getRssiEmoji(latestRssi));
+
+        //Show extender toast message
+        displayToastOnLevel(latestSignal.getSignalLevel());
+
+        // RadarChart Data Entry Visuals
+        RadarDataSet dataSet = new RadarDataSet(entries, "WiFi Strength");
         dataSet.setColor(Color.BLUE);
         dataSet.setFillColor(Color.CYAN);
         dataSet.setDrawFilled(true);
-        dataSet.setLineWidth(2f);
+        dataSet.setLineWidth(3f);
         dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setValueTextSize(12f);
+        dataSet.setValueTextSize(14f);
 
         RadarData data = new RadarData(dataSet);
         radarChart.setData(data);
-
-        // Update X Axis labels
-        /*radarChart.getXAxis().setValueFormatter((value, axis) -> {
-            int index = ((int) value) % labels.size();
-            return labels.get(index);
-        });*/
-
         radarChart.invalidate(); // Redraw chart
+    }
+
+    private int getRssiEmoji(int rssi) {
+        if (rssi >= -50) {
+            return R.drawable.emoji_happy_24;
+        } else if (rssi >= -70) {
+            return R.drawable.emoji_blue_24;
+        } else {
+            return R.drawable.emoji_red_24;
+        }
+    }
+
+    private void displayToastOnLevel(int level) {
+        String extenderToast = "";
+        switch (level) {
+            case 5:
+                extenderToast = "Excellent!";
+                break;
+            case 4:
+                extenderToast = "Good!";
+                break;
+            case 3:
+                extenderToast = "You definitely need an extender placed closer to the router to improve your network!";
+                break;
+            case 2:
+                extenderToast = "Consider adding an extender to improve your Wifi coverage!";
+                break;
+            case 1:
+                extenderToast = "You definitely need an extender placed closer to the router to improve your network!";
+                break;
+        }
+        Toast.makeText(requireContext(), extenderToast, Toast.LENGTH_SHORT).show();
     }
 }
