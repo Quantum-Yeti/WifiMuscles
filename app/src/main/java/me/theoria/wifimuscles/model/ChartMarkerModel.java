@@ -9,6 +9,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import me.theoria.wifimuscles.R;
+import me.theoria.wifimuscles.utils.RssiUtils;
 
 public class ChartMarkerModel extends MarkerView {
 

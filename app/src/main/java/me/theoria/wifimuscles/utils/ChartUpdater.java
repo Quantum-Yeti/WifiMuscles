@@ -35,6 +35,7 @@ public class ChartUpdater {
             return;
         }
 
+        // Clear prior data
         excellentSet.clear();
         goodSet.clear();
         fairSet.clear();
@@ -49,30 +50,37 @@ public class ChartUpdater {
             int textRSSI = signals.get(i).getRssi();
             rssiTextView.setText("RSSI: " +textRSSI+ " dBm");
             // Retrieve emoji for RSSI level
-            int emoji = getRssiEmoji(textRSSI);
+            int emoji = RssiUtils.getRssiEmoji(textRSSI);
             rssiEmojiView.setImageResource(emoji);
 
-            // Map integer RSSI to String
-            int signalLevel = ChartViewModel.mapRssiToLevels((int) rssi);
-
-            Entry entry = new Entry(i, signalLevel);
-
+            // Map integer RSSI to signal level using mapRssi from RSSILevelModel
             RSSILevelModel rssiLevelModel = RSSILevelModel.mapRssi(rssi);
-            if (Objects.requireNonNull(rssiLevelModel) == RSSILevelModel.EXCELLENT) {
-                excellentSet.addEntry(entry);
-            } else if (rssiLevelModel == RSSILevelModel.GOOD) {
-                goodSet.addEntry(entry);
-            } else if (rssiLevelModel == RSSILevelModel.FAIR) {
-                fairSet.addEntry(entry);
-            } else if (rssiLevelModel == RSSILevelModel.WEAK) {
-                weakSet.addEntry(entry);
-            } else if (rssiLevelModel == RSSILevelModel.TERRIBLE) {
-                terribleSet.addEntry(entry);
+            int signalLevel = RssiUtils.mapRssiToLevels((int) rssi);
+
+            // Add entry to respective dataset based on RSSI level
+            Entry entry = new Entry(i, signalLevel);
+            switch (rssiLevelModel) {
+                case EXCELLENT:
+                    excellentSet.addEntry(entry);
+                    break;
+                case GOOD:
+                    goodSet.addEntry(entry);
+                    break;
+                case FAIR:
+                    fairSet.addEntry(entry);
+                    break;
+                case WEAK:
+                    weakSet.addEntry(entry);
+                    break;
+                case TERRIBLE:
+                    terribleSet.addEntry(entry);
+                    break;
             }
 
             rssiDataSet.addEntry(entry);
         }
 
+        // Notify data changed for each dataset
         excellentSet.notifyDataSetChanged();
         goodSet.notifyDataSetChanged();
         fairSet.notifyDataSetChanged();
@@ -86,18 +94,5 @@ public class ChartUpdater {
 
         chart.setVisibleXRangeMaximum(30);
         chart.moveViewToX(lineData.getEntryCount());
-
-
     }
-
-    private static int getRssiEmoji(int rssi) {
-        if (rssi >= -50) {
-            return R.drawable.emoji_happy_24;
-        }
-        else if (rssi >= -70) {
-            return R.drawable.emoji_blue_24;
-        } else return R.drawable.emoji_red_24;
-    }
-
-
 }

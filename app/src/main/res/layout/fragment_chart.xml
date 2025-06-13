@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- RSSI Info Row -->
@@ -10,50 +12,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@android:color/white"
-        android:elevation="4dp"
+        android:padding="16dp"
+        android:background="@drawable/rounded_background"
+        android:elevation="6dp"
+        android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="24dp">
 
         <!-- Emoji Box -->
         <ImageView
             android:id="@+id/rssiEmoji"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="TODO"
-            android:text="📶🟢"
+            android:contentDescription="@string/emoji"
+            android:text="@string/rssi_emoji_txt"
+            android:scaleType="centerInside"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="12dp"
+            android:layout_gravity="center"
             android:textSize="18sp"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:background="#EEEEEE" />
+            android:textAlignment="center" />
 
         <!-- RSSI Text -->
         <TextView
             android:id="@+id/rssiTextView"
+            android:text="@string/rssi_dBm_txt"
+            android:textColor="#212121"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="RSSI: -00 dBm"
-            android:textSize="16sp"
             android:padding="6dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:textColor="#000000"
-            android:layout_marginStart="8dp" />
+            android:gravity="end|center_vertical"
+            android:layout_marginStart="12dp" />
     </LinearLayout>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
+        android:elevation="4dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

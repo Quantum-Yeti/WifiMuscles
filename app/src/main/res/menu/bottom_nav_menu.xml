@@ -5,12 +5,12 @@
 
     <item
         android:id="@+id/comboChart"
-        android:icon="@drawable/chart_icon_24"
+        android:icon="@drawable/chart_icon__2_24"
         android:title="@string/combo_txt"
         />
     <item
         android:id="@+id/radarChart"
-        android:icon="@drawable/bubble_chart_24"
+        android:icon="@drawable/radar_icon_24"
         android:title="@string/radar_txt"
         />
     <item
@@ -19,9 +19,9 @@
         android:title="@string/donate_txt"
         />
     <item
-        android:id="@+id/knowledge"
-        android:icon="@drawable/info_icon_24"
-        android:title="@string/knowledge_txt"
+        android:id="@+id/stats"
+        android:icon="@drawable/stats_icon_24"
+        android:title="@string/stats_txt"
         />
     <item
         android:id="@+id/share"

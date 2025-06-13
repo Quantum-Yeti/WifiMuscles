@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.RadarChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.RadarData;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.model.WifiSignalModel;
+import me.theoria.wifimuscles.utils.RssiUtils;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 
@@ -51,11 +53,21 @@ public class RadarChartFragment extends Fragment {
         setupRadarChart();
 
         // Initialize ChartViewModel (RSSI)
-        chartViewModel = new ViewModelProvider(this,
+        ChartViewModel chartViewModel = new ViewModelProvider(this,
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication())).get(ChartViewModel.class);
+
+        // Observe current SSID
+        chartViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChartDescription);
+
 
         chartViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChart);
         return root;
+    }
+
+    private void updateRadarChartDescription(List<WifiSignalModel> wifiSignalModels) {
+        Description description = new Description();
+        description.setText("Connected to: ");
+        radarChart.setDescription(description);
     }
 
     private void setupRadarChart() {
@@ -65,6 +77,7 @@ public class RadarChartFragment extends Fragment {
         radarChart.setWebLineWidth(1f);
         radarChart.setWebColorInner(Color.LTGRAY);
         radarChart.setWebLineWidthInner(1f);
+
 
         // X Axis
         XAxis xAxis = radarChart.getXAxis();
@@ -127,7 +140,7 @@ public class RadarChartFragment extends Fragment {
         WifiSignalModel latestSignal = signals.get(signals.size() - 1);
         int latestRssi = latestSignal.getRssi();
         rssiTextView.setText("RSSI: " + latestRssi + " dBm");
-        rssiEmojiView.setImageResource(getRssiEmoji(latestRssi));
+        rssiEmojiView.setImageResource(RssiUtils.getRssiEmoji(latestRssi));
 
         //Show extender toast message
         displayToastOnLevel(latestSignal.getSignalLevel());
@@ -146,33 +159,24 @@ public class RadarChartFragment extends Fragment {
         radarChart.invalidate(); // Redraw chart
     }
 
-    private int getRssiEmoji(int rssi) {
-        if (rssi >= -50) {
-            return R.drawable.emoji_happy_24;
-        } else if (rssi >= -70) {
-            return R.drawable.emoji_blue_24;
-        } else {
-            return R.drawable.emoji_red_24;
-        }
-    }
 
     private void displayToastOnLevel(int level) {
         String extenderToast = "";
         switch (level) {
             case 5:
-                extenderToast = "Excellent!";
+                extenderToast = "Excellent coverage!";
                 break;
             case 4:
-                extenderToast = "Good!";
+                extenderToast = "Good coverage!";
                 break;
             case 3:
                 extenderToast = "You definitely need an extender placed closer to the router to improve your network!";
                 break;
             case 2:
-                extenderToast = "Consider adding an extender to improve your Wifi coverage!";
+                extenderToast = "";
                 break;
             case 1:
-                extenderToast = "You definitely need an extender placed closer to the router to improve your network!";
+                extenderToast = "Place an extender closer to your router!";
                 break;
         }
         Toast.makeText(requireContext(), extenderToast, Toast.LENGTH_SHORT).show();

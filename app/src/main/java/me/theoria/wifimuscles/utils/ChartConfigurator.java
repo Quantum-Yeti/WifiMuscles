@@ -1,7 +1,5 @@
 package me.theoria.wifimuscles.utils;
 
-import static me.theoria.wifimuscles.viewmodel.ChartViewModel.mapRssiToLevels;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -35,21 +33,22 @@ public class ChartConfigurator {
 
 
     public static void addRssiEntry(LineDataSet dataSet, float x, int rssi) {
-        int signalLevel = mapRssiToLevels(rssi);
+        int signalLevel = RssiUtils.mapRssiToLevels(rssi);
         Entry entry = new Entry(x, signalLevel);
-        entry.setData(mapRssiToLevels(rssi));
+        entry.setData(RssiUtils.mapRssiToLevels(rssi));
         dataSet.addEntry(entry);
     }
 
     /**
-     * Method: setupLineChart
+     * Method: setupChartConfig
      * Configures and initializes a chart with gradient, marker tooltips,
      * and wraps the result in the object ChartSetupResult
+     *
      * @param chart
      * @param context
      * @return
      */
-    public static ChartSetupResult setupLineChart(LineChart chart, Context context) {
+    public static ChartSetupResult setupChartConfig(LineChart chart, Context context, String currentSSID) {
         // Chart configuration
         chart.setDrawGridBackground(false);
         chart.setBackgroundColor(Color.TRANSPARENT);
@@ -71,11 +70,15 @@ public class ChartConfigurator {
         xAxis.setDrawGridLines(true);
         xAxis.setDrawLabels(false);
         xAxis.setDrawAxisLine(false);
-        Description description = new Description();
-        description.setText("(Seconds)");
-        description.setTextSize(14f);
-        chart.setDescription(description);
+        /*Description description = new Description();
+        description.setText("(Seconds)");*/
+        /*description.setTextSize(14f);
+        chart.setDescription(description);*/
 
+        // Test current SSID name description
+        Description description = new Description();
+        description.setText("Connected to: " +currentSSID);
+        chart.setDescription(description);
 
         // Configure Y Axis for signal levels
         YAxis leftAxis = chart.getAxisLeft();
@@ -108,14 +111,15 @@ public class ChartConfigurator {
         LineDataSet rssiValueDataSet = new LineDataSet(new ArrayList<>(), context.getString(R.string.wifi_strength));
         rssiValueDataSet.setDrawCircles(false);
         rssiValueDataSet.setDrawValues(false);
-        rssiValueDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        rssiValueDataSet.setMode(LineDataSet.Mode.LINEAR);
         rssiValueDataSet.setCubicIntensity(0.1f);
         rssiValueDataSet.setColor(Color.BLACK);
         rssiValueDataSet.setLineWidth(2.5f);
         rssiValueDataSet.setDrawFilled(true);
 
-        Drawable gradientFill = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient);
-        rssiValueDataSet.setFillDrawable(gradientFill);
+        //Test gradient fill
+        /*Drawable gradientFill = ContextCompat.getDrawable(context, R.drawable.chart_fill_gradient);
+        rssiValueDataSet.setFillDrawable(gradientFill);*/
 
         // Marker view setup
         ChartMarkerModel marker = new ChartMarkerModel(context, R.layout.marker_rssi);
@@ -163,7 +167,7 @@ public class ChartConfigurator {
         set.setLineWidth(3.5f);
         set.setDrawCircles(false);
         set.setDrawValues(false);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set.setMode(LineDataSet.Mode.LINEAR);
         set.setDrawFilled(true);
         return set;
     }

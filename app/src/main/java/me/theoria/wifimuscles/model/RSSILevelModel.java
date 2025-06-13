@@ -32,11 +32,11 @@ public enum RSSILevelModel {
     }
 
     public static RSSILevelModel mapRssi (float rssi) {
-        if (rssi >= -50) {
+        if (rssi >= -30) {
             return EXCELLENT;
-        } else if (rssi >= -70) {
+        } else if (rssi >= -50) {
             return GOOD;
-        } else if (rssi >= -80) {
+        } else if (rssi >= -70) {
             return FAIR;
         } else if (rssi >= -90) {
             return WEAK;
@@ -44,4 +44,6 @@ public enum RSSILevelModel {
             return TERRIBLE;
         }
     }
+
+
 }

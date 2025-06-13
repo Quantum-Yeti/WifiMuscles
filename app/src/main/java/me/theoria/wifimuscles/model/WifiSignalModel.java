@@ -5,7 +5,7 @@ public class WifiSignalModel {
     private final int rssi;
     private final int signalLevel;
 
-    public WifiSignalModel(long timestamp, int rssi, int signalLevel) {
+    public WifiSignalModel(long timestamp, int rssi, int signalLevel, String currentSSID) {
         this.timestamp = timestamp;
         this.rssi = rssi;
         this.signalLevel = signalLevel;
