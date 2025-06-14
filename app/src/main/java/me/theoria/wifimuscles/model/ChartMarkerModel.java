@@ -9,7 +9,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.utils.RssiUtils;
 
 public class ChartMarkerModel extends MarkerView {
 
@@ -22,9 +21,13 @@ public class ChartMarkerModel extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        float rssi = e.getY();
-        String strengthMarkerDescription = String.valueOf(RSSILevelModel.mapRssi(rssi));
-        markerContent.setText("Strength: " + strengthMarkerDescription);
+        if (e.getData() instanceof Number) {
+            float rssi = ((Number) e.getData()).floatValue();
+            RSSILevelModel level = RSSILevelModel.mapRssi(rssi);
+            markerContent.setText("Strength: " + level.name() + " (" + rssi + " dBm)");
+        } else {
+            markerContent.setText("No RSSI data");
+        }
         super.refreshContent(e, highlight);
     }
 

@@ -27,7 +27,7 @@ import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.utils.RssiUtils;
+import me.theoria.wifimuscles.utils.RSSIUtils;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 
@@ -91,7 +91,7 @@ public class RadarChartFragment extends Fragment {
                     case 4: return "Good";
                     case 3: return "Fair";
                     case 2: return "Weak";
-                    case 1: return "Terrible";
+                    case 1: return "Unusable";
                     default: return "";
                 }
             }
@@ -111,7 +111,7 @@ public class RadarChartFragment extends Fragment {
                     case 4: return "Good";
                     case 3: return "Fair";
                     case 2: return "Weak";
-                    case 1: return "Terrible";
+                    case 1: return "Unusable";
                     default: return "";
                 }
             }
@@ -140,7 +140,7 @@ public class RadarChartFragment extends Fragment {
         WifiSignalModel latestSignal = signals.get(signals.size() - 1);
         int latestRssi = latestSignal.getRssi();
         rssiTextView.setText("RSSI: " + latestRssi + " dBm");
-        rssiEmojiView.setImageResource(RssiUtils.getRssiEmoji(latestRssi));
+        rssiEmojiView.setImageResource(RSSIUtils.getRssiEmoji(latestRssi));
 
         //Show extender toast message
         displayToastOnLevel(latestSignal.getSignalLevel());

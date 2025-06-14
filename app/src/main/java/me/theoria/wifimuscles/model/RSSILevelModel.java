@@ -7,11 +7,12 @@ import me.theoria.wifimuscles.R;
 
 public enum RSSILevelModel {
 
+    // Bind RSSI String levels to drawables that fill under the line
     EXCELLENT(R.string.label_excellent, R.drawable.fill_blue), // 0 to -50
     GOOD(R.string.label_good, R.drawable.fill_green), // -50 to -70
     FAIR(R.string.label_fair, R.drawable.fill_yellow), // -70 to -80
     WEAK(R.string.label_weak, R.drawable.fill_red), // -80 to -90
-    TERRIBLE(R.string.label_terrible, R.drawable.fill_red); // < -90
+    UNUSABLE(R.string.label_unusable, R.drawable.fill_red); // < -90
 
     @StringRes
     private final int wifiStrengthLabel;
@@ -31,19 +32,19 @@ public enum RSSILevelModel {
         return fillDrawableRes;
     }
 
+    // Maps RSSI float to String levels that are displayed on the chart instead
     public static RSSILevelModel mapRssi (float rssi) {
-        if (rssi >= -30) {
+        if (rssi >= -50) {
             return EXCELLENT;
-        } else if (rssi >= -50) {
+        } else if (rssi >= -60) {
             return GOOD;
         } else if (rssi >= -70) {
             return FAIR;
-        } else if (rssi >= -90) {
+        } else if (rssi >= -80) {
             return WEAK;
         } else {
-            return TERRIBLE;
+            return UNUSABLE;
         }
     }
-
-
 }
+

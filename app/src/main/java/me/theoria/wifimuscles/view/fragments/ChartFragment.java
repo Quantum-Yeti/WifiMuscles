@@ -19,9 +19,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
-import me.theoria.wifimuscles.utils.ChartConfigurator;
+import me.theoria.wifimuscles.utils.ChartConfig;
 import me.theoria.wifimuscles.utils.ChartUpdater;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
@@ -39,7 +38,7 @@ public class ChartFragment extends Fragment {
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
     private LineDataSet secondaryLineDataSet;
-    private LineDataSet excellentSet, goodSet, fairSet, weakSet, terribleSet;
+    private LineDataSet excellentSet, goodSet, fairSet, weakSet, unusableSet;
     private LineData lineData;
 
     //private boolean chartResizing = true;
@@ -71,27 +70,27 @@ public class ChartFragment extends Fragment {
     }
 
     private void setupChart() {
-        ChartConfigurator.ChartSetupResult chartResults = ChartConfigurator.setupChartConfig(chart, requireContext(), "Unknown SSID");
+        ChartConfig.ChartSetupResult chartResults = ChartConfig.setupChartConfig(chart, requireContext(), "Unknown SSID");
         primaryLineDataSet = chartResults.primaryDataSet;
         excellentSet = chartResults.excellentSet;
         goodSet = chartResults.goodSet;
         fairSet = chartResults.fairSet;
         weakSet = chartResults.weakSet;
-        terribleSet = chartResults.terribleSet;
+        unusableSet = chartResults.unusableSet;
         lineData = chartResults.lineData;
 
-        // Test second line data set
+       /* // Test second line data set
         secondaryLineDataSet = new LineDataSet(getSecondLineData(), "Second Line");
         secondaryLineDataSet.setColor(getResources().getColor(R.color.purple));
         secondaryLineDataSet.setLineWidth(2f);
 
-        lineData.addDataSet(secondaryLineDataSet);
+        lineData.addDataSet(secondaryLineDataSet);*/
 
         chart.setData(lineData);
         chart.invalidate();
     }
 
-    // Test data
+    /*// Test data
     private List<Entry> getSecondLineData() {
         List<Entry> secondLineEntries = new ArrayList<>();
         secondLineEntries.add(new Entry(0f, 5f));
@@ -101,7 +100,7 @@ public class ChartFragment extends Fragment {
         secondLineEntries.add(new Entry(0f, 5f));
         secondLineEntries.add(new Entry(2f, 3f));
         return secondLineEntries;
-    }
+    }*/
 
 
     /**
@@ -120,7 +119,7 @@ public class ChartFragment extends Fragment {
                     goodSet,
                     fairSet,
                     weakSet,
-                    terribleSet,
+                    unusableSet,
                     lineData,
                     signals
             );

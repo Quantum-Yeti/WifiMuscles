@@ -9,12 +9,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.List;
-import java.util.Objects;
 
-import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.model.RSSILevelModel;
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 public class ChartUpdater {
 
@@ -27,71 +24,85 @@ public class ChartUpdater {
             LineDataSet goodSet,
             LineDataSet fairSet,
             LineDataSet weakSet,
-            LineDataSet terribleSet,
+            LineDataSet unusableSet,
             LineData lineData,
             List<WifiSignalModel> signals
     ) {
-        if (chart == null || rssiDataSet == null || lineData == null) {
-            return;
-        }
+        if (chart == null || rssiDataSet == null || lineData == null) return;
 
-        // Clear prior data
-        excellentSet.clear();
-        goodSet.clear();
-        fairSet.clear();
-        weakSet.clear();
-        terribleSet.clear();
-        rssiDataSet.clear(); // Clear to prevent duplication on next update
+        clearAllDataSets(rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
 
         for (int i = 0; i < signals.size(); i++) {
-            // Retrieve float RSSI
-            float rssi = signals.get(i).getRssi();
-            // Retrieve integer RSSI
-            int textRSSI = signals.get(i).getRssi();
-            rssiTextView.setText("RSSI: " +textRSSI+ " dBm");
-            // Retrieve emoji for RSSI level
-            int emoji = RssiUtils.getRssiEmoji(textRSSI);
-            rssiEmojiView.setImageResource(emoji);
+            WifiSignalModel signal = signals.get(i);
+            int rssi = signal.getRssi();
+            float rssiFloat = signal.getRssi();
+            RSSILevelModel levelModel = RSSILevelModel.mapRssi(rssi);
+            int mappedLevel = RSSIUtils.mapRssiToLevels(rssi);
 
-            // Map integer RSSI to signal level using mapRssi from RSSILevelModel
-            RSSILevelModel rssiLevelModel = RSSILevelModel.mapRssi(rssi);
-            int signalLevel = RssiUtils.mapRssiToLevels((int) rssi);
-
-            // Add entry to respective dataset based on RSSI level
-            Entry entry = new Entry(i, signalLevel);
-            switch (rssiLevelModel) {
-                case EXCELLENT:
-                    excellentSet.addEntry(entry);
-                    break;
-                case GOOD:
-                    goodSet.addEntry(entry);
-                    break;
-                case FAIR:
-                    fairSet.addEntry(entry);
-                    break;
-                case WEAK:
-                    weakSet.addEntry(entry);
-                    break;
-                case TERRIBLE:
-                    terribleSet.addEntry(entry);
-                    break;
-            }
-
+            Entry entry = new Entry(i, mappedLevel);
+            entry.setData(rssi);
             rssiDataSet.addEntry(entry);
+
+            updateRssiUI(rssiTextView, rssiEmojiView, rssi);
+
+            RSSILevelModel rssiLevelModel = RSSILevelModel.mapRssi(rssiFloat);
+            int signalLevel = RSSIUtils.mapRssiToLevels(rssi);
+
+            addEntryToDataSets(i, signalLevel, rssiLevelModel, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
         }
 
-        // Notify data changed for each dataset
-        excellentSet.notifyDataSetChanged();
-        goodSet.notifyDataSetChanged();
-        fairSet.notifyDataSetChanged();
-        weakSet.notifyDataSetChanged();
-        terribleSet.notifyDataSetChanged();
-        rssiDataSet.notifyDataSetChanged();
-        lineData.notifyDataChanged();
+        notifyChartUpdated(chart, lineData, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
+    }
 
+    private static void clearAllDataSets(LineDataSet... sets) {
+        for (LineDataSet set : sets) {
+            set.clear();
+        }
+    }
+
+    private static void updateRssiUI(TextView textView, ImageView imageView, int rssi) {
+        textView.setText("RSSI: " + rssi + " dBm");
+        imageView.setImageResource(RSSIUtils.getRssiEmoji(rssi));
+    }
+
+    private static void addEntryToDataSets(
+            int index,
+            int signalLevel,
+            RSSILevelModel levelModel,
+            LineDataSet rssiDataSet,
+            LineDataSet excellentSet,
+            LineDataSet goodSet,
+            LineDataSet fairSet,
+            LineDataSet weakSet,
+            LineDataSet terribleSet
+    ) {
+        Entry entry = new Entry(index, signalLevel);
+
+        if (levelModel != null) {
+            switch (levelModel) {
+                case EXCELLENT: excellentSet.addEntry(entry); break;
+                case GOOD: goodSet.addEntry(entry); break;
+                case FAIR: fairSet.addEntry(entry); break;
+                case WEAK: weakSet.addEntry(entry); break;
+                case UNUSABLE: terribleSet.addEntry(entry); break;
+            }
+        }
+
+        rssiDataSet.addEntry(entry);
+    }
+
+    private static void notifyChartUpdated(
+            LineChart chart,
+            LineData lineData,
+            LineDataSet... sets
+    ) {
+        for (LineDataSet set : sets) {
+            set.notifyDataSetChanged();
+        }
+
+        lineData.notifyDataChanged();
         chart.notifyDataSetChanged();
         chart.invalidate();
-
         chart.setVisibleXRangeMaximum(30);
         chart.moveViewToX(lineData.getEntryCount());
     }
