@@ -6,11 +6,15 @@
     </style>
 
     <style name="Theme.WifiMuscles" parent="Base.Theme.WifiMuscles">
-        <!-- Override specific attributes for customization -->
+        <!-- Custom Theme Attributes -->
         <item name="colorPrimary">@color/bg_primary</item>
         <item name="colorSecondary">@color/bg_secondary</item>
         <item name="colorTertiary">@color/bg_tertiary</item>
         <item name="colorAccent">@color/bg_accent</item>
+
+        <!-- Theme Window Settings -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:fitsSystemWindows">true</item>
 
 
     </style>

@@ -8,6 +8,8 @@
     <color name="bg_accent">#20639B</color>
     <color name="bg_accent_second">#05DA93</color>
     <color name="bg_dark">#152032</color>
+    <color name="card_background">#C3D7E2</color>
+    <color name="chart_card_background">#202123</color>
 
     <!-- Text Colors -->
     <color name="whiteText">#FFFFFF</color>

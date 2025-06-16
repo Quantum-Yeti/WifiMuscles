@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.model.utils;
+package me.theoria.wifimuscles.utils;
 
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +18,8 @@ public class ChartUpdater {
     public static void updateChart(
             TextView rssiTextView,
             ImageView rssiEmojiView,
+            TextView frequencyTextView,
+            TextView bandwidthTextView,
             LineChart chart,
             LineDataSet rssiDataSet,
             LineDataSet excellentSet,
@@ -52,6 +54,21 @@ public class ChartUpdater {
         }
 
         notifyChartUpdated(chart, lineData, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
+
+        // Update the frequency text view
+        if (!signals.isEmpty()) {
+            WifiSignalModel latestSignal = signals.get(signals.size() - 1);
+            int frequency = latestSignal.getFrequency();
+            String frequencyText = frequency + " MHz";
+            frequencyTextView.setText(frequencyText); // Set the frequency on the TextView
+
+            // Update the frequency in GHz
+            double frequencyInGHz = frequency / 1000.0;  // Convert MHz to GHz
+            String frequencyGHzText = (int) frequencyInGHz + " GHz";
+            bandwidthTextView.setText(frequencyGHzText); // Set the frequency in GHz
+
+
+        }
     }
 
     private static void clearAllDataSets(LineDataSet... sets) {

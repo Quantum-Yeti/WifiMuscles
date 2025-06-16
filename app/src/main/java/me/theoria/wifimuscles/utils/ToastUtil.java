@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.model.utils;
+package me.theoria.wifimuscles.utils;
 
 import android.content.Context;
 import android.widget.Toast;

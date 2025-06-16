@@ -16,6 +16,7 @@
     <string name="label_fair">Fair</string>
     <string name="label_weak">Weak</string>
     <string name="label_unusable">Unusable</string>
+    <string name="label_blank">""</string>
 
     <!-- Emoji Labels -->
     <string name="rssi_emoji_txt">RSSI Emoji Levels</string>

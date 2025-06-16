@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.model.utils;
+package me.theoria.wifimuscles.utils;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -74,26 +74,25 @@ public class ChartConfig {
         chart.setTouchEnabled(true);
         chart.setDragEnabled(true);
         chart.setScaleEnabled(true);
-        chart.getLegend().setEnabled(true);
-        chart.getLegend().setTextSize(14f);
         chart.setExtraBottomOffset(10f);
         chart.setExtraTopOffset(10f);
         chart.setExtraLeftOffset(20f);
-        chart.getLegend().setEnabled(false);
 
+        // Remove the description label
         Description description = new Description();
-        description.setText("Connected to: ");
+        description.setEnabled(false); // Disable the description
         chart.setDescription(description);
     }
 
     private static void configureXAxis(XAxis xAxis) {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(true);
-        xAxis.setDrawLabels(true);
+        xAxis.setDrawLabels(false);
         xAxis.setDrawAxisLine(false);
         xAxis.setGranularity(5f);
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(8, false);
+        xAxis.setTextColor(R.color.bg_secondary);
     }
 
     private static void configureYAxis(YAxis yAxis) {
@@ -106,6 +105,7 @@ public class ChartConfig {
         yAxis.setGranularity(10f);
         yAxis.setLabelCount(5, true);
         yAxis.setTextSize(12f);
+        yAxis.setDrawLabels(false);
         yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         yAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -116,15 +116,16 @@ public class ChartConfig {
     }
 
     private static LineDataSet createPrimaryDataSet(Context context) {
-        LineDataSet dataSet = new LineDataSet(new ArrayList<>(), context.getString(R.string.wifi_strength));
+        LineDataSet dataSet = new LineDataSet(new ArrayList<>(), context.getString(R.string.label_blank));
         dataSet.setDrawCircles(false);
         dataSet.setDrawValues(false);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSet.setCubicIntensity(0.3f);
-        dataSet.setColor(Color.BLUE);
+        dataSet.setColor(Color.CYAN);
         dataSet.setLineWidth(2f);
         dataSet.setDrawFilled(false);
         dataSet.setDrawCircleHole(true);
+        dataSet.getColor(R.color.bg_tertiary);
         //dataSet.setFillColor(Color.parseColor("#05DA93")); // Solid fill
         return dataSet;
     }

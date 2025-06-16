@@ -16,8 +16,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
-import me.theoria.wifimuscles.model.utils.ChartConfig;
-import me.theoria.wifimuscles.model.utils.ChartUpdater;
+import me.theoria.wifimuscles.utils.ChartConfig;
+import me.theoria.wifimuscles.utils.ChartUpdater;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 /**
@@ -27,8 +27,8 @@ import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 public class ChartFragment extends Fragment {
 
     private TextView rssiTextView;
+    private TextView frequencyTextView, bandwidthTextView;
     private ImageView rssiEmojiView;;
-
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
     private LineDataSet secondaryLineDataSet;
@@ -65,6 +65,8 @@ public class ChartFragment extends Fragment {
         chart = binding.lineChart;
         rssiTextView = binding.rssiTextView;
         rssiEmojiView = binding.rssiEmoji;
+        frequencyTextView = binding.frequencyBox;
+        bandwidthTextView = binding.bandBox;
     }
 
     /**
@@ -100,6 +102,8 @@ public class ChartFragment extends Fragment {
             ChartUpdater.updateChart(
                     rssiTextView,
                     rssiEmojiView,
+                    frequencyTextView,
+                    bandwidthTextView,
                     chart,
                     primaryLineDataSet,
                     excellentSet,

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Description;
@@ -27,8 +26,7 @@ import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.model.utils.RSSIUtils;
-import me.theoria.wifimuscles.model.utils.ToastUtil;
+import me.theoria.wifimuscles.utils.RSSIUtils;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 

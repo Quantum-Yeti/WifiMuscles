@@ -14,7 +14,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.model.utils.RSSIUtils;
+import me.theoria.wifimuscles.utils.RSSIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +34,8 @@ public class ChartViewModel extends AndroidViewModel {
                 int rssi = info.getRssi();
                 int signalLevel = RSSIUtils.mapRssiToLevels(rssi);
                 long timestamp = System.currentTimeMillis();
+                int frequency = info.getFrequency();
+
 
                 // Get current connected SSID name
                 String currentSSID = info.getSSID();
@@ -42,14 +44,14 @@ public class ChartViewModel extends AndroidViewModel {
                 }
 
                 assert currentSSID != null;
-                signalList.add(new WifiSignalModel(timestamp, rssi, signalLevel, currentSSID));
+                signalList.add(new WifiSignalModel(timestamp, rssi, signalLevel, currentSSID, frequency));
                 if (signalList.size() > 30) {
                     signalList.remove(0);
                 }
 
                 rssiLiveData.setValue(new ArrayList<>(signalList));
             }
-            handler.postDelayed(this, 5000); // ms to s
+            handler.postDelayed(this, 2000); // ms to s
         }
     };
 

@@ -6,13 +6,15 @@ public class WifiSignalModel {
     private final long timestamp;
     private final int rssi;
     private final int signalLevel;
+    private final int frequency;
     private final String currentSSID;
 
-    public WifiSignalModel(long timestamp, int rssi, int signalLevel, @NonNull String currentSSID) {
+    public WifiSignalModel(long timestamp, int rssi, int signalLevel, @NonNull String currentSSID, int frequency) {
         this.timestamp = timestamp;
         this.rssi = rssi;
         this.signalLevel = signalLevel;
         this.currentSSID = currentSSID;
+        this.frequency = frequency;
     }
 
     public long getTimestamp() {
@@ -30,4 +32,6 @@ public class WifiSignalModel {
     public String getCurrentSSID() {
         return currentSSID;
     }
+
+    public int getFrequency() { return frequency; }
 }
