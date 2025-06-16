@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="whiteish">#C4D7E7</color>
-    <color name="blue">#318DBD</color>
-    <color name="gray">#3F4142</color>
-    <color name="purple">#7B1FA2</color>
-    <color name="eggshell">#BEBF9C</color>
+
+    <!-- Main UI Colors -->
+    <color name="bg_primary">#FFFFFF</color>
+    <color name="bg_secondary">#ECF0F3</color>
+    <color name="bg_tertiary">#E0E3E7</color>
+    <color name="bg_accent">#20639B</color>
+    <color name="bg_accent_second">#05DA93</color>
+    <color name="bg_dark">#152032</color>
+
+    <!-- Text Colors -->
+    <color name="whiteText">#FFFFFF</color>
+    <color name="blackText">#000000</color>
+
+    <!-- Splash Screen Background -->
+    <color name="splashScreenBackground">#318dbd</color>
 </resources>

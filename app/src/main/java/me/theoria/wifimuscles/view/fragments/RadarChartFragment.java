@@ -27,7 +27,8 @@ import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.utils.RSSIUtils;
+import me.theoria.wifimuscles.model.utils.RSSIUtils;
+import me.theoria.wifimuscles.model.utils.ToastUtil;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 
@@ -45,11 +46,13 @@ public class RadarChartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_radar_chart, container, false);
 
+        // Bind UI components for the RadarChart fragment
         radarChart = root.findViewById(R.id.radarChart);
-
         rssiTextView = root.findViewById(R.id.rssiTextView);
         rssiEmojiView = root.findViewById(R.id.rssiEmoji);
 
+
+        // Initialize the RadarChart
         setupRadarChart();
 
         // Initialize ChartViewModel (RSSI)
@@ -58,9 +61,8 @@ public class RadarChartFragment extends Fragment {
 
         // Observe current SSID
         chartViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChartDescription);
-
-
         chartViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChart);
+
         return root;
     }
 
@@ -77,7 +79,6 @@ public class RadarChartFragment extends Fragment {
         radarChart.setWebLineWidth(1f);
         radarChart.setWebColorInner(Color.LTGRAY);
         radarChart.setWebLineWidthInner(1f);
-
 
         // X Axis
         XAxis xAxis = radarChart.getXAxis();
@@ -99,9 +100,9 @@ public class RadarChartFragment extends Fragment {
 
         // Y Axis (signal level 1-5)
         YAxis yAxis = radarChart.getYAxis();
-        yAxis.setAxisMinimum(1f);
-        yAxis.setAxisMaximum(5f);
-        yAxis.setLabelCount(5, true);
+        yAxis.setAxisMinimum(-100f);
+        yAxis.setAxisMaximum(0f);
+        yAxis.setLabelCount(8, true);
         yAxis.setDrawLabels(false); // hide level numbers
         yAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -118,7 +119,6 @@ public class RadarChartFragment extends Fragment {
         });
     }
 
-
     private void updateRadarChart(List<WifiSignalModel> signals) {
         if (signals == null || signals.isEmpty()) return;
 
@@ -130,22 +130,22 @@ public class RadarChartFragment extends Fragment {
 
         for (int i = start; i < signals.size(); i++) {
             WifiSignalModel signal = signals.get(i);
-            // Use signal level from your model directly
+
             int signalLevel = signal.getSignalLevel();
             entries.add(new RadarEntry(signalLevel));
             radarLabels.add("S" + i);
         }
 
-        // Show latest RSSI value and emoji
+        // Display RSSI integer value and emoji in TextView and ImageView
         WifiSignalModel latestSignal = signals.get(signals.size() - 1);
         int latestRssi = latestSignal.getRssi();
         rssiTextView.setText("RSSI: " + latestRssi + " dBm");
         rssiEmojiView.setImageResource(RSSIUtils.getRssiEmoji(latestRssi));
 
         //Show extender toast message
-        displayToastOnLevel(latestSignal.getSignalLevel());
+        //ToastUtil.showToastForLevel(requireContext(), latestSignal.getSignalLevel());
 
-        // RadarChart Data Entry Visuals
+        // General UI configuration for the RadarChart datasets
         RadarDataSet dataSet = new RadarDataSet(entries, "WiFi Strength");
         dataSet.setColor(Color.BLUE);
         dataSet.setFillColor(Color.CYAN);
@@ -160,25 +160,5 @@ public class RadarChartFragment extends Fragment {
     }
 
 
-    private void displayToastOnLevel(int level) {
-        String extenderToast = "";
-        switch (level) {
-            case 5:
-                extenderToast = "Excellent coverage!";
-                break;
-            case 4:
-                extenderToast = "Good coverage!";
-                break;
-            case 3:
-                extenderToast = "You definitely need an extender placed closer to the router to improve your network!";
-                break;
-            case 2:
-                extenderToast = "";
-                break;
-            case 1:
-                extenderToast = "Place an extender closer to your router!";
-                break;
-        }
-        Toast.makeText(requireContext(), extenderToast, Toast.LENGTH_SHORT).show();
-    }
+
 }

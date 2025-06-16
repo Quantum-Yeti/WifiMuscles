@@ -14,7 +14,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.utils.RSSIUtils;
+import me.theoria.wifimuscles.model.utils.RSSIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +41,15 @@ public class ChartViewModel extends AndroidViewModel {
                     currentSSID = currentSSID.substring(1, currentSSID.length() - 1);  // Remove quotes
                 }
 
+                assert currentSSID != null;
                 signalList.add(new WifiSignalModel(timestamp, rssi, signalLevel, currentSSID));
-                if (signalList.size() > 30) signalList.remove(0);
+                if (signalList.size() > 30) {
+                    signalList.remove(0);
+                }
 
                 rssiLiveData.setValue(new ArrayList<>(signalList));
             }
-            handler.postDelayed(this, 1000); // every x second(s)
+            handler.postDelayed(this, 5000); // ms to s
         }
     };
 
@@ -56,6 +59,7 @@ public class ChartViewModel extends AndroidViewModel {
 
         if (wifiManager != null && wifiManager.isWifiEnabled()) {
             handler.post(fetchRssi);
+            wifiManager.getConnectionInfo().getSSID();
         } else {
             Toast.makeText(application.getApplicationContext(), "Please enable Wi-Fi", Toast.LENGTH_SHORT).show();
         }

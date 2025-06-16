@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.utils;
+package me.theoria.wifimuscles.model.utils;
 
 import me.theoria.wifimuscles.R;
 
@@ -11,11 +11,7 @@ public class RSSIUtils {
      * @return
      */
     public static Integer mapRssiToLevels(int rssi) {
-        if (rssi >=-50) return 5;
-        else if (rssi >= -60) return 4;
-        else if (rssi >= -70) return 3;
-        else if (rssi >= -80) return 2;
-        else return 1;
+        return rssi;
     }
 
     /**

@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.utils;
+package me.theoria.wifimuscles.model.utils;
 
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,11 +37,11 @@ public class ChartUpdater {
             int rssi = signal.getRssi();
             float rssiFloat = signal.getRssi();
             RSSILevelModel levelModel = RSSILevelModel.mapRssi(rssi);
-            int mappedLevel = RSSIUtils.mapRssiToLevels(rssi);
+            //int mappedLevel = RSSIUtils.mapRssiToLevels(rssi);
 
-            Entry entry = new Entry(i, mappedLevel);
-            entry.setData(rssi);
-            rssiDataSet.addEntry(entry);
+            //Entry entry = new Entry(i, mappedLevel);
+            //entry.setData(rssi);
+            //rssiDataSet.addEntry(entry);
 
             updateRssiUI(rssiTextView, rssiEmojiView, rssi);
 
@@ -60,11 +60,35 @@ public class ChartUpdater {
         }
     }
 
+    /**
+     * Method: updateRssiUI
+     * This method updates the TextView and ImageView for the integer reading and emoji reading
+     * based on the RSSI live data.
+     * @param textView
+     * @param imageView
+     * @param rssi
+     */
     private static void updateRssiUI(TextView textView, ImageView imageView, int rssi) {
+        // Updates RSSI in dBm textview (integer)
         textView.setText("RSSI: " + rssi + " dBm");
+        //Updates the emoji for dBm levels set in model
         imageView.setImageResource(RSSIUtils.getRssiEmoji(rssi));
     }
 
+    /**
+     * Method: addEntryToDataSets
+     * This method takes the RSSI LiveData assigned in the model, binds it to the appropriate String level sets
+     * and adds the levels to chart/graph entries.
+     * @param index
+     * @param signalLevel
+     * @param levelModel
+     * @param rssiDataSet
+     * @param excellentSet
+     * @param goodSet
+     * @param fairSet
+     * @param weakSet
+     * @param terribleSet
+     */
     private static void addEntryToDataSets(
             int index,
             int signalLevel,
@@ -91,6 +115,12 @@ public class ChartUpdater {
         rssiDataSet.addEntry(entry);
     }
 
+    /**
+     * Method: notifyChartUpdated
+     * @param chart
+     * @param lineData
+     * @param sets
+     */
     private static void notifyChartUpdated(
             LineChart chart,
             LineData lineData,

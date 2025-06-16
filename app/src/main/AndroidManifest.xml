@@ -2,13 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Required Permissions -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
-
 
     <application
         android:allowBackup="true"
@@ -20,16 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WifiMuscles"
         tools:targetApi="31">
+
         <!-- AdMob -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4546178742356403~5630786920"/>
+
+        <!-- Main Activity Entry Point -->
         <activity
             android:name=".view.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

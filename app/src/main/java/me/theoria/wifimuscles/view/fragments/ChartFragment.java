@@ -12,36 +12,28 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
-import me.theoria.wifimuscles.utils.ChartConfig;
-import me.theoria.wifimuscles.utils.ChartUpdater;
+import me.theoria.wifimuscles.model.utils.ChartConfig;
+import me.theoria.wifimuscles.model.utils.ChartUpdater;
 import me.theoria.wifimuscles.viewmodel.ChartViewModel;
 
 /**
- * {@code ChartFragment} is a {@link Fragment} that displays the primary dynamic wifi RSSI (Wi-Fi signal strength)
- * combo chart with the help of the MPAndroidChart library.
- * The {@link ChartViewModel} is used to observe the live RSSI data and update the chart dynamically.
- * The chart contains the primary RSSI data as well as threshold designations for the drawing of the lines.
+ * ChartFragment inflates the primary chart fragment and observes for LiveData updates.
+ *
  */
 public class ChartFragment extends Fragment {
 
     private TextView rssiTextView;
-    private ImageView rssiEmojiView;
+    private ImageView rssiEmojiView;;
 
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
     private LineDataSet secondaryLineDataSet;
     private LineDataSet excellentSet, goodSet, fairSet, weakSet, unusableSet;
     private LineData lineData;
-
-    //private boolean chartResizing = true;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,22 +47,35 @@ public class ChartFragment extends Fragment {
         initChartUI(binding);
 
         // Chart setup
-        setupChart();
+        setupMainChart();
 
         // Observe the LiveData for RSSI reading
-        observeRssiUpdates(viewModel);
+        observeLiveRSSI(viewModel);
 
+        // Return top-level view of layout, required to display fragment UI
         return binding.getRoot();
     }
 
+    /**
+     * Method: initChartUI
+     * Initialize chart UI components
+     * @param binding
+     */
     private void initChartUI (FragmentChartBinding binding){
         chart = binding.lineChart;
         rssiTextView = binding.rssiTextView;
         rssiEmojiView = binding.rssiEmoji;
     }
 
-    private void setupChart() {
-        ChartConfig.ChartSetupResult chartResults = ChartConfig.setupChartConfig(chart, requireContext(), "Unknown SSID");
+    /**
+     * Method: setupMainChart
+     * Sets up chart with initialization of datasets
+     */
+    private void setupMainChart() {
+        // Get chart config results
+        ChartConfig.ChartSetupResult chartResults = ChartConfig.setupChartConfig(chart, requireContext());
+
+        // Results to class variables
         primaryLineDataSet = chartResults.primaryDataSet;
         excellentSet = chartResults.excellentSet;
         goodSet = chartResults.goodSet;
@@ -79,37 +84,19 @@ public class ChartFragment extends Fragment {
         unusableSet = chartResults.unusableSet;
         lineData = chartResults.lineData;
 
-       /* // Test second line data set
-        secondaryLineDataSet = new LineDataSet(getSecondLineData(), "Second Line");
-        secondaryLineDataSet.setColor(getResources().getColor(R.color.purple));
-        secondaryLineDataSet.setLineWidth(2f);
-
-        lineData.addDataSet(secondaryLineDataSet);*/
-
+        // Bind data to the chart
         chart.setData(lineData);
-        chart.invalidate();
+        chart.invalidate(); // Reflect changes
     }
 
-    /*// Test data
-    private List<Entry> getSecondLineData() {
-        List<Entry> secondLineEntries = new ArrayList<>();
-        secondLineEntries.add(new Entry(0f, 5f));
-        secondLineEntries.add(new Entry(2f, 3f));
-        secondLineEntries.add(new Entry(0f, 5f));
-        secondLineEntries.add(new Entry(2f, 3f));
-        secondLineEntries.add(new Entry(0f, 5f));
-        secondLineEntries.add(new Entry(2f, 3f));
-        return secondLineEntries;
-    }*/
-
-
     /**
-     * Method: observeRssiUpdates
+     * Method: observeLiveRSSI
      * This method observes the LiveData from the ChartViewModel.
      * @param viewModel
      */
-    private void observeRssiUpdates(ChartViewModel viewModel) {
+    private void observeLiveRSSI(ChartViewModel viewModel) {
         viewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
+            // Update chart with new RSSI data
             ChartUpdater.updateChart(
                     rssiTextView,
                     rssiEmojiView,

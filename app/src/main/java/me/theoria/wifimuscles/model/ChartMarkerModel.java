@@ -21,12 +21,11 @@ public class ChartMarkerModel extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        if (e.getData() instanceof Number) {
-            float rssi = ((Number) e.getData()).floatValue();
+        if (e != null) {
+            float rssi = e.getY();
             RSSILevelModel level = RSSILevelModel.mapRssi(rssi);
-            markerContent.setText("Strength: " + level.name() + " (" + rssi + " dBm)");
-        } else {
-            markerContent.setText("No RSSI data");
+            String rssiMarker = (int) rssi + " dBm | " + level;
+            markerContent.setText(rssiMarker);
         }
         super.refreshContent(e, highlight);
     }

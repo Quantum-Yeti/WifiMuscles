@@ -1,8 +1,6 @@
 [versions]
 agp = "8.9.3"
-androidplotCoreVersion = "1.5.11"
 githubMpandroidchart = "v3.1.0"
-hellochartsAndroid = "v1.5.8"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -13,9 +11,7 @@ constraintlayout = "2.2.1"
 playServicesAds = "24.3.0"
 
 [libraries]
-androidplot-androidplot-core = { module = "com.androidplot:androidplot-core", version.ref = "androidplotCoreVersion" }
 github-mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "githubMpandroidchart" }
-hellocharts-android = { module = "com.github.lecho:hellocharts-android", version.ref = "hellochartsAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
