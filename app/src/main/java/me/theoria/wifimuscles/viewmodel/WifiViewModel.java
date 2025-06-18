@@ -38,7 +38,7 @@ public class WifiViewModel extends AndroidViewModel {
                 int ip = info.getIpAddress();
                 String bssid = info.getBSSID();
                 int networkID = info.getNetworkId();
-                //String macAddress = info.getMacAddress();
+                String ssid = info.getSSID();
 
                 signalList.add(new WifiSignalModel(
                         timestamp,
@@ -46,7 +46,8 @@ public class WifiViewModel extends AndroidViewModel {
                         signalLevel,
                         frequency,
                         ip,
-                        networkID));
+                        networkID,
+                        ssid));
                 if (signalList.size() > 30) {
                     signalList.remove(0);
                 }

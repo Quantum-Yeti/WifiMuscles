@@ -14,8 +14,8 @@
         android:layout_height="0dp"
         android:layout_margin="16dp"
         app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/chart_card_background"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/bg_app_primary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +105,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:minHeight="120dp"
-        android:maxHeight="160dp"
+        android:maxHeight="150dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="1dp"
         android:background="@drawable/rounded_background"
@@ -149,7 +149,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:minHeight="120dp"
-        android:maxHeight="160dp"
+        android:maxHeight="150dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="1dp"
         android:backgroundTint="@color/card_background_one"
@@ -184,6 +184,50 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ssidCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:minHeight="120dp"
+        android:maxHeight="150dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="1dp"
+        android:backgroundTint="@color/card_background_one"
+        app:layout_constraintTop_toBottomOf="@id/frequencyCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/airwave_three_24"
+                app:tint="@color/whiteText"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/band_icon" />
+
+            <TextView
+                android:id="@+id/ssidBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ssid"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/whiteText"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <!-- Band Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/bandCard"
@@ -193,7 +237,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:minHeight="120dp"
-        android:maxHeight="160dp"
+        android:maxHeight="150dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="1dp"
         android:backgroundTint="@color/card_background_one"
@@ -237,9 +281,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
         android:minHeight="120dp"
-        android:maxHeight="160dp"
+        android:maxHeight="150dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="1dp"
+        android:paddingBottom="10dp"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/card_background_one"
         app:layout_constraintTop_toBottomOf="@id/bandCard"

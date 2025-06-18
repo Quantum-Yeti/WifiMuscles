@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
+import me.theoria.wifimuscles.utils.IntoToIP;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class DataUIViewModel extends ViewModel {
     private final MutableLiveData<String> ipText = new MutableLiveData<>();
     private final MutableLiveData<String> frequencyText = new MutableLiveData<>();
     private final MutableLiveData<String> bandwidthText = new MutableLiveData<>();
+    private final MutableLiveData<String> ssidText = new MutableLiveData<>();
+
+    private final IntoToIP ipConverter = new IntoToIP();
 
     // Expose LiveData to the UI
     public LiveData<String> getRssiText() {
@@ -38,6 +42,8 @@ public class DataUIViewModel extends ViewModel {
         return bandwidthText;
     }
 
+    public LiveData<String> getSSIDText() { return ssidText; }
+
     // Update the LiveData based on the signal data
     public void updateSignalUI(List<WifiSignalModel> signals) {
         if (signals.isEmpty()) return;
@@ -46,11 +52,13 @@ public class DataUIViewModel extends ViewModel {
         int rssi = latestSignal.getRssi();
         int ip = latestSignal.getIP();
         int frequency = latestSignal.getFrequency();
+        String ssid = latestSignal.getSSIDText();
 
         // Update LiveData
         rssiText.setValue("RSSI: " + rssi + " dBm");
         rssiEmoji.setValue(RSSIUtils.getRssiEmoji(rssi));
-        ipText.setValue("IP: " + intToIp(ip));
+        ipText.setValue(ipConverter.intToIp(ip));
+        ssidText.setValue("SSID: " +ssid);
 
         String frequencyTextValue = frequency + " MHz";
         frequencyText.setValue(frequencyTextValue);
@@ -60,10 +68,5 @@ public class DataUIViewModel extends ViewModel {
         bandwidthText.setValue(frequencyGHzText);
     }
 
-    private String intToIp(int ip) {
-        return (ip & 0xFF) + "." +
-                ((ip >> 8) & 0xFF) + "." +
-                ((ip >> 16) & 0xFF) + "." +
-                ((ip >> 24) & 0xFF);
-    }
+
 }

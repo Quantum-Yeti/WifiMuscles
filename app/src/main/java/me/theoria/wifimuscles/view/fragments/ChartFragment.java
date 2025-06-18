@@ -27,7 +27,7 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
  */
 public class ChartFragment extends Fragment {
 
-    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView;
+    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView;
     private ImageView rssiEmojiView;
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
@@ -65,6 +65,7 @@ public class ChartFragment extends Fragment {
         frequencyTextView = binding.frequencyBox;
         bandwidthTextView = binding.bandBox;
         ipTextView = binding.ipTextView;
+        ssidTextView = binding.ssidBox;
     }
 
     private void setupMainChart() {
@@ -89,7 +90,7 @@ public class ChartFragment extends Fragment {
             // Update chart only
             ChartManager chartManager = new ChartManager(
                     new SignalProcessManager(),
-                    null // UI updates are now handled by the ViewModel
+                    null // UI updates handled by the ViewModel
             );
             chartManager.updateChart(
                     signals,
@@ -114,5 +115,6 @@ public class ChartFragment extends Fragment {
         dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> ipTextView.setText(ip));
         dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), freq -> frequencyTextView.setText(freq));
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> bandwidthTextView.setText(bw));
+        dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssid -> ssidTextView.setText(ssid));
     }
 }

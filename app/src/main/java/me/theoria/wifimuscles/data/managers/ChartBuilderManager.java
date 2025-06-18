@@ -123,7 +123,7 @@ public class ChartBuilderManager {
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSet.setCubicIntensity(0.3f);
         dataSet.setColor(context.getColor(R.color.accent_orange));
-        dataSet.setLineWidth(2f);
+        dataSet.setLineWidth(4f);
         dataSet.setDrawFilled(false);
         dataSet.setDrawCircleHole(true);
         dataSet.getColor(R.color.accent_pink);
