@@ -13,13 +13,13 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import me.theoria.wifimuscles.model.WifiSignalModel;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChartViewModel extends AndroidViewModel {
+public class WifiViewModel extends AndroidViewModel {
 
     private final MutableLiveData<List<WifiSignalModel>> rssiLiveData = new MutableLiveData<>();
     private final List<WifiSignalModel> signalList = new ArrayList<>();
@@ -35,16 +35,18 @@ public class ChartViewModel extends AndroidViewModel {
                 int signalLevel = RSSIUtils.mapRssiToLevels(rssi);
                 long timestamp = System.currentTimeMillis();
                 int frequency = info.getFrequency();
+                int ip = info.getIpAddress();
+                String bssid = info.getBSSID();
+                int networkID = info.getNetworkId();
+                //String macAddress = info.getMacAddress();
 
-
-                // Get current connected SSID name
-                String currentSSID = info.getSSID();
-                if (currentSSID != null && currentSSID.startsWith("\"") && currentSSID.endsWith("\"")) {
-                    currentSSID = currentSSID.substring(1, currentSSID.length() - 1);  // Remove quotes
-                }
-
-                assert currentSSID != null;
-                signalList.add(new WifiSignalModel(timestamp, rssi, signalLevel, currentSSID, frequency));
+                signalList.add(new WifiSignalModel(
+                        timestamp,
+                        rssi,
+                        signalLevel,
+                        frequency,
+                        ip,
+                        networkID));
                 if (signalList.size() > 30) {
                     signalList.remove(0);
                 }
@@ -55,13 +57,12 @@ public class ChartViewModel extends AndroidViewModel {
         }
     };
 
-    public ChartViewModel(@NonNull Application application) {
+    public WifiViewModel(@NonNull Application application) {
         super(application);
         wifiManager = (WifiManager) application.getSystemService(Application.WIFI_SERVICE);
 
         if (wifiManager != null && wifiManager.isWifiEnabled()) {
             handler.post(fetchRssi);
-            wifiManager.getConnectionInfo().getSSID();
         } else {
             Toast.makeText(application.getApplicationContext(), "Please enable Wi-Fi", Toast.LENGTH_SHORT).show();
         }

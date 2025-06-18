@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.model.WifiSignalModel;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.RSSIUtils;
-import me.theoria.wifimuscles.viewmodel.ChartViewModel;
+import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
 
 public class RadarChartFragment extends Fragment {
@@ -37,7 +37,7 @@ public class RadarChartFragment extends Fragment {
     private ImageView rssiEmojiView;
     private RadarChart radarChart;
 
-    private ChartViewModel chartViewModel;
+    private WifiViewModel wifiViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,13 +53,13 @@ public class RadarChartFragment extends Fragment {
         // Initialize the RadarChart
         setupRadarChart();
 
-        // Initialize ChartViewModel (RSSI)
-        ChartViewModel chartViewModel = new ViewModelProvider(this,
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication())).get(ChartViewModel.class);
+        // Initialize WifiViewModel (RSSI)
+        WifiViewModel wifiViewModel = new ViewModelProvider(this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication())).get(WifiViewModel.class);
 
         // Observe current SSID
-        chartViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChartDescription);
-        chartViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChart);
+        wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChartDescription);
+        wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChart);
 
         return root;
     }

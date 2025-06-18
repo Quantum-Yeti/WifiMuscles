@@ -1,0 +1,1490 @@
+<XmlStructure>
+  <XmlProjectInfo>
+    <name>wifimuscles</name>
+    <path>C:\Users\explo\StudioProjects\WifiMuscles\app\src\main\java\me\theoria\wifimuscles</path>
+    <generated_at>2025-06-18T03:15:38.5597167</generated_at>
+    <total_files>17</total_files>
+    <total_size>38069</total_size>
+  </XmlProjectInfo>
+  <XmlNode>
+    <XmlDirectory>
+      <name>model</name>
+      <XmlNode>
+        <XmlDirectory>
+          <name>repo</name>
+          <XmlNode>
+            <XmlFileEntry>
+              <name>ChartManager.java</name>
+              <type>file</type>
+              <XmlFileInfo>
+                <size>2289</size>
+                <modified></modified>
+                <mime_type>text/x-java-source</mime_type>
+                <extension>.java</extension>
+              </XmlFileInfo>
+            </XmlFileEntry>
+          </XmlNode>
+        </XmlDirectory>
+        <XmlFileEntry>
+          <name>ChartMarkerModel.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>1152</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+        <XmlFileEntry>
+          <name>RSSILevelModel.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>1543</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+        <XmlFileEntry>
+          <name>WifiSignalModel.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>854</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+      </XmlNode>
+    </XmlDirectory>
+    <XmlDirectory>
+      <name>utils</name>
+      <XmlNode>
+        <XmlFileEntry>
+          <name>ChartConfig.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>5839</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+        <XmlFileEntry>
+          <name>IntoToString.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>291</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+        <XmlFileEntry>
+          <name>RSSIUtils.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>1023</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+        <XmlFileEntry>
+          <name>SignalProcessor.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>2323</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+        <XmlFileEntry>
+          <name>ToastUtil.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>1137</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+      </XmlNode>
+    </XmlDirectory>
+    <XmlDirectory>
+      <name>view</name>
+      <XmlNode>
+        <XmlDirectory>
+          <name>activities</name>
+          <XmlNode>
+            <XmlFileEntry>
+              <name>MainActivity.java</name>
+              <type>file</type>
+              <XmlFileInfo>
+                <size>3789</size>
+                <modified></modified>
+                <mime_type>text/x-java-source</mime_type>
+                <extension>.java</extension>
+              </XmlFileInfo>
+            </XmlFileEntry>
+          </XmlNode>
+        </XmlDirectory>
+        <XmlDirectory>
+          <name>fragments</name>
+          <XmlNode>
+            <XmlFileEntry>
+              <name>ChartFragment.java</name>
+              <type>file</type>
+              <XmlFileInfo>
+                <size>4493</size>
+                <modified></modified>
+                <mime_type>text/x-java-source</mime_type>
+                <extension>.java</extension>
+              </XmlFileInfo>
+            </XmlFileEntry>
+            <XmlFileEntry>
+              <name>DonateFragment.java</name>
+              <type>file</type>
+              <XmlFileInfo>
+                <size>981</size>
+                <modified></modified>
+                <mime_type>text/x-java-source</mime_type>
+                <extension>.java</extension>
+              </XmlFileInfo>
+            </XmlFileEntry>
+            <XmlFileEntry>
+              <name>HomeFragment.java</name>
+              <type>file</type>
+              <XmlFileInfo>
+                <size>966</size>
+                <modified></modified>
+                <mime_type>text/x-java-source</mime_type>
+                <extension>.java</extension>
+              </XmlFileInfo>
+            </XmlFileEntry>
+            <XmlFileEntry>
+              <name>KnowledgeFragment.java</name>
+              <type>file</type>
+              <XmlFileInfo>
+                <size>311</size>
+                <modified></modified>
+                <mime_type>text/x-java-source</mime_type>
+                <extension>.java</extension>
+              </XmlFileInfo>
+            </XmlFileEntry>
+            <XmlFileEntry>
+              <name>RadarChartFragment.java</name>
+              <type>file</type>
+              <XmlFileInfo>
+                <size>5970</size>
+                <modified></modified>
+                <mime_type>text/x-java-source</mime_type>
+                <extension>.java</extension>
+              </XmlFileInfo>
+            </XmlFileEntry>
+          </XmlNode>
+        </XmlDirectory>
+      </XmlNode>
+    </XmlDirectory>
+    <XmlDirectory>
+      <name>viewmodel</name>
+      <XmlNode>
+        <XmlFileEntry>
+          <name>DataUIViewModel.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>2343</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+        <XmlFileEntry>
+          <name>WifiViewModel.java</name>
+          <type>file</type>
+          <XmlFileInfo>
+            <size>2765</size>
+            <modified></modified>
+            <mime_type>text/x-java-source</mime_type>
+            <extension>.java</extension>
+          </XmlFileInfo>
+        </XmlFileEntry>
+      </XmlNode>
+    </XmlDirectory>
+  </XmlNode>
+  <XmlFiles>
+    <XmlFileContent>
+      <path>model\ChartMarkerModel.java</path>
+      <content>package me.theoria.wifimuscles.model;&#xd;
+&#xd;
+import android.content.Context;&#xd;
+import android.widget.TextView;&#xd;
+&#xd;
+import com.github.mikephil.charting.components.MarkerView;&#xd;
+import com.github.mikephil.charting.data.Entry;&#xd;
+import com.github.mikephil.charting.highlight.Highlight;&#xd;
+import com.github.mikephil.charting.utils.MPPointF;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+&#xd;
+public class ChartMarkerModel extends MarkerView {&#xd;
+&#xd;
+    private final TextView markerContent;&#xd;
+&#xd;
+    public ChartMarkerModel(Context context, int layoutResource) {&#xd;
+        super(context, layoutResource);&#xd;
+        markerContent = findViewById(R.id.markerContent);&#xd;
+    }&#xd;
+&#xd;
+    @Override&#xd;
+    public void refreshContent(Entry e, Highlight highlight) {&#xd;
+        if (e != null) {&#xd;
+            float rssi = e.getY();&#xd;
+            RSSILevelModel level = RSSILevelModel.mapRssi(rssi);&#xd;
+            String rssiMarker = (int) rssi + " dBm | " + level;&#xd;
+            markerContent.setText(rssiMarker);&#xd;
+        }&#xd;
+        super.refreshContent(e, highlight);&#xd;
+    }&#xd;
+&#xd;
+    @Override&#xd;
+    public MPPointF getOffset() {&#xd;
+        return new MPPointF(-(getWidth() / 3f), -getHeight());&#xd;
+    }&#xd;
+}&#xd;
+</content>
+      <XmlFileInfo>
+        <size>1152</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>model\repo\ChartManager.java</path>
+      <content>package me.theoria.wifimuscles.model.repo;&#xd;
+&#xd;
+import com.github.mikephil.charting.charts.LineChart;&#xd;
+import com.github.mikephil.charting.data.LineData;&#xd;
+import com.github.mikephil.charting.data.LineDataSet;&#xd;
+&#xd;
+import java.util.List;&#xd;
+&#xd;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;&#xd;
+import me.theoria.wifimuscles.data.managers.SignalProcessManager;&#xd;
+import me.theoria.wifimuscles.viewmodel.DataUIViewModel;&#xd;
+&#xd;
+public class ChartManager {&#xd;
+&#xd;
+    private final SignalProcessor signalProcessManager;&#xd;
+    private final DataUIViewModel uiUpdater;&#xd;
+&#xd;
+    public ChartManager(SignalProcessor signalProcessManager, DataUIViewModel uiUpdater) {&#xd;
+        this.signalProcessManager = signalProcessManager;&#xd;
+        this.uiUpdater = uiUpdater;&#xd;
+    }&#xd;
+&#xd;
+    public void updateChart(&#xd;
+            List&lt;WifiSignalModel> signals,&#xd;
+            LineChart chart,&#xd;
+            LineDataSet rssiDataSet,&#xd;
+            LineDataSet excellentSet,&#xd;
+            LineDataSet goodSet,&#xd;
+            LineDataSet fairSet,&#xd;
+            LineDataSet weakSet,&#xd;
+            LineDataSet unusableSet,&#xd;
+            LineData lineData&#xd;
+    ) {&#xd;
+        if (chart == null || rssiDataSet == null || lineData == null) return;&#xd;
+&#xd;
+        // Clear datasets&#xd;
+        clearAllDataSets(rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);&#xd;
+&#xd;
+        // Process signals and update UI&#xd;
+        signalProcessManager.processSignals(signals, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);&#xd;
+&#xd;
+        if (uiUpdater != null) {&#xd;
+            uiUpdater.updateSignalUI(signals);&#xd;
+        }&#xd;
+&#xd;
+        // Notify chart update&#xd;
+        notifyChartUpdated(chart, lineData, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);&#xd;
+    }&#xd;
+&#xd;
+    private void clearAllDataSets(LineDataSet... sets) {&#xd;
+        for (LineDataSet set : sets) {&#xd;
+            set.clear();&#xd;
+        }&#xd;
+    }&#xd;
+&#xd;
+    private void notifyChartUpdated(&#xd;
+            LineChart chart,&#xd;
+            LineData lineData,&#xd;
+            LineDataSet... sets&#xd;
+    ) {&#xd;
+        for (LineDataSet set : sets) {&#xd;
+            set.notifyDataSetChanged();&#xd;
+        }&#xd;
+&#xd;
+        lineData.notifyDataChanged();&#xd;
+        chart.notifyDataSetChanged();&#xd;
+        chart.invalidate();&#xd;
+        chart.setVisibleXRangeMaximum(30);&#xd;
+        chart.moveViewToX(lineData.getEntryCount());&#xd;
+    }&#xd;
+}&#xd;
+&#xd;
+</content>
+      <XmlFileInfo>
+        <size>2289</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>model\RSSILevelModel.java</path>
+      <content>package me.theoria.wifimuscles.model;&#xd;
+&#xd;
+import androidx.annotation.DrawableRes;&#xd;
+import androidx.annotation.StringRes;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+&#xd;
+public enum RSSILevelModel {&#xd;
+&#xd;
+    // Bind RSSI String levels to drawables that fill under the line&#xd;
+    EXCELLENT(R.string.label_excellent, R.drawable.fill_blue), // 0 to -50&#xd;
+    GOOD(R.string.label_good, R.drawable.fill_green), // -50 to -70&#xd;
+    FAIR(R.string.label_fair, R.drawable.fill_yellow), // -70 to -80&#xd;
+    WEAK(R.string.label_weak, R.drawable.fill_red), // -80 to -90&#xd;
+    UNUSABLE(R.string.label_unusable, R.drawable.fill_red); // &lt; -90&#xd;
+&#xd;
+    @StringRes&#xd;
+    private final int wifiStrengthLabel;&#xd;
+    @DrawableRes&#xd;
+    private final int fillDrawableRes;&#xd;
+&#xd;
+    RSSILevelModel(@StringRes int wifiStrengthLabel, @DrawableRes int fillDrawableRes) {&#xd;
+        this.wifiStrengthLabel = wifiStrengthLabel;&#xd;
+        this.fillDrawableRes = fillDrawableRes;&#xd;
+    }&#xd;
+&#xd;
+    public int getRssiLabel() {&#xd;
+        return wifiStrengthLabel;&#xd;
+    }&#xd;
+&#xd;
+    public int getFillDrawableRes() {&#xd;
+        return fillDrawableRes;&#xd;
+    }&#xd;
+&#xd;
+    // Maps RSSI float to String levels that are displayed on the chart instead&#xd;
+    public static RSSILevelModel mapRssi (float rssi) {&#xd;
+        if (rssi >= -50) {&#xd;
+            return EXCELLENT;&#xd;
+        } else if (rssi >= -60) {&#xd;
+            return GOOD;&#xd;
+        } else if (rssi >= -70) {&#xd;
+            return FAIR;&#xd;
+        } else if (rssi >= -80) {&#xd;
+            return WEAK;&#xd;
+        } else {&#xd;
+            return UNUSABLE;&#xd;
+        }&#xd;
+    }&#xd;
+}&#xd;
+&#xd;
+</content>
+      <XmlFileInfo>
+        <size>1543</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>model\WifiSignalModel.java</path>
+      <content>package me.theoria.wifimuscles.model;&#xd;
+&#xd;
+public class WifiSignalModel {&#xd;
+    private final long timestamp;&#xd;
+    private final int rssi, signalLevel, frequency, ip, networkID;&#xd;
+&#xd;
+    public WifiSignalModel(long timestamp, int rssi, int signalLevel, int frequency, int ip, int networkID) {&#xd;
+        this.timestamp = timestamp;&#xd;
+        this.rssi = rssi;&#xd;
+        this.signalLevel = signalLevel;&#xd;
+        this.frequency = frequency;&#xd;
+        this.ip = ip;&#xd;
+        this.networkID = networkID;&#xd;
+    }&#xd;
+&#xd;
+    public long getTimestamp() {&#xd;
+        return timestamp;&#xd;
+    }&#xd;
+&#xd;
+    public int getRssi() {&#xd;
+        return rssi;&#xd;
+    }&#xd;
+&#xd;
+    public int getSignalLevel() {&#xd;
+        return signalLevel;&#xd;
+    }&#xd;
+&#xd;
+    public int getIP() { return ip; }&#xd;
+&#xd;
+    public int getFrequency() { return frequency; }&#xd;
+&#xd;
+    public int getNetworkID() { return networkID; }&#xd;
+}&#xd;
+</content>
+      <XmlFileInfo>
+        <size>854</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>utils\ChartConfig.java</path>
+      <content>package me.theoria.wifimuscles.utils;&#xd;
+&#xd;
+import android.content.Context;&#xd;
+import android.graphics.Color;&#xd;
+import android.graphics.Typeface;&#xd;
+&#xd;
+import com.github.mikephil.charting.charts.LineChart;&#xd;
+import com.github.mikephil.charting.components.Description;&#xd;
+import com.github.mikephil.charting.components.XAxis;&#xd;
+import com.github.mikephil.charting.components.YAxis;&#xd;
+import com.github.mikephil.charting.data.LineData;&#xd;
+import com.github.mikephil.charting.data.LineDataSet;&#xd;
+import com.github.mikephil.charting.formatter.ValueFormatter;&#xd;
+&#xd;
+import java.util.ArrayList;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+import me.theoria.wifimuscles.data.model.ChartMarkerModel;&#xd;
+import me.theoria.wifimuscles.data.model.RSSILevelModel;&#xd;
+&#xd;
+public class ChartConfig {&#xd;
+&#xd;
+    public static class ChartSetupResult {&#xd;
+        public LineChart chart;&#xd;
+        public LineDataSet primaryDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet;&#xd;
+        public LineData lineData;&#xd;
+    }&#xd;
+&#xd;
+    public static ChartSetupResult setupChartConfig(LineChart chart, Context context) {&#xd;
+&#xd;
+        configureChart(chart);&#xd;
+        configureXAxis(chart.getXAxis());&#xd;
+        configureYAxis(chart.getAxisLeft());&#xd;
+        chart.getAxisRight().setEnabled(false);&#xd;
+&#xd;
+        LineDataSet rssiValueDataSet = createPrimaryDataSet(context);&#xd;
+        setMarkerView(chart, context);&#xd;
+&#xd;
+        LineDataSet excellentSet = createLineThresholdDataSet(context, RSSILevelModel.EXCELLENT);&#xd;
+        LineDataSet goodSet = createLineThresholdDataSet(context, RSSILevelModel.GOOD);&#xd;
+        LineDataSet fairSet = createLineThresholdDataSet(context, RSSILevelModel.FAIR);&#xd;
+        LineDataSet weakSet = createLineThresholdDataSet(context, RSSILevelModel.WEAK);&#xd;
+        LineDataSet unusableSet = createLineThresholdDataSet(context, RSSILevelModel.UNUSABLE);&#xd;
+&#xd;
+        LineData lineData = new LineData();&#xd;
+        lineData.addDataSet(rssiValueDataSet);&#xd;
+&#xd;
+        // Currently empty datasets&#xd;
+        /*lineData.addDataSet(excellentSet);&#xd;
+        lineData.addDataSet(goodSet);&#xd;
+        lineData.addDataSet(fairSet);&#xd;
+        lineData.addDataSet(weakSet);&#xd;
+        lineData.addDataSet(unusableSet);*/&#xd;
+&#xd;
+        chart.setData(lineData);&#xd;
+        chart.invalidate();&#xd;
+&#xd;
+        ChartSetupResult result = new ChartSetupResult();&#xd;
+        result.chart = chart;&#xd;
+        result.primaryDataSet = rssiValueDataSet;&#xd;
+        result.excellentSet = excellentSet;&#xd;
+        result.goodSet = goodSet;&#xd;
+        result.fairSet = fairSet;&#xd;
+        result.weakSet = weakSet;&#xd;
+        result.unusableSet = unusableSet;&#xd;
+        result.lineData = lineData;&#xd;
+&#xd;
+        return result;&#xd;
+    }&#xd;
+&#xd;
+    private static void configureChart(LineChart chart) {&#xd;
+        chart.setDrawGridBackground(false);&#xd;
+        chart.setBackgroundColor(Color.TRANSPARENT);&#xd;
+        chart.setTouchEnabled(true);&#xd;
+        chart.setDragEnabled(true);&#xd;
+        chart.setScaleEnabled(true);&#xd;
+        chart.setExtraBottomOffset(10f);&#xd;
+        chart.setExtraTopOffset(10f);&#xd;
+        chart.setExtraLeftOffset(5f);&#xd;
+        chart.getLegend().setEnabled(false);&#xd;
+&#xd;
+        // Remove the description label&#xd;
+        Description description = new Description();&#xd;
+        description.setEnabled(false); // Disable the description&#xd;
+        chart.setDescription(description);&#xd;
+    }&#xd;
+&#xd;
+    private static void configureXAxis(XAxis xAxis) {&#xd;
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);&#xd;
+        xAxis.setDrawGridLines(true);&#xd;
+        xAxis.setDrawLabels(false);&#xd;
+        xAxis.setDrawAxisLine(false);&#xd;
+        xAxis.setGranularity(5f);&#xd;
+        xAxis.setGranularityEnabled(true);&#xd;
+        xAxis.setLabelCount(8, false);&#xd;
+        xAxis.setTextColor(R.color.bg_secondary);&#xd;
+    }&#xd;
+&#xd;
+    private static void configureYAxis(YAxis yAxis) {&#xd;
+        yAxis.setDrawGridLines(false);&#xd;
+        yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);&#xd;
+        yAxis.setYOffset(0f);&#xd;
+        yAxis.setXOffset(0f);&#xd;
+        yAxis.setAxisMinimum(-100f); // dBm&#xd;
+        yAxis.setAxisMaximum(0f);&#xd;
+        yAxis.setGranularity(10f);&#xd;
+        yAxis.setLabelCount(5, true);&#xd;
+        yAxis.setTextSize(12f);&#xd;
+        yAxis.setDrawLabels(false);&#xd;
+        yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));&#xd;
+        yAxis.setValueFormatter(new ValueFormatter() {&#xd;
+            @Override&#xd;
+            public String getFormattedValue(float value) {&#xd;
+                return ((int) value) + " dBm";&#xd;
+            }&#xd;
+        });&#xd;
+    }&#xd;
+&#xd;
+    private static LineDataSet createPrimaryDataSet(Context context) {&#xd;
+        LineDataSet dataSet = new LineDataSet(new ArrayList&lt;>(), context.getString(R.string.label_blank));&#xd;
+        dataSet.setDrawCircles(false);&#xd;
+        dataSet.setDrawValues(false);&#xd;
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);&#xd;
+        dataSet.setCubicIntensity(0.3f);&#xd;
+        dataSet.setColor(context.getColor(R.color.accent_orange));&#xd;
+        dataSet.setLineWidth(2f);&#xd;
+        dataSet.setDrawFilled(false);&#xd;
+        dataSet.setDrawCircleHole(true);&#xd;
+        dataSet.getColor(R.color.accent_pink);&#xd;
+        //dataSet.setFillColor(Color.parseColor("#05DA93")); // Solid fill&#xd;
+        return dataSet;&#xd;
+    }&#xd;
+&#xd;
+    private static void setMarkerView(LineChart chart, Context context) {&#xd;
+        ChartMarkerModel marker = new ChartMarkerModel(context, R.layout.marker_rssi);&#xd;
+        marker.setChartView(chart);&#xd;
+        chart.setMarker(marker);&#xd;
+    }&#xd;
+&#xd;
+    private static LineDataSet createLineThresholdDataSet(Context context, RSSILevelModel level) {&#xd;
+        LineDataSet set = new LineDataSet(new ArrayList&lt;>(), context.getString(level.getRssiLabel()));&#xd;
+        set.setColor(R.color.accent_pink);&#xd;
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);&#xd;
+        set.setLineWidth(3.5f);&#xd;
+        set.setDrawCircles(true);&#xd;
+        set.setDrawValues(false);&#xd;
+        set.setDrawFilled(false);&#xd;
+        return set;&#xd;
+    }&#xd;
+}&#xd;
+&#xd;
+&#xd;
+</content>
+      <XmlFileInfo>
+        <size>5839</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>utils\IntoToString.java</path>
+      <content>package me.theoria.wifimuscles.utils;&#xd;
+&#xd;
+public class IntoToString {&#xd;
+&#xd;
+    public static String intToIp(int ip) {&#xd;
+        return (ip &amp; 0xFF) + "." +&#xd;
+                ((ip >> 8) &amp; 0xFF) + "." +&#xd;
+                ((ip >> 16) &amp; 0xFF) + "." +&#xd;
+                ((ip >> 24) &amp; 0xFF);&#xd;
+    }&#xd;
+&#xd;
+}&#xd;
+</content>
+      <XmlFileInfo>
+        <size>291</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>utils\RSSIUtils.java</path>
+      <content>package me.theoria.wifimuscles.utils;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+&#xd;
+public class RSSIUtils {&#xd;
+&#xd;
+    /**&#xd;
+     * Method: mapRssiToLevels&#xd;
+     * This method takes the rssi reading and simplifies it to a one through five scale.&#xd;
+     * @param rssi&#xd;
+     * @return&#xd;
+     */&#xd;
+    public static Integer mapRssiToLevels(int rssi) {&#xd;
+        return rssi;&#xd;
+    }&#xd;
+&#xd;
+    /**&#xd;
+     * Method: getRssiEmoji&#xd;
+     * This method takes the rssi reading and displays an emoji based on a one through five scale.&#xd;
+     * @param rssi&#xd;
+     * @return&#xd;
+     */&#xd;
+    public static int getRssiEmoji(int rssi) {&#xd;
+        if (rssi >= -30) {&#xd;
+            return R.drawable.emoji_mood_very_satisfied_24;&#xd;
+        } else if (rssi >= -50) {&#xd;
+            return R.drawable.emoji_mood_satisfied_24;&#xd;
+        } else if (rssi >= -70){&#xd;
+            return R.drawable.emoji_mood_neutral_24;&#xd;
+        } else if (rssi >= -90) {&#xd;
+            return R.drawable.emoji_mood_dissatisfied_24;&#xd;
+        } else return R.drawable.emoji_mood_bad_24;&#xd;
+    }&#xd;
+}&#xd;
+</content>
+      <XmlFileInfo>
+        <size>1023</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>utils\SignalProcessor.java</path>
+      <content>package me.theoria.wifimuscles.utils;&#xd;
+&#xd;
+import com.github.mikephil.charting.data.Entry;&#xd;
+import com.github.mikephil.charting.data.LineDataSet;&#xd;
+import me.theoria.wifimuscles.data.model.RSSILevelModel;&#xd;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;&#xd;
+&#xd;
+import java.util.List;&#xd;
+&#xd;
+public class SignalProcessor {&#xd;
+&#xd;
+    public void processSignals(&#xd;
+            List&lt;WifiSignalModel> signals,&#xd;
+            LineDataSet rssiDataSet,&#xd;
+            LineDataSet excellentSet,&#xd;
+            LineDataSet goodSet,&#xd;
+            LineDataSet fairSet,&#xd;
+            LineDataSet weakSet,&#xd;
+            LineDataSet unusableSet&#xd;
+    ) {&#xd;
+        for (int i = 0; i &lt; signals.size(); i++) {&#xd;
+            WifiSignalModel signal = signals.get(i);&#xd;
+            int rssi = signal.getRssi();&#xd;
+            float rssiFloat = signal.getRssi();&#xd;
+&#xd;
+            // Process each signal and map it to its appropriate level&#xd;
+            RSSILevelModel rssiLevelModel = RSSILevelModel.mapRssi(rssiFloat);&#xd;
+            int signalLevel = RSSIUtils.mapRssiToLevels(rssi);&#xd;
+&#xd;
+            // Add entry to the appropriate dataset&#xd;
+            addEntryToDataSets(i, signalLevel, rssiLevelModel, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);&#xd;
+        }&#xd;
+    }&#xd;
+&#xd;
+    private void addEntryToDataSets(&#xd;
+            int index,&#xd;
+            int signalLevel,&#xd;
+            RSSILevelModel levelModel,&#xd;
+            LineDataSet rssiDataSet,&#xd;
+            LineDataSet excellentSet,&#xd;
+            LineDataSet goodSet,&#xd;
+            LineDataSet fairSet,&#xd;
+            LineDataSet weakSet,&#xd;
+            LineDataSet unusableSet&#xd;
+    ) {&#xd;
+        Entry entry = new Entry(index, signalLevel);&#xd;
+&#xd;
+        if (levelModel != null) {&#xd;
+            switch (levelModel) {&#xd;
+                case EXCELLENT:&#xd;
+                    excellentSet.addEntry(entry);&#xd;
+                    break;&#xd;
+                case GOOD:&#xd;
+                    goodSet.addEntry(entry);&#xd;
+                    break;&#xd;
+                case FAIR:&#xd;
+                    fairSet.addEntry(entry);&#xd;
+                    break;&#xd;
+                case WEAK:&#xd;
+                    weakSet.addEntry(entry);&#xd;
+                    break;&#xd;
+                case UNUSABLE:&#xd;
+                    unusableSet.addEntry(entry);&#xd;
+                    break;&#xd;
+            }&#xd;
+        }&#xd;
+&#xd;
+        rssiDataSet.addEntry(entry);&#xd;
+    }&#xd;
+}</content>
+      <XmlFileInfo>
+        <size>2323</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>utils\ToastUtil.java</path>
+      <content>package me.theoria.wifimuscles.utils;&#xd;
+&#xd;
+import android.content.Context;&#xd;
+import android.widget.Toast;&#xd;
+&#xd;
+public class ToastUtil {&#xd;
+&#xd;
+    public static void showToast(Context context, String message) {&#xd;
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();&#xd;
+    }&#xd;
+&#xd;
+    public static void showLongToast(Context context, String message) {&#xd;
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();&#xd;
+    }&#xd;
+&#xd;
+    public static void showToastForLevel(Context context, int level) {&#xd;
+        String message = "";&#xd;
+        switch (level) {&#xd;
+            case 5:&#xd;
+                message = "Excellent coverage!";&#xd;
+                break;&#xd;
+            case 4:&#xd;
+                message = "Good coverage!";&#xd;
+                break;&#xd;
+            case 3:&#xd;
+                message = "Consider placing an extender here!";&#xd;
+                break;&#xd;
+            case 2:&#xd;
+                message = "Add an extender slightly closer to the router!";&#xd;
+                break;&#xd;
+            case 1:&#xd;
+                message = "Unusable WiFi reception!";&#xd;
+                break;&#xd;
+        }&#xd;
+        showToast(context, message);&#xd;
+    }&#xd;
+}&#xd;
+</content>
+      <XmlFileInfo>
+        <size>1137</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>view\activities\MainActivity.java</path>
+      <content>package me.theoria.wifimuscles.view.activities;&#xd;
+&#xd;
+import android.Manifest;&#xd;
+import android.content.Intent;&#xd;
+import android.content.pm.PackageManager;&#xd;
+import android.net.Uri;&#xd;
+import android.os.Bundle;&#xd;
+&#xd;
+import androidx.appcompat.app.AppCompatActivity;&#xd;
+import androidx.core.app.ActivityCompat;&#xd;
+import androidx.core.content.ContextCompat;&#xd;
+import androidx.fragment.app.Fragment;&#xd;
+&#xd;
+&#xd;
+import com.google.android.gms.ads.AdRequest;&#xd;
+import com.google.android.gms.ads.AdView;&#xd;
+import com.google.android.gms.ads.MobileAds;&#xd;
+import com.google.android.material.bottomnavigation.BottomNavigationView;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+import me.theoria.wifimuscles.view.fragments.ChartFragment;&#xd;
+import me.theoria.wifimuscles.view.fragments.DonateFragment;&#xd;
+import me.theoria.wifimuscles.view.fragments.HomeFragment;&#xd;
+import me.theoria.wifimuscles.view.fragments.RadarChartFragment;&#xd;
+&#xd;
+public class MainActivity extends AppCompatActivity {&#xd;
+&#xd;
+&#xd;
+    @Override&#xd;
+    protected void onCreate(Bundle savedInstanceState) {&#xd;
+&#xd;
+        if (ContextCompat.checkSelfPermission(this,&#xd;
+                Manifest.permission.ACCESS_FINE_LOCATION)&#xd;
+                != PackageManager.PERMISSION_GRANTED) {&#xd;
+                ActivityCompat.requestPermissions(&#xd;
+                        this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);&#xd;
+        }&#xd;
+&#xd;
+        super.onCreate(savedInstanceState);&#xd;
+        setContentView(R.layout.activity_main);&#xd;
+&#xd;
+&#xd;
+        /**&#xd;
+         * Navigation methods for setting the current fragment, movement between fragments and&#xd;
+         * initializing them on the MainActivity.&#xd;
+         * TODO: Move into NavigationComponent&#xd;
+         */&#xd;
+&#xd;
+        // Fragment declaration&#xd;
+        Fragment homeFragment = new HomeFragment();&#xd;
+        Fragment comboWifiFragment = new ChartFragment();&#xd;
+        Fragment secondChartFragment = new RadarChartFragment();&#xd;
+        Fragment donateFragment = new DonateFragment();&#xd;
+&#xd;
+        // Set current fragment from setCurrentFragment&#xd;
+        setCurrentFragment(comboWifiFragment);&#xd;
+        // Initialize bottom navigation&#xd;
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);&#xd;
+        // Bottom navigation logic&#xd;
+        bottomNavigationView.setOnItemSelectedListener(item -> {&#xd;
+            int itemId = item.getItemId();&#xd;
+            if (itemId == R.id.comboChart) {&#xd;
+                setCurrentFragment(comboWifiFragment);&#xd;
+            } else if (itemId == R.id.radarChart) {&#xd;
+                setCurrentFragment(secondChartFragment);&#xd;
+            } else if (itemId == R.id.donate) {&#xd;
+                findViewById(R.id.donate).setOnClickListener(v -> {&#xd;
+                    String paypalDonationUrl = "https://www.paypal.com/ncp/payment/T62DKS2TW4GRN";&#xd;
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalDonationUrl));&#xd;
+                    startActivity(browserIntent);&#xd;
+                });&#xd;
+            }&#xd;
+            return true;&#xd;
+        });&#xd;
+&#xd;
+        /**&#xd;
+         * Implement and initialize Google AdMob&#xd;
+         */&#xd;
+        // Initialize Mobile Ads SDK&#xd;
+        MobileAds.initialize(this, initializationStatus -> {});&#xd;
+&#xd;
+        // Reference AdView and load ad&#xd;
+        AdView mAdView = findViewById(R.id.adView);&#xd;
+        AdRequest adRequest = new AdRequest.Builder().build();&#xd;
+        mAdView.loadAd(adRequest);&#xd;
+    }&#xd;
+&#xd;
+    /**&#xd;
+     * Method: setCurrentFragment&#xd;
+     * Description: Replaces the fragment within the fragment container block from&#xd;
+     * the main activity.&#xd;
+     * @param fragment&#xd;
+     */&#xd;
+    private void setCurrentFragment(Fragment fragment) {&#xd;
+        getSupportFragmentManager()&#xd;
+                .beginTransaction()&#xd;
+                .replace(R.id.fragment_container, fragment)&#xd;
+                .commit();&#xd;
+    }&#xd;
+}&#xd;
+&#xd;
+&#xd;
+</content>
+      <XmlFileInfo>
+        <size>3789</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>view\fragments\ChartFragment.java</path>
+      <content>package me.theoria.wifimuscles.view.fragments;&#xd;
+&#xd;
+import android.os.Bundle;&#xd;
+import android.view.LayoutInflater;&#xd;
+import android.view.View;&#xd;
+import android.view.ViewGroup;&#xd;
+import android.widget.ImageView;&#xd;
+import android.widget.TextView;&#xd;
+&#xd;
+import androidx.annotation.NonNull;&#xd;
+import androidx.fragment.app.Fragment;&#xd;
+import androidx.lifecycle.ViewModelProvider;&#xd;
+&#xd;
+import com.github.mikephil.charting.charts.LineChart;&#xd;
+import com.github.mikephil.charting.data.LineData;&#xd;
+import com.github.mikephil.charting.data.LineDataSet;&#xd;
+&#xd;
+import me.theoria.wifimuscles.databinding.FragmentChartBinding;&#xd;
+import me.theoria.wifimuscles.data.managers.ChartManager;&#xd;
+import me.theoria.wifimuscles.data.managers.ChartBuilderManager;&#xd;
+import me.theoria.wifimuscles.data.managers.SignalProcessManager;&#xd;
+import me.theoria.wifimuscles.viewmodel.DataUIViewModel;&#xd;
+import me.theoria.wifimuscles.viewmodel.WifiViewModel;&#xd;
+&#xd;
+/**&#xd;
+ * ChartFragment inflates the primary chart fragment and observes for LiveData updates.&#xd;
+ */&#xd;
+public class ChartFragment extends Fragment {&#xd;
+&#xd;
+    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView;&#xd;
+    private ImageView rssiEmojiView;&#xd;
+    private LineChart chart;&#xd;
+    private LineDataSet primaryLineDataSet;&#xd;
+    private LineDataSet excellentSet, goodSet, fairSet, weakSet, unusableSet;&#xd;
+    private LineData lineData;&#xd;
+&#xd;
+    private DataUIViewModel dataUIViewModel;&#xd;
+    private WifiViewModel wifiViewModel;&#xd;
+&#xd;
+    @Override&#xd;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {&#xd;
+        FragmentChartBinding binding = FragmentChartBinding.inflate(inflater, container, false);&#xd;
+&#xd;
+        // Initialize ViewModels&#xd;
+        wifiViewModel = new ViewModelProvider(this).get(WifiViewModel.class);&#xd;
+        dataUIViewModel = new ViewModelProvider(this).get(DataUIViewModel.class);&#xd;
+&#xd;
+        // Initialize chart UI elements&#xd;
+        initChartUI(binding);&#xd;
+&#xd;
+        // Setup chart&#xd;
+        setupMainChart();&#xd;
+&#xd;
+        // Observe LiveData from both ViewModels&#xd;
+        observeSignalData();&#xd;
+        observeSignalUI();&#xd;
+&#xd;
+        return binding.getRoot();&#xd;
+    }&#xd;
+&#xd;
+    private void initChartUI(FragmentChartBinding binding) {&#xd;
+        chart = binding.lineChart;&#xd;
+        rssiTextView = binding.rssiTextView;&#xd;
+        rssiEmojiView = binding.rssiEmoji;&#xd;
+        frequencyTextView = binding.frequencyBox;&#xd;
+        bandwidthTextView = binding.bandBox;&#xd;
+        ipTextView = binding.ipTextView;&#xd;
+    }&#xd;
+&#xd;
+    private void setupMainChart() {&#xd;
+        ChartConfig.ChartSetupResult chartResults = ChartConfig.setupChartConfig(chart, requireContext());&#xd;
+&#xd;
+        primaryLineDataSet = chartResults.primaryDataSet;&#xd;
+        excellentSet = chartResults.excellentSet;&#xd;
+        goodSet = chartResults.goodSet;&#xd;
+        fairSet = chartResults.fairSet;&#xd;
+        weakSet = chartResults.weakSet;&#xd;
+        unusableSet = chartResults.unusableSet;&#xd;
+        lineData = chartResults.lineData;&#xd;
+&#xd;
+        chart.setData(lineData);&#xd;
+        chart.invalidate();&#xd;
+    }&#xd;
+&#xd;
+    private void observeSignalData() {&#xd;
+        wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {&#xd;
+            if (signals == null) return;&#xd;
+&#xd;
+            // Update chart only&#xd;
+            ChartManager chartManager = new ChartManager(&#xd;
+                    new SignalProcessor(),&#xd;
+                    null // UI updates are now handled by the ViewModel&#xd;
+            );&#xd;
+            chartManager.updateChart(&#xd;
+                    signals,&#xd;
+                    chart,&#xd;
+                    primaryLineDataSet,&#xd;
+                    excellentSet,&#xd;
+                    goodSet,&#xd;
+                    fairSet,&#xd;
+                    weakSet,&#xd;
+                    unusableSet,&#xd;
+                    lineData&#xd;
+            );&#xd;
+&#xd;
+            // Update UI state in the ViewModel&#xd;
+            dataUIViewModel.updateSignalUI(signals);&#xd;
+        });&#xd;
+    }&#xd;
+&#xd;
+    private void observeSignalUI() {&#xd;
+        dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), text -> rssiTextView.setText(text));&#xd;
+        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> rssiEmojiView.setImageResource(resId));&#xd;
+        dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> ipTextView.setText(ip));&#xd;
+        dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), freq -> frequencyTextView.setText(freq));&#xd;
+        dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> bandwidthTextView.setText(bw));&#xd;
+    }&#xd;
+}&#xd;
+</content>
+      <XmlFileInfo>
+        <size>4493</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>view\fragments\DonateFragment.java</path>
+      <content>package me.theoria.wifimuscles.view.fragments;&#xd;
+&#xd;
+import android.os.Bundle;&#xd;
+import android.view.LayoutInflater;&#xd;
+import android.view.View;&#xd;
+import android.view.ViewGroup;&#xd;
+&#xd;
+import androidx.fragment.app.Fragment;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+&#xd;
+/**&#xd;
+ *{@code DonateFragment} is a {@link Fragment} that displays the donation UI.&#xd;
+ * {@link #onCreate(Bundle)} is called to initialize the fragment creation.&#xd;
+ * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} is called to inflate the fragment's view.&#xd;
+ */&#xd;
+public class DonateFragment extends Fragment {&#xd;
+&#xd;
+    @Override&#xd;
+    public void onCreate(Bundle savedInstanceState) {&#xd;
+        super.onCreate(savedInstanceState);&#xd;
+    }&#xd;
+&#xd;
+    @Override&#xd;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,&#xd;
+                             Bundle savedInstanceState) {&#xd;
+        // Inflate the layout for this fragment&#xd;
+        return inflater.inflate(R.layout.fragment_donate, container, false);&#xd;
+    }&#xd;
+}</content>
+      <XmlFileInfo>
+        <size>981</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>view\fragments\HomeFragment.java</path>
+      <content>package me.theoria.wifimuscles.view.fragments;&#xd;
+&#xd;
+import android.os.Bundle;&#xd;
+&#xd;
+import androidx.fragment.app.Fragment;&#xd;
+&#xd;
+import android.view.LayoutInflater;&#xd;
+import android.view.View;&#xd;
+import android.view.ViewGroup;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+&#xd;
+/**&#xd;
+ * {@code HomeFragment} is a {@link Fragment} that inflates the {@code fragment_home.xml} layout.&#xd;
+ * {@link #onCreate(Bundle)} initializes the fragment.&#xd;
+ * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} inflates the fragment layout.&#xd;
+ */&#xd;
+public class HomeFragment extends Fragment {&#xd;
+&#xd;
+    @Override&#xd;
+    public void onCreate(Bundle savedInstanceState) {&#xd;
+        super.onCreate(savedInstanceState);&#xd;
+    }&#xd;
+&#xd;
+    @Override&#xd;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,&#xd;
+                             Bundle savedInstanceState) {&#xd;
+        // Inflate the layout for this fragment&#xd;
+        return inflater.inflate(R.layout.fragment_home, container, false);&#xd;
+    }&#xd;
+}</content>
+      <XmlFileInfo>
+        <size>966</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>view\fragments\KnowledgeFragment.java</path>
+      <content>package me.theoria.wifimuscles.view.fragments;&#xd;
+&#xd;
+import android.os.Bundle;&#xd;
+&#xd;
+import androidx.fragment.app.Fragment;&#xd;
+&#xd;
+import android.view.LayoutInflater;&#xd;
+import android.view.View;&#xd;
+import android.view.ViewGroup;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+&#xd;
+public class KnowledgeFragment extends Fragment {&#xd;
+&#xd;
+&#xd;
+}</content>
+      <XmlFileInfo>
+        <size>311</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>view\fragments\RadarChartFragment.java</path>
+      <content>package me.theoria.wifimuscles.view.fragments;&#xd;
+&#xd;
+import android.graphics.Color;&#xd;
+import android.os.Bundle;&#xd;
+&#xd;
+import androidx.fragment.app.Fragment;&#xd;
+import androidx.lifecycle.ViewModelProvider;&#xd;
+&#xd;
+import android.view.LayoutInflater;&#xd;
+import android.view.View;&#xd;
+import android.view.ViewGroup;&#xd;
+import android.widget.ImageView;&#xd;
+import android.widget.TextView;&#xd;
+&#xd;
+import com.github.mikephil.charting.charts.RadarChart;&#xd;
+import com.github.mikephil.charting.components.Description;&#xd;
+import com.github.mikephil.charting.components.XAxis;&#xd;
+import com.github.mikephil.charting.components.YAxis;&#xd;
+import com.github.mikephil.charting.data.RadarData;&#xd;
+import com.github.mikephil.charting.data.RadarDataSet;&#xd;
+import com.github.mikephil.charting.data.RadarEntry;&#xd;
+import com.github.mikephil.charting.formatter.ValueFormatter;&#xd;
+&#xd;
+import java.util.ArrayList;&#xd;
+import java.util.List;&#xd;
+&#xd;
+import me.theoria.wifimuscles.R;&#xd;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;&#xd;
+import me.theoria.wifimuscles.utils.RSSIUtils;&#xd;
+import me.theoria.wifimuscles.viewmodel.WifiViewModel;&#xd;
+&#xd;
+&#xd;
+public class RadarChartFragment extends Fragment {&#xd;
+&#xd;
+    // Initialize UI component objects&#xd;
+    private TextView rssiTextView;&#xd;
+    private ImageView rssiEmojiView;&#xd;
+    private RadarChart radarChart;&#xd;
+&#xd;
+    private WifiViewModel wifiViewModel;&#xd;
+&#xd;
+    @Override&#xd;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,&#xd;
+                             Bundle savedInstanceState) {&#xd;
+        View root = inflater.inflate(R.layout.fragment_radar_chart, container, false);&#xd;
+&#xd;
+        // Bind UI components for the RadarChart fragment&#xd;
+        radarChart = root.findViewById(R.id.radarChart);&#xd;
+        rssiTextView = root.findViewById(R.id.rssiTextView);&#xd;
+        rssiEmojiView = root.findViewById(R.id.rssiEmoji);&#xd;
+&#xd;
+&#xd;
+        // Initialize the RadarChart&#xd;
+        setupRadarChart();&#xd;
+&#xd;
+        // Initialize WifiViewModel (RSSI)&#xd;
+        WifiViewModel wifiViewModel = new ViewModelProvider(this,&#xd;
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication())).get(WifiViewModel.class);&#xd;
+&#xd;
+        // Observe current SSID&#xd;
+        wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChartDescription);&#xd;
+        wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), this::updateRadarChart);&#xd;
+&#xd;
+        return root;&#xd;
+    }&#xd;
+&#xd;
+    private void updateRadarChartDescription(List&lt;WifiSignalModel> wifiSignalModels) {&#xd;
+        Description description = new Description();&#xd;
+        description.setText("Connected to: ");&#xd;
+        radarChart.setDescription(description);&#xd;
+    }&#xd;
+&#xd;
+    private void setupRadarChart() {&#xd;
+        // RadarChart Configuration&#xd;
+        radarChart.getDescription().setEnabled(false);&#xd;
+        radarChart.setWebColor(Color.BLACK);&#xd;
+        radarChart.setWebLineWidth(1f);&#xd;
+        radarChart.setWebColorInner(Color.LTGRAY);&#xd;
+        radarChart.setWebLineWidthInner(1f);&#xd;
+&#xd;
+        // X Axis&#xd;
+        XAxis xAxis = radarChart.getXAxis();&#xd;
+        xAxis.setTextSize(14f);&#xd;
+        xAxis.setDrawLabels(true);&#xd;
+        xAxis.setValueFormatter(new ValueFormatter() {&#xd;
+            @Override&#xd;
+            public String getFormattedValue(float value) {&#xd;
+                switch ((int) value) {&#xd;
+                    case 5: return "Excellent";&#xd;
+                    case 4: return "Good";&#xd;
+                    case 3: return "Fair";&#xd;
+                    case 2: return "Weak";&#xd;
+                    case 1: return "Unusable";&#xd;
+                    default: return "";&#xd;
+                }&#xd;
+            }&#xd;
+        });&#xd;
+&#xd;
+        // Y Axis (signal level 1-5)&#xd;
+        YAxis yAxis = radarChart.getYAxis();&#xd;
+        yAxis.setAxisMinimum(-100f);&#xd;
+        yAxis.setAxisMaximum(0f);&#xd;
+        yAxis.setLabelCount(8, true);&#xd;
+        yAxis.setDrawLabels(false); // hide level numbers&#xd;
+        yAxis.setValueFormatter(new ValueFormatter() {&#xd;
+            @Override&#xd;
+            public String getFormattedValue(float value) {&#xd;
+                switch ((int) value) {&#xd;
+                    case 5: return "Excellent";&#xd;
+                    case 4: return "Good";&#xd;
+                    case 3: return "Fair";&#xd;
+                    case 2: return "Weak";&#xd;
+                    case 1: return "Unusable";&#xd;
+                    default: return "";&#xd;
+                }&#xd;
+            }&#xd;
+        });&#xd;
+    }&#xd;
+&#xd;
+    private void updateRadarChart(List&lt;WifiSignalModel> signals) {&#xd;
+        if (signals == null || signals.isEmpty()) return;&#xd;
+&#xd;
+        int count = Math.min(6, signals.size());&#xd;
+        int start = signals.size() - count;&#xd;
+&#xd;
+        List&lt;RadarEntry> entries = new ArrayList&lt;>();&#xd;
+        List&lt;String> radarLabels = new ArrayList&lt;>();&#xd;
+&#xd;
+        for (int i = start; i &lt; signals.size(); i++) {&#xd;
+            WifiSignalModel signal = signals.get(i);&#xd;
+&#xd;
+            int signalLevel = signal.getSignalLevel();&#xd;
+            entries.add(new RadarEntry(signalLevel));&#xd;
+            radarLabels.add("S" + i);&#xd;
+        }&#xd;
+&#xd;
+        // Display RSSI integer value and emoji in TextView and ImageView&#xd;
+        WifiSignalModel latestSignal = signals.get(signals.size() - 1);&#xd;
+        int latestRssi = latestSignal.getRssi();&#xd;
+        rssiTextView.setText("RSSI: " + latestRssi + " dBm");&#xd;
+        rssiEmojiView.setImageResource(RSSIUtils.getRssiEmoji(latestRssi));&#xd;
+&#xd;
+        //Show extender toast message&#xd;
+        //ToastUtil.showToastForLevel(requireContext(), latestSignal.getSignalLevel());&#xd;
+&#xd;
+        // General UI configuration for the RadarChart datasets&#xd;
+        RadarDataSet dataSet = new RadarDataSet(entries, "WiFi Strength");&#xd;
+        dataSet.setColor(Color.BLUE);&#xd;
+        dataSet.setFillColor(Color.CYAN);&#xd;
+        dataSet.setDrawFilled(true);&#xd;
+        dataSet.setLineWidth(3f);&#xd;
+        dataSet.setValueTextColor(Color.BLACK);&#xd;
+        dataSet.setValueTextSize(14f);&#xd;
+&#xd;
+        RadarData data = new RadarData(dataSet);&#xd;
+        radarChart.setData(data);&#xd;
+        radarChart.invalidate(); // Redraw chart&#xd;
+    }&#xd;
+&#xd;
+&#xd;
+&#xd;
+}</content>
+      <XmlFileInfo>
+        <size>5970</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>viewmodel\DataUIViewModel.java</path>
+      <content>package me.theoria.wifimuscles.viewmodel;&#xd;
+&#xd;
+import android.widget.ImageView;&#xd;
+import android.widget.TextView;&#xd;
+&#xd;
+import androidx.lifecycle.LiveData;&#xd;
+import androidx.lifecycle.MutableLiveData;&#xd;
+import androidx.lifecycle.ViewModel;&#xd;
+&#xd;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;&#xd;
+import me.theoria.wifimuscles.utils.RSSIUtils;&#xd;
+&#xd;
+import java.util.List;&#xd;
+&#xd;
+public class DataUIViewModel extends ViewModel {&#xd;
+&#xd;
+    private final MutableLiveData&lt;String> rssiText = new MutableLiveData&lt;>();&#xd;
+    private final MutableLiveData&lt;Integer> rssiEmoji = new MutableLiveData&lt;>();&#xd;
+    private final MutableLiveData&lt;String> ipText = new MutableLiveData&lt;>();&#xd;
+    private final MutableLiveData&lt;String> frequencyText = new MutableLiveData&lt;>();&#xd;
+    private final MutableLiveData&lt;String> bandwidthText = new MutableLiveData&lt;>();&#xd;
+&#xd;
+    // Expose LiveData to the UI&#xd;
+    public LiveData&lt;String> getRssiText() {&#xd;
+        return rssiText;&#xd;
+    }&#xd;
+&#xd;
+    public LiveData&lt;Integer> getRssiEmoji() {&#xd;
+        return rssiEmoji;&#xd;
+    }&#xd;
+&#xd;
+    public LiveData&lt;String> getIpText() {&#xd;
+        return ipText;&#xd;
+    }&#xd;
+&#xd;
+    public LiveData&lt;String> getFrequencyText() {&#xd;
+        return frequencyText;&#xd;
+    }&#xd;
+&#xd;
+    public LiveData&lt;String> getBandwidthText() {&#xd;
+        return bandwidthText;&#xd;
+    }&#xd;
+&#xd;
+    // Update the LiveData based on the signal data&#xd;
+    public void updateSignalUI(List&lt;WifiSignalModel> signals) {&#xd;
+        if (signals.isEmpty()) return;&#xd;
+&#xd;
+        WifiSignalModel latestSignal = signals.get(signals.size() - 1);&#xd;
+        int rssi = latestSignal.getRssi();&#xd;
+        int ip = latestSignal.getIP();&#xd;
+        int frequency = latestSignal.getFrequency();&#xd;
+&#xd;
+        // Update LiveData&#xd;
+        rssiText.setValue("RSSI: " + rssi + " dBm");&#xd;
+        rssiEmoji.setValue(RSSIUtils.getRssiEmoji(rssi));&#xd;
+        ipText.setValue("IP: " + intToIp(ip));&#xd;
+&#xd;
+        String frequencyTextValue = frequency + " MHz";&#xd;
+        frequencyText.setValue(frequencyTextValue);&#xd;
+&#xd;
+        double frequencyInGHz = frequency / 1000.0;&#xd;
+        String frequencyGHzText = (int) frequencyInGHz + " GHz";&#xd;
+        bandwidthText.setValue(frequencyGHzText);&#xd;
+    }&#xd;
+&#xd;
+    private String intToIp(int ip) {&#xd;
+        return (ip &amp; 0xFF) + "." +&#xd;
+                ((ip >> 8) &amp; 0xFF) + "." +&#xd;
+                ((ip >> 16) &amp; 0xFF) + "." +&#xd;
+                ((ip >> 24) &amp; 0xFF);&#xd;
+    }&#xd;
+}&#xd;
+</content>
+      <XmlFileInfo>
+        <size>2343</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+    <XmlFileContent>
+      <path>viewmodel\WifiViewModel.java</path>
+      <content>package me.theoria.wifimuscles.viewmodel;&#xd;
+&#xd;
+&#xd;
+import android.app.Application;&#xd;
+import android.net.wifi.WifiInfo;&#xd;
+import android.net.wifi.WifiManager;&#xd;
+import android.os.Handler;&#xd;
+import android.os.Looper;&#xd;
+import android.widget.Toast;&#xd;
+&#xd;
+import androidx.annotation.NonNull;&#xd;
+import androidx.lifecycle.AndroidViewModel;&#xd;
+import androidx.lifecycle.LiveData;&#xd;
+import androidx.lifecycle.MutableLiveData;&#xd;
+&#xd;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;&#xd;
+import me.theoria.wifimuscles.utils.RSSIUtils;&#xd;
+&#xd;
+import java.util.ArrayList;&#xd;
+import java.util.List;&#xd;
+&#xd;
+public class WifiViewModel extends AndroidViewModel {&#xd;
+&#xd;
+    private final MutableLiveData&lt;List&lt;WifiSignalModel>> rssiLiveData = new MutableLiveData&lt;>();&#xd;
+    private final List&lt;WifiSignalModel> signalList = new ArrayList&lt;>();&#xd;
+    private final WifiManager wifiManager;&#xd;
+    private final Handler handler = new Handler(Looper.getMainLooper());&#xd;
+&#xd;
+    private final Runnable fetchRssi = new Runnable() {&#xd;
+        @Override&#xd;
+        public void run() {&#xd;
+            WifiInfo info = wifiManager.getConnectionInfo();&#xd;
+            if (info != null) {&#xd;
+                int rssi = info.getRssi();&#xd;
+                int signalLevel = RSSIUtils.mapRssiToLevels(rssi);&#xd;
+                long timestamp = System.currentTimeMillis();&#xd;
+                int frequency = info.getFrequency();&#xd;
+                int ip = info.getIpAddress();&#xd;
+                String bssid = info.getBSSID();&#xd;
+                int networkID = info.getNetworkId();&#xd;
+                //String macAddress = info.getMacAddress();&#xd;
+&#xd;
+                signalList.add(new WifiSignalModel(&#xd;
+                        timestamp,&#xd;
+                        rssi,&#xd;
+                        signalLevel,&#xd;
+                        frequency,&#xd;
+                        ip,&#xd;
+                        networkID));&#xd;
+                if (signalList.size() > 30) {&#xd;
+                    signalList.remove(0);&#xd;
+                }&#xd;
+&#xd;
+                rssiLiveData.setValue(new ArrayList&lt;>(signalList));&#xd;
+            }&#xd;
+            handler.postDelayed(this, 2000); // ms to s&#xd;
+        }&#xd;
+    };&#xd;
+&#xd;
+    public WifiViewModel(@NonNull Application application) {&#xd;
+        super(application);&#xd;
+        wifiManager = (WifiManager) application.getSystemService(Application.WIFI_SERVICE);&#xd;
+&#xd;
+        if (wifiManager != null &amp;&amp; wifiManager.isWifiEnabled()) {&#xd;
+            handler.post(fetchRssi);&#xd;
+        } else {&#xd;
+            Toast.makeText(application.getApplicationContext(), "Please enable Wi-Fi", Toast.LENGTH_SHORT).show();&#xd;
+        }&#xd;
+    }&#xd;
+&#xd;
+    public LiveData&lt;List&lt;WifiSignalModel>> getRssiLiveData() {&#xd;
+        return rssiLiveData;&#xd;
+    }&#xd;
+&#xd;
+    @Override&#xd;
+    protected void onCleared() {&#xd;
+        super.onCleared();&#xd;
+        handler.removeCallbacks(fetchRssi);&#xd;
+    }&#xd;
+}</content>
+      <XmlFileInfo>
+        <size>2765</size>
+        <modified></modified>
+        <mime_type>text/x-java-source</mime_type>
+        <extension>.java</extension>
+      </XmlFileInfo>
+    </XmlFileContent>
+  </XmlFiles>
+</XmlStructure>

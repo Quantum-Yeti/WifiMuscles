@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.utils;
+package me.theoria.wifimuscles.data.managers;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,10 +15,10 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.util.ArrayList;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.model.ChartMarkerModel;
-import me.theoria.wifimuscles.model.RSSILevelModel;
+import me.theoria.wifimuscles.data.model.ChartMarkerModel;
+import me.theoria.wifimuscles.data.model.RSSILevelModel;
 
-public class ChartConfig {
+public class ChartBuilderManager {
 
     public static class ChartSetupResult {
         public LineChart chart;
@@ -76,7 +76,8 @@ public class ChartConfig {
         chart.setScaleEnabled(true);
         chart.setExtraBottomOffset(10f);
         chart.setExtraTopOffset(10f);
-        chart.setExtraLeftOffset(20f);
+        chart.setExtraLeftOffset(5f);
+        chart.getLegend().setEnabled(false);
 
         // Remove the description label
         Description description = new Description();
@@ -121,11 +122,11 @@ public class ChartConfig {
         dataSet.setDrawValues(false);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSet.setCubicIntensity(0.3f);
-        dataSet.setColor(Color.CYAN);
+        dataSet.setColor(context.getColor(R.color.accent_orange));
         dataSet.setLineWidth(2f);
         dataSet.setDrawFilled(false);
         dataSet.setDrawCircleHole(true);
-        dataSet.getColor(R.color.bg_tertiary);
+        dataSet.getColor(R.color.accent_pink);
         //dataSet.setFillColor(Color.parseColor("#05DA93")); // Solid fill
         return dataSet;
     }
@@ -138,7 +139,7 @@ public class ChartConfig {
 
     private static LineDataSet createLineThresholdDataSet(Context context, RSSILevelModel level) {
         LineDataSet set = new LineDataSet(new ArrayList<>(), context.getString(level.getRssiLabel()));
-        set.setColor(Color.BLUE);
+        set.setColor(R.color.accent_pink);
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setLineWidth(3.5f);
         set.setDrawCircles(true);

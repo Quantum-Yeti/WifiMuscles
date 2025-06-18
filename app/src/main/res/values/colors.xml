@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Main UI Colors -->
-    <color name="bg_primary">#FFFFFF</color>
-    <color name="bg_secondary">#ECF0F3</color>
-    <color name="bg_tertiary">#E0E3E7</color>
+    <!-- Backgrounds -->
     <color name="bg_accent">#20639B</color>
     <color name="bg_accent_second">#05DA93</color>
     <color name="bg_dark">#152032</color>
-    <color name="card_background">#C3D7E2</color>
-    <color name="chart_card_background">#202123</color>
+    <color name="bg_primary">#000000</color>
+    <color name="bg_app_primary">#eadfda</color>
+    <color name="bg_secondary">#c4d4da</color>
+    <color name="bg_tertiary">#a45c78</color>
 
-    <!-- Text Colors -->
-    <color name="whiteText">#FFFFFF</color>
-    <color name="blackText">#000000</color>
+    <!-- Text -->
+    <color name="blackText">#3e4448</color>
+    <color name="whiteText">#ffffff</color>
+
+    <!-- Cards -->
+    <color name="card_background_one">#282623</color>
+    <color name="chart_card_background">#242526</color>
+
+    <!-- Accents -->
+    <color name="accent_orange">#f48c2b</color>
+    <color name="accent_beige">#f9eace</color>
+    <color name="accent_brown">#7e4006</color>
+    <color name="accent_pink">#a45c78</color>
+    <color name="accent_gray">#c4d4da</color>
+    <color name="accent_charcoal">#3e4448</color>
+    <color name="accent_brown_two">#b38c56</color>
+    <color name="accent_brown_three">#86613e</color>
+    <color name="accent_grey_orange">#9b968e</color>
 
     <!-- Splash Screen Background -->
     <color name="splashScreenBackground">#318dbd</color>

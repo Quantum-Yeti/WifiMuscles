@@ -2,28 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_primary">
+    android:background="@color/bg_app_primary">
 
-    <!-- Chart Card - height reduced -->
+    <!-- Chart Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/chartCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_margin="16dp"
         app:cardCornerRadius="16dp"
-        app:cardElevation="1dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/chart_card_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.3"
-        app:layout_constraintBottom_toTopOf="@id/titleSection"
-        app:cardBackgroundColor="@color/chart_card_background">
+        app:layout_constraintHeight_percent="0.3">
 
-        <!-- Line Chart with reduced height -->
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/lineChart"
             android:layout_width="match_parent"
@@ -31,175 +28,248 @@
             android:elevation="0dp" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Title Section with Icon and Background Style -->
+    <!-- Title Section -->
     <LinearLayout
         android:id="@+id/titleSection"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/bg_app_primary"
         android:padding="12dp"
         app:layout_constraintTop_toBottomOf="@id/chartCard"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cardRow">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Icon -->
         <ImageView
             android:id="@+id/titleIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/wifi_24dp"
-            android:contentDescription="Wifi Stats"
             android:layout_marginEnd="8dp"
-            android:layout_gravity="center" />
+            android:src="@drawable/wifi_channel_24"
+            android:contentDescription="@string/wifi_icon" />
 
-        <!-- Title Text -->
         <TextView
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="WiFi Overview"
+            android:text="@string/wifi_overview"
             android:textSize="18sp"
-            android:textColor="@color/blackText"
             android:textStyle="bold"
+            android:textColor="@color/blackText"
             android:gravity="center_vertical" />
     </LinearLayout>
 
-    <!-- LinearLayout to arrange the cards in two per row -->
-    <LinearLayout
-        android:id="@+id/cardRow"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <!-- Responsive Guideline -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="16dp"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <!-- RSSI Emoji Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/rssiEmojiCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="1dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/card_background_one"
         app:layout_constraintTop_toBottomOf="@id/titleSection"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical">
 
-        <!-- First Row - two cards -->
+        <ImageView
+            android:id="@+id/rssiEmoji"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="120dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/emoji" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- RSSI Info Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/rssiInfoRowCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:minHeight="120dp"
+        android:maxHeight="160dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="1dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/card_background_one"
+        app:layout_constraintTop_toBottomOf="@id/titleSection"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertical"
+        app:layout_constraintEnd_toEndOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginBottom="8dp">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
 
-            <!-- RSSI Emoji Card -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/rssiEmojiCard"
-                android:layout_width="0dp"
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ssid_icon_24"
+                app:tint="@color/whiteText"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/band_icon" />
+
+            <TextView
+                android:id="@+id/rssiTextView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="1dp"
-                android:background="@drawable/rounded_background"
-                android:backgroundTint="@color/card_background">
-
-                <ImageView
-                    android:id="@+id/rssiEmoji"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="12dp"
-                    android:scaleType="centerInside"
-                    android:contentDescription="@string/emoji"
-                    android:layout_gravity="center" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- RSSI Info Row Card -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/rssiInfoRowCard"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="1dp"
-                android:background="@drawable/rounded_background"
-                android:backgroundTint="@color/card_background">
-
-                <LinearLayout
-                    android:id="@+id/rssiInfoRow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/rssiTextView"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="6dp"
-                        android:layout_marginStart="12dp"
-                        android:gravity="end|center_vertical"
-                        android:text="@string/rssi_dBm_txt"
-                        android:textColor="@color/blackText"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                android:text="@string/rssi_dBm_txt"
+                android:textColor="@color/whiteText"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-        <!-- Second Row - two cards -->
+    <!-- Frequency Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/frequencyCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:minHeight="120dp"
+        android:maxHeight="160dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="1dp"
+        android:backgroundTint="@color/card_background_one"
+        app:layout_constraintTop_toBottomOf="@id/rssiEmojiCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guidelineVertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
 
-            <!-- Info Card 1 -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/frequencyCard"
-                android:layout_width="0dp"
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/airwave_three_24"
+                app:tint="@color/whiteText"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/band_icon" />
+
+            <TextView
+                android:id="@+id/frequencyBox"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="1dp">
-
-                <TextView
-                    android:id="@+id/frequencyBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="MHz"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:textSize="16sp" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- Info Card 2 -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/bandCard"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="1dp">
-
-                <TextView
-                    android:id="@+id/bandBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="GHz"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
-            </androidx.cardview.widget.CardView>
+                android:text="@string/mhz"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/whiteText"
+                android:textAlignment="center"/>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Band Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bandCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:minHeight="120dp"
+        android:maxHeight="160dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="1dp"
+        android:backgroundTint="@color/card_background_one"
+        app:layout_constraintTop_toBottomOf="@id/rssiInfoRowCard"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertical"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/airwave_five_24"
+                app:tint="@color/whiteText"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/band_icon" />
+
+            <TextView
+                android:id="@+id/bandBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ghz"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/whiteText"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- IP Info Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ipInfoRowCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:minHeight="120dp"
+        android:maxHeight="160dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="1dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/card_background_one"
+        app:layout_constraintTop_toBottomOf="@id/bandCard"
+        app:layout_constraintStart_toEndOf="@id/guidelineVertical"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/dns_icon_24"
+                app:tint="@color/whiteText"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/ip_address" />
+
+            <TextView
+                android:id="@+id/ip_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ip_address"
+                android:textColor="@color/whiteText"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

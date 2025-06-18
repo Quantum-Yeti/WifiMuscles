@@ -21,12 +21,19 @@
     <!-- Emoji Labels -->
     <string name="rssi_emoji_txt">RSSI Emoji Levels</string>
     <string name="emoji">Emoji</string>
-    <string name="rssi_dBm_txt">RSSI: -00 dBm</string>
+
+    <!-- Labels -->
+    <string name="rssi_dBm_txt">-00 dBm</string>
+    <string name="wifi_icon">Wifi Icon</string>
+    <string name="wifi_overview">WiFi Overview</string>
+    <string name="mhz">MHz</string>
+    <string name="ghz">GHz</string>
+    <string name="band_icon">Band Icon</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="ip_address">IP Address</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.model;
+package me.theoria.wifimuscles.data.model;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;

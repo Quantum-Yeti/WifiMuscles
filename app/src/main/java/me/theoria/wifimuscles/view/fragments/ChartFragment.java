@@ -16,68 +16,60 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
-import me.theoria.wifimuscles.utils.ChartConfig;
-import me.theoria.wifimuscles.utils.ChartUpdater;
-import me.theoria.wifimuscles.viewmodel.ChartViewModel;
+import me.theoria.wifimuscles.data.managers.ChartManager;
+import me.theoria.wifimuscles.data.managers.ChartBuilderManager;
+import me.theoria.wifimuscles.data.managers.SignalProcessManager;
+import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
+import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
 /**
  * ChartFragment inflates the primary chart fragment and observes for LiveData updates.
- *
  */
 public class ChartFragment extends Fragment {
 
-    private TextView rssiTextView;
-    private TextView frequencyTextView, bandwidthTextView;
-    private ImageView rssiEmojiView;;
+    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView;
+    private ImageView rssiEmojiView;
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
-    private LineDataSet secondaryLineDataSet;
     private LineDataSet excellentSet, goodSet, fairSet, weakSet, unusableSet;
     private LineData lineData;
 
+    private DataUIViewModel dataUIViewModel;
+    private WifiViewModel wifiViewModel;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the binding
-        me.theoria.wifimuscles.databinding.FragmentChartBinding binding = FragmentChartBinding.inflate(inflater, container, false);
+        FragmentChartBinding binding = FragmentChartBinding.inflate(inflater, container, false);
 
-        // Retrieve the ViewModel
-        ChartViewModel viewModel = new ViewModelProvider(this).get(ChartViewModel.class);
+        // Initialize ViewModels
+        wifiViewModel = new ViewModelProvider(this).get(WifiViewModel.class);
+        dataUIViewModel = new ViewModelProvider(this).get(DataUIViewModel.class);
 
-        // Initialize the primary chart and its UI elements
+        // Initialize chart UI elements
         initChartUI(binding);
 
-        // Chart setup
+        // Setup chart
         setupMainChart();
 
-        // Observe the LiveData for RSSI reading
-        observeLiveRSSI(viewModel);
+        // Observe LiveData from both ViewModels
+        observeSignalData();
+        observeSignalUI();
 
-        // Return top-level view of layout, required to display fragment UI
         return binding.getRoot();
     }
 
-    /**
-     * Method: initChartUI
-     * Initialize chart UI components
-     * @param binding
-     */
-    private void initChartUI (FragmentChartBinding binding){
+    private void initChartUI(FragmentChartBinding binding) {
         chart = binding.lineChart;
         rssiTextView = binding.rssiTextView;
         rssiEmojiView = binding.rssiEmoji;
         frequencyTextView = binding.frequencyBox;
         bandwidthTextView = binding.bandBox;
+        ipTextView = binding.ipTextView;
     }
 
-    /**
-     * Method: setupMainChart
-     * Sets up chart with initialization of datasets
-     */
     private void setupMainChart() {
-        // Get chart config results
-        ChartConfig.ChartSetupResult chartResults = ChartConfig.setupChartConfig(chart, requireContext());
+        ChartBuilderManager.ChartSetupResult chartResults = ChartBuilderManager.setupChartConfig(chart, requireContext());
 
-        // Results to class variables
         primaryLineDataSet = chartResults.primaryDataSet;
         excellentSet = chartResults.excellentSet;
         goodSet = chartResults.goodSet;
@@ -86,24 +78,21 @@ public class ChartFragment extends Fragment {
         unusableSet = chartResults.unusableSet;
         lineData = chartResults.lineData;
 
-        // Bind data to the chart
         chart.setData(lineData);
-        chart.invalidate(); // Reflect changes
+        chart.invalidate();
     }
 
-    /**
-     * Method: observeLiveRSSI
-     * This method observes the LiveData from the ChartViewModel.
-     * @param viewModel
-     */
-    private void observeLiveRSSI(ChartViewModel viewModel) {
-        viewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
-            // Update chart with new RSSI data
-            ChartUpdater.updateChart(
-                    rssiTextView,
-                    rssiEmojiView,
-                    frequencyTextView,
-                    bandwidthTextView,
+    private void observeSignalData() {
+        wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
+            if (signals == null) return;
+
+            // Update chart only
+            ChartManager chartManager = new ChartManager(
+                    new SignalProcessManager(),
+                    null // UI updates are now handled by the ViewModel
+            );
+            chartManager.updateChart(
+                    signals,
                     chart,
                     primaryLineDataSet,
                     excellentSet,
@@ -111,9 +100,19 @@ public class ChartFragment extends Fragment {
                     fairSet,
                     weakSet,
                     unusableSet,
-                    lineData,
-                    signals
+                    lineData
             );
+
+            // Update UI state in the ViewModel
+            dataUIViewModel.updateSignalUI(signals);
         });
+    }
+
+    private void observeSignalUI() {
+        dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), text -> rssiTextView.setText(text));
+        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> rssiEmojiView.setImageResource(resId));
+        dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> ipTextView.setText(ip));
+        dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), freq -> frequencyTextView.setText(freq));
+        dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> bandwidthTextView.setText(bw));
     }
 }
