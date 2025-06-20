@@ -18,10 +18,10 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import me.theoria.wifimuscles.R;
+import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
 import me.theoria.wifimuscles.view.fragments.DonateFragment;
 import me.theoria.wifimuscles.view.fragments.HomeFragment;
-import me.theoria.wifimuscles.view.fragments.RadarChartFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Fragment declaration
         Fragment homeFragment = new HomeFragment();
         Fragment comboWifiFragment = new ChartFragment();
-        Fragment secondChartFragment = new RadarChartFragment();
+        Fragment secondChartFragment = new BarChartFragment();
         Fragment donateFragment = new DonateFragment();
 
         // Set current fragment from setCurrentFragment

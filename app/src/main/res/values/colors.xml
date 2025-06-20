@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Backgrounds -->
-    <color name="bg_dark">#152032</color>
-    <color name="bg_primary">#000000</color>
-    <color name="bg_app_primary">#221e1f</color>
-    <color name="bg_secondary">#c4d4da</color>
-    <color name="bg_tertiary">#a45c78</color>
+    <color name="bg_dark">#121B27</color>               <!-- Dark navy-black base -->
+    <color name="bg_primary">#0D1117</color>            <!-- Almost black -->
+    <color name="bg_app_primary">#181F2A</color>
 
     <!-- Text -->
     <color name="blackText">#3e4448</color>
-    <color name="whiteText">#ffffff</color>
+    <color name="whiteText">#e0e0e0</color>
+    <color name="text_primary">#E6E8EA</color>           <!-- Soft off-white -->
+    <color name="text_secondary">#8A959E</color>         <!-- Cool gray, subtle -->
+    <color name="text_disabled">#4B5666</color>          <!-- Dimmed text -->
 
     <!-- Cards -->
-    <color name="card_background_one">#282623</color>
+    <color name="card_background_one">#1e1e1e</color>
     <color name="chart_card_background">#242526</color>
+    <color name="card_background">#212936</color>        <!-- Deep slate -->
+    <color name="card_elevation_shadow">#0A182B</color>  <!-- Shadow for card elevation -->
 
     <!-- Accents -->
     <color name="bg_accent">#20639B</color>
     <color name="bg_accent_second">#05DA93</color>
-    <color name="accent_orange">#f48c2b</color>
     <color name="accent_beige">#f9eace</color>
     <color name="accent_brown">#7e4006</color>
-    <color name="accent_pink">#a45c78</color>
     <color name="accent_gray">#c4d4da</color>
     <color name="accent_charcoal">#3e4448</color>
     <color name="accent_brown_two">#b38c56</color>
     <color name="accent_brown_three">#86613e</color>
     <color name="accent_grey_orange">#9b968e</color>
+
+    <color name="accent_primary">#00BFA5</color>         <!-- Vibrant teal, for buttons, highlights -->
+    <color name="accent_secondary">#1DE9B6</color>       <!-- Bright mint accent -->
+    <color name="accent_orange">#FF9E3B</color>          <!-- Warm orange, alerts/highlights -->
+    <color name="accent_pink">#FF4081</color>            <!-- Vibrant pink for notifications, badges -->
+
+    <!-- Neutrals / Grays -->
+    <color name="gray_light">#A0A9B8</color>             <!-- Light gray for borders, dividers -->
+    <color name="gray_medium">#5C677D</color>            <!-- Medium gray for secondary UI elements -->
+    <color name="gray_dark">#2E3A59</color>              <!-- Darker gray for backgrounds, separators -->
 
     <!-- Splash Screen Background -->
     <color name="splashScreenBackground">#318dbd</color>

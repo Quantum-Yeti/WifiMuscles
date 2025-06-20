@@ -27,7 +27,7 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
  */
 public class ChartFragment extends Fragment {
 
-    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView;
+    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView;
     private ImageView rssiEmojiView;
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
@@ -61,11 +61,13 @@ public class ChartFragment extends Fragment {
     private void initChartUI(FragmentChartBinding binding) {
         chart = binding.lineChart;
         rssiTextView = binding.rssiTextView;
-        rssiEmojiView = binding.rssiEmoji;
+        //rssiEmojiView = binding.rssiEmoji;
         frequencyTextView = binding.frequencyBox;
         bandwidthTextView = binding.bandBox;
-        //ipTextView = binding.ipTextView;
+        ipTextView = binding.ipBox;
         ssidTextView = binding.ssidBox;
+        macTextView = binding.macBox;
+        rxTextView = binding.rxSpeedBox;
     }
 
     private void setupMainChart() {
@@ -111,10 +113,12 @@ public class ChartFragment extends Fragment {
 
     private void observeSignalUI() {
         dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), text -> rssiTextView.setText(text));
-        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> rssiEmojiView.setImageResource(resId));
-        //dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> ipTextView.setText(ip));
+        //dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> rssiEmojiView.setImageResource(resId));
+        dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> ipTextView.setText(ip));
         dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), freq -> frequencyTextView.setText(freq));
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> bandwidthTextView.setText(bw));
         dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssid -> ssidTextView.setText(ssid));
+        dataUIViewModel.getMac().observe(getViewLifecycleOwner(), mac -> macTextView.setText(mac));
+        dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rx -> rxTextView.setText(rx));
     }
 }

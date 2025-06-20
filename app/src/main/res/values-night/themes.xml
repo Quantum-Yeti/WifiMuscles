@@ -4,10 +4,17 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
 
+        <!-- Custom Theme Main Attributes -->
         <item name="colorPrimary">@color/bg_primary</item>
-        <item name="colorSecondary">@color/bg_secondary</item>
-        <item name="colorTertiary">@color/bg_tertiary</item>
         <item name="colorAccent">@color/bg_accent</item>
+
+        <!-- Theme Window Settings -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:fitsSystemWindows">true</item>
+
+        <!-- Fonts -->
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif</item>
 
     </style>
 </resources>

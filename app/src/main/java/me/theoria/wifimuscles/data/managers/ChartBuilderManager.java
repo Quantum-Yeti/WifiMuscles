@@ -70,7 +70,7 @@ public class ChartBuilderManager {
 
     private static void configureChart(LineChart chart) {
         chart.setDrawGridBackground(false);
-        chart.setBackgroundColor(Color.TRANSPARENT);
+        //chart.setBackgroundColor(Color.TRANSPARENT);
         chart.setTouchEnabled(true);
         chart.setDragEnabled(true);
         chart.setScaleEnabled(true);
@@ -94,12 +94,14 @@ public class ChartBuilderManager {
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(8, false);
         xAxis.setTextColor(R.color.bg_primary);
+        xAxis.setGridColor(Color.TRANSPARENT);
     }
 
     private static void configureYAxis(YAxis yAxis) {
         yAxis.setDrawGridLines(false);
         yAxis.setDrawAxisLine(false);
         yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        yAxis.setGridColor(Color.TRANSPARENT);
         yAxis.setYOffset(0f);
         yAxis.setXOffset(8f);
         yAxis.setAxisMinimum(-100f); // dBm
@@ -108,6 +110,7 @@ public class ChartBuilderManager {
         yAxis.setLabelCount(4, true);
         yAxis.setTextSize(12f);
         yAxis.setDrawLabels(true);
+        yAxis.setTextColor(Color.WHITE);
         yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         /*yAxis.setValueFormatter(new ValueFormatter() {
             @Override
@@ -123,7 +126,7 @@ public class ChartBuilderManager {
         dataSet.setDrawValues(false);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSet.setCubicIntensity(0.3f);
-        dataSet.setColor(context.getColor(R.color.accent_orange));
+        dataSet.setColor(context.getColor(R.color.bg_accent));
         dataSet.setLineWidth(4f);
         dataSet.setDrawFilled(false);
         dataSet.setDrawCircleHole(true);

@@ -39,6 +39,8 @@ public class WifiViewModel extends AndroidViewModel {
                 String bssid = info.getBSSID();
                 int networkID = info.getNetworkId();
                 String ssid = info.getSSID();
+                int linkSpeed = info.getLinkSpeed();
+                String mac = info.getMacAddress();
 
                 signalList.add(new WifiSignalModel(
                         timestamp,
@@ -47,7 +49,9 @@ public class WifiViewModel extends AndroidViewModel {
                         frequency,
                         ip,
                         networkID,
-                        ssid));
+                        ssid,
+                        linkSpeed,
+                        mac));
                 if (signalList.size() > 30) {
                     signalList.remove(0);
                 }
@@ -65,7 +69,7 @@ public class WifiViewModel extends AndroidViewModel {
         if (wifiManager != null && wifiManager.isWifiEnabled()) {
             handler.post(fetchRssi);
         } else {
-            Toast.makeText(application.getApplicationContext(), "Please enable Wi-Fi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(application.getApplicationContext(), "Please enable Wi-Fi + Location", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -18,6 +18,9 @@ public class DataUIViewModel extends ViewModel {
     private final MutableLiveData<String> frequencyText = new MutableLiveData<>();
     private final MutableLiveData<String> bandwidthText = new MutableLiveData<>();
     private final MutableLiveData<String> ssidText = new MutableLiveData<>();
+    private final MutableLiveData<String> linkSpeed = new MutableLiveData<>();
+    private final MutableLiveData<Integer> ip = new MutableLiveData<>();
+    private final MutableLiveData<String> mac = new MutableLiveData<>();
 
     private final IntoToIP ipConverter = new IntoToIP();
 
@@ -44,6 +47,12 @@ public class DataUIViewModel extends ViewModel {
 
     public LiveData<String> getSSIDText() { return ssidText; }
 
+    public LiveData<String> getLinkSpeed() { return linkSpeed; }
+
+    public LiveData<Integer> getIPText() { return ip; }
+
+    public LiveData<String> getMac() { return mac; }
+
     // Update the LiveData based on the signal data
     public void updateSignalUI(List<WifiSignalModel> signals) {
         if (signals.isEmpty()) return;
@@ -52,6 +61,8 @@ public class DataUIViewModel extends ViewModel {
         int rssi = latestSignal.getRssi();
         int ip = latestSignal.getIP();
         int frequency = latestSignal.getFrequency();
+        int currentLinkSpeed = latestSignal.getLinkSpeed();
+        String macAddress = latestSignal.getMac();
         String ssid = latestSignal.getSSIDText();
 
         // Update LiveData
@@ -59,6 +70,9 @@ public class DataUIViewModel extends ViewModel {
         rssiEmoji.setValue(RSSIUtils.getRssiEmoji(rssi));
         ipText.setValue(ipConverter.intToIp(ip));
         ssidText.setValue("SSID: " +ssid);
+        mac.setValue(macAddress);
+        linkSpeed.setValue(currentLinkSpeed+ " Mbps");
+
 
         String frequencyTextValue = frequency + " MHz";
         frequencyText.setValue(frequencyTextValue);
