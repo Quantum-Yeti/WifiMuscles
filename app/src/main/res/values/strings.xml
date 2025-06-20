@@ -29,12 +29,13 @@
     <string name="mhz">MHz</string>
     <string name="ghz">GHz</string>
     <string name="band_icon">Band Icon</string>
+    <string name="ip_address">IP Address</string>
+    <string name="ssid">SSID</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="ip_address">IP Address</string>
-    <string name="ssid">SSID</string>
+
 
 
 </resources>

@@ -87,33 +87,34 @@ public class ChartBuilderManager {
 
     private static void configureXAxis(XAxis xAxis) {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(true);
+        xAxis.setDrawGridLines(false);
         xAxis.setDrawLabels(false);
         xAxis.setDrawAxisLine(false);
         xAxis.setGranularity(5f);
         xAxis.setGranularityEnabled(true);
         xAxis.setLabelCount(8, false);
-        xAxis.setTextColor(R.color.bg_secondary);
+        xAxis.setTextColor(R.color.bg_primary);
     }
 
     private static void configureYAxis(YAxis yAxis) {
         yAxis.setDrawGridLines(false);
+        yAxis.setDrawAxisLine(false);
         yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         yAxis.setYOffset(0f);
-        yAxis.setXOffset(0f);
+        yAxis.setXOffset(8f);
         yAxis.setAxisMinimum(-100f); // dBm
         yAxis.setAxisMaximum(0f);
         yAxis.setGranularity(10f);
-        yAxis.setLabelCount(5, true);
+        yAxis.setLabelCount(4, true);
         yAxis.setTextSize(12f);
-        yAxis.setDrawLabels(false);
+        yAxis.setDrawLabels(true);
         yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        yAxis.setValueFormatter(new ValueFormatter() {
+        /*yAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return ((int) value) + " dBm";
+                return ((int) value) + "";
             }
-        });
+        });*/
     }
 
     private static LineDataSet createPrimaryDataSet(Context context) {

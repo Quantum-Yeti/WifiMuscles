@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Backgrounds -->
-    <color name="bg_accent">#20639B</color>
-    <color name="bg_accent_second">#05DA93</color>
     <color name="bg_dark">#152032</color>
     <color name="bg_primary">#000000</color>
-    <color name="bg_app_primary">#eadfda</color>
+    <color name="bg_app_primary">#221e1f</color>
     <color name="bg_secondary">#c4d4da</color>
     <color name="bg_tertiary">#a45c78</color>
 
@@ -18,6 +16,8 @@
     <color name="chart_card_background">#242526</color>
 
     <!-- Accents -->
+    <color name="bg_accent">#20639B</color>
+    <color name="bg_accent_second">#05DA93</color>
     <color name="accent_orange">#f48c2b</color>
     <color name="accent_beige">#f9eace</color>
     <color name="accent_brown">#7e4006</color>

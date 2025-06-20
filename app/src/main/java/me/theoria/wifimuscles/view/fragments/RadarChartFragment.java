@@ -65,9 +65,9 @@ public class RadarChartFragment extends Fragment {
     }
 
     private void updateRadarChartDescription(List<WifiSignalModel> wifiSignalModels) {
-        Description description = new Description();
-        description.setText("Connected to: ");
-        radarChart.setDescription(description);
+        /*Description description = new Description();
+        description.setText("SSID: ");
+        radarChart.setDescription(description);*/
     }
 
     private void setupRadarChart() {
@@ -77,6 +77,7 @@ public class RadarChartFragment extends Fragment {
         radarChart.setWebLineWidth(1f);
         radarChart.setWebColorInner(Color.LTGRAY);
         radarChart.setWebLineWidthInner(1f);
+        radarChart.setBackgroundColor(Color.TRANSPARENT);
 
         // X Axis
         XAxis xAxis = radarChart.getXAxis();

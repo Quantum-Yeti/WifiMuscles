@@ -3,9 +3,43 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_app_primary">
+
+    <!-- Title Section (WiFi Overview) -->
+    <LinearLayout
+        android:id="@+id/titleSection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/bg_app_primary"
+        android:padding="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/titleIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/stats_icon_24"
+            android:contentDescription="@string/wifi_icon" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/blackText"
+            android:gravity="center_vertical" />
+    </LinearLayout>
 
     <!-- Chart Card -->
     <androidx.cardview.widget.CardView
@@ -16,7 +50,7 @@
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@color/bg_app_primary"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleSection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.3">
@@ -28,40 +62,50 @@
             android:elevation="0dp" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Title Section -->
-    <LinearLayout
-        android:id="@+id/titleSection"
+    <!-- SSID Card moved below chart and spans full width -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ssidCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/bg_app_primary"
-        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="1dp"
+        android:backgroundTint="@color/card_background_one"
         app:layout_constraintTop_toBottomOf="@id/chartCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/titleIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/wifi_channel_24"
-            android:contentDescription="@string/wifi_icon" />
-
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/wifi_overview"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/blackText"
-            android:gravity="center_vertical" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
 
-    <!-- Responsive Guideline -->
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/airwave_three_24"
+                app:tint="@color/whiteText"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@string/band_icon" />
+
+            <TextView
+                android:id="@+id/ssidBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/ssid"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/whiteText"
+                android:textAlignment="viewEnd"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Guideline -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineVertical"
         android:layout_width="wrap_content"
@@ -81,7 +125,7 @@
         app:cardElevation="1dp"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/card_background_one"
-        app:layout_constraintTop_toBottomOf="@id/titleSection"
+        app:layout_constraintTop_toBottomOf="@id/ssidCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guidelineVertical">
 
@@ -110,7 +154,7 @@
         app:cardElevation="1dp"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/card_background_one"
-        app:layout_constraintTop_toBottomOf="@id/titleSection"
+        app:layout_constraintTop_toBottomOf="@id/ssidCard"
         app:layout_constraintStart_toEndOf="@id/guidelineVertical"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -184,53 +228,9 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <!-- Channel Card -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/ssidCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:minHeight="120dp"
-        android:maxHeight="150dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="1dp"
-        android:backgroundTint="@color/card_background_one"
-        app:layout_constraintTop_toBottomOf="@id/frequencyCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guidelineVertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="16dp"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/airwave_three_24"
-                app:tint="@color/whiteText"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="@string/band_icon" />
-
-            <TextView
-                android:id="@+id/ssidBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ssid"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/whiteText"
-                android:textAlignment="center"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Band Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/bandCard"
+        android:id="@+id/channelCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -255,7 +255,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/airwave_five_24"
+                android:src="@drawable/airwave_three_24"
                 app:tint="@color/whiteText"
                 android:layout_marginBottom="8dp"
                 android:contentDescription="@string/band_icon" />
@@ -271,50 +271,4 @@
                 android:textAlignment="center"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <!-- IP Info Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/ipInfoRowCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:minHeight="120dp"
-        android:maxHeight="150dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="1dp"
-        android:paddingBottom="10dp"
-        android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/card_background_one"
-        app:layout_constraintTop_toBottomOf="@id/bandCard"
-        app:layout_constraintStart_toEndOf="@id/guidelineVertical"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="16dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/dns_icon_24"
-                app:tint="@color/whiteText"
-                android:layout_marginBottom="8dp"
-                android:contentDescription="@string/ip_address" />
-
-            <TextView
-                android:id="@+id/ip_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ip_address"
-                android:textColor="@color/whiteText"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
