@@ -8,8 +8,23 @@ import me.theoria.wifimuscles.utils.RSSIUtils;
 
 import java.util.List;
 
+/**
+ * SignalProcessManager is responsible for processing the raw Wifi signal data
+ * and categorizing each signal into an RSSI String level.
+ * (Excellent, Good, Fair, Weak, Unusable)
+ */
 public class SignalProcessManager {
 
+    /**
+     * Method to process and categorize the WifiSignalModel objects.
+     * @param signals
+     * @param rssiDataSet
+     * @param excellentSet
+     * @param goodSet
+     * @param fairSet
+     * @param weakSet
+     * @param unusableSet
+     */
     public void processSignals(
             List<WifiSignalModel> signals,
             LineDataSet rssiDataSet,
@@ -33,6 +48,18 @@ public class SignalProcessManager {
         }
     }
 
+    /**
+     * Method to add signal entries to the main dataset with their respective levels.
+     * @param index
+     * @param signalLevel
+     * @param levelModel
+     * @param rssiDataSet
+     * @param excellentSet
+     * @param goodSet
+     * @param fairSet
+     * @param weakSet
+     * @param unusableSet
+     */
     private void addEntryToDataSets(
             int index,
             int signalLevel,
@@ -46,6 +73,7 @@ public class SignalProcessManager {
     ) {
         Entry entry = new Entry(index, signalLevel);
 
+        // Add entries to the appropriate threshold dataset.
         if (levelModel != null) {
             switch (levelModel) {
                 case EXCELLENT:
@@ -66,6 +94,7 @@ public class SignalProcessManager {
             }
         }
 
+        // Add the entries to the main dataset.
         rssiDataSet.addEntry(entry);
     }
 }

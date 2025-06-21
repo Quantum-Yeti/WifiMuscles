@@ -1,16 +1,16 @@
-package me.theoria.wifimuscles.data.managers;
+package me.theoria.wifimuscles.data.builders;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.ChartMarkerModel;
 import me.theoria.wifimuscles.data.model.RSSILevelModel;
 
-public class ChartBuilderManager {
+public class LineChartBuilder {
 
     public static class ChartSetupResult {
         public LineChart chart;
@@ -53,6 +53,7 @@ public class ChartBuilderManager {
         lineData.addDataSet(unusableSet);*/
 
         chart.setData(lineData);
+        chart.animateXY(1000,1000, Easing.EaseInQuart);
         chart.invalidate();
 
         ChartSetupResult result = new ChartSetupResult();
@@ -136,7 +137,7 @@ public class ChartBuilderManager {
     }
 
     private static void setMarkerView(LineChart chart, Context context) {
-        ChartMarkerModel marker = new ChartMarkerModel(context, R.layout.marker_rssi);
+        ChartMarkerModel marker = new ChartMarkerModel(context, R.layout.marker_view);
         marker.setChartView(chart);
         chart.setMarker(marker);
     }

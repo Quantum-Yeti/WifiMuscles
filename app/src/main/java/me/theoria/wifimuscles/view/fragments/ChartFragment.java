@@ -15,9 +15,9 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import me.theoria.wifimuscles.data.managers.LineChartManager;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
-import me.theoria.wifimuscles.data.managers.ChartManager;
-import me.theoria.wifimuscles.data.managers.ChartBuilderManager;
+import me.theoria.wifimuscles.data.builders.LineChartBuilder;
 import me.theoria.wifimuscles.data.managers.SignalProcessManager;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
@@ -46,7 +46,7 @@ public class ChartFragment extends Fragment {
         dataUIViewModel = new ViewModelProvider(this).get(DataUIViewModel.class);
 
         // Initialize chart UI elements
-        initChartUI(binding);
+        initLineChartUI(binding);
 
         // Setup chart
         setupMainChart();
@@ -58,7 +58,7 @@ public class ChartFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void initChartUI(FragmentChartBinding binding) {
+    private void initLineChartUI(FragmentChartBinding binding) {
         chart = binding.lineChart;
         rssiTextView = binding.rssiTextView;
         //rssiEmojiView = binding.rssiEmoji;
@@ -71,7 +71,7 @@ public class ChartFragment extends Fragment {
     }
 
     private void setupMainChart() {
-        ChartBuilderManager.ChartSetupResult chartResults = ChartBuilderManager.setupChartConfig(chart, requireContext());
+        LineChartBuilder.ChartSetupResult chartResults = LineChartBuilder.setupChartConfig(chart, requireContext());
 
         primaryLineDataSet = chartResults.primaryDataSet;
         excellentSet = chartResults.excellentSet;
@@ -90,11 +90,11 @@ public class ChartFragment extends Fragment {
             if (signals == null) return;
 
             // Update chart only
-            ChartManager chartManager = new ChartManager(
+            LineChartManager lineChartManager = new LineChartManager(
                     new SignalProcessManager(),
                     null // UI updates handled by the ViewModel
             );
-            chartManager.updateChart(
+            lineChartManager.updateLineChart(
                     signals,
                     chart,
                     primaryLineDataSet,

@@ -1,6 +1,7 @@
 package me.theoria.wifimuscles.data.model;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
@@ -13,6 +14,11 @@ import me.theoria.wifimuscles.R;
 public class ChartMarkerModel extends MarkerView {
 
     private final TextView markerContent;
+
+    public ChartMarkerModel(Context context, AttributeSet attrs) {
+        super(context, R.layout.marker_view);
+        markerContent = findViewById(R.id.markerContent);
+    }
 
     public ChartMarkerModel(Context context, int layoutResource) {
         super(context, layoutResource);
