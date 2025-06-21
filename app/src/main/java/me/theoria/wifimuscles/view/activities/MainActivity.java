@@ -22,6 +22,7 @@ import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
 import me.theoria.wifimuscles.view.fragments.DonateFragment;
 import me.theoria.wifimuscles.view.fragments.HomeFragment;
+import me.theoria.wifimuscles.view.fragments.StatsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,28 +48,31 @@ public class MainActivity extends AppCompatActivity {
          */
 
         // Fragment declaration
-        Fragment homeFragment = new HomeFragment();
-        Fragment comboWifiFragment = new ChartFragment();
-        Fragment secondChartFragment = new BarChartFragment();
+        //Fragment homeFragment = new HomeFragment();
+        Fragment mainFragment = new ChartFragment();
+        Fragment barChartFragment = new BarChartFragment();
         Fragment donateFragment = new DonateFragment();
+        Fragment statsFragment = new StatsFragment();
 
         // Set current fragment from setCurrentFragment
-        setCurrentFragment(comboWifiFragment);
+        setCurrentFragment(mainFragment);
         // Initialize bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         // Bottom navigation logic
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.comboChart) {
-                setCurrentFragment(comboWifiFragment);
-            } else if (itemId == R.id.radarChart) {
-                setCurrentFragment(secondChartFragment);
+            if (itemId == R.id.mainChart) {
+                setCurrentFragment(mainFragment);
+            } else if (itemId == R.id.barChart) {
+                setCurrentFragment(barChartFragment);
             } else if (itemId == R.id.donate) {
                 findViewById(R.id.donate).setOnClickListener(v -> {
                     String paypalDonationUrl = "https://www.paypal.com/ncp/payment/T62DKS2TW4GRN";
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalDonationUrl));
                     startActivity(browserIntent);
                 });
+            } else if (itemId == R.id.stats) {
+                setCurrentFragment(statsFragment);
             }
             return true;
         });

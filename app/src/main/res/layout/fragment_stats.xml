@@ -43,30 +43,8 @@
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Chart Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/chartCard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@android:color/transparent"
-        app:cardCornerRadius="14dp"
-        app:cardElevation="1dp"
-        app:layout_constraintTop_toBottomOf="@id/titleSection"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.4">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/gradient_chart_card" />
-    </androidx.cardview.widget.CardView>
-
-    <!-- Single Card with All Info -->
+    <!-- Info Card (no chart) -->
     <androidx.cardview.widget.CardView
         android:id="@+id/infoCard"
         android:layout_width="0dp"
@@ -77,7 +55,7 @@
         app:cardCornerRadius="16dp"
         app:cardElevation="0.5dp"
         android:foreground="?attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@id/chartCard"
+        app:layout_constraintTop_toBottomOf="@id/titleSection"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -91,7 +69,7 @@
             android:showDividers="middle"
             android:dividerPadding="12dp">
 
-            <!-- Card Title with Right-Aligned Icon -->
+            <!-- Card Title with Icon -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,11 +92,14 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:src="@drawable/emoji_mood_very_satisfied_24"
-                    android:contentDescription="@string/rssi_emoji_txt"
-                    android:layout_marginStart="8dp" />
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@string/rssi_emoji_txt" />
             </LinearLayout>
 
-            <!-- SSID + RSSI -->
+            <!-- Add your SSID, RSSI, Frequency, etc. as in original -->
+            <!-- Reuse everything from SSID to RX/Max Speed blocks -->
+
+            <!-- Example: SSID + RSSI Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -306,5 +287,18 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/inDevelopment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Detailed Connection Stats In Development"
+        android:textColor="@color/whiteText"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="465dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

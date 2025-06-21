@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/comboChart"
+        android:id="@+id/mainChart"
         android:icon="@drawable/chart_icon__2_24"
         android:title="@string/combo_txt"
         />
     <item
-        android:id="@+id/radarChart"
+        android:id="@+id/barChart"
         android:icon="@drawable/radar_icon_24"
         android:title="@string/radar_txt"
         />
