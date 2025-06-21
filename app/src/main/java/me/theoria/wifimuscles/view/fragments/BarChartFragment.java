@@ -27,7 +27,7 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 public class BarChartFragment extends Fragment {
 
     // Reference UI elements for displaying information
-    private TextView rssiTextView, ipTextView, frequencyTextView, bandwidthTextView, ssidTextView, macTextView;
+    private TextView rssiTextView, ipTextView, frequencyTextView, bandwidthTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
     private BarChart barChart;
 
     // Reference to ViewModels
@@ -84,6 +84,8 @@ public class BarChartFragment extends Fragment {
         bandwidthTextView = root.findViewById(R.id.bandBox);
         ssidTextView = root.findViewById(R.id.ssidBox);
         macTextView = root.findViewById(R.id.macBox);
+        rxTextView = root.findViewById(R.id.rxSpeedBox);
+        maxLinkSpeedTextView = root.findViewById(R.id.maxSpeedBox);
     }
 
     /**
@@ -100,6 +102,8 @@ public class BarChartFragment extends Fragment {
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bandwidthTextView::setText);
         dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssidTextView::setText);
         dataUIViewModel.getMac().observe(getViewLifecycleOwner(), macTextView::setText);
+        dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rxTextView::setText);
+        dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), maxLinkSpeedTextView::setText);
     }
 
     /**

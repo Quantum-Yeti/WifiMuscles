@@ -31,16 +31,17 @@
     <string name="band_icon">Band Icon</string>
     <string name="ip_address">IP Address</string>
     <string name="ssid">SSID</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mac">MAC</string>
     <string name="tx">tx</string>
     <string name="rx">rx</string>
     <string name="max_speed">Max Speed</string>
     <string name="link_speed">Link Speed</string>
     <string name="dns">DNS</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="connection_info">Connection Info</string>
 
 
 </resources>

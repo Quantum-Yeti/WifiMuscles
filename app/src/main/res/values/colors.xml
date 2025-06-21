@@ -3,7 +3,7 @@
     <!-- Backgrounds -->
     <color name="bg_dark">#121B27</color>               <!-- Dark navy-black base -->
     <color name="bg_primary">#0D1117</color>            <!-- Almost black -->
-    <color name="bg_app_primary">#181F2A</color>
+    <color name="bg_app_primary">#1C1C1E</color>
 
     <!-- Text -->
     <color name="blackText">#3e4448</color>
@@ -13,7 +13,7 @@
     <color name="text_disabled">#4B5666</color>          <!-- Dimmed text -->
 
     <!-- Cards -->
-    <color name="card_background_one">#1e1e1e</color>
+    <color name="card_background_one">#2C2C2E</color>
     <color name="chart_card_background">#242526</color>
     <color name="card_background">#212936</color>        <!-- Deep slate -->
     <color name="card_elevation_shadow">#0A182B</color>  <!-- Shadow for card elevation -->
@@ -28,6 +28,7 @@
     <color name="accent_brown_two">#b38c56</color>
     <color name="accent_brown_three">#86613e</color>
     <color name="accent_grey_orange">#9b968e</color>
+    <color name="accent_light_blue">#318dbd</color>
 
     <color name="accent_primary">#00BFA5</color>         <!-- Vibrant teal, for buttons, highlights -->
     <color name="accent_secondary">#1DE9B6</color>       <!-- Bright mint accent -->

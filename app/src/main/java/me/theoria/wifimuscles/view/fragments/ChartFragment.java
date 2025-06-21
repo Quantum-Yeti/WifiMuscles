@@ -61,7 +61,7 @@ public class ChartFragment extends Fragment {
     private void initLineChartUI(FragmentChartBinding binding) {
         chart = binding.lineChart;
         rssiTextView = binding.rssiTextView;
-        //rssiEmojiView = binding.rssiEmoji;
+        rssiEmojiView = binding.rssiEmoji;
         frequencyTextView = binding.frequencyBox;
         bandwidthTextView = binding.bandBox;
         ipTextView = binding.ipBox;
@@ -114,7 +114,7 @@ public class ChartFragment extends Fragment {
 
     private void observeSignalUI() {
         dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), text -> rssiTextView.setText(text));
-        //dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> rssiEmojiView.setImageResource(resId));
+        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> rssiEmojiView.setImageResource(resId));
         dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> ipTextView.setText(ip));
         dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), freq -> frequencyTextView.setText(freq));
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> bandwidthTextView.setText(bw));

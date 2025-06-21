@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_app_primary">
+    android:background="@color/bg_app_primary"
+    android:fitsSystemWindows="true">
 
     <!-- Title Section -->
     <LinearLayout
@@ -19,7 +19,8 @@
         android:backgroundTint="@color/bg_app_primary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/titleIcon"
@@ -62,46 +63,73 @@
             android:background="@drawable/gradient_chart_card" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Cards container -->
-    <LinearLayout
-        android:id="@+id/cardsContainer"
+    <!-- Single Card with All Info -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/infoCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="16dp"
+        android:backgroundTint="@color/card_background_one"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0.5dp"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintTop_toBottomOf="@id/chartCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
-            android:backgroundTint="@color/card_background_one"
-            android:foreground="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="12dp"
+            android:showDividers="middle"
+            android:dividerPadding="12dp">
 
+            <!-- Card Title with Right-Aligned Icon -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                tools:ignore="UseCompoundDrawables">
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/infoCardTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/connection_info"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <ImageView
+                    android:id="@+id/rssiEmoji"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/emoji_mood_very_satisfied_24"
+                    android:contentDescription="@string/rssi_emoji_txt"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- SSID + RSSI -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/ssid_icon_24"
-                    app:tint="@color/whiteText"
-                    android:contentDescription="@string/ssid"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp"
+                    app:tint="@color/accent_light_blue"
+                    android:contentDescription="@string/ssid" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -118,8 +146,8 @@
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
                     <TextView
                         android:id="@+id/rssiTextView"
@@ -129,39 +157,26 @@
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
-            android:backgroundTint="@color/card_background_one"
-            android:foreground="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true">
-
+            <!-- Frequency + Band -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                tools:ignore="UseCompoundDrawables">
+                android:layout_marginBottom="12dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/function_icon_24"
-                    app:tint="@color/whiteText"
-                    android:contentDescription="@string/band_icon"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp"
+                    app:tint="@color/bg_accent_second"
+                    android:contentDescription="@string/band_icon" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -178,8 +193,8 @@
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
                     <TextView
                         android:id="@+id/bandBox"
@@ -189,39 +204,26 @@
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
-            android:backgroundTint="@color/card_background_one"
-            android:foreground="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true">
-
+            <!-- IP + MAC -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                tools:ignore="UseCompoundDrawables">
+                android:layout_marginBottom="12dp">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/dns_icon_24"
-                    app:tint="@color/whiteText"
-                    android:contentDescription="@string/dns"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp"
+                    app:tint="@color/accent_primary"
+                    android:contentDescription="@string/dns" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -238,8 +240,8 @@
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
                     <TextView
                         android:id="@+id/macBox"
@@ -249,39 +251,25 @@
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
-            android:backgroundTint="@color/card_background_one"
-            android:foreground="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true">
-
+            <!-- RX + Max Speed -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
-                tools:ignore="UseCompoundDrawables">
+                android:gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:src="@drawable/baseline_rocket_launch_24"
-                    app:tint="@color/whiteText"
-                    android:contentDescription="@string/ssid"
-                    android:layout_marginEnd="20dp" />
+                    android:layout_marginEnd="20dp"
+                    app:tint="@color/accent_orange"
+                    android:contentDescription="@string/ssid" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -298,8 +286,8 @@
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
 
                     <TextView
                         android:id="@+id/maxSpeedBox"
@@ -309,11 +297,11 @@
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:ellipsize="end" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
