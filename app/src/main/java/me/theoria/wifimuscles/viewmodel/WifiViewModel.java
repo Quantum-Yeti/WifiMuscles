@@ -39,7 +39,6 @@ public class WifiViewModel extends AndroidViewModel {
                 long timestamp = System.currentTimeMillis();
                 int frequency = info.getFrequency();
                 int ip = info.getIpAddress();
-                //String bssid = info.getBSSID();
                 int networkID = info.getNetworkId();
                 String ssid = info.getSSID();
                 int linkSpeed = info.getLinkSpeed();
