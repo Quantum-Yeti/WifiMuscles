@@ -38,6 +38,8 @@
     <string name="mac">MAC</string>
     <string name="tx">tx</string>
     <string name="rx">rx</string>
+    <string name="max_speed">Max Speed</string>
+    <string name="link_speed">Link Speed</string>
 
 
 </resources>

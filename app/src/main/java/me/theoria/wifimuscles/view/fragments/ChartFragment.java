@@ -27,7 +27,7 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
  */
 public class ChartFragment extends Fragment {
 
-    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView;
+    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
     private ImageView rssiEmojiView;
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
@@ -68,6 +68,7 @@ public class ChartFragment extends Fragment {
         ssidTextView = binding.ssidBox;
         macTextView = binding.macBox;
         rxTextView = binding.rxSpeedBox;
+        maxLinkSpeedTextView = binding.maxSpeedBox;
     }
 
     private void setupMainChart() {
@@ -120,5 +121,6 @@ public class ChartFragment extends Fragment {
         dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssid -> ssidTextView.setText(ssid));
         dataUIViewModel.getMac().observe(getViewLifecycleOwner(), mac -> macTextView.setText(mac));
         dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rx -> rxTextView.setText(rx));
+        dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), max -> maxLinkSpeedTextView.setText(max));
     }
 }

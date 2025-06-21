@@ -4,11 +4,13 @@ package me.theoria.wifimuscles.viewmodel;
 import android.app.Application;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -27,6 +29,7 @@ public class WifiViewModel extends AndroidViewModel {
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     private final Runnable fetchRssi = new Runnable() {
+        @RequiresApi(api = Build.VERSION_CODES.R)
         @Override
         public void run() {
             WifiInfo info = wifiManager.getConnectionInfo();
@@ -40,6 +43,8 @@ public class WifiViewModel extends AndroidViewModel {
                 int networkID = info.getNetworkId();
                 String ssid = info.getSSID();
                 int linkSpeed = info.getLinkSpeed();
+                int maxLinkSpeed = info.getMaxSupportedRxLinkSpeedMbps();
+
                 String mac = info.getMacAddress();
 
                 signalList.add(new WifiSignalModel(
@@ -51,6 +56,7 @@ public class WifiViewModel extends AndroidViewModel {
                         networkID,
                         ssid,
                         linkSpeed,
+                        maxLinkSpeed,
                         mac));
                 if (signalList.size() > 30) {
                     signalList.remove(0);

@@ -294,7 +294,7 @@
                         android:id="@+id/rxSpeedBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/rx"
+                        android:text="@string/link_speed"
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -302,10 +302,10 @@
                         android:maxLines="1" />
 
                     <TextView
-                        android:id="@+id/txSpeedBox"
+                        android:id="@+id/maxSpeedBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tx"
+                        android:text="@string/max_speed"
                         android:textColor="@color/whiteText"
                         android:textSize="16sp"
                         android:textStyle="bold"

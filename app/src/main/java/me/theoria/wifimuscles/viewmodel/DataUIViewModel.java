@@ -20,6 +20,7 @@ public class DataUIViewModel extends ViewModel {
     private final MutableLiveData<String> bandwidthText = new MutableLiveData<>();
     private final MutableLiveData<String> ssidText = new MutableLiveData<>();
     private final MutableLiveData<String> linkSpeed = new MutableLiveData<>();
+    private final MutableLiveData<String> maxLinkSpeed = new MutableLiveData<String>();
     private final MutableLiveData<Integer> ip = new MutableLiveData<>();
     private final MutableLiveData<String> mac = new MutableLiveData<>();
 
@@ -33,6 +34,7 @@ public class DataUIViewModel extends ViewModel {
     public LiveData<String> getBandwidthText() { return bandwidthText; }
     public LiveData<String> getSSIDText() { return ssidText; }
     public LiveData<String> getLinkSpeed() { return linkSpeed; }
+    public LiveData<String> getMaxLinkSpeed() { return maxLinkSpeed; }
     public LiveData<Integer> getIPText() { return ip; }
     public LiveData<String> getMac() { return mac; }
 
@@ -59,6 +61,7 @@ public class DataUIViewModel extends ViewModel {
         ssidText.setValue("SSID: " + signal.getSSIDText());
         mac.setValue(signal.getMac());
         linkSpeed.setValue(signal.getLinkSpeed() + " Mbps");
+        maxLinkSpeed.setValue(signal.getMaxLinkSpeed() + " Mbps");
     }
 
     private void updateFrequency(int frequency) {

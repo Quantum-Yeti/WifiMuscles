@@ -28,6 +28,7 @@ public class WifiSignalModel {
 
     // Speed of the connection in Mbps.
     private final int linkSpeed;
+    private final int maxLinkSpeed;
 
     // MAC address of the access point.
     private final String mac;
@@ -45,7 +46,7 @@ public class WifiSignalModel {
      * @param linkSpeed
      * @param mac
      */
-    public WifiSignalModel(long timestamp, int rssi, int signalLevel, int frequency, int ip, int networkID, String ssid, int linkSpeed, String mac) {
+    public WifiSignalModel(long timestamp, int rssi, int signalLevel, int frequency, int ip, int networkID, String ssid, int linkSpeed, int maxLinkSpeed, String mac) {
         this.timestamp = timestamp;
         this.rssi = rssi;
         this.signalLevel = signalLevel;
@@ -54,6 +55,7 @@ public class WifiSignalModel {
         this.networkID = networkID;
         this.ssid = ssid;
         this.linkSpeed = linkSpeed;
+        this.maxLinkSpeed = maxLinkSpeed;
         this.mac = mac;
     }
 
@@ -79,6 +81,8 @@ public class WifiSignalModel {
     public String getSSIDText() { return ssid; }
 
     public int getLinkSpeed() { return linkSpeed; }
+
+    public int getMaxLinkSpeed() { return maxLinkSpeed; }
 
     public String getMac() { return mac; }
 }
