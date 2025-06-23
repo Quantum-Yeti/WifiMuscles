@@ -41,7 +41,7 @@ public class SignalProcessManager {
 
             // Process each signal and map it to its appropriate level
             RSSILevelModel rssiLevelModel = RSSILevelModel.mapRssi(rssiFloat);
-            int signalLevel = RSSIUtils.mapRssiToLevels(rssi);
+            int signalLevel = RSSIUtils.returnRssiSignal(rssi);
 
             // Add entry to the appropriate dataset
             addEntryToDataSets(i, signalLevel, rssiLevelModel, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);

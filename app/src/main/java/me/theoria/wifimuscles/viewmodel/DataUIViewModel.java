@@ -23,6 +23,7 @@ public class DataUIViewModel extends ViewModel {
     private final MutableLiveData<String> maxLinkSpeed = new MutableLiveData<String>();
     private final MutableLiveData<Integer> ip = new MutableLiveData<>();
     private final MutableLiveData<String> mac = new MutableLiveData<>();
+    private final MutableLiveData<Integer> toastLevelEvent = new MutableLiveData<>();
 
     private final IpToString ipConverter = new IpToString();
 
@@ -37,6 +38,7 @@ public class DataUIViewModel extends ViewModel {
     public LiveData<String> getMaxLinkSpeed() { return maxLinkSpeed; }
     public LiveData<Integer> getIPText() { return ip; }
     public LiveData<String> getMac() { return mac; }
+    public LiveData<Integer> getToastLevelEvent() { return toastLevelEvent; }
 
     /**
      * Update the LiveData properties based on the latest signal model in the list.
@@ -54,6 +56,13 @@ public class DataUIViewModel extends ViewModel {
     private void updateRssi(int rssi) {
         rssiText.setValue("RSSI: " + rssi + " dBm");
         rssiEmoji.setValue(RSSIUtils.getRssiEmoji(rssi));
+
+        int level = RSSIUtils.convertRssiToLevel(rssi);
+        triggerToastLevelEvent(level);
+    }
+
+    public void triggerToastLevelEvent(int level) {
+        toastLevelEvent.setValue(level);
     }
 
     private void updateNetworkDetails(WifiSignalModel signal) {
@@ -68,4 +77,5 @@ public class DataUIViewModel extends ViewModel {
         frequencyText.setValue(frequency + " MHz");
         bandwidthText.setValue(FrequencyUtils.fqToGhz(frequency));
     }
+
 }

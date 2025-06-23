@@ -18,6 +18,7 @@ import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.builders.BarChartBuilder;
 import me.theoria.wifimuscles.data.managers.BarChartManager;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
+import me.theoria.wifimuscles.utils.ToastUtils;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
@@ -106,6 +107,13 @@ public class BarChartFragment extends Fragment {
         dataUIViewModel.getMac().observe(getViewLifecycleOwner(), macTextView::setText);
         dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rxTextView::setText);
         dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), maxLinkSpeedTextView::setText);
+
+        // Toast message for extender when level 3 or less.
+        dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
+            if (level == 3 || level == 2 || level == 1) {
+                ToastUtils.showToastForExtender(requireContext(), level);
+            }
+        });
     }
 
     /**

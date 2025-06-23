@@ -20,6 +20,7 @@ import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
 import me.theoria.wifimuscles.data.builders.LineChartBuilder;
 import me.theoria.wifimuscles.data.managers.SignalProcessManager;
+import me.theoria.wifimuscles.utils.ToastUtils;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
@@ -157,6 +158,19 @@ public class ChartFragment extends Fragment {
         dataUIViewModel.getMac().observe(getViewLifecycleOwner(), mac -> macTextView.setText(mac));
         dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rx -> rxTextView.setText(rx));
         dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), max -> maxLinkSpeedTextView.setText(max));
+
+        // Toast message for extender when level 3 or less.
+        dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
+            if (level == 3 || level == 2 || level == 1) {
+                ToastUtils.showToastForExtender(requireContext(), level);
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        wifiViewModel.startUpdates();
     }
 
     @Override
@@ -165,9 +179,4 @@ public class ChartFragment extends Fragment {
         wifiViewModel.stopUpdates();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        wifiViewModel.startUpdates();
-    }
 }

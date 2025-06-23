@@ -10,13 +10,12 @@ import me.theoria.wifimuscles.R;
 public class RSSIUtils {
 
     /**
-     * Maps an RSSI integer value to a threshold value.
-     * TODO: Extend rssi to a 1-5 scale.
+     * Returns RSSI for charts.
      *
      * @param rssi
      * @return
      */
-    public static Integer mapRssiToLevels(int rssi) {
+    public static int returnRssiSignal(int rssi) {
         // TODO: Create logic to map RSSI to 1-5 scale.
         return rssi;
     }
@@ -43,4 +42,19 @@ public class RSSIUtils {
             return R.drawable.emoji_dissatisfied;
         } else return R.drawable.emoji_bad;
     }
+
+    public static int convertRssiToLevel(int rssi) {
+        if (rssi >= -50) {
+            return 5;
+        } else if (rssi >= -60) {
+            return 4;
+        } else if (rssi >= -70) {
+            return 3;
+        } else if (rssi >= -80) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
 }

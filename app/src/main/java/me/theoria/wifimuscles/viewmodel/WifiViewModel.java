@@ -7,10 +7,8 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -27,7 +25,7 @@ public class WifiViewModel extends AndroidViewModel {
     private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
     private final List<WifiSignalModel> signalList = new ArrayList<>();
 
-    private WifiManager wifiManager;
+    private final WifiManager wifiManager;
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     private final Runnable fetchRssi = new Runnable() {
@@ -44,7 +42,7 @@ public class WifiViewModel extends AndroidViewModel {
                 WifiSignalModel signal = new WifiSignalModel(
                         System.currentTimeMillis(),
                         info.getRssi(),
-                        RSSIUtils.mapRssiToLevels(info.getRssi()),
+                        RSSIUtils.returnRssiSignal(info.getRssi()),
                         info.getFrequency(),
                         info.getIpAddress(),
                         info.getNetworkId(),

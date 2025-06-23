@@ -36,11 +36,11 @@ public class ToastUtils {
      * @param context
      * @param level
      */
-    public static void showToastForLevel(Context context, int level) {
+    public static void showToastForExtender(Context context, int level) {
         String message = "";
         switch (level) {
             case 5:
-                message = "Excellent coverage!";
+                message = "Excellent and ideal coverage!";
                 break;
             case 4:
                 message = "Good coverage!";
