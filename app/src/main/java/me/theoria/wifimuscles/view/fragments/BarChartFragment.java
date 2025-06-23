@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,7 @@ public class BarChartFragment extends Fragment {
 
     // Reference UI elements for displaying information
     private TextView rssiTextView, ipTextView, frequencyTextView, bandwidthTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
+    private ImageView rssiEmojiView;
     private BarChart barChart;
 
     // Reference to ViewModels
@@ -80,6 +82,7 @@ public class BarChartFragment extends Fragment {
     private void bindViews(View root) {
         barChart = root.findViewById(R.id.barChart);
         rssiTextView = root.findViewById(R.id.rssiTextView);
+        rssiEmojiView = root.findViewById(R.id.rssiEmoji);
         ipTextView = root.findViewById(R.id.ipBox);
         frequencyTextView = root.findViewById(R.id.frequencyBox);
         bandwidthTextView = root.findViewById(R.id.bandBox);
@@ -98,6 +101,7 @@ public class BarChartFragment extends Fragment {
 
         // Observes additional Wifi data
         dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), rssiTextView::setText);
+        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), rssiEmojiView::setImageResource);
         dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ipTextView::setText);
         dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), frequencyTextView::setText);
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bandwidthTextView::setText);
@@ -122,9 +126,11 @@ public class BarChartFragment extends Fragment {
     private void updateChart(List<WifiSignalModel> signals) {
         if (signals == null || signals.isEmpty()) return;
 
-        // Displays the latest RSSI data as it updates in a TextView
+        // Retrieve and store the latest item.
         WifiSignalModel latest = signals.get(signals.size() - 1);
-        rssiTextView.setText("RSSI: " + latest.getRssi() + " dBm");
+
+        // Displays the latest RSSI data as it updates in a TextView
+        rssiTextView.setText(getString(R.string.rssi_display, latest.getRssi()));
 
         // Delegates chart update to the manager.
         chartManager.updateBarChart(signals, barChart, barDataSet);
