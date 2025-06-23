@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import me.theoria.wifimuscles.data.managers.LineChartManager;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
 import me.theoria.wifimuscles.data.builders.LineChartBuilder;
 import me.theoria.wifimuscles.data.managers.SignalProcessManager;
@@ -37,6 +38,20 @@ public class ChartFragment extends Fragment {
     private DataUIViewModel dataUIViewModel;
     private WifiViewModel wifiViewModel;
 
+    /**
+     * Method to inflate the fragment, observe live data within the UI, initialize
+     * the ViewModels, and outputs the line chart.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentChartBinding binding = FragmentChartBinding.inflate(inflater, container, false);
@@ -51,6 +66,7 @@ public class ChartFragment extends Fragment {
         // Setup chart
         setupMainChart();
 
+
         // Observe LiveData from both ViewModels
         observeSignalData();
         observeSignalUI();
@@ -58,6 +74,11 @@ public class ChartFragment extends Fragment {
         return binding.getRoot();
     }
 
+    /**
+     * Method that initializes the view bindings
+     *
+     * @param binding
+     */
     private void initLineChartUI(FragmentChartBinding binding) {
         chart = binding.lineChart;
         rssiTextView = binding.rssiTextView;
@@ -71,6 +92,10 @@ public class ChartFragment extends Fragment {
         maxLinkSpeedTextView = binding.maxSpeedBox;
     }
 
+    /**
+     * Method to setup the Main line chart displayed in the fragment.
+     *
+     */
     private void setupMainChart() {
         LineChartBuilder.ChartSetupResult chartResults = LineChartBuilder.setupChartConfig(chart, requireContext());
 
@@ -86,6 +111,11 @@ public class ChartFragment extends Fragment {
         chart.invalidate();
     }
 
+    /**
+     * This method provides the data from the wifiViewModel as an observable which returns
+     * the signal dataset to the line chart.
+     *
+     */
     private void observeSignalData() {
         wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
             if (signals == null) return;
@@ -112,6 +142,11 @@ public class ChartFragment extends Fragment {
         });
     }
 
+    /**
+     * This private method observes real-time data being passed from the dataUIViewModel and
+     * helps bind the various UI elements to their respective data source.
+     *
+     */
     private void observeSignalUI() {
         dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), text -> rssiTextView.setText(text));
         dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> rssiEmojiView.setImageResource(resId));
@@ -122,5 +157,17 @@ public class ChartFragment extends Fragment {
         dataUIViewModel.getMac().observe(getViewLifecycleOwner(), mac -> macTextView.setText(mac));
         dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rx -> rxTextView.setText(rx));
         dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), max -> maxLinkSpeedTextView.setText(max));
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        wifiViewModel.stopUpdates();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        wifiViewModel.startUpdates();
     }
 }

@@ -62,6 +62,8 @@ public class BarChartFragment extends Fragment {
                 .get(WifiViewModel.class);
         dataUIViewModel = new ViewModelProvider(this).get(DataUIViewModel.class);
 
+        wifiViewModel.startUpdates();
+
         // Sets up barchart appearance and the dataset.
         barDataSet = BarChartBuilder.setupBarChart(barChart, requireContext());
         chartManager = new BarChartManager(dataUIViewModel);
@@ -120,5 +122,17 @@ public class BarChartFragment extends Fragment {
 
         // Delegates chart update to the manager.
         chartManager.updateBarChart(signals, barChart, barDataSet);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        wifiViewModel.stopUpdates();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        wifiViewModel.startUpdates();
     }
 }

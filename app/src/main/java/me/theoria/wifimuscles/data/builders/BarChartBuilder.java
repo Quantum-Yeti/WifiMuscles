@@ -59,7 +59,7 @@ public class BarChartBuilder {
 
         // Creates empty dataset to pass values
         BarDataSet dataSet = new BarDataSet(new ArrayList<>(), null);
-        dataSet.setColor(ContextCompat.getColor(context, R.color.accent_pink));
+        dataSet.setColor(ContextCompat.getColor(context, R.color.accent_light_blue));
         dataSet.setValueTextColor(ContextCompat.getColor(context, R.color.blackText));
         dataSet.setValueTextSize(12f);
         dataSet.setValueTypeface(Typeface.defaultFromStyle(Typeface.BOLD));

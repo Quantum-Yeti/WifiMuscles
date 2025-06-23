@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_app_primary"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".view.fragments.StatsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titleSection"
@@ -14,18 +15,18 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/bg_app_primary"
-        android:padding="16dp"
+        android:padding="12dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/titleIcon"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginEnd="12dp"
-            android:src="@mipmap/ic_launcher"
-            android:contentDescription="@string/wifi_icon"
+            android:src="@drawable/menu_icon_24"
+            android:contentDescription="@string/menu_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -35,9 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/text_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -49,7 +50,7 @@
         android:id="@+id/infoCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginHorizontal="16dp"
         android:backgroundTint="@color/card_background_one"
         app:cardCornerRadius="16dp"
@@ -64,7 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="20dp"
-            android:paddingTop="20dp"
+            android:paddingTop="10dp"
             android:paddingBottom="12dp"
             android:showDividers="middle"
             android:dividerPadding="12dp">
@@ -75,7 +76,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <TextView
                     android:id="@+id/infoCardTitle"
@@ -299,6 +301,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         tools:layout_editor_absoluteX="45dp"
-        tools:layout_editor_absoluteY="465dp" />
+        tools:layout_editor_absoluteY="465dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

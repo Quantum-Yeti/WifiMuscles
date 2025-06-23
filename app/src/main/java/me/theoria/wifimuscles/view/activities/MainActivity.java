@@ -1,10 +1,13 @@
 package me.theoria.wifimuscles.view.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -18,6 +21,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import me.theoria.wifimuscles.R;
+import me.theoria.wifimuscles.data.managers.AdManager;
+import me.theoria.wifimuscles.data.managers.NavigationManager;
 import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
 import me.theoria.wifimuscles.view.fragments.DonateFragment;
@@ -26,67 +31,35 @@ import me.theoria.wifimuscles.view.fragments.StatsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                        this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Location + Wifi Permission Check
+        checkLocationPermission();
+        checkWifiEnabled();
 
-        /**
-         * Navigation methods for setting the current fragment, movement between fragments and
-         * initializing them on the MainActivity.
-         * TODO: Move into NavigationComponent
-         */
 
         // Fragment declaration
-        //Fragment homeFragment = new HomeFragment();
         Fragment mainFragment = new ChartFragment();
-        Fragment barChartFragment = new BarChartFragment();
-        Fragment donateFragment = new DonateFragment();
-        Fragment statsFragment = new StatsFragment();
 
-        // Set current fragment from setCurrentFragment
+
+        // Set current fragment from setCurrentFragment helper
         setCurrentFragment(mainFragment);
-        // Initialize bottom navigation
+
+        // Initialize navigation from NavigationManager
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        // Bottom navigation logic
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.mainChart) {
-                setCurrentFragment(mainFragment);
-            } else if (itemId == R.id.barChart) {
-                setCurrentFragment(barChartFragment);
-            } else if (itemId == R.id.donate) {
-                findViewById(R.id.donate).setOnClickListener(v -> {
-                    String paypalDonationUrl = "https://www.paypal.com/ncp/payment/T62DKS2TW4GRN";
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalDonationUrl));
-                    startActivity(browserIntent);
-                });
-            } else if (itemId == R.id.stats) {
-                setCurrentFragment(statsFragment);
-            }
-            return true;
-        });
+        NavigationManager navigationManager = new NavigationManager(this, getSupportFragmentManager());
+        navigationManager.setupNavigation(bottomNavigationView, R.id.fragment_container);
 
-        /**
-         * Implement and initialize Google AdMob
-         */
-        // Initialize Mobile Ads SDK
-        MobileAds.initialize(this, initializationStatus -> {});
-
-        // Reference AdView and load ad
+        // Initialize Google AdView
         AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        AdManager.initAds(this, mAdView);
+
     }
 
     /**
@@ -100,6 +73,24 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+    }
+
+    private void checkWifiEnabled() {
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager != null && !wifiManager.isWifiEnabled()) {
+            Toast.makeText(this, "Wi-Fi is required. Please enable Wi-Fi.", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+        }
+    }
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        }
     }
 }
 

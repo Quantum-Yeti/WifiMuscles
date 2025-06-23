@@ -127,7 +127,7 @@ public class LineChartBuilder {
         dataSet.setDrawValues(false);
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSet.setCubicIntensity(0.3f);
-        dataSet.setColor(context.getColor(R.color.bg_accent));
+        dataSet.setColor(context.getColor(R.color.accent_light_blue));
         dataSet.setLineWidth(4f);
         dataSet.setDrawFilled(false);
         dataSet.setDrawCircleHole(true);

@@ -59,9 +59,9 @@ public class DataUIViewModel extends ViewModel {
     private void updateNetworkDetails(WifiSignalModel signal) {
         ipText.setValue(ipConverter.IntIPToString(signal.getIP()));
         ssidText.setValue("SSID: " + signal.getSSIDText());
-        mac.setValue(signal.getMac());
-        linkSpeed.setValue(signal.getLinkSpeed() + " Mbps");
-        maxLinkSpeed.setValue(signal.getMaxLinkSpeed() + " Mbps");
+        mac.setValue("MAC: " +signal.getMac());
+        linkSpeed.setValue("Link Speed: " + signal.getLinkSpeed() + " Mbps");
+        maxLinkSpeed.setValue("Avg Max Speed: " +signal.getMaxLinkSpeed() + " Mbps");
     }
 
     private void updateFrequency(int frequency) {

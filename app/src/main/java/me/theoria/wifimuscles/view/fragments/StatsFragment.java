@@ -23,6 +23,9 @@ import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
+/**
+ * This fragment inflates the Stats fragment and provides observables for real-time data.
+ */
 public class StatsFragment extends Fragment {
 
     private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
@@ -35,6 +38,20 @@ public class StatsFragment extends Fragment {
     private DataUIViewModel dataUIViewModel;
     private WifiViewModel wifiViewModel;
 
+    /**
+     * Method to inflate the fragment, initialize the ViewModels, and initialize
+     * the return of the live data observables.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,6 +70,11 @@ public class StatsFragment extends Fragment {
 
     }
 
+    /**
+     * Method that binds the various UI components.
+     *
+     * @param root
+     */
     private void bindViews(View root) {
         rssiTextView = root.findViewById(R.id.rssiTextView);
         ipTextView = root.findViewById(R.id.ipBox);
@@ -64,6 +86,11 @@ public class StatsFragment extends Fragment {
         maxLinkSpeedTextView = root.findViewById(R.id.maxSpeedBox);
     }
 
+    /**
+     * Method to observe live data and help return the live data sets to their
+     * respective view binding.
+     *
+     */
     public void observeLiveData() {
         // Observes additional Wifi data
         dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), rssiTextView::setText);
@@ -88,8 +115,22 @@ public class StatsFragment extends Fragment {
 
         // Displays the latest RSSI data as it updates in a TextView
         WifiSignalModel latest = signals.get(signals.size() - 1);
-        rssiTextView.setText("RSSI: " + latest.getRssi() + " dBm");
 
+        // Sets rssi - not needed
+        //rssiTextView.setText("RSSI: " + latest.getRssi() + " dBm");
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        wifiViewModel.stopUpdates();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        wifiViewModel.startUpdates();
     }
 
 }

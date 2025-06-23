@@ -24,67 +24,77 @@ import java.util.List;
 public class WifiViewModel extends AndroidViewModel {
 
     private final MutableLiveData<List<WifiSignalModel>> rssiLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
     private final List<WifiSignalModel> signalList = new ArrayList<>();
-    private final WifiManager wifiManager;
+
+    private WifiManager wifiManager;
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     private final Runnable fetchRssi = new Runnable() {
-        @RequiresApi(api = Build.VERSION_CODES.R)
         @Override
         public void run() {
             WifiInfo info = wifiManager.getConnectionInfo();
             if (info != null) {
-                int rssi = info.getRssi();
-                int signalLevel = RSSIUtils.mapRssiToLevels(rssi);
-                long timestamp = System.currentTimeMillis();
-                int frequency = info.getFrequency();
-                int ip = info.getIpAddress();
-                int networkID = info.getNetworkId();
                 String ssid = info.getSSID();
-                int linkSpeed = info.getLinkSpeed();
-                int maxLinkSpeed = info.getMaxSupportedRxLinkSpeedMbps();
+                if (ssid == null || ssid.equals("<unknown ssid>")) {
+                    errorLiveData.postValue("Enable Location to access SSID");
+                    return;
+                }
 
-                String mac = info.getBSSID();
-
-                signalList.add(new WifiSignalModel(
-                        timestamp,
-                        rssi,
-                        signalLevel,
-                        frequency,
-                        ip,
-                        networkID,
+                WifiSignalModel signal = new WifiSignalModel(
+                        System.currentTimeMillis(),
+                        info.getRssi(),
+                        RSSIUtils.mapRssiToLevels(info.getRssi()),
+                        info.getFrequency(),
+                        info.getIpAddress(),
+                        info.getNetworkId(),
                         ssid,
-                        linkSpeed,
-                        maxLinkSpeed,
-                        mac));
-                if (signalList.size() > 30) {
+                        info.getLinkSpeed(),
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ?
+                                info.getMaxSupportedRxLinkSpeedMbps() :
+                                info.getLinkSpeed(),
+                        info.getBSSID()
+                );
+
+                if (signalList.size() >= 30) {
                     signalList.remove(0);
                 }
 
+                signalList.add(signal);
                 rssiLiveData.setValue(new ArrayList<>(signalList));
             }
-            handler.postDelayed(this, 2000); // ms to s
+            handler.postDelayed(this, 2000);
         }
     };
 
     public WifiViewModel(@NonNull Application application) {
         super(application);
         wifiManager = (WifiManager) application.getSystemService(Application.WIFI_SERVICE);
-
-        if (wifiManager != null && wifiManager.isWifiEnabled()) {
-            handler.post(fetchRssi);
-        } else {
-            Toast.makeText(application.getApplicationContext(), "Please enable Wi-Fi + Location", Toast.LENGTH_SHORT).show();
+        if (wifiManager == null || !wifiManager.isWifiEnabled()) {
+            errorLiveData.postValue("Please enable Wi-Fi and Location");
         }
+    }
+
+    public void startUpdates() {
+        handler.post(fetchRssi);
+    }
+
+    public void stopUpdates() {
+        handler.removeCallbacks(fetchRssi);
     }
 
     public LiveData<List<WifiSignalModel>> getRssiLiveData() {
         return rssiLiveData;
     }
 
+    public LiveData<String> getErrorLiveData() {
+        return errorLiveData;
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
-        handler.removeCallbacks(fetchRssi);
+        stopUpdates();
     }
 }
+

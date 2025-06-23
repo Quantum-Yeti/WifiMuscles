@@ -18,8 +18,8 @@
         <item name="android:fitsSystemWindows">true</item>
 
         <!-- Fonts -->
-        <item name="fontFamily">sans-serif</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontFamily">@font/theme_font_family</item>
+        <item name="android:fontFamily">@font/theme_font_family</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_disabled</item>
