@@ -38,9 +38,9 @@ public class RSSIUtils {
         } else if (rssi >= -50) {
             return R.drawable.emoji_mood_satisfied_24;
         } else if (rssi >= -70){
-            return R.drawable.emoji_mood_neutral_24;
+            return R.drawable.emoji_neutral;
         } else if (rssi >= -90) {
-            return R.drawable.emoji_mood_dissatisfied_24;
-        } else return R.drawable.emoji_mood_bad_24;
+            return R.drawable.emoji_dissatisfied;
+        } else return R.drawable.emoji_bad;
     }
 }

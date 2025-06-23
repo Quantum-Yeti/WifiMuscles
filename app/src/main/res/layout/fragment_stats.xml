@@ -25,7 +25,7 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginEnd="12dp"
-            android:src="@drawable/menu_icon_24"
+            android:src="@drawable/icon_menu_bold"
             android:contentDescription="@string/menu_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -112,7 +112,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ssid_icon_24"
+                    android:src="@drawable/icon_ssid"
                     android:layout_marginEnd="20dp"
                     app:tint="@color/accent_light_blue"
                     android:contentDescription="@string/ssid" />
@@ -159,7 +159,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/function_icon_24"
+                    android:src="@drawable/icon_function"
                     android:layout_marginEnd="20dp"
                     app:tint="@color/bg_accent_second"
                     android:contentDescription="@string/band_icon" />
@@ -206,7 +206,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/dns_icon_24"
+                    android:src="@drawable/icon_dns"
                     android:layout_marginEnd="20dp"
                     app:tint="@color/accent_primary"
                     android:contentDescription="@string/dns" />
@@ -252,7 +252,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/baseline_rocket_launch_24"
+                    android:src="@drawable/icon_rocket"
                     android:layout_marginEnd="20dp"
                     app:tint="@color/accent_orange"
                     android:contentDescription="@string/ssid" />

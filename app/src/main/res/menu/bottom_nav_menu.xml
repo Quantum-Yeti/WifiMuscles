@@ -5,27 +5,27 @@
 
     <item
         android:id="@+id/mainChart"
-        android:icon="@drawable/chart_icon__2_24"
+        android:icon="@drawable/icon_ssid"
         android:title="@string/combo_txt"
         />
     <item
         android:id="@+id/barChart"
-        android:icon="@drawable/radar_icon_24"
+        android:icon="@drawable/icon_bar_chart"
         android:title="@string/radar_txt"
         />
     <item
         android:id="@+id/donate"
-        android:icon="@drawable/coffee_donate_icon_24"
+        android:icon="@drawable/icon_coffee"
         android:title="@string/donate_txt"
         />
     <item
         android:id="@+id/stats"
-        android:icon="@drawable/stats_icon_24"
+        android:icon="@drawable/icon_stats"
         android:title="@string/stats_txt"
         />
     <item
         android:id="@+id/share"
-        android:icon="@drawable/share_icon_24"
+        android:icon="@drawable/icon_share"
         android:title="@string/share_txt"
 
         />
