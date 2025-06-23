@@ -46,6 +46,9 @@ public class NavigationManager {
             } else if (itemId == R.id.stats) {
                 setFragment(statsFragment, fragmentContainerId);
                 return true;
+            } else if (itemId == R.id.share) {
+                openShareLink();
+                return true;
             }
             return false;
         });
@@ -60,6 +63,12 @@ public class NavigationManager {
     private void openDonationLink() {
         String paypalDonationUrl = "https://www.paypal.com/ncp/payment/T62DKS2TW4GRN";
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalDonationUrl));
+        activity.startActivity(browserIntent);
+    }
+
+    private void openShareLink() {
+        String shareLinkUrl = "https://play.google.com/store/apps/details?id=me.theoria.wifimuscles";
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(shareLinkUrl));
         activity.startActivity(browserIntent);
     }
 

@@ -36,6 +36,7 @@ public class WifiViewModel extends AndroidViewModel {
                 String ssid = info.getSSID();
                 if (ssid == null || ssid.equals("<unknown ssid>")) {
                     errorLiveData.postValue("Enable Location to access SSID");
+                    handler.postDelayed(this, 2000);
                     return;
                 }
 
@@ -59,7 +60,7 @@ public class WifiViewModel extends AndroidViewModel {
                 }
 
                 signalList.add(signal);
-                rssiLiveData.setValue(new ArrayList<>(signalList));
+                rssiLiveData.postValue(new ArrayList<>(signalList));
             }
             handler.postDelayed(this, 2000);
         }
@@ -74,7 +75,8 @@ public class WifiViewModel extends AndroidViewModel {
     }
 
     public void startUpdates() {
-        handler.post(fetchRssi);
+        fetchRssi.run();
+        //handler.postDelayed(fetchRssi, 2000);
     }
 
     public void stopUpdates() {

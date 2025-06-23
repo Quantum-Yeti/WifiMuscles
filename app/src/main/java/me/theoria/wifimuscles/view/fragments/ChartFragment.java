@@ -72,8 +72,12 @@ public class ChartFragment extends Fragment {
         observeSignalData();
         observeSignalUI();
 
+        // Immediately start live data updates.
+        wifiViewModel.startUpdates();
+
         return binding.getRoot();
     }
+
 
     /**
      * Method that initializes the view bindings
