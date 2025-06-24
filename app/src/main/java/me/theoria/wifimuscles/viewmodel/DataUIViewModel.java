@@ -24,6 +24,7 @@ public class DataUIViewModel extends ViewModel {
     private final MutableLiveData<Integer> ip = new MutableLiveData<>();
     private final MutableLiveData<String> mac = new MutableLiveData<>();
     private final MutableLiveData<Integer> toastLevelEvent = new MutableLiveData<>();
+    private final MutableLiveData<Integer> bssid = new MutableLiveData<>();
 
     private final IpToString ipConverter = new IpToString();
 
@@ -39,6 +40,7 @@ public class DataUIViewModel extends ViewModel {
     public LiveData<Integer> getIPText() { return ip; }
     public LiveData<String> getMac() { return mac; }
     public LiveData<Integer> getToastLevelEvent() { return toastLevelEvent; }
+    public LiveData<Integer> getBssid() { return bssid; }
 
     /**
      * Update the LiveData properties based on the latest signal model in the list.

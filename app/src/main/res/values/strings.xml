@@ -5,8 +5,8 @@
     <string name="donate_txt">Donate</string>
     <string name="share_txt">Share</string>
     <string name="stats_txt">Stats</string>
-    <string name="radar_txt">Radar</string>
-    <string name="combo_txt">Combo</string>
+    <string name="bar_txt">Bar</string>
+    <string name="chart_txt">Chart</string>
 
     <!-- RSSI Level UI Labels -->
     <string name="wifi_strength">Wifi Strength</string>
@@ -31,6 +31,7 @@
     <string name="band_icon">Band Icon</string>
     <string name="ip_address">IP Address</string>
     <string name="ssid">SSID</string>
+
     <string name="mac">MAC</string>
     <string name="tx">tx</string>
     <string name="rx">rx</string>
@@ -40,6 +41,20 @@
     <string name="connection_info">Connection Info</string>
     <string name="menu_icon">menu_icon</string>
     <string name="rssi_display">RSSI: %1$d dBm</string>
+
+    <string name="strength_level">Strength Level</string>
+    <string name="capability">Capability: %1$d</string>
+    <string name="channel_width">Ch Width: %1$d</string>
+    <string name="width">Width %1$d</string>
+    <string name="center_freq_0">Freq 0: %1$d</string>
+    <string name="center_freq_1">Freq 1: %1$d</string>
+    <string name="passpoint">Passpoint: %1$d</string>
+    <string name="responder">802.11mc: %1$d</string>
+    <string name="network_stats">Network Stats</string>
+
+    <!-- Boolean -->
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

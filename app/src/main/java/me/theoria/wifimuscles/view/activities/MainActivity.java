@@ -4,9 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
+import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,19 +16,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.managers.AdManager;
 import me.theoria.wifimuscles.data.managers.NavigationManager;
-import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
-import me.theoria.wifimuscles.view.fragments.DonateFragment;
-import me.theoria.wifimuscles.view.fragments.HomeFragment;
-import me.theoria.wifimuscles.view.fragments.StatsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Location + Wifi Permission Check
         checkLocationPermission();
-        checkWifiEnabled();
+        checkWifiAndLocationEnabled();
 
 
         // Fragment declaration
@@ -75,13 +70,14 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void checkWifiEnabled() {
+    private void checkWifiAndLocationEnabled() {
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager != null && !wifiManager.isWifiEnabled()) {
             Toast.makeText(this, "Wi-Fi is required. Please enable Wi-Fi.", Toast.LENGTH_LONG).show();
             startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
         }
     }
+
 
     private void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,

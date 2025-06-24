@@ -1,7 +1,10 @@
 package me.theoria.wifimuscles.viewmodel;
 
 
+import android.Manifest;
 import android.app.Application;
+import android.content.pm.PackageManager;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -9,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -47,7 +51,8 @@ public class WifiViewModel extends AndroidViewModel {
                         info.getFrequency(),
                         info.getIpAddress(),
                         info.getNetworkId(),
-                        ssid,
+                        info.getSSID(),
+                        info.getBSSID(),
                         info.getLinkSpeed(),
                         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ?
                                 info.getMaxSupportedRxLinkSpeedMbps() :
@@ -90,6 +95,7 @@ public class WifiViewModel extends AndroidViewModel {
     public LiveData<String> getErrorLiveData() {
         return errorLiveData;
     }
+
 
     @Override
     protected void onCleared() {

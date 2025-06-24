@@ -6,12 +6,12 @@
     <item
         android:id="@+id/mainChart"
         android:icon="@drawable/icon_ssid"
-        android:title="@string/combo_txt"
+        android:title="@string/chart_txt"
         />
     <item
         android:id="@+id/barChart"
         android:icon="@drawable/icon_bar_chart"
-        android:title="@string/radar_txt"
+        android:title="@string/bar_txt"
         />
     <item
         android:id="@+id/donate"
