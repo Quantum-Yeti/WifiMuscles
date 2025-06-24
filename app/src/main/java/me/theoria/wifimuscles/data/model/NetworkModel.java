@@ -17,7 +17,7 @@ public class NetworkModel {
     private final boolean is80211mcResponder;
 
     /**
-     * Method for initializing the
+     * Method for initializing the Model.
      *
      * @param timestamp
      * @param ssid

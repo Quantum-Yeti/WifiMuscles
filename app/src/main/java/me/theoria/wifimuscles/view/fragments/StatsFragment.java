@@ -22,10 +22,13 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
+import me.theoria.wifimuscles.viewmodel.DHCPViewModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.NetworkViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
@@ -35,8 +38,9 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
  */
 public class StatsFragment extends Fragment {
 
-    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
+    //private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
     private TextView levelTextView, capabilitiesTextView, channelWidthTextView, centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView;
+    private TextView ip2TextView, gatewayTextView, netmaskTextView, dns1TextView, dns2TextView, serverAddressTextView, leaseDurationTextView;
     private ImageView rssiEmojiView;
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
@@ -46,6 +50,7 @@ public class StatsFragment extends Fragment {
     private DataUIViewModel dataUIViewModel;
     private WifiViewModel wifiViewModel;
     private NetworkViewModel networkViewModel;
+    private DHCPViewModel dhcpViewModel;
 
     /**
      * Method to inflate the fragment, initialize the ViewModels, and initialize
@@ -78,6 +83,10 @@ public class StatsFragment extends Fragment {
         networkViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(NetworkViewModel.class);
 
+        // Initialize DHCP View Model
+        dhcpViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(DHCPViewModel.class);
+
         // Observe LiveData being passed from the ViewModels
         observeLiveData();
 
@@ -91,16 +100,20 @@ public class StatsFragment extends Fragment {
      * @param root
      */
     private void bindViews(View root) {
+
+        // General Connection Info Bindings
         rssiEmojiView = root.findViewById(R.id.rssiEmoji);
-        rssiTextView = root.findViewById(R.id.rssiTextView);
+
+        /*rssiTextView = root.findViewById(R.id.rssiTextView);
         ipTextView = root.findViewById(R.id.ipBox);
         frequencyTextView = root.findViewById(R.id.frequencyBox);
         bandwidthTextView = root.findViewById(R.id.bandBox);
         ssidTextView = root.findViewById(R.id.ssidBox);
         macTextView = root.findViewById(R.id.macBox);
         rxTextView = root.findViewById(R.id.rxSpeedBox);
-        maxLinkSpeedTextView = root.findViewById(R.id.maxSpeedBox);
+        maxLinkSpeedTextView = root.findViewById(R.id.maxSpeedBox);*/
 
+        // Network Stats Bindings
         levelTextView = root.findViewById(R.id.levelBox);
         capabilitiesTextView = root.findViewById(R.id.capabilityBox);
         channelWidthTextView = root.findViewById(R.id.channelBox);
@@ -108,6 +121,16 @@ public class StatsFragment extends Fragment {
         centerFreq1TextView = root.findViewById(R.id.centerBox1);
         passpointTextView = root.findViewById(R.id.passpointBox);
         responderTextView = root.findViewById(R.id.responderBox);
+
+        // DHCP Stats Bindings
+        gatewayTextView = root.findViewById(R.id.gatewayBox);
+        netmaskTextView = root.findViewById(R.id.netmaskBox);
+        dns1TextView = root.findViewById(R.id.dns1Box);
+        dns2TextView = root.findViewById(R.id.dns2Box);
+        serverAddressTextView = root.findViewById(R.id.serverAddressBox);
+        leaseDurationTextView = root.findViewById(R.id.leaseDurationBox);
+
+
     }
 
     /**
@@ -116,16 +139,16 @@ public class StatsFragment extends Fragment {
      *
      */
     public void observeLiveData() {
-        // Observes additional Wifi data
+        // General Data Observers
         dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), rssiEmojiView::setImageResource);
-        dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), rssiTextView::setText);
-        dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ipTextView::setText);
-        dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), frequencyTextView::setText);
-        dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bandwidthTextView::setText);
-        dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssidTextView::setText);
-        dataUIViewModel.getMac().observe(getViewLifecycleOwner(), macTextView::setText);
-        dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rxTextView::setText);
-        dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), maxLinkSpeedTextView::setText);
+
+        dataUIViewModel.getNetMaskText().observe(getViewLifecycleOwner(), netmaskTextView::setText);
+        dataUIViewModel.getGatewayText().observe(getViewLifecycleOwner(), gatewayTextView::setText);
+        dataUIViewModel.getDns1Text().observe(getViewLifecycleOwner(), dns1TextView::setText);
+        dataUIViewModel.getDns2Text().observe(getViewLifecycleOwner(), dns2TextView::setText);
+        dataUIViewModel.getServerAddressText().observe(getViewLifecycleOwner(), serverAddressTextView::setText);
+        dataUIViewModel.getLeaseDurationText().observe(getViewLifecycleOwner(), leaseDurationTextView::setText);
+
 
         wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
             if (signals != null && !signals.isEmpty()) {
@@ -133,6 +156,7 @@ public class StatsFragment extends Fragment {
             }
         });
 
+        // Network Observer
         networkViewModel.getConnectedNetworkLiveData().observe(getViewLifecycleOwner(), network -> {
             if (network != null) {
                 Context context = requireContext();
@@ -155,6 +179,15 @@ public class StatsFragment extends Fragment {
             }
         });
 
+        // DHCP Observer
+        dhcpViewModel.getDhcpModelLiveData().observe(getViewLifecycleOwner(), dhcpModel -> {
+            if (dhcpModel != null) {
+                dataUIViewModel.updateFromDhcpModel(dhcpModel);
+            } else {
+                Log.w("StatsFragment", "DHCP model was null");
+            }
+        });
+
     }
 
     private void updateData(List<WifiSignalModel> signals) {
@@ -174,6 +207,7 @@ public class StatsFragment extends Fragment {
         super.onStart();
         wifiViewModel.startUpdates();
         networkViewModel.startAutoUpdate();
+        dhcpViewModel.startAutoUpdate();
     }
 
     @Override
@@ -181,6 +215,7 @@ public class StatsFragment extends Fragment {
         super.onStop();
         wifiViewModel.stopUpdates();
         networkViewModel.stopAutoUpdate();
+        dhcpViewModel.stopAutoUpdate();
     }
 
 }

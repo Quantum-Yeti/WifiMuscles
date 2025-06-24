@@ -59,7 +59,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="dhcp_info">DHCP Info</string>
+    <string name="gateway">Gateway</string>
+    <string name="netmask">Netmask</string>
+    <string name="dns1">DNS1</string>
+    <string name="dns2">DNS2</string>
+    <string name="server_address">Server Address</string>
+    <string name="lease_duration">Lease Duration</string>
 
 
 </resources>

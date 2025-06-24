@@ -94,7 +94,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/network_stats"
+                        android:text="@string/dhcp_info"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary" />
@@ -132,10 +132,10 @@
                         android:gravity="end">
 
                         <TextView
-                            android:id="@+id/ssidBox"
+                            android:id="@+id/ip2Box"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/ssid"
+                            android:text="@string/ip_address"
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -143,10 +143,10 @@
                             android:ellipsize="end" />
 
                         <TextView
-                            android:id="@+id/rssiTextView"
+                            android:id="@+id/gatewayBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/rssi_dBm_txt"
+                            android:text="@string/gateway"
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -179,10 +179,10 @@
                         android:gravity="end">
 
                         <TextView
-                            android:id="@+id/frequencyBox"
+                            android:id="@+id/netmaskBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/mhz"
+                            android:text="@string/netmask"
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -190,10 +190,10 @@
                             android:ellipsize="end" />
 
                         <TextView
-                            android:id="@+id/bandBox"
+                            android:id="@+id/dns1Box"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/ghz"
+                            android:text="@string/dns1"
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -226,10 +226,10 @@
                         android:gravity="end">
 
                         <TextView
-                            android:id="@+id/ipBox"
+                            android:id="@+id/dns2Box"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/ip_address"
+                            android:text="@string/dns2"
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -237,10 +237,10 @@
                             android:ellipsize="end" />
 
                         <TextView
-                            android:id="@+id/macBox"
+                            android:id="@+id/serverAddressBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/mac"
+                            android:text="@string/server_address"
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -272,21 +272,10 @@
                         android:gravity="end">
 
                         <TextView
-                            android:id="@+id/rxSpeedBox"
+                            android:id="@+id/leaseDurationBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/link_speed"
-                            android:textColor="@color/whiteText"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:maxLines="1"
-                            android:ellipsize="end" />
-
-                        <TextView
-                            android:id="@+id/maxSpeedBox"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/max_speed"
+                            android:text="@string/lease_duration"
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -321,6 +310,28 @@
                 android:paddingBottom="12dp"
                 android:showDividers="middle"
                 android:dividerPadding="12dp">
+
+                <!-- Card Title with Icon -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="8dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/infoCardDHCPTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/network_stats"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+
+
+                </LinearLayout>
 
                 <!-- Additional 1 -->
                 <LinearLayout

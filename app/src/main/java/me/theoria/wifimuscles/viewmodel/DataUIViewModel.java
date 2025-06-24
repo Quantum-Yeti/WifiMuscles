@@ -6,13 +6,15 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
+import me.theoria.wifimuscles.data.model.DHCPModel;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.FrequencyUtils;
-import me.theoria.wifimuscles.utils.IpToString;
+import me.theoria.wifimuscles.utils.numToStringUtils;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 
 public class DataUIViewModel extends ViewModel {
 
+    // Signal Info
     private final MutableLiveData<String> rssiText = new MutableLiveData<>();
     private final MutableLiveData<Integer> rssiEmoji = new MutableLiveData<>();
     private final MutableLiveData<String> ipText = new MutableLiveData<>();
@@ -21,14 +23,22 @@ public class DataUIViewModel extends ViewModel {
     private final MutableLiveData<String> ssidText = new MutableLiveData<>();
     private final MutableLiveData<String> linkSpeed = new MutableLiveData<>();
     private final MutableLiveData<String> maxLinkSpeed = new MutableLiveData<String>();
-    private final MutableLiveData<Integer> ip = new MutableLiveData<>();
     private final MutableLiveData<String> mac = new MutableLiveData<>();
     private final MutableLiveData<Integer> toastLevelEvent = new MutableLiveData<>();
     private final MutableLiveData<Integer> bssid = new MutableLiveData<>();
 
-    private final IpToString ipConverter = new IpToString();
+    // DHCP Info
+    private final MutableLiveData<String> gatewayText = new MutableLiveData<>();
+    private final MutableLiveData<String> netmaskText = new MutableLiveData<>();
+    private final MutableLiveData<String> dns1Text = new MutableLiveData<>();
+    private final MutableLiveData<String> dns2Text = new MutableLiveData<>();
+    private final MutableLiveData<String> serverAddressText = new MutableLiveData<>();
+    private final MutableLiveData<String> leaseDurationText = new MutableLiveData<>();
 
-    // Public getters for LiveData
+
+    private final numToStringUtils ipConverter = new numToStringUtils();
+
+    // Signal getters
     public LiveData<String> getRssiText() { return rssiText; }
     public LiveData<Integer> getRssiEmoji() { return rssiEmoji; }
     public LiveData<String> getIpText() { return ipText; }
@@ -37,10 +47,18 @@ public class DataUIViewModel extends ViewModel {
     public LiveData<String> getSSIDText() { return ssidText; }
     public LiveData<String> getLinkSpeed() { return linkSpeed; }
     public LiveData<String> getMaxLinkSpeed() { return maxLinkSpeed; }
-    public LiveData<Integer> getIPText() { return ip; }
     public LiveData<String> getMac() { return mac; }
     public LiveData<Integer> getToastLevelEvent() { return toastLevelEvent; }
     public LiveData<Integer> getBssid() { return bssid; }
+
+    // DHCP getters
+    public LiveData<String> getGatewayText() { return gatewayText; }
+    public LiveData<String> getNetMaskText() { return netmaskText; }
+    public LiveData<String> getDns1Text() { return dns1Text; }
+    public LiveData<String> getDns2Text() { return dns2Text; }
+    public LiveData<String> getServerAddressText() { return serverAddressText; }
+    public LiveData<String> getLeaseDurationText() { return leaseDurationText; }
+
 
     /**
      * Update the LiveData properties based on the latest signal model in the list.
@@ -68,16 +86,27 @@ public class DataUIViewModel extends ViewModel {
     }
 
     private void updateNetworkDetails(WifiSignalModel signal) {
-        ipText.setValue(ipConverter.IntIPToString(signal.getIP()));
+        ipText.setValue(numToStringUtils.intIPToString(signal.getIP()));  // returns String now
         ssidText.setValue("SSID: " + signal.getSSIDText());
-        mac.setValue("MAC: " +signal.getMac());
+        mac.setValue("MAC: " + signal.getMac());
         linkSpeed.setValue("Link Speed: " + signal.getLinkSpeed() + " Mbps");
-        maxLinkSpeed.setValue("Avg Max Speed: " +signal.getMaxLinkSpeed() + " Mbps");
+        maxLinkSpeed.setValue("Avg Max Speed: " + signal.getMaxLinkSpeed() + " Mbps");
     }
 
     private void updateFrequency(int frequency) {
         frequencyText.setValue(frequency + " MHz");
         bandwidthText.setValue(FrequencyUtils.fqToGhz(frequency));
     }
+
+    public void updateFromDhcpModel(DHCPModel model) {
+        if (model == null) return;
+        gatewayText.setValue("Gateway: " + numToStringUtils.intIPToString(model.getGateway()));
+        netmaskText.setValue("Netmask: " + numToStringUtils.intIPToString(model.getNetmask()));
+        dns1Text.setValue("DNS 1: " + numToStringUtils.intIPToString(model.getDns1()));
+        dns2Text.setValue("DNS 2: " + numToStringUtils.intIPToString(model.getDns2()));
+        serverAddressText.setValue("DHCP Server: " + numToStringUtils.intIPToString(model.getServerAddress()));
+        leaseDurationText.setValue("Lease Duration: " + model.getLeaseDuration() + " sec");
+    }
+
 
 }

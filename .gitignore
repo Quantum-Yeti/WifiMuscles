@@ -10,7 +10,15 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+/releases
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+
+# Ignore all build outputs
+/app/build/
+
+# Or more specifically ignore release APKs and bundles
+/app/build/outputs/apk/release/
+/app/build/outputs/bundle/release/
