@@ -1,7 +1,9 @@
 package me.theoria.wifimuscles.view.fragments;
 
 import android.content.Context;
-
+import android.content.Intent;
+import android.location.LocationManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +26,7 @@ import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
+import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
 import me.theoria.wifimuscles.viewmodel.DHCPViewModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.NetworkViewModel;
@@ -36,6 +40,7 @@ public class StatsFragment extends Fragment {
     //private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
     private TextView levelTextView, capabilitiesTextView, channelWidthTextView, centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView;
     private TextView ip2TextView, gatewayTextView, netmaskTextView, dns1TextView, dns2TextView, serverAddressTextView, leaseDurationTextView;
+    private TextView transportTypeTextView, internetCapabilityTextView, validatedCapabilityTextView, meteredTextView, downstreamTextView, upstreamTextView;
     private ImageView rssiEmojiView;
     private LineChart chart;
     private LineDataSet primaryLineDataSet;
@@ -45,6 +50,7 @@ public class StatsFragment extends Fragment {
     private DataUIViewModel dataUIViewModel;
     private WifiViewModel wifiViewModel;
     private NetworkViewModel networkViewModel;
+    private ConnectivityViewModel connectivityViewModel;
     private DHCPViewModel dhcpViewModel;
 
     /**
@@ -77,6 +83,10 @@ public class StatsFragment extends Fragment {
         // Initialize Network View Model
         networkViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
                 .get(NetworkViewModel.class);
+
+        // Initialize Connectivity View Model
+        connectivityViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
+                .get(ConnectivityViewModel.class);
 
         // Initialize DHCP View Model
         dhcpViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
@@ -125,7 +135,13 @@ public class StatsFragment extends Fragment {
         serverAddressTextView = root.findViewById(R.id.serverAddressBox);
         leaseDurationTextView = root.findViewById(R.id.leaseDurationBox);
 
-
+        // Connectivity Stats Bindings
+        transportTypeTextView = root.findViewById(R.id.transportBox);
+        internetCapabilityTextView = root.findViewById(R.id.isInternetBox);
+        validatedCapabilityTextView = root.findViewById(R.id.validateBox);
+        meteredTextView = root.findViewById(R.id.meteredBox);
+        downstreamTextView = root.findViewById(R.id.downstreamBox);
+        upstreamTextView = root.findViewById(R.id.upstreamBox);
     }
 
     /**
@@ -183,6 +199,28 @@ public class StatsFragment extends Fragment {
             }
         });
 
+        // Connectivity Observer
+        connectivityViewModel.getConnectivityStatus().observe(getViewLifecycleOwner(), model -> {
+            if (model != null) {
+                transportTypeTextView.setText("Transport: " + model.getTransportType().name());
+                internetCapabilityTextView.setText("Has Internet: " + model.hasInternet());
+                validatedCapabilityTextView.setText("Validated: " + model.isValidated());
+                meteredTextView.setText("Metered: " + model.isMetered());
+                downstreamTextView.setText("Downstream: " + model.getDownstreamKbps() + " kbps");
+                upstreamTextView.setText("Upstream: " + model.getUpstreamKbps() + " kbps");
+
+            } else {
+                transportTypeTextView.setText("Transport: -");
+                internetCapabilityTextView.setText("Has Internet: -");
+                validatedCapabilityTextView.setText("Validated: -");
+                meteredTextView.setText("Metered: -");
+                downstreamTextView.setText("Downstream: -");
+                upstreamTextView.setText("Upstream: -");
+            }
+        });
+
+
+
     }
 
     private void updateData(List<WifiSignalModel> signals) {
@@ -203,6 +241,7 @@ public class StatsFragment extends Fragment {
         wifiViewModel.startUpdates();
         networkViewModel.startAutoUpdate();
         dhcpViewModel.startAutoUpdate();
+        connectivityViewModel.startAutoUpdate();
     }
 
     @Override
@@ -211,6 +250,7 @@ public class StatsFragment extends Fragment {
         wifiViewModel.stopUpdates();
         networkViewModel.stopAutoUpdate();
         dhcpViewModel.stopAutoUpdate();
+        connectivityViewModel.stopAutoUpdate();
     }
 
 }

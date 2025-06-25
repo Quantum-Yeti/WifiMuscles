@@ -107,6 +107,4 @@ public class DataUIViewModel extends ViewModel {
         serverAddressText.setValue("DHCP Server: " + numToStringUtils.intIPToString(model.getServerAddress()));
         leaseDurationText.setValue("Lease Duration: " + model.getLeaseDuration() + " sec");
     }
-
-
 }

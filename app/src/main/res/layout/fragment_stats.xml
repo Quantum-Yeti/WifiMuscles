@@ -55,7 +55,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <!-- Info Card (no chart) -->
+        <!-- DHCP Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/infoCard"
             android:layout_width="0dp"
@@ -80,7 +80,6 @@
                 android:showDividers="middle"
                 android:dividerPadding="12dp">
 
-                <!-- Card Title with Icon -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,7 +107,6 @@
                         android:contentDescription="@string/rssi_emoji_txt" />
                 </LinearLayout>
 
-                <!-- SSID + RSSI Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,7 +117,7 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/icon_ssid"
+                        android:src="@drawable/icon_ip_globe"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/accent_light_blue"
                         android:contentDescription="@string/ssid" />
@@ -132,17 +130,6 @@
                         android:gravity="end">
 
                         <TextView
-                            android:id="@+id/ip2Box"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/ip_address"
-                            android:textColor="@color/whiteText"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:maxLines="1"
-                            android:ellipsize="end" />
-
-                        <TextView
                             android:id="@+id/gatewayBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -151,32 +138,8 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:maxLines="1"
-                            android:ellipsize="end" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- Frequency + Band -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/icon_function"
-                        android:layout_marginEnd="20dp"
-                        app:tint="@color/bg_accent_second"
-                        android:contentDescription="@string/band_icon" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="end">
+                            android:ellipsize="end"
+                            android:layout_marginTop="8dp" />
 
                         <TextView
                             android:id="@+id/netmaskBox"
@@ -187,22 +150,11 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:maxLines="1"
-                            android:ellipsize="end" />
-
-                        <TextView
-                            android:id="@+id/dns1Box"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dns1"
-                            android:textColor="@color/whiteText"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:maxLines="1"
-                            android:ellipsize="end" />
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- IP + MAC -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -215,6 +167,53 @@
                         android:layout_height="36dp"
                         android:src="@drawable/icon_dns"
                         android:layout_marginEnd="20dp"
+                        app:tint="@color/bg_accent_second"
+                        android:contentDescription="@string/band_icon" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/dns1Box"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dns1"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
+
+                        <TextView
+                            android:id="@+id/dns2Box"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dns2"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/icon_host"
+                        android:layout_marginEnd="20dp"
                         app:tint="@color/accent_primary"
                         android:contentDescription="@string/dns" />
 
@@ -226,17 +225,6 @@
                         android:gravity="end">
 
                         <TextView
-                            android:id="@+id/dns2Box"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/dns2"
-                            android:textColor="@color/whiteText"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:maxLines="1"
-                            android:ellipsize="end" />
-
-                        <TextView
                             android:id="@+id/serverAddressBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -246,30 +234,6 @@
                             android:textStyle="bold"
                             android:maxLines="1"
                             android:ellipsize="end" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- RX + Max Speed -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/icon_rocket"
-                        android:layout_marginEnd="20dp"
-                        app:tint="@color/accent_orange"
-                        android:contentDescription="@string/ssid" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="end">
 
                         <TextView
                             android:id="@+id/leaseDurationBox"
@@ -280,13 +244,23 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:maxLines="1"
-                            android:ellipsize="end" />
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Info Card (no chart) -->
+
+        <!-- Network Stats Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/networkCard"
             android:layout_width="0dp"
@@ -321,7 +295,7 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <TextView
-                        android:id="@+id/infoCardDHCPTitle"
+                        android:id="@+id/infoCardNetworkTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -329,11 +303,8 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary" />
-
-
                 </LinearLayout>
 
-                <!-- Additional 1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -344,7 +315,7 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/icon_rocket"
+                        android:src="@drawable/icon_wifi"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/accent_orange"
                         android:contentDescription="@string/ssid" />
@@ -367,20 +338,10 @@
                             android:maxLines="1"
                             android:ellipsize="end" />
 
-                        <TextView
-                            android:id="@+id/capabilityBox"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/capability"
-                            android:textColor="@color/whiteText"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:maxLines="1"
-                            android:ellipsize="end" />
+
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Additional 2 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -415,19 +376,19 @@
                             android:ellipsize="end" />
 
                         <TextView
-                            android:id="@+id/centerBox0"
+                            android:id="@+id/capabilityBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/center_freq_0"
+                            android:text="@string/capability"
                             android:textColor="@color/whiteText"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:maxLines="1"
-                            android:ellipsize="end" />
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Additional 3 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -449,6 +410,18 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/centerBox0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/center_freq_0"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
 
                         <TextView
                             android:id="@+id/centerBox1"
@@ -460,27 +433,14 @@
                             android:textStyle="bold"
                             android:maxLines="1"
                             android:ellipsize="end" />
-
-                        <TextView
-                            android:id="@+id/passpointBox"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/passpoint"
-                            android:textColor="@color/whiteText"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:maxLines="1"
-                            android:ellipsize="end" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Additional 4 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
+                    android:gravity="center_vertical">
 
                     <ImageView
                         android:layout_width="36dp"
@@ -496,6 +456,18 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/passpointBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/passpoint"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
 
                         <TextView
                             android:id="@+id/responderBox"
@@ -513,6 +485,201 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- Connect Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/connectCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="16dp"
+            android:backgroundTint="@color/card_background_one"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0.5dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/networkCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="12dp"
+                android:showDividers="middle"
+                android:dividerPadding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="8dp"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/infoConnectTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/connection_info"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/icon_ip_globe"
+                        android:layout_marginEnd="20dp"
+                        app:tint="@color/accent_light_blue"
+                        android:contentDescription="@string/ssid" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/transportBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/transport"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/isInternetBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/internet"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/icon_dns"
+                        android:layout_marginEnd="20dp"
+                        app:tint="@color/bg_accent_second"
+                        android:contentDescription="@string/band_icon" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/validateBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/validation"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
+
+                        <TextView
+                            android:id="@+id/meteredBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/metered"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/icon_host"
+                        android:layout_marginEnd="20dp"
+                        app:tint="@color/accent_primary"
+                        android:contentDescription="@string/dns" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/downstreamBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/downstream"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
+
+                        <TextView
+                            android:id="@+id/upstreamBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/upstream"
+                            android:textColor="@color/whiteText"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

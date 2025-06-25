@@ -66,6 +66,12 @@
     <string name="dns2">DNS2</string>
     <string name="server_address">Server Address</string>
     <string name="lease_duration">Lease Duration</string>
+    <string name="transport">Transport</string>
+    <string name="internet">Internet</string>
+    <string name="validation">Validation</string>
+    <string name="metered">Metered</string>
+    <string name="downstream">Downstream</string>
+    <string name="upstream">Upstream</string>
 
 
 </resources>
