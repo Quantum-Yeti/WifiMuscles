@@ -48,8 +48,8 @@
     <string name="width">Width %1$d</string>
     <string name="center_freq_0">Freq 0: %1$d</string>
     <string name="center_freq_1">Freq 1: %1$d</string>
-    <string name="passpoint">Passpoint: %1$d</string>
-    <string name="responder">802.11mc: %1$d</string>
+    <string name="passpoint">Passpoint: %s</string>
+    <string name="responder">802.11mc: %s</string>
     <string name="network_stats">Network Stats</string>
 
     <string name="dhcp_info">DHCP Info</string>
@@ -65,6 +65,8 @@
     <string name="metered">Metered: %s</string>
     <string name="downstream">Downstream</string>
     <string name="upstream">Upstream</string>
+    <string name="downstream_s">Downstream: %s</string>
+    <string name="nothing">-</string>
 
     <!-- Boolean -->
     <string name="yes">yes</string>
@@ -73,7 +75,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="downstream_s">Downstream: %s</string>
+
 
 
 </resources>

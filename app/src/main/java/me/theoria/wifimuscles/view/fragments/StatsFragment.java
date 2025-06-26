@@ -111,8 +111,12 @@ public class StatsFragment extends Fragment {
                 channelWidthTextView.setText(context.getString(R.string.channel_width, network.getChannelWidth()));
                 centerFreq0TextView.setText(context.getString(R.string.center_freq_0, network.getCenterFreq0()));
                 centerFreq1TextView.setText(context.getString(R.string.center_freq_1, network.getCenterFreq1()));
-                passpointTextView.setText("Passpoint: " + (network.getPassPoint() ? "Yes" : "No"));
-                responderTextView.setText("802.11mc: " + (network.getIs80211mcResponder() ? "Yes" : "No"));
+
+                String passpointStatus = network.getPassPoint() ? "Yes" : "No";
+                passpointTextView.setText(String.format(getString(R.string.passpoint), passpointStatus));
+
+                String responderStatus = network.getIs80211mcResponder() ? "Yes" : "No";
+                responderTextView.setText(String.format(getString(R.string.responder), responderStatus));
             } else {
                 levelTextView.setText(R.string.strength_level);
                 capabilitiesTextView.setText("-");
@@ -157,12 +161,12 @@ public class StatsFragment extends Fragment {
                 String speedTextUp = SpeedConverter.speedConvert(upstream);
                 upstreamTextView.setText(String.format("Upstream: %s", speedTextUp));
             } else {
-                transportTypeTextView.setText("Transport: -");
-                internetCapabilityTextView.setText("Has Internet: -");
-                validatedCapabilityTextView.setText("Validated: -");
-                meteredTextView.setText("Metered: -");
-                downstreamTextView.setText("Downstream: -");
-                upstreamTextView.setText("Upstream: -");
+                transportTypeTextView.setText(String.format(getString(R.string.nothing)));
+                internetCapabilityTextView.setText(String.format(getString(R.string.nothing)));
+                validatedCapabilityTextView.setText(String.format(getString(R.string.nothing)));
+                meteredTextView.setText(String.format(getString(R.string.nothing)));
+                downstreamTextView.setText(String.format(getString(R.string.nothing)));
+                upstreamTextView.setText(String.format(getString(R.string.nothing)));
             }
         });
     }

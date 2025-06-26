@@ -352,10 +352,10 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/icon_rocket"
+                        android:src="@drawable/icon_equalizer"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/accent_orange"
-                        android:contentDescription="@string/ssid" />
+                        android:contentDescription="@string/channel_width" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -399,10 +399,10 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/icon_rocket"
+                        android:src="@drawable/icon_airwave"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/accent_orange"
-                        android:contentDescription="@string/ssid" />
+                        android:contentDescription="@string/center_freq_0" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -445,10 +445,10 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/icon_rocket"
+                        android:src="@drawable/icon_network_check"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/accent_orange"
-                        android:contentDescription="@string/ssid" />
+                        android:contentDescription="@string/passpoint" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -540,7 +540,7 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/icon_ip_globe"
+                        android:src="@drawable/icon_mode"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/accent_light_blue"
                         android:contentDescription="@string/ssid" />
@@ -588,7 +588,7 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/icon_dns"
+                        android:src="@drawable/icon_network_check"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/bg_accent_second"
                         android:contentDescription="@string/band_icon" />
@@ -636,7 +636,7 @@
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/icon_host"
+                        android:src="@drawable/icon_avg_time"
                         android:layout_marginEnd="20dp"
                         app:tint="@color/accent_primary"
                         android:contentDescription="@string/dns" />
