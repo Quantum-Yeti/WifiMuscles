@@ -1,9 +1,6 @@
 package me.theoria.wifimuscles.view.fragments;
 
 import android.content.Context;
-import android.content.Intent;
-import android.location.LocationManager;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,41 +8,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-
-import java.util.List;
-
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
+import me.theoria.wifimuscles.utils.SpeedConverter;
 import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
 import me.theoria.wifimuscles.viewmodel.DHCPViewModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.NetworkViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
-/**
- * This fragment inflates the Stats fragment and provides observables for real-time data.
- */
 public class StatsFragment extends Fragment {
 
-    //private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
-    private TextView levelTextView, capabilitiesTextView, channelWidthTextView, centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView;
-    private TextView ip2TextView, gatewayTextView, netmaskTextView, dns1TextView, dns2TextView, serverAddressTextView, leaseDurationTextView;
-    private TextView transportTypeTextView, internetCapabilityTextView, validatedCapabilityTextView, meteredTextView, downstreamTextView, upstreamTextView;
+    private TextView levelTextView, capabilitiesTextView, channelWidthTextView,
+            centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView;
+    private TextView gatewayTextView, netmaskTextView, dns1TextView, dns2TextView,
+            serverAddressTextView, leaseDurationTextView;
+    private TextView transportTypeTextView, internetCapabilityTextView,
+            validatedCapabilityTextView, meteredTextView, downstreamTextView, upstreamTextView;
     private ImageView rssiEmojiView;
-    private LineChart chart;
-    private LineDataSet primaryLineDataSet;
-    private LineDataSet excellentSet, goodSet, fairSet, weakSet, unusableSet;
-    private LineData lineData;
 
     private DataUIViewModel dataUIViewModel;
     private WifiViewModel wifiViewModel;
@@ -53,72 +39,31 @@ public class StatsFragment extends Fragment {
     private ConnectivityViewModel connectivityViewModel;
     private DHCPViewModel dhcpViewModel;
 
-    /**
-     * Method to inflate the fragment, initialize the ViewModels, and initialize
-     * the return of the live data observables.
-     *
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
-     * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
-     * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     *
-     * @return
-     */
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_stats, container, false);
         bindViews(root);
 
-        // Initialize Wifi View Model
-        wifiViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(WifiViewModel.class);
+        // Initialize ViewModels
+        ViewModelProvider provider = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()));
+        wifiViewModel = provider.get(WifiViewModel.class);
+        networkViewModel = provider.get(NetworkViewModel.class);
+        connectivityViewModel = provider.get(ConnectivityViewModel.class);
+        dhcpViewModel = provider.get(DHCPViewModel.class);
 
-        // ViewModel Helper Class
         dataUIViewModel = new ViewModelProvider(this).get(DataUIViewModel.class);
 
-        // Initialize Network View Model
-        networkViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(NetworkViewModel.class);
-
-        // Initialize Connectivity View Model
-        connectivityViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(ConnectivityViewModel.class);
-
-        // Initialize DHCP View Model
-        dhcpViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()))
-                .get(DHCPViewModel.class);
-
-        // Observe LiveData being passed from the ViewModels
+        // Start observing LiveData after everything is initialized
         observeLiveData();
 
         return root;
-
     }
 
-    /**
-     * Method that binds the various UI components.
-     *
-     * @param root
-     */
     private void bindViews(View root) {
-
-        // General Connection Info Bindings
         rssiEmojiView = root.findViewById(R.id.rssiEmoji);
 
-        /*rssiTextView = root.findViewById(R.id.rssiTextView);
-        ipTextView = root.findViewById(R.id.ipBox);
-        frequencyTextView = root.findViewById(R.id.frequencyBox);
-        bandwidthTextView = root.findViewById(R.id.bandBox);
-        ssidTextView = root.findViewById(R.id.ssidBox);
-        macTextView = root.findViewById(R.id.macBox);
-        rxTextView = root.findViewById(R.id.rxSpeedBox);
-        maxLinkSpeedTextView = root.findViewById(R.id.maxSpeedBox);*/
-
-        // Network Stats Bindings
         levelTextView = root.findViewById(R.id.levelBox);
         capabilitiesTextView = root.findViewById(R.id.capabilityBox);
         channelWidthTextView = root.findViewById(R.id.channelBox);
@@ -127,7 +72,6 @@ public class StatsFragment extends Fragment {
         passpointTextView = root.findViewById(R.id.passpointBox);
         responderTextView = root.findViewById(R.id.responderBox);
 
-        // DHCP Stats Bindings
         gatewayTextView = root.findViewById(R.id.gatewayBox);
         netmaskTextView = root.findViewById(R.id.netmaskBox);
         dns1TextView = root.findViewById(R.id.dns1Box);
@@ -135,7 +79,6 @@ public class StatsFragment extends Fragment {
         serverAddressTextView = root.findViewById(R.id.serverAddressBox);
         leaseDurationTextView = root.findViewById(R.id.leaseDurationBox);
 
-        // Connectivity Stats Bindings
         transportTypeTextView = root.findViewById(R.id.transportBox);
         internetCapabilityTextView = root.findViewById(R.id.isInternetBox);
         validatedCapabilityTextView = root.findViewById(R.id.validateBox);
@@ -144,35 +87,26 @@ public class StatsFragment extends Fragment {
         upstreamTextView = root.findViewById(R.id.upstreamBox);
     }
 
-    /**
-     * Method to observe live data and help return the live data sets to their
-     * respective view binding.
-     *
-     */
     public void observeLiveData() {
-        // General Data Observers
-        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), rssiEmojiView::setImageResource);
+        // DHCP Text updates from DataUI ViewModel
+        dataUIViewModel.getNetMaskText().observe(getViewLifecycleOwner(), text -> netmaskTextView.setText(text));
+        dataUIViewModel.getGatewayText().observe(getViewLifecycleOwner(), text -> gatewayTextView.setText(text));
+        dataUIViewModel.getDns1Text().observe(getViewLifecycleOwner(), text -> dns1TextView.setText(text));
+        dataUIViewModel.getDns2Text().observe(getViewLifecycleOwner(), text -> dns2TextView.setText(text));
+        dataUIViewModel.getServerAddressText().observe(getViewLifecycleOwner(), text -> serverAddressTextView.setText(text));
+        dataUIViewModel.getLeaseDurationText().observe(getViewLifecycleOwner(), text -> leaseDurationTextView.setText(text));
 
-        dataUIViewModel.getNetMaskText().observe(getViewLifecycleOwner(), netmaskTextView::setText);
-        dataUIViewModel.getGatewayText().observe(getViewLifecycleOwner(), gatewayTextView::setText);
-        dataUIViewModel.getDns1Text().observe(getViewLifecycleOwner(), dns1TextView::setText);
-        dataUIViewModel.getDns2Text().observe(getViewLifecycleOwner(), dns2TextView::setText);
-        dataUIViewModel.getServerAddressText().observe(getViewLifecycleOwner(), serverAddressTextView::setText);
-        dataUIViewModel.getLeaseDurationText().observe(getViewLifecycleOwner(), leaseDurationTextView::setText);
-
-        // Wifi Live Data Observance
         wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
             if (signals != null && !signals.isEmpty()) {
                 dataUIViewModel.updateSignalUI(signals);
             }
         });
 
-        // Network Observer
         networkViewModel.getConnectedNetworkLiveData().observe(getViewLifecycleOwner(), network -> {
             if (network != null) {
                 Context context = requireContext();
 
-                levelTextView.setText(String.valueOf(network.getSignalLevel()));
+                levelTextView.setText(context.getString(R.string.strength_level, network.getSignalLevel()));
                 capabilitiesTextView.setText(network.getCapabilities());
                 channelWidthTextView.setText(context.getString(R.string.channel_width, network.getChannelWidth()));
                 centerFreq0TextView.setText(context.getString(R.string.center_freq_0, network.getCenterFreq0()));
@@ -190,7 +124,6 @@ public class StatsFragment extends Fragment {
             }
         });
 
-        // DHCP Observer
         dhcpViewModel.getDhcpModelLiveData().observe(getViewLifecycleOwner(), dhcpModel -> {
             if (dhcpModel != null) {
                 dataUIViewModel.updateFromDhcpModel(dhcpModel);
@@ -199,16 +132,30 @@ public class StatsFragment extends Fragment {
             }
         });
 
-        // Connectivity Observer
         connectivityViewModel.getConnectivityStatus().observe(getViewLifecycleOwner(), model -> {
             if (model != null) {
-                transportTypeTextView.setText("Transport: " + model.getTransportType().name());
-                internetCapabilityTextView.setText("Has Internet: " + model.hasInternet());
-                validatedCapabilityTextView.setText("Validated: " + model.isValidated());
-                meteredTextView.setText("Metered: " + model.isMetered());
-                downstreamTextView.setText("Downstream: " + model.getDownstreamKbps() + " kbps");
-                upstreamTextView.setText("Upstream: " + model.getUpstreamKbps() + " kbps");
 
+                transportTypeTextView.setText(
+                        getContext().getString(R.string.transport, model.getTransportType().name())
+                );
+
+
+                String capabilityStatus = model.hasInternet() ? "Yes" : "No";
+                internetCapabilityTextView.setText(String.format(getString(R.string.internet), capabilityStatus));
+
+                String validateStatus = model.isValidated() ? "Yes" : "No";
+                validatedCapabilityTextView.setText(String.format(getString(R.string.validation), validateStatus));
+
+                String meteredStatus = model.isMetered() ? "Yes" : "No";
+                meteredTextView.setText(String.format(getString(R.string.metered), meteredStatus));
+
+                int downstream = model.getDownstreamKbps();
+                String speedTextDown = SpeedConverter.speedConvert(downstream);
+                downstreamTextView.setText(String.format(getString(R.string.downstream_s), speedTextDown));
+
+                int upstream = model.getUpstreamKbps();
+                String speedTextUp = SpeedConverter.speedConvert(upstream);
+                upstreamTextView.setText(String.format("Upstream: %s", speedTextUp));
             } else {
                 transportTypeTextView.setText("Transport: -");
                 internetCapabilityTextView.setText("Has Internet: -");
@@ -218,21 +165,6 @@ public class StatsFragment extends Fragment {
                 upstreamTextView.setText("Upstream: -");
             }
         });
-
-
-
-    }
-
-    private void updateData(List<WifiSignalModel> signals) {
-        if (signals == null || signals.isEmpty()) return;
-
-
-        // Displays the latest RSSI data as it updates in a TextView
-        WifiSignalModel latest = signals.get(signals.size() - 1);
-
-        // Sets rssi - not needed
-        //rssiTextView.setText("RSSI: " + latest.getRssi() + " dBm");
-
     }
 
     @Override
@@ -252,5 +184,4 @@ public class StatsFragment extends Fragment {
         dhcpViewModel.stopAutoUpdate();
         connectivityViewModel.stopAutoUpdate();
     }
-
 }

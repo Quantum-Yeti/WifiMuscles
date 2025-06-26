@@ -42,7 +42,7 @@
     <string name="menu_icon">menu_icon</string>
     <string name="rssi_display">RSSI: %1$d dBm</string>
 
-    <string name="strength_level">Strength Level</string>
+    <string name="strength_level">Wi-Fi Level: %1$d</string>
     <string name="capability">Capability: %1$d</string>
     <string name="channel_width">Ch Width: %1$d</string>
     <string name="width">Width %1$d</string>
@@ -52,13 +52,6 @@
     <string name="responder">802.11mc: %1$d</string>
     <string name="network_stats">Network Stats</string>
 
-    <!-- Boolean -->
-    <string name="yes">yes</string>
-    <string name="no">no</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dhcp_info">DHCP Info</string>
     <string name="gateway">Gateway</string>
     <string name="netmask">Netmask</string>
@@ -66,12 +59,21 @@
     <string name="dns2">DNS2</string>
     <string name="server_address">Server Address</string>
     <string name="lease_duration">Lease Duration</string>
-    <string name="transport">Transport</string>
-    <string name="internet">Internet</string>
-    <string name="validation">Validation</string>
-    <string name="metered">Metered</string>
+    <string name="transport">Transport: %1$s</string>
+    <string name="internet">Internet: %s</string>
+    <string name="validation">Validation: %s</string>
+    <string name="metered">Metered: %s</string>
     <string name="downstream">Downstream</string>
     <string name="upstream">Upstream</string>
+
+    <!-- Boolean -->
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="downstream_s">Downstream: %s</string>
 
 
 </resources>

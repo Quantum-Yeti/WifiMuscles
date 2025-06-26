@@ -485,7 +485,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Connect Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/connectCard"
             android:layout_width="0dp"
@@ -505,18 +504,19 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="12dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:divider="@android:color/transparent"
                 android:showDividers="middle"
                 android:dividerPadding="12dp">
 
+                <!-- Title -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingBottom="8dp"
-                    tools:ignore="UseCompoundDrawables">
+                    android:layout_marginVertical="8dp">
 
                     <TextView
                         android:id="@+id/infoConnectTitle"
@@ -529,12 +529,13 @@
                         android:textColor="@color/text_primary" />
                 </LinearLayout>
 
+                <!-- Transport + Internet -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginVertical="8dp">
 
                     <ImageView
                         android:layout_width="36dp"
@@ -560,8 +561,7 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:maxLines="1"
-                            android:ellipsize="end"
-                            android:layout_marginTop="8dp" />
+                            android:ellipsize="end" />
 
                         <TextView
                             android:id="@+id/isInternetBox"
@@ -577,12 +577,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <!-- Validation + Metered -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginVertical="8dp">
 
                     <ImageView
                         android:layout_width="36dp"
@@ -624,12 +625,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <!-- Downstream + Upstream -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginVertical="8dp">
 
                     <ImageView
                         android:layout_width="36dp"
@@ -670,16 +672,9 @@
                             android:layout_marginTop="4dp" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
