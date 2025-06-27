@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Wifi Muscles</string>
 
     <!-- Bottom Navigation Strings -->
@@ -42,14 +42,14 @@
     <string name="menu_icon">menu_icon</string>
     <string name="rssi_display">RSSI: %1$d dBm</string>
 
-    <string name="strength_level">Wi-Fi Level: %1$d</string>
-    <string name="capability">Capability: %1$d</string>
-    <string name="channel_width">Ch Width: %1$d</string>
+    <string name="strength_level">- Wi-Fi Level: %1$d</string>
+    <string name="capability">- Capability: %s</string>
+    <string name="channel_width">- Channel Width: %1$d</string>
     <string name="width">Width %1$d</string>
-    <string name="center_freq_0">Freq 0: %1$d</string>
-    <string name="center_freq_1">Freq 1: %1$d</string>
-    <string name="passpoint">Passpoint: %s</string>
-    <string name="responder">802.11mc: %s</string>
+    <string name="center_freq_0">- Center Freq 0: %1$d</string>
+    <string name="center_freq_1">- Center Freq 1: %1$d</string>
+    <string name="passpoint">- Passpoint: %s</string>
+    <string name="responder">- 802.11mc: %s</string>
     <string name="network_stats">Network Stats</string>
 
     <string name="dhcp_info">DHCP Info</string>
@@ -64,18 +64,28 @@
     <string name="validation">Validation: %s</string>
     <string name="metered">Metered: %s</string>
     <string name="downstream">Downstream</string>
-    <string name="upstream">Upstream</string>
-    <string name="downstream_s">Downstream: %s</string>
+    <string name="upstream">- Upstream %s</string>
+    <string name="downstream_s">- Downstream: %s</string>
     <string name="nothing">-</string>
+
+    <string name="speed_test_throughput">Speed Test/Throughput</string>
+    <string name="wi_fi_signal">Wi-Fi Signal</string>
+    <string name="network_info">Network Info</string>
+    <string name="connectivity_status">Connectivity Status</string>
 
     <!-- Boolean -->
     <string name="yes">yes</string>
     <string name="no">no</string>
 
+    <!-- Popup Text -->
+    <string name="wifi_signal_popup"
+        tools:ignore="StringEscaping">This WiFi level is rated on a 1 through 5 scale illustrating the strength of your device to the router. Higher values mean better connectivity (e.g., 5 is best and 1 is weakest). The scale is based off of the RSSI level reading from your connected device.
+    </string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="description_subheader">Tap an item for a description.</string>
 
 
 </resources>

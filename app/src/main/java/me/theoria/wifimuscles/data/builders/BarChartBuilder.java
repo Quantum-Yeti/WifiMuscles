@@ -43,6 +43,7 @@ public class BarChartBuilder {
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawLabels(false);
         xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(false);
 
         // Configure Y-Axis
         YAxis leftAxis = chart.getAxisLeft();

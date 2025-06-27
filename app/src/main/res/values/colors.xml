@@ -42,4 +42,5 @@
 
     <!-- Splash Screen Background -->
     <color name="splashScreenBackground">#318dbd</color>
+    <color name="red">#CE362B</color>
 </resources>
