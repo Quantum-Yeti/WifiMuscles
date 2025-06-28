@@ -2,7 +2,6 @@ package me.theoria.wifimuscles.view.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +48,14 @@ public class StatsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_stats, container, false);
         bindViews(root);
 
+
+
         popupManager = new PopupManager(requireContext());
 
         // Initialize ViewModels
-        ViewModelProvider provider = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication()));
+        ViewModelProvider.AndroidViewModelFactory factory = ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication());
+        ViewModelProvider provider = new ViewModelProvider(this, factory);
+
         wifiViewModel = provider.get(WifiViewModel.class);
         networkViewModel = provider.get(NetworkViewModel.class);
         connectivityViewModel = provider.get(ConnectivityViewModel.class);
@@ -71,6 +74,8 @@ public class StatsFragment extends Fragment {
      */
     public void observeLiveData() {
 
+        Context context = requireContext();
+
         // DHCP Text updates from DataUI ViewModel
         dhcpViewModel.getDhcpModelLiveData().observe(getViewLifecycleOwner(), dhcpModel -> {
             if (dhcpModel != null) {
@@ -82,7 +87,7 @@ public class StatsFragment extends Fragment {
 
         dataUIViewModel.getNetMaskText().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                netmaskTextView.setText(text);
+                netmaskTextView.setText(context.getString(R.string.netmask, text));
             } else {
                 netmaskTextView.setText(""); // Default empty value if null
             }
@@ -90,7 +95,7 @@ public class StatsFragment extends Fragment {
 
         dataUIViewModel.getGatewayText().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                gatewayTextView.setText(text);
+                gatewayTextView.setText(context.getString(R.string.gateway, text));
             } else {
                 gatewayTextView.setText(""); // Default empty value if null
             }
@@ -98,7 +103,7 @@ public class StatsFragment extends Fragment {
 
         dataUIViewModel.getDns1Text().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                dns1TextView.setText(text);
+                dns1TextView.setText(context.getString(R.string.dns1, text));
             } else {
                 dns1TextView.setText(""); // Default empty value if null
             }
@@ -106,7 +111,7 @@ public class StatsFragment extends Fragment {
 
         dataUIViewModel.getDns2Text().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                dns2TextView.setText(text);
+                dns2TextView.setText(context.getString(R.string.dns2, text));
             } else {
                 dns2TextView.setText(""); // Default empty value if null
             }
@@ -122,7 +127,7 @@ public class StatsFragment extends Fragment {
 
         dataUIViewModel.getLeaseDurationText().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                leaseDurationTextView.setText(text);
+                leaseDurationTextView.setText(context.getString(R.string.lease_duration, text));
             } else {
                 leaseDurationTextView.setText(""); // Default empty value if null
             }
@@ -138,8 +143,6 @@ public class StatsFragment extends Fragment {
         // Observe network info from the NetworkViewModel
         networkViewModel.getConnectedNetworkLiveData().observe(getViewLifecycleOwner(), network -> {
             if (network != null) {
-                Context context = requireContext();
-
                 levelTextView.setText(context.getString(R.string.strength_level, network.getSignalLevel()));
                 capabilitiesTextView.setText(context.getString(R.string.capability, network.getCapabilities()));
                 channelWidthTextView.setText(context.getString(R.string.channel_width, network.getChannelWidth()));
@@ -168,7 +171,7 @@ public class StatsFragment extends Fragment {
             if (model != null) {
 
                 transportTypeTextView.setText(
-                        getContext().getString(R.string.transport, model.getTransportType().name())
+                        context.getString(R.string.transport, model.getTransportType().name())
                 );
 
                 String capabilityStatus = model.hasInternet() ? "Yes" : "No";
@@ -186,7 +189,7 @@ public class StatsFragment extends Fragment {
 
                 int upstream = model.getUpstreamKbps();
                 String speedTextUp = SpeedConverter.speedConvert(upstream);
-                upstreamTextView.setText(String.format("Upstream: %s", speedTextUp));
+                upstreamTextView.setText(String.format(getString(R.string.upstream), speedTextUp));
             } else {
                 transportTypeTextView.setText(String.format(getString(R.string.nothing)));
                 internetCapabilityTextView.setText(String.format(getString(R.string.nothing)));
@@ -224,8 +227,26 @@ public class StatsFragment extends Fragment {
         downstreamTextView = root.findViewById(R.id.downstreamBox);
         upstreamTextView = root.findViewById(R.id.upstreamBox);
 
-        // Popup Window Binding
+        // Popup Window Binding onClick
         levelTextView.setOnClickListener(v -> popupManager.wifiLevelPopup(v));
+        capabilitiesTextView.setOnClickListener(v -> popupManager.capabilitiesPopup(v));
+        channelWidthTextView.setOnClickListener(v -> popupManager.channelwidthPopup(v));
+        centerFreq0TextView.setOnClickListener(v -> popupManager.centerfreq0Popup(v));
+        centerFreq1TextView.setOnClickListener(v -> popupManager.centerfreq1Popup(v));
+        passpointTextView.setOnClickListener(v -> popupManager.passpointPopup(v));
+        responderTextView.setOnClickListener(v -> popupManager.responderPopup(v));
+        gatewayTextView.setOnClickListener(v -> popupManager.gatewayPopup(v));
+        netmaskTextView.setOnClickListener(v -> popupManager.netmaskPopup(v));
+        dns1TextView.setOnClickListener(v -> popupManager.dns1Popup(v));
+        dns2TextView.setOnClickListener(v -> popupManager.dns2Popup(v));
+        //serverAddressTextView.setOnClickListener(v -> popupManager.wifiLevelPopup(v));
+        leaseDurationTextView.setOnClickListener(v -> popupManager.leasePopup(v));
+        transportTypeTextView.setOnClickListener(v -> popupManager.transportPopup(v));
+        internetCapabilityTextView.setOnClickListener(v -> popupManager.internetPopup(v));
+        validatedCapabilityTextView.setOnClickListener(v -> popupManager.validationPopup(v));
+        meteredTextView.setOnClickListener(v -> popupManager.meteredPopup(v));
+        downstreamTextView.setOnClickListener(v -> popupManager.downstreamPopup(v));
+        upstreamTextView.setOnClickListener(v -> popupManager.upstreamPopup(v));
 
     }
 

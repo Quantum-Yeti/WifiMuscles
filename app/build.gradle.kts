@@ -10,8 +10,8 @@ android {
         applicationId = "me.theoria.wifimuscles"
         minSdk = 26
         targetSdk = 35
-        versionCode = 10
-        versionName = "1.9"
+        versionCode = 12
+        versionName = "2.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,9 +47,14 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
-    // Miscellaneous dependencies
-    implementation("com.google.android.gms:play-services-ads:24.3.0")
+    // Google Ads
+    implementation(libs.play.services.ads.v2440)
+
+    // Charting Libraries
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // In-App-Updates
+    implementation ("com.google.android.play:app-update:2.1.0")
 
 
 }

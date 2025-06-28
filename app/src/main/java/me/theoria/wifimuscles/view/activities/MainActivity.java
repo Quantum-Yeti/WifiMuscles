@@ -1,8 +1,10 @@
 package me.theoria.wifimuscles.view.activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
@@ -10,6 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -17,7 +22,15 @@ import androidx.fragment.app.Fragment;
 
 
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.appupdate.AppUpdateOptions;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.managers.AdManager;
@@ -27,6 +40,7 @@ import me.theoria.wifimuscles.view.fragments.ChartFragment;
 public class MainActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
+    private static final int REQUEST_CODE_UPDATE = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
         // Set current fragment from setCurrentFragment helper
         setCurrentFragment(mainFragment);
 
+        // Top Menu navigation
+        MaterialToolbar toolbar = findViewById(R.id.topAppBar);
+        setSupportActionBar(toolbar);
+
         // Initialize navigation from NavigationManager
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavigationManager navigationManager = new NavigationManager(this, getSupportFragmentManager());
@@ -55,13 +73,17 @@ public class MainActivity extends AppCompatActivity {
         AdView mAdView = findViewById(R.id.adView);
         AdManager.initAds(this, mAdView);
 
+        // Check Google Play for updates
+        checkForUpdates();
+
     }
 
     /**
      * Method: setCurrentFragment
      * Description: Replaces the fragment within the fragment container block from
      * the main activity.
-     * @param fragment
+     *
+     * @param fragment sets the selected fragment to the fragment container
      */
     private void setCurrentFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -87,6 +109,37 @@ public class MainActivity extends AppCompatActivity {
                     this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
+    }
+
+    private final ActivityResultLauncher<IntentSenderRequest> updateLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartIntentSenderForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Toast.makeText(this, "Update accepted", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Update canceled", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            );
+
+
+    private void checkForUpdates() {
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        appUpdateManager.getAppUpdateInfo().addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+
+                AppUpdateOptions options = AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE)
+                        .build();
+
+                appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        updateLauncher,
+                        options
+                );
+            }
+        });
     }
 }
 

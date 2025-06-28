@@ -29,6 +29,7 @@
     <color name="accent_brown_three">#86613e</color>
     <color name="accent_grey_orange">#9b968e</color>
     <color name="accent_light_blue">#318dbd</color>
+    <color name="red">#CE362B</color>
 
     <color name="accent_primary">#00BFA5</color>         <!-- Vibrant teal, for buttons, highlights -->
     <color name="accent_secondary">#1DE9B6</color>       <!-- Bright mint accent -->
@@ -40,7 +41,12 @@
     <color name="gray_medium">#5C677D</color>            <!-- Medium gray for secondary UI elements -->
     <color name="gray_dark">#2E3A59</color>              <!-- Darker gray for backgrounds, separators -->
 
+    <!-- Stats Divider -->
+    <color name="divider">#33FFFFFF</color>
+    <color name="dividerColor">#1FFFFFFF</color> <!-- semi-transparent white for light mode -->
+
+
     <!-- Splash Screen Background -->
     <color name="splashScreenBackground">#318dbd</color>
-    <color name="red">#CE362B</color>
+
 </resources>

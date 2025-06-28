@@ -22,6 +22,9 @@
     <string name="rssi_emoji_txt">RSSI Emoji Levels</string>
     <string name="emoji">Emoji</string>
 
+    <!-- Headers -->
+    <string name="description_subheader">Tap an item for a description.</string>
+
     <!-- Labels -->
     <string name="rssi_dBm_txt">-00 dBm</string>
     <string name="wifi_icon">Wifi Icon</string>
@@ -39,13 +42,13 @@
     <string name="link_speed">Link Speed</string>
     <string name="dns">DNS</string>
     <string name="connection_info">Connection Info</string>
+    <string name="advanced_info">Advanced Stats</string>
     <string name="menu_icon">menu_icon</string>
     <string name="rssi_display">RSSI: %1$d dBm</string>
 
     <string name="strength_level">- Wi-Fi Level: %1$d</string>
     <string name="capability">- Capability: %s</string>
     <string name="channel_width">- Channel Width: %1$d</string>
-    <string name="width">Width %1$d</string>
     <string name="center_freq_0">- Center Freq 0: %1$d</string>
     <string name="center_freq_1">- Center Freq 1: %1$d</string>
     <string name="passpoint">- Passpoint: %s</string>
@@ -53,16 +56,16 @@
     <string name="network_stats">Network Stats</string>
 
     <string name="dhcp_info">DHCP Info</string>
-    <string name="gateway">Gateway</string>
-    <string name="netmask">Netmask</string>
-    <string name="dns1">DNS1</string>
-    <string name="dns2">DNS2</string>
+    <string name="gateway">- Gateway %s</string>
+    <string name="netmask">- Netmask %s</string>
+    <string name="dns1">- DNS1 %s</string>
+    <string name="dns2">- DNS2 %s</string>
     <string name="server_address">Server Address</string>
-    <string name="lease_duration">Lease Duration</string>
-    <string name="transport">Transport: %1$s</string>
-    <string name="internet">Internet: %s</string>
-    <string name="validation">Validation: %s</string>
-    <string name="metered">Metered: %s</string>
+    <string name="lease_duration">- Lease Duration %s</string>
+    <string name="transport">- Transport: %1$s</string>
+    <string name="internet">- Internet: %s</string>
+    <string name="validation">- Validation: %s</string>
+    <string name="metered">- Metered: %s</string>
     <string name="downstream">Downstream</string>
     <string name="upstream">- Upstream %s</string>
     <string name="downstream_s">- Downstream: %s</string>
@@ -78,14 +81,64 @@
     <string name="no">no</string>
 
     <!-- Popup Text -->
-    <string name="wifi_signal_popup"
-        tools:ignore="StringEscaping">This WiFi level is rated on a 1 through 5 scale illustrating the strength of your device to the router. Higher values mean better connectivity (e.g., 5 is best and 1 is weakest). The scale is based off of the RSSI level reading from your connected device.
+    <string name="wifi_signal_popup">This WiFi level is rated on a 1 through 5 scale illustrating the strength of your device to the router. Higher values mean better connectivity (e.g., 5 is best and 1 is weakest). The scale is based off of the RSSI level reading from your connected device.
+    </string>
+
+    <string name="capability_popup_txt">Shows the supported Wi-Fi capabilities such as WPA/WPA2, PSK, etc.
+    </string>
+
+    <string name="channel_width_txt">Channel width in Wi-Fi refers to the amount of frequency spectrum (measured in MHz) used to transmit data. It determines how much data can be sent at once — think of it like the width of a highway: the wider it is, the more cars (data) it can handle simultaneously./ Higher width means more speed, but also more interference and less compatibility. Lower width is more stable, especially in crowded environments or with older devices.
+    </string>
+
+    <string name="center_freq_0_txt">This is the primary frequency (in MHz) used by your Wi-Fi connection. It helps identify which channel your device is using to send and receive data. For example, 2412 MHz corresponds to Wi-Fi Channel 1 in the 2.4 GHz band.
+    </string>
+
+    <string name="center_freq_1_txt">This is the secondary frequency used in wide-channel configurations like 40, 80, or 160 MHz. It helps Wi-Fi devices achieve faster speeds by bonding multiple channels together.
+    </string>
+
+    <string name="passpoint_txt">Passpoint is a Wi-Fi standard that allows devices to automatically and securely connect to participating public Wi-Fi networks—like those in airports, hotels, and cafes—without needing to manually log in. It provides seamless, encrypted, and trusted connections—similar to cellular roaming.
+    </string>
+
+    <string name="responder_txt">802.11mc is a Wi-Fi standard also known as Wi-Fi Round Trip Time (RTT). It allows devices to measure the distance to nearby Wi-Fi access points using precise timing.
+    </string>
+
+    <string name="downstream_txt">This is the rate at which data is downloaded from the network to your device. A higher downstream speed means faster loading times for videos, files, and web pages.
+    </string>
+
+    <string name="upstream_txt">This is the rate at which data is uploaded from your device to the network. Faster upstream speeds help improve file uploads, video calls, and live streaming.
+    </string>
+
+    <string name="gateway_txt">The gateway is the IP address of the router your device uses to connect to the internet or other networks. It acts as the entry and exit point for network traffic outside your local network.
+    </string>
+
+    <string name="netmask_txt">The netmask defines your local network’s size by specifying which part of the IP address identifies the network and which part identifies devices within it. It helps your device determine if another IP is local or needs to go through the gateway.
+    </string>
+
+    <string name="dns1_txt">This is the main server your device contacts to translate website names into IP addresses. It helps your device find websites and services on the internet quickly.
+    </string>
+
+    <string name="dns2_txt">This is the backup DNS server your device uses if the primary DNS server is unavailable, ensuring continued access to domain name resolution.
+    </string>
+
+    <string name="lease_txt">The time period your device is allowed to use its current IP address assigned by the network’s DHCP server before it needs to renew or request a new one.
+    </string>
+
+    <string name="transport_txt">The type of network connection your device is currently using, such as Wi-Fi, Cellular, or Ethernet.
+    </string>
+
+    <string name="internet_txt">Indicates if your device currently has access to the internet through the connected network.
+    </string>
+
+    <string name="validated_txt">Indicates whether the device’s network connection has been confirmed to provide internet access by successfully reaching external servers.
+    </string>
+
+    <string name="metered_txt">Shows if the current network connection has data limits or usage charges, which may restrict background data to save on costs.
     </string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="description_subheader">Tap an item for a description.</string>
+    <string name="menu">Menu</string>
 
 
 </resources>
