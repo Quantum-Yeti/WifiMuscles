@@ -40,7 +40,7 @@ public class WifiViewModel extends AndroidViewModel {
                 String ssid = info.getSSID();
                 if (ssid == null || ssid.equals("<unknown ssid>")) {
                     errorLiveData.postValue("Enable Location to access SSID");
-                    handler.postDelayed(this, 2000);
+                    handler.postDelayed(this, 1000);
                     return;
                 }
 

@@ -29,7 +29,7 @@ public class NavigationManager {
         this.fragmentManager = fragmentManager;
     }
 
-    public void setupNavigation(BottomNavigationView bottomNavigationView, int fragmentContainerId) {
+    public void setupBottomNavigation(BottomNavigationView bottomNavigationView, int fragmentContainerId) {
         setFragment(chartFragment, fragmentContainerId); // Default fragment
 
         bottomNavigationView.setOnItemSelectedListener(item -> {

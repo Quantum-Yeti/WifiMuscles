@@ -10,7 +10,7 @@ import me.theoria.wifimuscles.R;
  */
 public enum RSSILevelModel {
 
-    // Bind RSSI String levels to drawables.
+    // Bind RSSI String levels to drawables for gradients.
     EXCELLENT(R.string.label_excellent, R.drawable.fill_blue), // 0 to -50
     GOOD(R.string.label_good, R.drawable.fill_green), // -50 to -70
     FAIR(R.string.label_fair, R.drawable.fill_yellow), // -70 to -80
@@ -28,8 +28,8 @@ public enum RSSILevelModel {
     /**
      * Constructor for the enum values.
      *
-     * @param wifiStrengthLabel
-     * @param fillDrawableRes
+     * @param wifiStrengthLabel String for the level (excellent, good, etc.)
+     * @param fillDrawableRes Gradient drawables.
      */
     RSSILevelModel(@StringRes int wifiStrengthLabel, @DrawableRes int fillDrawableRes) {
         this.wifiStrengthLabel = wifiStrengthLabel;
@@ -39,7 +39,7 @@ public enum RSSILevelModel {
     /**
      * String resource ID corresponding to the RSSI level.
      *
-     * @return
+     * @return the String for rssi level.
      */
     public int getRssiLabel() {
         return wifiStrengthLabel;
@@ -48,7 +48,7 @@ public enum RSSILevelModel {
     /**
      * Drawable resource ID for chart fill.
      *
-     * @return
+     * @return the gradient based on the String RSSI level.
      */
     public int getFillDrawableRes() {
         return fillDrawableRes;
@@ -57,10 +57,10 @@ public enum RSSILevelModel {
     /**
      * Method to map RSSI float to a simple threshold level as an enum.
      *
-     * @param rssi
-     * @return
+     * @param rssi raw rssi reading
+     * @return an enum based on the rssi reading
      */
-    public static RSSILevelModel mapRssi (float rssi) {
+    public static RSSILevelModel mapRssiToStringLevel(float rssi) {
         if (rssi >= -50) {
             return EXCELLENT;
         } else if (rssi >= -60) {

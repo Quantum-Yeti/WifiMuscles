@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.managers.PopupManager;
-import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.SpeedConverter;
 import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
 import me.theoria.wifimuscles.viewmodel.DHCPViewModel;
@@ -28,7 +27,7 @@ public class StatsFragment extends Fragment {
     private TextView levelTextView, capabilitiesTextView, channelWidthTextView,
             centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView;
     private TextView gatewayTextView, netmaskTextView, dns1TextView, dns2TextView,
-            serverAddressTextView, leaseDurationTextView;
+            leaseDurationTextView;
     private TextView transportTypeTextView, internetCapabilityTextView,
             validatedCapabilityTextView, meteredTextView, downstreamTextView, upstreamTextView;
     private ImageView rssiEmojiView;
@@ -48,8 +47,7 @@ public class StatsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_stats, container, false);
         bindViews(root);
 
-
-
+        // Initialize popups onClick
         popupManager = new PopupManager(requireContext());
 
         // Initialize ViewModels
@@ -87,49 +85,41 @@ public class StatsFragment extends Fragment {
 
         dataUIViewModel.getNetMaskText().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                netmaskTextView.setText(context.getString(R.string.netmask, text));
+                netmaskTextView.setText(text);
             } else {
-                netmaskTextView.setText(""); // Default empty value if null
+                netmaskTextView.setText(R.string.no_data); // Default empty value if null
             }
         });
 
         dataUIViewModel.getGatewayText().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                gatewayTextView.setText(context.getString(R.string.gateway, text));
+                gatewayTextView.setText(text);
             } else {
-                gatewayTextView.setText(""); // Default empty value if null
+                gatewayTextView.setText(R.string.no_data); // Default empty value if null
             }
         });
 
         dataUIViewModel.getDns1Text().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                dns1TextView.setText(context.getString(R.string.dns1, text));
+                dns1TextView.setText(text);
             } else {
-                dns1TextView.setText(""); // Default empty value if null
+                dns1TextView.setText(R.string.no_data); // Default empty value if null
             }
         });
 
         dataUIViewModel.getDns2Text().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                dns2TextView.setText(context.getString(R.string.dns2, text));
+                dns2TextView.setText(text);
             } else {
-                dns2TextView.setText(""); // Default empty value if null
+                dns2TextView.setText(R.string.no_data); // Default empty value if null
             }
         });
 
-        /*dataUIViewModel.getServerAddressText().observe(getViewLifecycleOwner(), text -> {
-            if (text != null) {
-                serverAddressTextView.setText(text);
-             } else {
-                 serverAddressTextView.setText(""); // Default empty value if null
-            }
-        });*/
-
         dataUIViewModel.getLeaseDurationText().observe(getViewLifecycleOwner(), text -> {
             if (text != null) {
-                leaseDurationTextView.setText(context.getString(R.string.lease_duration, text));
+                leaseDurationTextView.setText(text);
             } else {
-                leaseDurationTextView.setText(""); // Default empty value if null
+                leaseDurationTextView.setText(R.string.no_data); // Default empty value if null
             }
         });
 
@@ -156,13 +146,13 @@ public class StatsFragment extends Fragment {
                 String responderStatus = network.getIs80211mcResponder() ? "Yes" : "No";
                 responderTextView.setText(String.format(getString(R.string.responder), responderStatus));
             } else {
-                levelTextView.setText(R.string.strength_level);
-                capabilitiesTextView.setText("-");
-                channelWidthTextView.setText("-");
-                centerFreq0TextView.setText("-");
-                centerFreq1TextView.setText("-");
-                passpointTextView.setText("-");
-                responderTextView.setText("-");
+                levelTextView.setText(R.string.no_data);
+                capabilitiesTextView.setText(R.string.no_data);
+                channelWidthTextView.setText(R.string.no_data);
+                centerFreq0TextView.setText(R.string.no_data);
+                centerFreq1TextView.setText(R.string.no_data);
+                passpointTextView.setText(R.string.no_data);
+                responderTextView.setText(R.string.no_data);
             }
         });
 
@@ -191,19 +181,19 @@ public class StatsFragment extends Fragment {
                 String speedTextUp = SpeedConverter.speedConvert(upstream);
                 upstreamTextView.setText(String.format(getString(R.string.upstream), speedTextUp));
             } else {
-                transportTypeTextView.setText(String.format(getString(R.string.nothing)));
-                internetCapabilityTextView.setText(String.format(getString(R.string.nothing)));
-                validatedCapabilityTextView.setText(String.format(getString(R.string.nothing)));
-                meteredTextView.setText(String.format(getString(R.string.nothing)));
-                downstreamTextView.setText(String.format(getString(R.string.nothing)));
-                upstreamTextView.setText(String.format(getString(R.string.nothing)));
+                transportTypeTextView.setText(R.string.no_data);
+                internetCapabilityTextView.setText(R.string.no_data);
+                validatedCapabilityTextView.setText(R.string.no_data);
+                meteredTextView.setText(R.string.no_data);
+                downstreamTextView.setText(R.string.no_data);
+                upstreamTextView.setText(R.string.no_data);
             }
         });
     }
 
     /**
      * Method to bind UI components.
-     * @param root
+     *
      */
     private void bindViews(View root) {
         rssiEmojiView = root.findViewById(R.id.rssiEmoji);
@@ -218,7 +208,7 @@ public class StatsFragment extends Fragment {
         netmaskTextView = root.findViewById(R.id.netmaskBox);
         dns1TextView = root.findViewById(R.id.dns1Box);
         dns2TextView = root.findViewById(R.id.dns2Box);
-        serverAddressTextView = root.findViewById(R.id.serverAddressBox);
+        //serverAddressTextView = root.findViewById(R.id.serverAddressBox);
         leaseDurationTextView = root.findViewById(R.id.leaseDurationBox);
         transportTypeTextView = root.findViewById(R.id.transportBox);
         internetCapabilityTextView = root.findViewById(R.id.isInternetBox);
@@ -230,9 +220,9 @@ public class StatsFragment extends Fragment {
         // Popup Window Binding onClick
         levelTextView.setOnClickListener(v -> popupManager.wifiLevelPopup(v));
         capabilitiesTextView.setOnClickListener(v -> popupManager.capabilitiesPopup(v));
-        channelWidthTextView.setOnClickListener(v -> popupManager.channelwidthPopup(v));
-        centerFreq0TextView.setOnClickListener(v -> popupManager.centerfreq0Popup(v));
-        centerFreq1TextView.setOnClickListener(v -> popupManager.centerfreq1Popup(v));
+        channelWidthTextView.setOnClickListener(v -> popupManager.channelWidthPopup(v));
+        centerFreq0TextView.setOnClickListener(v -> popupManager.centerFreq0Popup(v));
+        centerFreq1TextView.setOnClickListener(v -> popupManager.centerFreq1Popup(v));
         passpointTextView.setOnClickListener(v -> popupManager.passpointPopup(v));
         responderTextView.setOnClickListener(v -> popupManager.responderPopup(v));
         gatewayTextView.setOnClickListener(v -> popupManager.gatewayPopup(v));
@@ -266,5 +256,15 @@ public class StatsFragment extends Fragment {
         networkViewModel.stopAutoUpdate();
         dhcpViewModel.stopAutoUpdate();
         connectivityViewModel.stopAutoUpdate();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        rssiEmojiView = null;
+        popupManager = null;
+        dataUIViewModel = null;
+        wifiViewModel = null;
+        connectivityViewModel = null;
     }
 }

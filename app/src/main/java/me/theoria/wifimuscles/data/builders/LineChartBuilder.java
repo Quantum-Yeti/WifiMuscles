@@ -9,10 +9,13 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.ChartMarkerModel;
@@ -22,7 +25,7 @@ public class LineChartBuilder {
 
     public static class ChartSetupResult {
         public LineChart chart;
-        public LineDataSet primaryDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet;
+        public LineDataSet primaryDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet, linkSpeedDataSet;
         public LineData lineData;
     }
 
@@ -31,7 +34,6 @@ public class LineChartBuilder {
         configureChart(chart);
         configureXAxis(chart.getXAxis());
         configureYAxis(chart.getAxisLeft());
-        chart.getAxisRight().setEnabled(false);
 
         LineDataSet rssiValueDataSet = createPrimaryDataSet(context);
         setMarkerView(chart, context);
@@ -42,8 +44,12 @@ public class LineChartBuilder {
         LineDataSet weakSet = createLineThresholdDataSet(context, RSSILevelModel.WEAK);
         LineDataSet unusableSet = createLineThresholdDataSet(context, RSSILevelModel.UNUSABLE);
 
+        // Create the linkSpeedDataSet
+        LineDataSet linkSpeedDataSet = createLinkSpeedDataSet(context);
+
         LineData lineData = new LineData();
         lineData.addDataSet(rssiValueDataSet);
+        lineData.addDataSet(linkSpeedDataSet);
 
         // Currently empty datasets
         /*lineData.addDataSet(excellentSet);
@@ -53,7 +59,7 @@ public class LineChartBuilder {
         lineData.addDataSet(unusableSet);*/
 
         chart.setData(lineData);
-        chart.animateXY(1000,1000, Easing.EaseInQuart);
+        chart.animateXY(1000, 1000, Easing.EaseInQuart);
         chart.invalidate();
 
         ChartSetupResult result = new ChartSetupResult();
@@ -64,6 +70,7 @@ public class LineChartBuilder {
         result.fairSet = fairSet;
         result.weakSet = weakSet;
         result.unusableSet = unusableSet;
+        result.linkSpeedDataSet = linkSpeedDataSet;
         result.lineData = lineData;
 
         return result;
@@ -71,7 +78,6 @@ public class LineChartBuilder {
 
     private static void configureChart(LineChart chart) {
         chart.setDrawGridBackground(false);
-        //chart.setBackgroundColor(Color.TRANSPARENT);
         chart.setTouchEnabled(true);
         chart.setDragEnabled(true);
         chart.setScaleEnabled(true);
@@ -113,13 +119,8 @@ public class LineChartBuilder {
         yAxis.setDrawLabels(true);
         yAxis.setTextColor(Color.WHITE);
         yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        /*yAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return ((int) value) + "";
-            }
-        });*/
     }
+
 
     private static LineDataSet createPrimaryDataSet(Context context) {
         LineDataSet dataSet = new LineDataSet(new ArrayList<>(), context.getString(R.string.label_blank));
@@ -132,8 +133,19 @@ public class LineChartBuilder {
         dataSet.setDrawFilled(false);
         dataSet.setDrawCircleHole(true);
         dataSet.getColor(R.color.accent_pink);
-        //dataSet.setFillColor(Color.parseColor("#05DA93")); // Solid fill
         return dataSet;
+    }
+
+    public static LineDataSet createLinkSpeedDataSet(Context context) {
+        List<Entry> linkSpeedEntries = new ArrayList<>();
+        LineDataSet linkSpeedDataSet = new LineDataSet(linkSpeedEntries, context.getString(R.string.link_speed));
+        linkSpeedDataSet.setColor(Color.RED);
+        linkSpeedDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        linkSpeedDataSet.setLineWidth(2f);
+        linkSpeedDataSet.setDrawCircles(false);
+        linkSpeedDataSet.setDrawValues(false);
+        linkSpeedDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT); // Important!
+        return linkSpeedDataSet;
     }
 
     private static void setMarkerView(LineChart chart, Context context) {
@@ -153,5 +165,3 @@ public class LineChartBuilder {
         return set;
     }
 }
-
-

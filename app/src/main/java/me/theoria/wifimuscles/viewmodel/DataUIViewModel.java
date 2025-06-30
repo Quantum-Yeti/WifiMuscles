@@ -9,7 +9,7 @@ import java.util.List;
 import me.theoria.wifimuscles.data.model.DHCPModel;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.FrequencyUtils;
-import me.theoria.wifimuscles.utils.numToStringUtils;
+import me.theoria.wifimuscles.utils.NumToStringUtils;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 
 public class DataUIViewModel extends ViewModel {
@@ -22,7 +22,7 @@ public class DataUIViewModel extends ViewModel {
     private final MutableLiveData<String> bandwidthText = new MutableLiveData<>();
     private final MutableLiveData<String> ssidText = new MutableLiveData<>();
     private final MutableLiveData<String> linkSpeed = new MutableLiveData<>();
-    private final MutableLiveData<String> maxLinkSpeed = new MutableLiveData<String>();
+    private final MutableLiveData<String> maxLinkSpeed = new MutableLiveData<>();
     private final MutableLiveData<String> mac = new MutableLiveData<>();
     private final MutableLiveData<Integer> toastLevelEvent = new MutableLiveData<>();
     private final MutableLiveData<Integer> bssid = new MutableLiveData<>();
@@ -36,7 +36,7 @@ public class DataUIViewModel extends ViewModel {
     private final MutableLiveData<String> leaseDurationText = new MutableLiveData<>();
 
 
-    private final numToStringUtils ipConverter = new numToStringUtils();
+    private final NumToStringUtils ipConverter = new NumToStringUtils();
 
     // Signal getters
     public LiveData<String> getRssiText() { return rssiText; }
@@ -86,7 +86,7 @@ public class DataUIViewModel extends ViewModel {
     }
 
     private void updateNetworkDetails(WifiSignalModel signal) {
-        ipText.setValue(numToStringUtils.intIPToString(signal.getIP()));  // returns String now
+        ipText.setValue(NumToStringUtils.intIPToString(signal.getIP()));  // returns String now
         ssidText.setValue("SSID: " + signal.getSSIDText());
         mac.setValue("MAC: " + signal.getMac());
         linkSpeed.setValue("Link Speed: " + signal.getLinkSpeed() + " Mbps");
@@ -100,11 +100,11 @@ public class DataUIViewModel extends ViewModel {
 
     public void updateFromDhcpModel(DHCPModel model) {
         if (model == null) return;
-        gatewayText.setValue("Gateway: " + numToStringUtils.intIPToString(model.getGateway()));
-        netmaskText.setValue("Netmask: " + numToStringUtils.intIPToString(model.getNetmask()));
-        dns1Text.setValue("DNS 1: " + numToStringUtils.intIPToString(model.getDns1()));
-        dns2Text.setValue("DNS 2: " + numToStringUtils.intIPToString(model.getDns2()));
-        serverAddressText.setValue("DHCP Server: " + numToStringUtils.intIPToString(model.getServerAddress()));
+        gatewayText.setValue("Gateway: " + NumToStringUtils.intIPToString(model.getGateway()));
+        netmaskText.setValue("Netmask: " + NumToStringUtils.intIPToString(model.getNetmask()));
+        dns1Text.setValue("DNS 1: " + NumToStringUtils.intIPToString(model.getDns1()));
+        dns2Text.setValue("DNS 2: " + NumToStringUtils.intIPToString(model.getDns2()));
+        serverAddressText.setValue("DHCP Server: " + NumToStringUtils.intIPToString(model.getServerAddress()));
         leaseDurationText.setValue("Lease Duration: " + model.getLeaseDuration() + " sec");
     }
 }

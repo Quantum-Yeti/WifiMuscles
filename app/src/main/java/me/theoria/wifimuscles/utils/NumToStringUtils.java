@@ -3,7 +3,7 @@ package me.theoria.wifimuscles.utils;
 /**
  * IPToString is a reusable utility class to convert an integer IP address to a String.
  */
-public class numToStringUtils {
+public class NumToStringUtils {
 
     /**
      * Method to convert an integer IP address to a String.

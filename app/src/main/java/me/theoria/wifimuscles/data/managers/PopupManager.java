@@ -58,17 +58,17 @@ public class PopupManager {
         showPopup(anchorView, message);
     }
 
-    public void channelwidthPopup(View anchorView) {
+    public void channelWidthPopup(View anchorView) {
         String message = context.getString(R.string.channel_width_txt);
         showPopup(anchorView, message);
     }
 
-    public void centerfreq0Popup(View anchorView) {
+    public void centerFreq0Popup(View anchorView) {
         String message = context.getString(R.string.center_freq_0_txt);
         showPopup(anchorView, message);
     }
 
-    public void centerfreq1Popup(View anchorView) {
+    public void centerFreq1Popup(View anchorView) {
         String message = context.getString(R.string.center_freq_1_txt);
         showPopup(anchorView, message);
     }
@@ -142,8 +142,5 @@ public class PopupManager {
         String message = context.getString(R.string.description_subheader);
         showPopup(anchorView, message);
     }
-
-
-
 
 }
