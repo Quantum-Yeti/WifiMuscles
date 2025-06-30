@@ -15,6 +15,7 @@ import me.theoria.wifimuscles.data.managers.AdManager;
 import me.theoria.wifimuscles.data.managers.NavigationManager;
 import me.theoria.wifimuscles.utils.PermissionUtils;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
+import me.theoria.wifimuscles.view.fragments.ChartPagerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         PermissionUtils.checkWifiAndLocationEnabled(this);
 
         // Fragment declaration
-        Fragment mainFragment = new ChartFragment();
+        //Fragment mainFragment = new ChartFragment();
 
         // Set current fragment from setCurrentFragment helper
-        setCurrentFragment(mainFragment);
+        setCurrentFragment(new ChartPagerFragment());
 
         // Top Menu navigation
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_app_primary"
     android:fitsSystemWindows="true"
-    tools:context=".view.fragments.StatsFragment">
+    tools:context=".view.fragments.ChartFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rootConstraintLayout"
