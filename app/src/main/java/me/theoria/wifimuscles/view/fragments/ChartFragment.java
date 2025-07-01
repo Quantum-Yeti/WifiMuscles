@@ -11,10 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
 
+import me.theoria.wifimuscles.R;
+import me.theoria.wifimuscles.data.builders.BarChartBuilder;
 import me.theoria.wifimuscles.data.builders.LineChartBuilder;
 import me.theoria.wifimuscles.data.managers.LineChartManager;
 import me.theoria.wifimuscles.data.managers.SignalProcessManager;
@@ -45,6 +50,9 @@ public class ChartFragment extends Fragment {
     // Managers
     private LineChartManager lineChartManager;
 
+    // Switch Chart
+    private MaterialButton switchChartButton;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentChartBinding binding = FragmentChartBinding.inflate(inflater, container, false);
@@ -65,6 +73,11 @@ public class ChartFragment extends Fragment {
 
         // Start data updates
         wifiViewModel.startUpdates();
+
+        switchChartButton = binding.switchChartButton;
+        switchChartButton.setOnClickListener(v ->{
+            openBarChartFragment();
+        });
 
         return binding.getRoot();
     }
@@ -107,6 +120,8 @@ public class ChartFragment extends Fragment {
         chart.invalidate();
     }
 
+
+
     private void observeSignalData() {
         wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
             if (signals == null) return;
@@ -144,6 +159,15 @@ public class ChartFragment extends Fragment {
                 ToastUtils.showToastForExtender(requireContext(), level);
             }
         });
+    }
+
+    private void openBarChartFragment() {
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new BarChartFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override

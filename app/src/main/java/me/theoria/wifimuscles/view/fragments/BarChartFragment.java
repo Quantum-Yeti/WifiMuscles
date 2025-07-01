@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarDataSet;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class BarChartFragment extends Fragment {
 
     private BarDataSet barDataSet;
 
+    private MaterialButton switchChartButton;
+
     /**
      * Inflates the layout and initializes the chart, ViewModels, and LiveData observables.
      *
@@ -71,6 +74,11 @@ public class BarChartFragment extends Fragment {
 
         // Observe LiveData being passed from the ViewModels
         observeLiveData();
+
+        switchChartButton = root.findViewById(R.id.switchChartButton);
+        switchChartButton.setOnClickListener(v ->{
+            openLineChartFragment();
+        });
 
         return root;
     }
@@ -135,6 +143,16 @@ public class BarChartFragment extends Fragment {
         // Delegates chart update to the manager.
         chartManager.updateBarChart(signals, barChart, barDataSet);
     }
+
+    private void openLineChartFragment() {
+        requireActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new ChartFragment())
+                .addToBackStack(null)
+                .commit();
+    }
+
 
     @Override
     public void onStop() {

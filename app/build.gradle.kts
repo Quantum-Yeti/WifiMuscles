@@ -56,5 +56,8 @@ dependencies {
     // In-App-Updates
     implementation ("com.google.android.play:app-update:2.1.0")
 
+    // ViewPager
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+
 
 }
