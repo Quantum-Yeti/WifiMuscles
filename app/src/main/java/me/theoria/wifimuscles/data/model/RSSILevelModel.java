@@ -11,11 +11,11 @@ import me.theoria.wifimuscles.R;
 public enum RSSILevelModel {
 
     // Bind RSSI String levels to drawables for gradients.
-    EXCELLENT(R.string.label_excellent, R.drawable.fill_blue), // 0 to -50
-    GOOD(R.string.label_good, R.drawable.fill_green), // -50 to -70
-    FAIR(R.string.label_fair, R.drawable.fill_yellow), // -70 to -80
-    WEAK(R.string.label_weak, R.drawable.fill_red), // -80 to -90
-    UNUSABLE(R.string.label_unusable, R.drawable.fill_red); // < -90
+    EXCELLENT(R.string.leve_excellent, R.drawable.fill_blue), // 0 to -50
+    GOOD(R.string.level_good, R.drawable.fill_green), // -50 to -70
+    FAIR(R.string.level_fair, R.drawable.fill_yellow), // -70 to -80
+    WEAK(R.string.level_weak, R.drawable.fill_red), // -80 to -90
+    UNUSABLE(R.string.level_unusable, R.drawable.fill_red); // < -90
 
     // Resource ID for the string labels.
     @StringRes

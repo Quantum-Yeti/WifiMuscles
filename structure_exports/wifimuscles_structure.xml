@@ -824,7 +824,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;&#xd;
 import me.theoria.wifimuscles.R;&#xd;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;&#xd;
 import me.theoria.wifimuscles.view.fragments.DonateFragment;&#xd;
-import me.theoria.wifimuscles.view.fragments.HomeFragment;&#xd;
+import me.theoria.wifimuscles.view.fragments.SupportFragment;&#xd;
 import me.theoria.wifimuscles.view.fragments.RadarChartFragment;&#xd;
 &#xd;
 public class MainActivity extends AppCompatActivity {&#xd;

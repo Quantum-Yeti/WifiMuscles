@@ -42,6 +42,7 @@ public class ChartFragment extends Fragment {
     private LineDataSet primaryLineDataSet;
     private LineDataSet excellentSet, goodSet, fairSet, weakSet, unusableSet;
     private LineData lineData;
+    private LineDataSet linkSpeedDataSet;
 
     // ViewModels
     private DataUIViewModel dataUIViewModel;
@@ -106,7 +107,6 @@ public class ChartFragment extends Fragment {
         fairSet = chartResults.fairSet;
         weakSet = chartResults.weakSet;
         unusableSet = chartResults.unusableSet;
-        //linkSpeedDataSet = chartResults.linkSpeedDataSet;
         lineData = chartResults.lineData;
 
         chart.setData(lineData);

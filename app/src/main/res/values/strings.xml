@@ -7,78 +7,87 @@
     <string name="stats_txt">Stats</string>
     <string name="bar_txt">Bar</string>
     <string name="chart_txt">Chart</string>
+    <string name="support">Support</string>
 
-    <!-- RSSI Level UI Labels -->
+    <!-- Top Navigation String -->
+    <string name="menu">Menu</string>
+
+    <!-- RSSI String Level UI Labels -->
     <string name="wifi_strength">Wifi Strength</string>
     <string name="rssi">RSSI</string>
-    <string name="label_excellent">Excellent</string>
-    <string name="label_good">Good</string>
-    <string name="label_fair">Fair</string>
-    <string name="label_weak">Weak</string>
-    <string name="label_unusable">Unusable</string>
-    <string name="label_blank">""</string>
+    <string name="leve_excellent">Excellent</string>
+    <string name="level_good">Good</string>
+    <string name="level_fair">Fair</string>
+    <string name="level_weak">Weak</string>
+    <string name="level_unusable">Unusable</string>
+
+    <!-- Buttons -->
+    <string name="switch_chart">Switch Chart</string>
+    <string name="line_chart">Line Chart</string>
+    <string name="bar_chart">Bar Chart</string>
 
     <!-- Emoji Labels -->
     <string name="rssi_emoji_txt">RSSI Emoji Levels</string>
     <string name="emoji">Emoji</string>
 
-    <!-- Headers -->
-    <string name="description_subheader">Tap an item for a description.</string>
-
-    <!-- Labels -->
-    <string name="rssi_dBm_txt">-00 dBm</string>
+    <!-- Icon Labels -->
     <string name="wifi_icon">Wifi Icon</string>
-    <string name="wifi_overview">WiFi Overview</string>
-    <string name="mhz">MHz</string>
-    <string name="ghz">GHz</string>
     <string name="band_icon">Band Icon</string>
-    <string name="ip_address">IP Address</string>
-    <string name="ssid">SSID</string>
+    <string name="menu_icon">menu_icon</string>
 
-    <string name="mac">MAC</string>
-    <string name="tx">tx</string>
-    <string name="rx">rx</string>
-    <string name="max_speed">Max Speed</string>
-    <string name="link_speed">Link Speed</string>
-    <string name="dns">DNS</string>
+    <!-- Headers -->
+    <string name="wifi_overview">WiFi Overview</string>
     <string name="connection_info">Connection Info</string>
     <string name="advanced_info">Advanced Stats</string>
-    <string name="menu_icon">menu_icon</string>
-    <string name="rssi_display">RSSI: %1$d dBm</string>
-
-    <string name="strength_level">- Wi-Fi Level: %1$d</string>
-    <string name="capability">- Capability: %s</string>
-    <string name="channel_width">- Channel Width: %1$d</string>
-    <string name="center_freq_0">- Center Freq 0: %1$d</string>
-    <string name="center_freq_1">- Center Freq 1: %1$d</string>
-    <string name="passpoint">- Passpoint: %s</string>
-    <string name="responder">- 802.11mc: %s</string>
-    <string name="network_stats">Network Stats</string>
-
-    <string name="dhcp_info">DHCP Info</string>
-    <string name="gateway">- Gateway %s</string>
-    <string name="netmask">- Netmask %s</string>
-    <string name="dns1">- DNS1 %s</string>
-    <string name="dns2">- DNS2 %s</string>
-    <string name="server_address">Server Address</string>
-    <string name="lease_duration">- Lease Duration %s</string>
-    <string name="transport">- Transport: %1$s</string>
-    <string name="internet">- Internet: %s</string>
-    <string name="validation">- Validation: %s</string>
-    <string name="metered">- Metered: %s</string>
-    <string name="downstream">Downstream</string>
-    <string name="upstream">- Upstream %s</string>
-    <string name="downstream_s">- Downstream: %s</string>
-    <string name="nothing">-</string>
-
-    <string name="speed_test_throughput">Speed Test/Throughput</string>
+    <string name="speed_test_throughput">Throughput</string>
     <string name="wi_fi_signal">Wi-Fi Signal</string>
     <string name="network_info">Network Info</string>
+    <string name="network_stats">Network Stats</string>
     <string name="connectivity_status">Connectivity Status</string>
+    <string name="dhcp_info">DHCP Info</string>
+    <string name="throughput">Throughput</string>
+    <string name="description_subHeader">Tap an item for a description.</string>
+
+    <!-- WiFi Stats Labels -->
+    <string name="capability">- Capability: %s</string>
+    <string name="center_freq_0">- Center Freq 0: %1$d</string>
+    <string name="center_freq_1">- Center Freq 1: %1$d</string>
+    <string name="channel_width">- Channel Width: %1$d</string>
+    <string name="dns">DNS</string>
+    <string name="dns1">- DNS1 %1$s</string>
+    <string name="dns2">- DNS2 %1$s</string>
+    <string name="downstream">Downstream</string>
+    <string name="downstream_s">- Downstream: %1$s</string>
+    <string name="gateway">- Gateway: %1$s</string>
+    <string name="ghz">GHz</string>
+    <string name="interference">- Interference: %1$d</string>
+    <string name="internet">- Internet: %1$s</string>
+    <string name="ip_address">IP: %1$s</string>
+    <string name="lease_duration">- Lease Duration %1$s</string>
+    <string name="link_speed">Link Speed: %1$d</string>
+    <string name="mac">MAC</string>
+    <string name="max_speed">Max Speed</string>
+    <string name="metered">- Metered: %1$s</string>
+    <string name="mhz">MHz</string>
+    <string name="netmask">- Netmask: %1$s</string>
+    <string name="no_data">No Data</string>
+    <string name="nothing">-</string>
+    <string name="passpoint">- Passpoint: %1$s</string>
+    <string name="responder">- 802.11mc: %1$s</string>
+    <string name="rssi_dBm_txt">-00 dBm</string>
+    <string name="rssi_display">RSSI: %1$d dBm</string>
+    <string name="server_address">Server Address</string>
+    <string name="ssid">SSID</string>
+    <string name="strength_level">- Wi-Fi Level: %1$d</string>
+    <string name="transport">- Transport: %1$s</string>
+    <string name="tx">tx</string>
+    <string name="upstream">- Upstream: %1$s</string>
+    <string name="validation">- Validation: %1$s</string>
 
     <!-- Boolean -->
     <string name="yes">yes</string>
     <string name="no">no</string>
+    <string name="label_blank">""</string>
 
     <!-- Popup Text -->
     <string name="wifi_signal_popup">This WiFi level is rated on a 1 through 5 scale illustrating the strength of your device to the router. Higher values mean better connectivity (e.g., 5 is best and 1 is weakest). The scale is based off of the RSSI level reading from your connected device.
@@ -135,12 +144,11 @@
     <string name="metered_txt">Shows if the current network connection has data limits or usage charges, which may restrict background data to save on costs.
     </string>
 
+    <string name="interference_txt">The interference value is an estimated representation of how many nearby Wi-Fi networks are operating on frequencies close to your current Wi-Fi connection, which could cause signal interference and affect performance.
+    </string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="menu">Menu</string>
-    <string name="no_data">No Data</string>
-    <string name="switch_chart">Switch Chart</string>
-
 
 </resources>

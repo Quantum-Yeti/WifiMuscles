@@ -16,18 +16,6 @@
         android:paddingBottom="12dp"
         android:background="@color/bg_app_primary">
 
-        <!-- Top App Bar
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:title="@string/app_name"
-            android:titleTextColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />-->
-
         <!-- Info Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/infoCard"
@@ -96,7 +84,7 @@
                     android:layout_marginVertical="12dp"
                     android:background="@color/dividerColor" />
 
-                <!-- Wi-Fi Signal -->
+                <!-- Wi-Fi Signal Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,6 +103,7 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/accent_light_blue" />
+
                     <ImageView
                         android:id="@+id/wifiIcon"
                         android:layout_width="24dp"
@@ -124,7 +113,9 @@
                         app:tint="@color/accent_secondary" />
                 </LinearLayout>
 
+                <!-- Wi-Fi Signal Details -->
                 <TextView android:id="@+id/levelBox" style="@style/StatsTextView" />
+                <TextView android:id="@+id/interferenceBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/capabilityBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/channelBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/centerBox0" style="@style/StatsTextView" />
@@ -139,14 +130,15 @@
                     android:layout_marginVertical="12dp"
                     android:background="@color/dividerColor" />
 
-                <!-- Speed Test -->
+                <!-- Speed Test Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_marginTop="16dp"
-                    android:paddingBottom="8dp">
+                    android:paddingBottom="8dp"
+                    tools:ignore="UseCompoundDrawables">
 
                     <TextView
                         android:layout_width="0dp"
@@ -156,15 +148,17 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/accent_light_blue" />
+
                     <ImageView
                         android:id="@+id/speedIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/throughput"
                         android:src="@drawable/icon_rocket"
                         app:tint="@color/accent_orange" />
                 </LinearLayout>
 
+                <!-- Speed Test Details -->
                 <TextView android:id="@+id/downstreamBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/upstreamBox" style="@style/StatsTextView" />
 
@@ -175,7 +169,7 @@
                     android:layout_marginVertical="12dp"
                     android:background="@color/dividerColor" />
 
-                <!-- Network Info -->
+                <!-- Network Info Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -193,15 +187,17 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/accent_light_blue" />
+
                     <ImageView
                         android:id="@+id/networkIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/network_info"
                         android:src="@drawable/icon_ip_globe"
                         app:tint="@color/accent_secondary" />
                 </LinearLayout>
 
+                <!-- Network Info Details -->
                 <TextView android:id="@+id/gatewayBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/netmaskBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/dns1Box" style="@style/StatsTextView" />
@@ -215,7 +211,7 @@
                     android:layout_marginVertical="12dp"
                     android:background="@color/dividerColor" />
 
-                <!-- Connectivity Status -->
+                <!-- Connectivity Status Section -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -232,22 +228,26 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@color/accent_light_blue" />
+
                     <ImageView
                         android:id="@+id/connectivityIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="TODO"
+                        android:contentDescription="@string/connection_info"
                         android:src="@drawable/icon_host"
                         app:tint="@color/red" />
                 </LinearLayout>
 
+                <!-- Connectivity Status Details -->
                 <TextView android:id="@+id/transportBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/isInternetBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/validateBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/meteredBox" style="@style/StatsTextView" />
 
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

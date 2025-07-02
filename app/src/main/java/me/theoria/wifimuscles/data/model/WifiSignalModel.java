@@ -34,20 +34,11 @@ public class WifiSignalModel {
     // MAC address of the access point.
     private final String mac;
 
+    // Count of nearby overlapping networks (potential interference).
+    private final int interferenceLevel;
 
     /**
      * Constructor that creates all the WifiSignalModel data.
-     *
-     * @param timestamp
-     * @param rssi
-     * @param signalLevel
-     * @param frequency
-     * @param ip
-     * @param networkID
-     * @param ssid
-     * @param bssid
-     * @param linkSpeed
-     * @param mac
      */
     public WifiSignalModel(long timestamp,
                            int rssi,
@@ -59,7 +50,8 @@ public class WifiSignalModel {
                            String bssid,
                            int linkSpeed,
                            int maxLinkSpeed,
-                           String mac) {
+                           String mac,
+                           int interferenceLevel) {
         this.timestamp = timestamp;
         this.rssi = rssi;
         this.signalLevel = signalLevel;
@@ -71,9 +63,10 @@ public class WifiSignalModel {
         this.linkSpeed = linkSpeed;
         this.maxLinkSpeed = maxLinkSpeed;
         this.mac = mac;
+        this.interferenceLevel = interferenceLevel;
     }
 
-    // Section for all getters.
+    // Getters
     public long getTimestamp() {
         return timestamp;
     }
@@ -86,19 +79,39 @@ public class WifiSignalModel {
         return signalLevel;
     }
 
-    public int getIP() { return ip; }
+    public int getIP() {
+        return ip;
+    }
 
-    public int getFrequency() { return frequency; }
+    public int getFrequency() {
+        return frequency;
+    }
 
-    public int getNetworkID() { return networkID; }
+    public int getNetworkID() {
+        return networkID;
+    }
 
-    public String getSSIDText() { return ssid; }
+    public String getSSIDText() {
+        return ssid;
+    }
 
-    public String getBssid() { return bssid; }
+    public String getBssid() {
+        return bssid;
+    }
 
-    public int getLinkSpeed() { return linkSpeed; }
+    public int getLinkSpeed() {
+        return linkSpeed;
+    }
 
-    public int getMaxLinkSpeed() { return maxLinkSpeed; }
+    public int getMaxLinkSpeed() {
+        return maxLinkSpeed;
+    }
 
-    public String getMac() { return mac; }
+    public String getMac() {
+        return mac;
+    }
+
+    public int getInterferenceLevel() {
+        return interferenceLevel;
+    }
 }

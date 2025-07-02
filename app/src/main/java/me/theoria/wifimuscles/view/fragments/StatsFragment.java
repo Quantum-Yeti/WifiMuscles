@@ -24,7 +24,7 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
 public class StatsFragment extends Fragment {
 
-    private TextView levelTextView, capabilitiesTextView, channelWidthTextView,
+    private TextView levelTextView, interferenceTextView, capabilitiesTextView, channelWidthTextView,
             centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView;
     private TextView gatewayTextView, netmaskTextView, dns1TextView, dns2TextView,
             leaseDurationTextView;
@@ -130,6 +130,13 @@ public class StatsFragment extends Fragment {
             }
         });
 
+        wifiViewModel.getInterferenceLevelLiveData().observe(getViewLifecycleOwner(), interference -> {
+            String text = getString(R.string.interference, interference);
+            interferenceTextView.setText(text);
+        });
+
+
+
         // Observe network info from the NetworkViewModel
         networkViewModel.getConnectedNetworkLiveData().observe(getViewLifecycleOwner(), network -> {
             if (network != null) {
@@ -198,6 +205,7 @@ public class StatsFragment extends Fragment {
     private void bindViews(View root) {
         rssiEmojiView = root.findViewById(R.id.rssiEmoji);
         levelTextView = root.findViewById(R.id.levelBox);
+        interferenceTextView = root.findViewById(R.id.interferenceBox);
         capabilitiesTextView = root.findViewById(R.id.capabilityBox);
         channelWidthTextView = root.findViewById(R.id.channelBox);
         centerFreq0TextView = root.findViewById(R.id.centerBox0);
@@ -237,6 +245,8 @@ public class StatsFragment extends Fragment {
         meteredTextView.setOnClickListener(v -> popupManager.meteredPopup(v));
         downstreamTextView.setOnClickListener(v -> popupManager.downstreamPopup(v));
         upstreamTextView.setOnClickListener(v -> popupManager.upstreamPopup(v));
+        interferenceTextView.setOnClickListener(v -> popupManager.interferencePopup(v));
+
 
     }
 

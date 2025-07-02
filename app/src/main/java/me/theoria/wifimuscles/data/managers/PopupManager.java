@@ -139,7 +139,12 @@ public class PopupManager {
     }
 
     public void advancedPopup(View anchorView) {
-        String message = context.getString(R.string.description_subheader);
+        String message = context.getString(R.string.description_subHeader);
+        showPopup(anchorView, message);
+    }
+
+    public void interferencePopup(View anchorView) {
+        String message = context.getString(R.string.interference_txt);
         showPopup(anchorView, message);
     }
 

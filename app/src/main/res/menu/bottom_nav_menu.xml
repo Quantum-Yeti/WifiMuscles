@@ -5,23 +5,23 @@
 
     <item
         android:id="@+id/mainChart"
-        android:icon="@drawable/icon_ssid"
+        android:icon="@drawable/icon_chart_2"
         android:title="@string/chart_txt"
-        />
-    <item
-        android:id="@+id/barChart"
-        android:icon="@drawable/icon_bar_chart"
-        android:title="@string/bar_txt"
-        />
-    <item
-        android:id="@+id/donate"
-        android:icon="@drawable/icon_coffee"
-        android:title="@string/donate_txt"
         />
     <item
         android:id="@+id/stats"
         android:icon="@drawable/icon_stats"
         android:title="@string/stats_txt"
+        />
+    <item
+        android:id="@+id/support"
+        android:icon="@drawable/icon_robot"
+        android:title="@string/support"
+        />
+    <item
+        android:id="@+id/donate"
+        android:icon="@drawable/icon_coffee"
+        android:title="@string/donate_txt"
         />
     <item
         android:id="@+id/share"
