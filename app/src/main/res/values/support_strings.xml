@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="rebootTitle">Can Not Connect</string>
+    <string name="rebootDescription">How to Properly Reboot Your Modem &amp; Router</string>
+    <string name="rebootInstructions">
+        1. Unplug the power cables:\n\n
+           - First, unplug the modem\'s power cable.\n
+           - Then, unplug the router\'s power cable (if separate devices).\n\n
+        2. Wait for 30-60 seconds to let both devices fully power down.\n\n
+           - Allow full power-down: Internal components (like memory and capacitors) need time to completely discharge.\n
+           - Ensures that any temporary glitches or corrupted states are fully cleared.\n
+           - Clear cached data: During this wait, volatile memory (RAM) and caches inside the devices are erased. \n
+           - Prevent fast power cycling damage: Plugging devices back in too quickly can sometimes cause them to not reboot properly.\n
+           - Ensure complete reset: Waiting ensures they start fresh on power-up.\n\n
+        3. Plug in the modem first:\n\n
+           - Wait for the modem to fully restart and all lights to stabilize.\n\n
+        4. Plug in the router next:\n\n
+           - Wait for the router to fully boot up and all lights to stabilize.\n\n
+        5. Check your internet connection.\n\n
+        Additional tips:\n\n
+           - Avoid pressing the reset button unless you want to restore factory settings.\n
+           - If you have a combined modem/router, just unplug it once, wait, then plug it back in.\n
+           - Be patient, some modems take a bit longer to initialize after reboot.\n
+    </string>
+
+
+</resources>

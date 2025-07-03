@@ -11,36 +11,52 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import me.theoria.wifimuscles.R;
+import me.theoria.wifimuscles.data.managers.SupportTipManager;
 import me.theoria.wifimuscles.data.model.SupportModel;
 import me.theoria.wifimuscles.view.adapters.SupportAdapter;
 
 public class SupportFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerView supportRecyclerView;
+    private SupportAdapter supportAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_support, container, false);
+        initializeRecyclerView(view);
+        return view;
+    }
 
-        recyclerView = view.findViewById(R.id.supportRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    private void initializeRecyclerView(View rootView) {
+        supportRecyclerView = rootView.findViewById(R.id.supportRecyclerView);
+        supportRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        List<SupportModel> tips = Arrays.asList(
-                new SupportModel("Check Wi-Fi Signal Strength", "Move closer to the router or remove obstructions.", "Testing longer detailed description on click."),
-                new SupportModel("Restart Your Router", "Unplug for 10 seconds and plug it back in.", "Testing longer detailed description on click."),
-                new SupportModel("Forget & Reconnect to Network", "Go to Wi-Fi settings and reconnect.", "Testing longer detailed description on click."),
-                new SupportModel("Switch Frequency Band", "Try switching between 2.4GHz and 5GHz.", "Testing longer detailed description on click."),
-                new SupportModel("Reduce Interference", "Turn off unused Wi-Fi devices or move away from microwave ovens.", "Testing longer detailed description on click.")
+        supportAdapter = new SupportAdapter(
+                SupportTipManager.getSupportTips(requireContext()),
+                this::onTipSelected
+        );
+        supportRecyclerView.setAdapter(supportAdapter);
+    }
+
+
+    private void onTipSelected(SupportModel tip) {
+        TipFragment tipFragment = TipFragment.newInstance(
+                tip.getTitle(),
+                tip.getDescription(),
+                tip.getDetailedDescription()
         );
 
-        recyclerView.setAdapter(new SupportAdapter(tips));
-
-        return view;
+        // Replace the current fragment with TipFragment and add transaction to back stack
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, tipFragment) // change fragment_container to your container id
+                .addToBackStack(null)
+                .commit();
     }
 }

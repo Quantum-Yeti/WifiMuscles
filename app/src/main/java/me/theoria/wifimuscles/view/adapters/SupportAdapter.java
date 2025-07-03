@@ -1,6 +1,5 @@
 package me.theoria.wifimuscles.view.adapters;
 
-import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,35 +13,33 @@ import java.util.List;
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.SupportModel;
 
-public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.TipViewHolder> {
+// In SupportAdapter.java
+public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHolder> {
 
     private final List<SupportModel> tips;
+    private final OnItemClickListener clickListener;
 
-    public SupportAdapter(List<SupportModel> tips) {
+    public interface OnItemClickListener {
+        void onItemClick(SupportModel tip);
+    }
+
+    public SupportAdapter(List<SupportModel> tips, OnItemClickListener listener) {
         this.tips = tips;
+        this.clickListener = listener;
     }
 
     @NonNull
     @Override
-    public TipViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_support_card, parent, false);
-        return new TipViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TipViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SupportModel tip = tips.get(position);
-        holder.title.setText(tip.getTitle());
-        holder.description.setText(tip.getDescription());
-
-        holder.itemView.setOnClickListener(v -> {
-            new AlertDialog.Builder(v.getContext())
-                    .setTitle(tip.getTitle())
-                    .setMessage(tip.getDetailedDescription())
-                    .setPositiveButton("OK", null)
-                    .show();
-        });
+        holder.bind(tip, clickListener);
     }
 
     @Override
@@ -50,13 +47,20 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.TipViewH
         return tips.size();
     }
 
-    static class TipViewHolder extends RecyclerView.ViewHolder {
-        TextView title, description;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView titleView;
+        private final TextView descView;
 
-        public TipViewHolder(@NonNull View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.tipTitle);
-            description = itemView.findViewById(R.id.tipDescription);
+            titleView = itemView.findViewById(R.id.supportTitle);
+            descView = itemView.findViewById(R.id.supportDescription);
+        }
+
+        void bind(SupportModel tip, OnItemClickListener listener) {
+            titleView.setText(tip.getTitle());
+            descView.setText(tip.getDescription());
+            itemView.setOnClickListener(v -> listener.onItemClick(tip));
         }
     }
 }
