@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Wifi Muscles</string>
 
     <!-- Bottom Navigation Strings -->
@@ -33,7 +33,13 @@
     <!-- Icon Labels -->
     <string name="wifi_icon">Wifi Icon</string>
     <string name="band_icon">Band Icon</string>
-    <string name="menu_icon">menu_icon</string>
+    <string name="dns_icon">DNS Icon</string>
+    <string name="globe_icon">Globe Icon</string>
+    <string name="menu_icon">Menu Icon</string>
+    <string name="network_icon">Network Icon</string>
+    <string name="speed_icon">Speed Icon</string>
+    <string name="ssid_icon">SSID Icon</string>
+    <string name="icon">icon</string>
 
     <!-- Headers -->
     <string name="wifi_overview">WiFi Overview</string>
@@ -92,6 +98,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="icon">icon</string>
+
 
 </resources>

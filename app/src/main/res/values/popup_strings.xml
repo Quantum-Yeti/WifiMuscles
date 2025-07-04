@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Popup Text -->
     <string name="wifi_signal_popup">This WiFi level is rated on a 1 through 5 scale illustrating the strength of your device to the router. Higher values mean better connectivity (e.g., 5 is best and 1 is weakest). The scale is based off of the RSSI level reading from your connected device.

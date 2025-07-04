@@ -68,6 +68,7 @@
                             android:id="@+id/rssiEmoji"
                             android:layout_width="38dp"
                             android:layout_height="38dp"
+                            android:contentDescription="@string/globe_icon"
                             android:src="@drawable/emoji_happy"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -106,8 +107,8 @@
 
                     <ImageView
                         android:id="@+id/wifiIcon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:contentDescription="@string/wifi_icon"
                         android:src="@drawable/icon_wifi"
                         app:tint="@color/accent_secondary" />
@@ -151,9 +152,9 @@
 
                     <ImageView
                         android:id="@+id/speedIcon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:contentDescription="@string/throughput"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:contentDescription="@string/speed_icon"
                         android:src="@drawable/icon_rocket"
                         app:tint="@color/accent_orange" />
                 </LinearLayout>
@@ -192,7 +193,7 @@
                         android:id="@+id/networkIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:contentDescription="@string/network_info"
+                        android:contentDescription="@string/network_icon"
                         android:src="@drawable/icon_ip_globe"
                         app:tint="@color/accent_secondary" />
                 </LinearLayout>

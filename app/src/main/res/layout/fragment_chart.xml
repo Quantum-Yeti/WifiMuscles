@@ -169,7 +169,7 @@
                             android:src="@drawable/icon_ssid"
                             android:layout_marginEnd="20dp"
                             app:tint="@color/accent_light_blue"
-                            android:contentDescription="@string/ssid" />
+                            android:contentDescription="@string/ssid_icon" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -263,7 +263,7 @@
                             android:src="@drawable/icon_dns"
                             android:layout_marginEnd="20dp"
                             app:tint="@color/accent_primary"
-                            android:contentDescription="@string/dns" />
+                            android:contentDescription="@string/dns_icon" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -309,7 +309,7 @@
                             android:src="@drawable/icon_rocket"
                             android:layout_marginEnd="20dp"
                             app:tint="@color/accent_orange"
-                            android:contentDescription="@string/ssid" />
+                            android:contentDescription="@string/speed_icon" />
 
                         <LinearLayout
                             android:layout_width="0dp"
