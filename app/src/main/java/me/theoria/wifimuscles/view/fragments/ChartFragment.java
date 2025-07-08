@@ -110,16 +110,6 @@ public class ChartFragment extends Fragment {
 
     private void initLineChartUI(FragmentChartBinding binding) {
         chart = binding.lineChart;
-        /*rssiTextView = binding.rssiTextView;
-        rssiEmojiView = binding.rssiEmoji;
-        frequencyTextView = binding.frequencyBox;
-        bandwidthTextView = binding.bandBox;
-        standardTextView = binding.standardBox;
-        ipTextView = binding.ipBox;
-        ssidTextView = binding.ssidBox;
-        macTextView = binding.macBox;
-        rxTextView = binding.rxSpeedBox;
-        maxLinkSpeedTextView = binding.maxSpeedBox;*/
     }
 
     private void setupMainChart() {
@@ -145,8 +135,6 @@ public class ChartFragment extends Fragment {
 
         chart.invalidate();
     }
-
-
 
     private void observeSignalData() {
         showProgress(true);
