@@ -14,97 +14,93 @@ import me.theoria.wifimuscles.utils.RSSIUtils;
 
 public class DataUIViewModel extends ViewModel {
 
-    // Signal Info
-    private final MutableLiveData<String> rssiText = new MutableLiveData<>();
-    private final MutableLiveData<Integer> rssiEmoji = new MutableLiveData<>();
-    private final MutableLiveData<String> ipText = new MutableLiveData<>();
-    private final MutableLiveData<String> frequencyText = new MutableLiveData<>();
-    private final MutableLiveData<String> bandwidthText = new MutableLiveData<>();
-    private final MutableLiveData<String> ssidText = new MutableLiveData<>();
-    private final MutableLiveData<String> linkSpeed = new MutableLiveData<>();
-    private final MutableLiveData<String> maxLinkSpeed = new MutableLiveData<>();
-    private final MutableLiveData<String> mac = new MutableLiveData<>();
-    private final MutableLiveData<Integer> toastLevelEvent = new MutableLiveData<>();
-    private final MutableLiveData<Integer> bssid = new MutableLiveData<>();
+    // Nested class to hold signal-related LiveData
+    public static class SignalInfo {
+        public final MutableLiveData<String> rssiText = new MutableLiveData<>();
+        public final MutableLiveData<Integer> rssiEmoji = new MutableLiveData<>();
+        public final MutableLiveData<String> ipText = new MutableLiveData<>();
+        public final MutableLiveData<String> frequencyText = new MutableLiveData<>();
+        public final MutableLiveData<String> bandwidthText = new MutableLiveData<>();
+        public final MutableLiveData<String> ssidText = new MutableLiveData<>();
+        public final MutableLiveData<String> linkSpeed = new MutableLiveData<>();
+        public final MutableLiveData<String> maxLinkSpeed = new MutableLiveData<>();
+        public final MutableLiveData<String> bssidText = new MutableLiveData<>();
+        public final MutableLiveData<Integer> toastLevelEvent = new MutableLiveData<>();
+    }
 
-    // DHCP Info
-    private final MutableLiveData<String> gatewayText = new MutableLiveData<>();
-    private final MutableLiveData<String> netmaskText = new MutableLiveData<>();
-    private final MutableLiveData<String> dns1Text = new MutableLiveData<>();
-    private final MutableLiveData<String> dns2Text = new MutableLiveData<>();
-    private final MutableLiveData<String> serverAddressText = new MutableLiveData<>();
-    private final MutableLiveData<String> leaseDurationText = new MutableLiveData<>();
+    // Nested class to hold DHCP-related LiveData
+    public static class DhcpInfo {
+        public final MutableLiveData<String> gatewayText = new MutableLiveData<>();
+        public final MutableLiveData<String> netmaskText = new MutableLiveData<>();
+        public final MutableLiveData<String> dns1Text = new MutableLiveData<>();
+        public final MutableLiveData<String> dns2Text = new MutableLiveData<>();
+        public final MutableLiveData<String> serverAddressText = new MutableLiveData<>();
+        public final MutableLiveData<String> leaseDurationText = new MutableLiveData<>();
+    }
 
+    private final SignalInfo signalInfo = new SignalInfo();
+    private final DhcpInfo dhcpInfo = new DhcpInfo();
 
-    private final NumToStringUtils ipConverter = new NumToStringUtils();
+    // --- Signal getters ---
+    public LiveData<String> getRssiText() { return signalInfo.rssiText; }
+    public LiveData<Integer> getRssiEmoji() { return signalInfo.rssiEmoji; }
+    public LiveData<String> getIpText() { return signalInfo.ipText; }
+    public LiveData<String> getFrequencyText() { return signalInfo.frequencyText; }
+    public LiveData<String> getBandwidthText() { return signalInfo.bandwidthText; }
+    public LiveData<String> getSSIDText() { return signalInfo.ssidText; }
+    public LiveData<String> getLinkSpeed() { return signalInfo.linkSpeed; }
+    public LiveData<String> getMaxLinkSpeed() { return signalInfo.maxLinkSpeed; }
+    public LiveData<String> getBssidText() { return signalInfo.bssidText; }
+    public LiveData<Integer> getToastLevelEvent() { return signalInfo.toastLevelEvent; }
 
-    // Signal getters
-    public LiveData<String> getRssiText() { return rssiText; }
-    public LiveData<Integer> getRssiEmoji() { return rssiEmoji; }
-    public LiveData<String> getIpText() { return ipText; }
-    public LiveData<String> getFrequencyText() { return frequencyText; }
-    public LiveData<String> getBandwidthText() { return bandwidthText; }
-    public LiveData<String> getSSIDText() { return ssidText; }
-    public LiveData<String> getLinkSpeed() { return linkSpeed; }
-    public LiveData<String> getMaxLinkSpeed() { return maxLinkSpeed; }
-    public LiveData<String> getMac() { return mac; }
-    public LiveData<Integer> getToastLevelEvent() { return toastLevelEvent; }
-    public LiveData<Integer> getBssid() { return bssid; }
-
-    // DHCP getters
-    public LiveData<String> getGatewayText() { return gatewayText; }
-    public LiveData<String> getNetMaskText() { return netmaskText; }
-    public LiveData<String> getDns1Text() { return dns1Text; }
-    public LiveData<String> getDns2Text() { return dns2Text; }
-    public LiveData<String> getServerAddressText() { return serverAddressText; }
-    public LiveData<String> getLeaseDurationText() { return leaseDurationText; }
+    // --- DHCP getters ---
+    public LiveData<String> getGatewayText() { return dhcpInfo.gatewayText; }
+    public LiveData<String> getNetmaskText() { return dhcpInfo.netmaskText; }
+    public LiveData<String> getDns1Text() { return dhcpInfo.dns1Text; }
+    public LiveData<String> getDns2Text() { return dhcpInfo.dns2Text; }
+    public LiveData<String> getServerAddressText() { return dhcpInfo.serverAddressText; }
+    public LiveData<String> getLeaseDurationText() { return dhcpInfo.leaseDurationText; }
 
 
     /**
-     * Update the LiveData properties based on the latest signal model in the list.
+     * Update the UI based on the latest WifiSignalModel list.
      */
     public void updateSignalUI(List<WifiSignalModel> signals) {
         if (signals == null || signals.isEmpty()) return;
-        WifiSignalModel latest = signals.get(signals.size() - 1);
 
+        WifiSignalModel latest = signals.get(signals.size() - 1);
         updateRssi(latest.getRssi());
         updateNetworkDetails(latest);
         updateFrequency(latest.getFrequency());
     }
 
-    // --- Internal helpers ---
     private void updateRssi(int rssi) {
-        rssiText.setValue("RSSI: " + rssi + " dBm");
-        rssiEmoji.setValue(RSSIUtils.getRssiEmoji(rssi));
-
-        int level = RSSIUtils.convertRssiToLevel(rssi);
-        triggerToastLevelEvent(level);
-    }
-
-    public void triggerToastLevelEvent(int level) {
-        toastLevelEvent.setValue(level);
+        signalInfo.rssiText.setValue(rssi + " dBm");
+        signalInfo.rssiEmoji.setValue(RSSIUtils.getRssiEmoji(rssi));
+        signalInfo.toastLevelEvent.setValue(RSSIUtils.convertRssiToLevel(rssi));
     }
 
     private void updateNetworkDetails(WifiSignalModel signal) {
-        ipText.setValue(NumToStringUtils.intIPToString(signal.getIP()));  // returns String now
-        ssidText.setValue("SSID: " + signal.getSSIDText());
-        mac.setValue("MAC: " + signal.getMac());
-        linkSpeed.setValue("Link Speed: " + signal.getLinkSpeed() + " Mbps");
-        maxLinkSpeed.setValue("Avg Max Speed: " + signal.getMaxLinkSpeed() + " Mbps");
+        signalInfo.ipText.setValue(NumToStringUtils.intIPToString(signal.getIP()));
+        signalInfo.ssidText.setValue(signal.getSSIDText());
+        signalInfo.bssidText.setValue(signal.getBssid());
+        signalInfo.linkSpeed.setValue(signal.getLinkSpeed() + " Mbps");
+        signalInfo.maxLinkSpeed.setValue(signal.getMaxLinkSpeed() + " Mbps");
     }
 
     private void updateFrequency(int frequency) {
-        frequencyText.setValue(frequency + " MHz");
-        bandwidthText.setValue(FrequencyUtils.fqToGhz(frequency));
+        signalInfo.frequencyText.setValue(frequency + " MHz");
+        signalInfo.bandwidthText.setValue(FrequencyUtils.fqToGhz(frequency));
     }
 
     public void updateFromDhcpModel(DHCPModel model) {
         if (model == null) return;
-        gatewayText.setValue("Gateway: " + NumToStringUtils.intIPToString(model.getGateway()));
-        netmaskText.setValue("Netmask: " + NumToStringUtils.intIPToString(model.getNetmask()));
-        dns1Text.setValue("DNS 1: " + NumToStringUtils.intIPToString(model.getDns1()));
-        dns2Text.setValue("DNS 2: " + NumToStringUtils.intIPToString(model.getDns2()));
-        serverAddressText.setValue("DHCP Server: " + NumToStringUtils.intIPToString(model.getServerAddress()));
-        leaseDurationText.setValue("Lease Duration: " + model.getLeaseDuration() + " sec");
+
+        dhcpInfo.gatewayText.setValue("Gateway: " + NumToStringUtils.intIPToString(model.getGateway()));
+        dhcpInfo.netmaskText.setValue("Netmask: " + NumToStringUtils.intIPToString(model.getNetmask()));
+        dhcpInfo.dns1Text.setValue("DNS 1: " + NumToStringUtils.intIPToString(model.getDns1()));
+        dhcpInfo.dns2Text.setValue("DNS 2: " + NumToStringUtils.intIPToString(model.getDns2()));
+        dhcpInfo.serverAddressText.setValue("DHCP Server: " + NumToStringUtils.intIPToString(model.getServerAddress()));
+        dhcpInfo.leaseDurationText.setValue("Lease Duration: " + model.getLeaseDuration() + " sec");
     }
 }

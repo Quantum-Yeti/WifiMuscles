@@ -15,6 +15,7 @@ public class TipFragment extends Fragment {
     private static final String ARG_TITLE = "title";
     private static final String ARG_DESC = "description";
     private static final String ARG_DETAIL = "detail";
+    private static final String ARG_ICON = "icon";
 
     public static TipFragment newInstance(String title, String desc, String detail) {
         TipFragment fragment = new TipFragment();

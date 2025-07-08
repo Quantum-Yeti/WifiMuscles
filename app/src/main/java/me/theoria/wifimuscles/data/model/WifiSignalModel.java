@@ -31,8 +31,7 @@ public class WifiSignalModel {
     private final int linkSpeed;
     private final int maxLinkSpeed;
 
-    // MAC address of the access point.
-    private final String mac;
+    private final String wifiStandard;
 
     // Count of nearby overlapping networks (potential interference).
     private final int interferenceLevel;
@@ -50,7 +49,7 @@ public class WifiSignalModel {
                            String bssid,
                            int linkSpeed,
                            int maxLinkSpeed,
-                           String mac,
+                           String wifiStandard,
                            int interferenceLevel) {
         this.timestamp = timestamp;
         this.rssi = rssi;
@@ -62,7 +61,7 @@ public class WifiSignalModel {
         this.bssid = bssid;
         this.linkSpeed = linkSpeed;
         this.maxLinkSpeed = maxLinkSpeed;
-        this.mac = mac;
+        this.wifiStandard = wifiStandard;
         this.interferenceLevel = interferenceLevel;
     }
 
@@ -107,8 +106,8 @@ public class WifiSignalModel {
         return maxLinkSpeed;
     }
 
-    public String getMac() {
-        return mac;
+    public String getWifiStandard() {
+        return wifiStandard;
     }
 
     public int getInterferenceLevel() {

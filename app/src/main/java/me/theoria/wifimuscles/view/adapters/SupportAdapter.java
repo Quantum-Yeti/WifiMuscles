@@ -13,7 +13,6 @@ import java.util.List;
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.SupportModel;
 
-// In SupportAdapter.java
 public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHolder> {
 
     private final List<SupportModel> tips;
@@ -47,7 +46,7 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
         return tips.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    protected static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView titleView;
         private final TextView descView;
 
@@ -60,7 +59,9 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
         void bind(SupportModel tip, OnItemClickListener listener) {
             titleView.setText(tip.getTitle());
             descView.setText(tip.getDescription());
-            itemView.setOnClickListener(v -> listener.onItemClick(tip));
+            itemView.setOnClickListener(v -> {
+                listener.onItemClick(tip);
+            });
         }
     }
 }

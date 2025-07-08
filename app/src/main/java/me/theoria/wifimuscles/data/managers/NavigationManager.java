@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
+import me.theoria.wifimuscles.view.fragments.SpeedTestFragment;
 import me.theoria.wifimuscles.view.fragments.StatsFragment;
 import me.theoria.wifimuscles.view.fragments.SupportFragment;
 
@@ -27,6 +28,7 @@ public class NavigationManager {
     private final Fragment chartFragment = new ChartFragment();
     private final Fragment statsFragment = new StatsFragment();
     private final Fragment supportFragment = new SupportFragment();
+    private final Fragment speedFragment = new SpeedTestFragment();
 
     //private final Fragment barChartFragment = new BarChartFragment(); // Optional, currently not used.
 
@@ -55,7 +57,7 @@ public class NavigationManager {
                 setFragment(supportFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.donate) {
-                openDonationLink();
+                setFragment(speedFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.share) {
                 openShareLink();
@@ -63,6 +65,10 @@ public class NavigationManager {
             }
             return false;
         });
+    }
+
+    public void setupTopNavigationBar() {
+
     }
 
     /**

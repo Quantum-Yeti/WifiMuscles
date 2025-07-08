@@ -5,26 +5,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.builders.BarChartBuilder;
 import me.theoria.wifimuscles.data.builders.LineChartBuilder;
 import me.theoria.wifimuscles.data.managers.LineChartManager;
 import me.theoria.wifimuscles.data.managers.SignalProcessManager;
+import me.theoria.wifimuscles.data.model.InfoCardItem;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
-import me.theoria.wifimuscles.utils.ToastUtils;
+import me.theoria.wifimuscles.view.adapters.InfoCardAdapter;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
@@ -34,9 +39,11 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 public class ChartFragment extends Fragment {
 
     // UI elements
-    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView;
+    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView, standardTextView, progressBarText;
     private ImageView rssiEmojiView;
     private LineChart chart;
+
+    private InfoCardAdapter adapter;
 
     // Chart datasets
     private LineDataSet primaryLineDataSet;
@@ -54,9 +61,27 @@ public class ChartFragment extends Fragment {
     // Switch Chart
     private MaterialButton switchChartButton;
 
+    // Progress Bar
+    private ProgressBar progressBar;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentChartBinding binding = FragmentChartBinding.inflate(inflater, container, false);
+
+        // Progress Bar
+        progressBar = binding.getRoot().findViewById(R.id.progressBar);
+        progressBarText = binding.getRoot().findViewById(R.id.progressBarText);
+        showProgressBar(true);
+
+        // Recycler View
+        RecyclerView infoRecyclerView = binding.getRoot().findViewById(R.id.chartInfoRecyclerView);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        infoRecyclerView.setLayoutManager(gridLayoutManager);
+        adapter = new InfoCardAdapter(new ArrayList<>());
+        infoRecyclerView.setAdapter(adapter);
+
+        // Basic animation for Recycler View
+        infoRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         // ViewModels
         wifiViewModel = new ViewModelProvider(this).get(WifiViewModel.class);
@@ -85,15 +110,16 @@ public class ChartFragment extends Fragment {
 
     private void initLineChartUI(FragmentChartBinding binding) {
         chart = binding.lineChart;
-        rssiTextView = binding.rssiTextView;
+        /*rssiTextView = binding.rssiTextView;
         rssiEmojiView = binding.rssiEmoji;
         frequencyTextView = binding.frequencyBox;
         bandwidthTextView = binding.bandBox;
+        standardTextView = binding.standardBox;
         ipTextView = binding.ipBox;
         ssidTextView = binding.ssidBox;
         macTextView = binding.macBox;
         rxTextView = binding.rxSpeedBox;
-        maxLinkSpeedTextView = binding.maxSpeedBox;
+        maxLinkSpeedTextView = binding.maxSpeedBox;*/
     }
 
     private void setupMainChart() {
@@ -123,8 +149,13 @@ public class ChartFragment extends Fragment {
 
 
     private void observeSignalData() {
+        showProgress(true);
+
         wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
-            if (signals == null) return;
+            if (signals == null) {
+                showProgress(false);
+                return;
+            }
 
             lineChartManager.updateLineChart(
                     signals,
@@ -140,25 +171,69 @@ public class ChartFragment extends Fragment {
 
             // UI signal info updates
             dataUIViewModel.updateSignalUI(signals);
+
+            // Chart & ProgressBar Visibility
+            chart.setVisibility(View.VISIBLE); // Chart becomes visible
+            showProgress(false); // Hides progressBar once chart is ready
         });
     }
 
-    private void observeSignalUI() {
-        dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), text -> rssiTextView.setText(text));
-        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> rssiEmojiView.setImageResource(resId));
-        dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> ipTextView.setText(ip));
-        dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), freq -> frequencyTextView.setText(freq));
-        dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> bandwidthTextView.setText(bw));
-        dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssid -> ssidTextView.setText(ssid));
-        dataUIViewModel.getMac().observe(getViewLifecycleOwner(), mac -> macTextView.setText(mac));
-        dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rx -> rxTextView.setText(rx));
-        dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), max -> maxLinkSpeedTextView.setText(max));
+    private void showProgressBar(boolean isLoading) {
+        if (isLoading) {
+            progressBar.setVisibility(View.VISIBLE);  // Show the progress bar
+        } else {
+            progressBar.setVisibility(View.GONE);     // Hide the progress bar
+        }
+    }
 
+    private void observeSignalUI() {
+        // Observe LiveData for each signal info
+        dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), text -> updateInfoCards());
+        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), resId -> updateInfoCards());
+        dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> updateInfoCards());
+        dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), freq -> updateInfoCards());
+        dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> updateInfoCards());
+        dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssid -> updateInfoCards());
+        dataUIViewModel.getBssidText().observe(getViewLifecycleOwner(), mac -> updateInfoCards());
+        dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rx -> updateInfoCards());
+        dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), max -> updateInfoCards());
         dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
             if (level == 3 || level == 2 || level == 1) {
-                ToastUtils.showToastForExtender(requireContext(), level);
+                // Show toast or Snackbar for specific levels
             }
         });
+
+        wifiViewModel.getWifiStandardLiveData().observe(getViewLifecycleOwner(), standard -> updateInfoCards());
+    }
+
+    private void updateInfoCards() {
+        List<InfoCardItem> items = new ArrayList<>();
+        items.add(new InfoCardItem("SSID", dataUIViewModel.getSSIDText().getValue(), R.drawable.icon_ssid));
+
+
+        items.add(new InfoCardItem(
+                "RSSI",
+                dataUIViewModel.getRssiText().getValue(),
+                dataUIViewModel.getRssiEmoji().getValue() != null ? dataUIViewModel.getRssiEmoji().getValue() : R.drawable.emoji_bad
+        ));
+
+        //items.add(new InfoCardItem("RSSI", dataUIViewModel.getRssiText().getValue(), R.drawable.emoji_red));
+        items.add(new InfoCardItem(getString(R.string.frequency_card_short), dataUIViewModel.getFrequencyText().getValue(), R.drawable.icon_function));
+        items.add(new InfoCardItem(getString(R.string.frequency_band_card), dataUIViewModel.getBandwidthText().getValue(), R.drawable.icon_function));
+        items.add(new InfoCardItem(getString(R.string.ip_add_card), dataUIViewModel.getIpText().getValue(), R.drawable.icon_dns));
+        items.add(new InfoCardItem(getString(R.string.ap_mac), dataUIViewModel.getBssidText().getValue(), R.drawable.icon_dns));
+        items.add(new InfoCardItem(getString(R.string.link_speed_card), dataUIViewModel.getLinkSpeed().getValue(), R.drawable.icon_rocket));
+        items.add(new InfoCardItem(getString(R.string.max_speed), dataUIViewModel.getMaxLinkSpeed().getValue(), R.drawable.icon_rocket));
+
+        // Update RecyclerView adapter with new data
+        if (items.size() > 0) {
+            adapter.updateItems(items);
+        }
+    }
+
+    private void showProgress(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        progressBarText.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private void openBarChartFragment() {
@@ -181,4 +256,5 @@ public class ChartFragment extends Fragment {
         super.onStop();
         wifiViewModel.stopUpdates();
     }
+
 }

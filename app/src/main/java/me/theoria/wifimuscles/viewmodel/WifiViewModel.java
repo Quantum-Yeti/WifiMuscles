@@ -26,12 +26,14 @@ import java.util.List;
 
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.RSSIUtils;
+import me.theoria.wifimuscles.utils.WifiStandardUtil;
 
 public class WifiViewModel extends AndroidViewModel {
 
     private final MutableLiveData<List<WifiSignalModel>> rssiLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
     private final MutableLiveData<Integer> interferenceLevelLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> wifiStandardLiveData = new MutableLiveData<>();
 
     private final List<WifiSignalModel> signalList = new ArrayList<>();
 
@@ -74,6 +76,9 @@ public class WifiViewModel extends AndroidViewModel {
             WifiInfo info = wifiManager.getConnectionInfo();
             if (info == null) return;
 
+            String wifiStandard = WifiStandardUtil.getWifiStandardName(info);
+            wifiStandardLiveData.postValue(wifiStandard);
+
             int currentFreq = info.getFrequency();
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -109,7 +114,7 @@ public class WifiViewModel extends AndroidViewModel {
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.R ?
                             info.getMaxSupportedRxLinkSpeedMbps() :
                             info.getLinkSpeed(),
-                    info.getBSSID(),
+                    wifiStandard,
                     interferenceCount
             );
 
@@ -143,6 +148,10 @@ public class WifiViewModel extends AndroidViewModel {
 
     public LiveData<Integer> getInterferenceLevelLiveData() {
         return interferenceLevelLiveData;
+    }
+
+    public LiveData<String> getWifiStandardLiveData() {
+        return wifiStandardLiveData;
     }
 
     @Override

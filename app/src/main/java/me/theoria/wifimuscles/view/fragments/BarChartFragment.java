@@ -43,8 +43,6 @@ public class BarChartFragment extends Fragment {
 
     private BarDataSet barDataSet;
 
-    private MaterialButton switchChartButton;
-
     /**
      * Inflates the layout and initializes the chart, ViewModels, and LiveData observables.
      *
@@ -75,7 +73,7 @@ public class BarChartFragment extends Fragment {
         // Observe LiveData being passed from the ViewModels
         observeLiveData();
 
-        switchChartButton = root.findViewById(R.id.switchChartButton);
+        MaterialButton switchChartButton = root.findViewById(R.id.switchChartButton);
         switchChartButton.setOnClickListener(v ->{
             openLineChartFragment();
         });
@@ -114,14 +112,14 @@ public class BarChartFragment extends Fragment {
         dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), frequencyTextView::setText);
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bandwidthTextView::setText);
         dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssidTextView::setText);
-        dataUIViewModel.getMac().observe(getViewLifecycleOwner(), macTextView::setText);
+        dataUIViewModel.getBssidText().observe(getViewLifecycleOwner(), macTextView::setText);
         dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rxTextView::setText);
         dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), maxLinkSpeedTextView::setText);
 
         // Toast message for extender when level 3 or less.
         dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
             if (level == 3 || level == 2 || level == 1) {
-                ToastUtils.showToastForExtender(requireContext(), level);
+                ToastUtils.snackBarExtenderNotice(getView(), level);
             }
         });
     }

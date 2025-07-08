@@ -55,6 +55,7 @@
     <string name="description_subHeader">Tap an item for a description.</string>
 
     <!-- WiFi Stats Labels -->
+    <string name="ap_mac">AP Mac</string>
     <string name="capability">- Capability: %s</string>
     <string name="center_freq_0">- Center Freq 0: %1$d</string>
     <string name="center_freq_1">- Center Freq 1: %1$d</string>
@@ -64,13 +65,18 @@
     <string name="dns2">- DNS2 %1$s</string>
     <string name="downstream">Downstream</string>
     <string name="downstream_s">- Downstream: %1$s</string>
+    <string name="frequency_card">Frequency</string>
+    <string name="frequency_card_short">Freq</string>
+    <string name="frequency_band_card">Freq Band</string>
     <string name="gateway">- Gateway: %1$s</string>
     <string name="ghz">GHz</string>
     <string name="interference">- Interference: %1$d</string>
     <string name="internet">- Internet: %1$s</string>
     <string name="ip_address">IP: %1$s</string>
+    <string name="ip_add_card">IP</string>
     <string name="lease_duration">- Lease Duration %1$s</string>
     <string name="link_speed">Link Speed: %1$d</string>
+    <string name="link_speed_card">Link Speed</string>
     <string name="mac">MAC</string>
     <string name="max_speed">Max Speed</string>
     <string name="metered">- Metered: %1$s</string>
@@ -98,6 +104,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wifi_standard">WiFi Standard</string>
+    <string name="calculating">Calculating...</string>
 
 
 </resources>

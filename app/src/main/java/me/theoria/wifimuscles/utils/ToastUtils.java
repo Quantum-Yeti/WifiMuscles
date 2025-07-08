@@ -1,7 +1,10 @@
 package me.theoria.wifimuscles.utils;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * ToastUtils is a reusable utility class for displaying common toast
@@ -33,10 +36,10 @@ public class ToastUtils {
     /**
      * Method to display a short toast for the Wifi signal level.
      *
-     * @param context
+     * @param view
      * @param level
      */
-    public static void showToastForExtender(Context context, int level) {
+    public static void snackBarExtenderNotice(View view, int level) {
         String message = "";
         switch (level) {
             case 5:
@@ -55,6 +58,10 @@ public class ToastUtils {
                 message = "Unusable WiFi reception!";
                 break;
         }
-        showToast(context, message);
+
+        if (view !=null) {
+            Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+                    .show();
+        }
     }
 }
