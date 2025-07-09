@@ -932,7 +932,7 @@ import com.github.mikephil.charting.data.LineData;&#xd;
 import com.github.mikephil.charting.data.LineDataSet;&#xd;
 &#xd;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;&#xd;
-import me.theoria.wifimuscles.data.managers.LineChartManager;&#xd;
+import me.theoria.wifimuscles.data.managers.charts.LineChartManager;&#xd;
 import me.theoria.wifimuscles.data.builders.LineChartBuilder;&#xd;
 import me.theoria.wifimuscles.data.managers.SignalProcessManager;&#xd;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;&#xd;

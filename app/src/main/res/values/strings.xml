@@ -47,6 +47,7 @@
     <string name="advanced_info">Advanced Stats</string>
     <string name="speed_test_throughput">Throughput</string>
     <string name="wi_fi_signal">Wi-Fi Signal</string>
+    <string name="wi_fi_info">Wi-Fi Info</string>
     <string name="network_info">Network Info</string>
     <string name="network_stats">Network Stats</string>
     <string name="connectivity_status">Connectivity Status</string>
@@ -55,8 +56,11 @@
     <string name="description_subHeader">Tap an item for a description.</string>
 
     <!-- WiFi Stats Labels -->
-    <string name="ap_mac">AP Mac</string>
+    <string name="ap_mac">AP MAC</string>
+    <string name="ap_ip">AP IP</string>
+    <string name="bssid">BSSID</string>
     <string name="capability">- Capability: %s</string>
+    <string name="channel_number_txt">- Channel Number: %d</string>
     <string name="center_freq_0">- Center Freq 0: %1$d</string>
     <string name="center_freq_1">- Center Freq 1: %1$d</string>
     <string name="channel_width">- Channel Width: %1$d</string>

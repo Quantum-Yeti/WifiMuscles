@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.data.managers;
+package me.theoria.wifimuscles.data.managers.nav;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
 import me.theoria.wifimuscles.view.fragments.SpeedTestFragment;
 import me.theoria.wifimuscles.view.fragments.StatsFragment;
@@ -57,7 +56,7 @@ public class NavigationManager {
                 setFragment(supportFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.donate) {
-                setFragment(speedFragment, fragmentContainerId);
+                openDonationLink();
                 return true;
             } else if (itemId == R.id.share) {
                 openShareLink();

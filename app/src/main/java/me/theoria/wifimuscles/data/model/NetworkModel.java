@@ -15,6 +15,7 @@ public class NetworkModel {
     private final int centerFreq1;
     private final boolean passPoint;
     private final boolean is80211mcResponder;
+    private final int channelNumber;
 
     /**
      * Method for initializing the Model.
@@ -43,7 +44,8 @@ public class NetworkModel {
                         int centerFreq0,
                         int centerFreq1,
                         boolean passPoint,
-                        boolean is80211mcResponder
+                        boolean is80211mcResponder,
+                        int channelNumber
     ) {
         this.timestamp = timestamp;
         this.ssid = ssid;
@@ -57,6 +59,7 @@ public class NetworkModel {
         this.centerFreq1 = centerFreq1;
         this.passPoint = passPoint;
         this.is80211mcResponder = is80211mcResponder;
+        this.channelNumber = channelNumber;
     }
 
     // Object getters
@@ -105,5 +108,9 @@ public class NetworkModel {
     }
     public boolean getIs80211mcResponder() {
         return  is80211mcResponder;
+    }
+
+    public int getChannelNumber() {
+        return channelNumber;
     }
 }

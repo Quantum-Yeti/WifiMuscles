@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.data.managers;
+package me.theoria.wifimuscles.data.managers.info;
 
 import android.content.Context;
 

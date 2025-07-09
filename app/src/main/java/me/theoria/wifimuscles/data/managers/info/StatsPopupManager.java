@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.data.managers;
+package me.theoria.wifimuscles.data.managers.info;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import me.theoria.wifimuscles.R;
 
-public class PopupManager {
+public class StatsPopupManager {
 
     private final Context context;
 
-    public PopupManager(Context context) {
+    public StatsPopupManager(Context context) {
         this.context = context;
     }
 
@@ -126,4 +126,10 @@ public class PopupManager {
     public void interferencePopup(View anchorView) {
         showInfoPopup(anchorView, context.getString(R.string.interference_txt));
     }
+
+    public void ssidPopup(View anchorView) {
+        showInfoPopup(anchorView, context.getString(R.string.ssid_txt));
+    }
+
+
 }

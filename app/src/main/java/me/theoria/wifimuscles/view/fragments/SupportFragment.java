@@ -11,11 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.managers.SupportTipManager;
+import me.theoria.wifimuscles.data.managers.info.SupportTipManager;
 import me.theoria.wifimuscles.data.model.SupportModel;
 import me.theoria.wifimuscles.view.adapters.SupportAdapter;
 

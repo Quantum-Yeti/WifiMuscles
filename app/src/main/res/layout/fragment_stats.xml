@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,17 +16,17 @@
         android:paddingBottom="12dp"
         android:background="@color/bg_app_primary">
 
-        <!-- Info Card -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/infoCard"
+        <!-- Card 1: Advanced Info + Wi-Fi Signal -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAdvancedWifi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginHorizontal="16dp"
-            android:backgroundTint="@color/card_background_one"
             app:cardCornerRadius="16dp"
-            app:cardElevation="0.5dp"
-            android:foreground="?attr/selectableItemBackground"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp"
+            android:backgroundTint="@color/card_background_one"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -37,7 +37,7 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Header -->
+                <!-- Advanced Info Header -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                         android:id="@+id/wifiTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/wi_fi_signal"
+                        android:text="@string/wi_fi_info"
                         android:layout_weight="1"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -118,18 +118,36 @@
                 <TextView android:id="@+id/levelBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/interferenceBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/capabilityBox" style="@style/StatsTextView" />
+                <TextView android:id="@+id/channelNumberBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/channelBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/centerBox0" style="@style/StatsTextView" />
                 <TextView android:id="@+id/centerBox1" style="@style/StatsTextView" />
                 <TextView android:id="@+id/passpointBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/responderBox" style="@style/StatsTextView" />
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="12dp"
-                    android:background="@color/dividerColor" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 2: Speed Test Throughput -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSpeedTest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp"
+            android:backgroundTint="@color/card_background_one"
+            app:layout_constraintTop_toBottomOf="@id/cardAdvancedWifi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <!-- Speed Test Section -->
                 <LinearLayout
@@ -163,12 +181,29 @@
                 <TextView android:id="@+id/downstreamBox" style="@style/StatsTextView" />
                 <TextView android:id="@+id/upstreamBox" style="@style/StatsTextView" />
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="12dp"
-                    android:background="@color/dividerColor" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 3: Network Info -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardNetworkInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp"
+            android:backgroundTint="@color/card_background_one"
+            app:layout_constraintTop_toBottomOf="@id/cardSpeedTest"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <!-- Network Info Section -->
                 <LinearLayout
@@ -205,12 +240,31 @@
                 <TextView android:id="@+id/dns2Box" style="@style/StatsTextView" />
                 <TextView android:id="@+id/leaseDurationBox" style="@style/StatsTextView" />
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="12dp"
-                    android:background="@color/dividerColor" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card 4: Connectivity Status -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardConnectivity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp"
+            android:backgroundTint="@color/card_background_one"
+            app:layout_constraintTop_toBottomOf="@id/cardNetworkInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
                 <!-- Connectivity Status Section -->
                 <LinearLayout
@@ -219,7 +273,8 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_marginTop="16dp"
-                    android:paddingBottom="8dp">
+                    android:paddingBottom="8dp"
+                    tools:ignore="UseCompoundDrawables">
 
                     <TextView
                         android:layout_width="0dp"
@@ -246,9 +301,8 @@
                 <TextView android:id="@+id/meteredBox" style="@style/StatsTextView" />
 
             </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

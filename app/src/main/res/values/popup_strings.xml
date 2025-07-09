@@ -8,16 +8,18 @@
     <string name="capability_popup_txt">Shows the supported Wi-Fi capabilities such as WPA/WPA2, PSK, etc.
     </string>
 
-    <string name="channel_width_txt">Channel width in Wi-Fi refers to the amount of frequency spectrum (measured in MHz) used to transmit data. It determines how much data can be sent at once — think of it like the width of a highway: the wider it is, the more cars (data) it can handle simultaneously./ Higher width means more speed, but also more interference and less compatibility. Lower width is more stable, especially in crowded environments or with older devices.
+    <string name="channel_width_txt">Channel width in Wi-Fi refers to the amount of frequency spectrum (measured in MHz) used to transmit data.\n\n
+        Higher width means more speed, but also more interference and less compatibility. Lower width is more stable, especially in crowded environments or with older devices.
     </string>
 
-    <string name="center_freq_0_txt">This is the primary frequency (in MHz) used by your Wi-Fi connection. It helps identify which channel your device is using to send and receive data. For example, 2412 MHz corresponds to Wi-Fi Channel 1 in the 2.4 GHz band.
+    <string name="center_freq_0_txt">This is the primary frequency (in MHz) used by your Wi-Fi connection. It helps identify which channel your device is using to send and receive data.
     </string>
 
     <string name="center_freq_1_txt">This is the secondary frequency used in wide-channel configurations like 40, 80, or 160 MHz. It helps Wi-Fi devices achieve faster speeds by bonding multiple channels together.
     </string>
 
-    <string name="passpoint_txt">Passpoint is a Wi-Fi standard that allows devices to automatically and securely connect to participating public Wi-Fi networks—like those in airports, hotels, and cafes—without needing to manually log in. It provides seamless, encrypted, and trusted connections—similar to cellular roaming.
+    <string name="passpoint_txt">Passpoint is a Wi-Fi standard that allows devices to automatically and securely connect to participating public Wi-Fi networks.\n\n
+        It provides seamless, encrypted, and trusted connections—similar to cellular roaming.
     </string>
 
     <string name="responder_txt">802.11mc is a Wi-Fi standard also known as Wi-Fi Round Trip Time (RTT). It allows devices to measure the distance to nearby Wi-Fi access points using precise timing.
@@ -32,7 +34,8 @@
     <string name="gateway_txt">The gateway is the IP address of the router your device uses to connect to the internet or other networks. It acts as the entry and exit point for network traffic outside your local network.
     </string>
 
-    <string name="netmask_txt">The netmask defines your local network’s size by specifying which part of the IP address identifies the network and which part identifies devices within it. It helps your device determine if another IP is local or needs to go through the gateway.
+    <string name="netmask_txt">A netmask (short for network mask) is a number that defines which part of an IP address is the network portion and which part is the host portion.\n\n
+        Think of an IP address like a street address, and the netmask tells you how many houses are on the same street.
     </string>
 
     <string name="dns1_txt">This is the main server your device contacts to translate website names into IP addresses. It helps your device find websites and services on the internet quickly.
@@ -57,6 +60,45 @@
     </string>
 
     <string name="interference_txt">The interference value is an estimated representation of how many nearby Wi-Fi networks are operating on frequencies close to your current Wi-Fi connection, which could cause signal interference and affect performance.
+    </string>
+
+    <string name="ssid_txt">
+        The SSID is the name of a Wi-Fi network. It is an acronym for Service Set Identifier.\n\n
+        When you look at a list of Wi-Fi networks on your phone or computer, each name that you see (such as My_Wifi or CoffeeShopABC) is an SSID.
+    </string>
+
+    <string name="rssi_txt">
+        RSSI stands for Received Signal Strength Indicator. It tells how you strong the Wi-Fi signal is between your device and a router or access point.\n\n
+        The closer to 0 the stronger the signal strength, the farther away from 0 the weaker the signal strength.
+    </string>
+
+    <string name="freq_txt">
+        The WiFi frequency in megahertz (MHz), typically 2400 MHz (2.4 GHz) or 5000 MHz (5 GHz), indicating the radio band used for wireless communication.
+    </string>
+
+    <string name="freq_short_txt">
+        This is a common and simplified version of the Wi-Fi frequency your device is using.
+    </string>
+
+    <string name="bssid_txt">
+        The BSSID (Basic Service Set Identifier) is the unique MAC address of a Wi-Fi access point (router).\n\n
+        It helps your device know exactly which access point or router it is communicating with..
+    </string>
+
+    <string name="ipv4_txt">
+        This is the IPv4 address assigned to your device while on the Wi-Fi network.
+    </string>
+
+    <string name="ap_mac_txt">
+
+    </string>
+
+    <string name="link_speed_txt">
+        The link speed is the rate at which data CAN be transferred between your device and the Wi-Fi router or access point. It is like the speed limit of your connection.
+    </string>
+
+    <string name="max_link_speed_txt">
+        The max link speed is the highest possible data transfer rate between your device and the Wi-Fi router or access point. It is the maximum speed your device COULD achieve.
     </string>
 
 </resources>

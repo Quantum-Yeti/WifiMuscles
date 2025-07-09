@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -15,6 +16,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import java.util.ArrayList;
 
 import me.theoria.wifimuscles.R;
+import me.theoria.wifimuscles.data.model.ChartMarkerModel;
 
 /**
  * A utility class that sets up a BarChart with default styling and returns a pre-configured BarDataSet.
@@ -72,6 +74,15 @@ public class BarChartBuilder {
         chart.setData(data);
         chart.invalidate();
 
+        setMarkerView(chart, context);
+
         return dataSet;
     }
+
+    private static void setMarkerView(BarChart chart, Context context) {
+        ChartMarkerModel marker = new ChartMarkerModel(context, R.layout.marker_view);
+        marker.setChartView(chart);
+        chart.setMarker(marker);
+    }
+
 }

@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.data.managers;
+package me.theoria.wifimuscles.data.managers.charts;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;

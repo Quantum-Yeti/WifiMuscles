@@ -69,9 +69,9 @@ public class NetworkViewModel extends AndroidViewModel {
                 matchedResult != null ? matchedResult.channelWidth : -1,
                 matchedResult != null ? matchedResult.centerFreq0 : -1,
                 matchedResult != null ? matchedResult.centerFreq1 : -1,
-
                 matchedResult != null && matchedResult.isPasspointNetwork(),
-                matchedResult != null && matchedResult.is80211mcResponder()
+                matchedResult != null && matchedResult.is80211mcResponder(),
+                calculateChannel(wifiInfo.getFrequency())
         );
 
         connectedNetworkLiveData.postValue(model);
@@ -113,6 +113,20 @@ public class NetworkViewModel extends AndroidViewModel {
 
     public LiveData<String> getErrorLiveData() {
         return errorLiveData;
+    }
+
+    private int calculateChannel(int frequency) {
+        if (frequency >= 2412 && frequency <= 2472) {
+            return (frequency - 2407) / 5; // 2.4 GHz band
+        } else if (frequency == 2484) {
+            return 14; // Special 2.4GHz channel
+        } else if (frequency >= 5180 && frequency <= 5825) {
+            return (frequency - 5000) / 5; // 5 GHz band
+        } else if (frequency >= 5955 && frequency <= 7115) {
+            return (frequency - 5950) / 5 + 1; // 6 GHz band
+        } else {
+            return -1; // Unknown
+        }
     }
 
     @Override

@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/infoPopup"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="12dp"
-    android:background="@drawable/popup_bg"
-    android:textColor="@android:color/white"
-    android:textSize="16sp"
-    android:lineSpacingExtra="2sp"/>
+    android:orientation="vertical"
+    android:padding="14dp"
+    android:background="@drawable/popup_bg">
+
+    <TextView
+        android:id="@+id/infoPopup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:background="@drawable/popup_bg"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:lineSpacingExtra="4sp"/>
+
+</LinearLayout>

@@ -11,8 +11,8 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.managers.AdManager;
-import me.theoria.wifimuscles.data.managers.NavigationManager;
+import me.theoria.wifimuscles.data.managers.ads.AdManager;
+import me.theoria.wifimuscles.data.managers.nav.NavigationManager;
 import me.theoria.wifimuscles.utils.PermissionUtils;
 
 

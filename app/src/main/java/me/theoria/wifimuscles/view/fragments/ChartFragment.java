@@ -25,11 +25,14 @@ import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.builders.LineChartBuilder;
-import me.theoria.wifimuscles.data.managers.LineChartManager;
+import me.theoria.wifimuscles.data.managers.charts.LineChartManager;
+import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
+import me.theoria.wifimuscles.data.managers.info.StatsPopupManager;
 import me.theoria.wifimuscles.data.managers.SignalProcessManager;
 import me.theoria.wifimuscles.data.model.InfoCardItem;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
-import me.theoria.wifimuscles.view.adapters.InfoCardAdapter;
+import me.theoria.wifimuscles.utils.ChartInfoUtils;
+import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
@@ -43,7 +46,7 @@ public class ChartFragment extends Fragment {
     private ImageView rssiEmojiView;
     private LineChart chart;
 
-    private InfoCardAdapter adapter;
+    private ChartInfoCardAdapter adapter;
 
     // Chart datasets
     private LineDataSet primaryLineDataSet;
@@ -64,6 +67,9 @@ public class ChartFragment extends Fragment {
     // Progress Bar
     private ProgressBar progressBar;
 
+    // Popup Info
+    private ChartPopupManager chartPopupManager;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentChartBinding binding = FragmentChartBinding.inflate(inflater, container, false);
@@ -77,11 +83,19 @@ public class ChartFragment extends Fragment {
         RecyclerView infoRecyclerView = binding.getRoot().findViewById(R.id.chartInfoRecyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         infoRecyclerView.setLayoutManager(gridLayoutManager);
-        adapter = new InfoCardAdapter(new ArrayList<>());
+        adapter = new ChartInfoCardAdapter(new ArrayList<>());
         infoRecyclerView.setAdapter(adapter);
 
         // Basic animation for Recycler View
         infoRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        // Popup Windows
+        chartPopupManager = new ChartPopupManager(requireContext());
+        // Set item click listener to show popup with description
+        adapter.setOnItemClickListener((item, position, view) -> {
+            String description = ChartInfoUtils.getDescriptionForKey(requireContext(), item.getTitle());
+            chartPopupManager.showChartPopup(view, item.getTitle(), description);
+        });
 
         // ViewModels
         wifiViewModel = new ViewModelProvider(this).get(WifiViewModel.class);
@@ -127,7 +141,7 @@ public class ChartFragment extends Fragment {
 
         chart.setData(lineData);
 
-        // Init manager
+        // Initalize chart manager
         lineChartManager = new LineChartManager(new SignalProcessManager(), dataUIViewModel);
 
         // Observe link speed
@@ -208,7 +222,7 @@ public class ChartFragment extends Fragment {
         //items.add(new InfoCardItem("RSSI", dataUIViewModel.getRssiText().getValue(), R.drawable.emoji_red));
         items.add(new InfoCardItem(getString(R.string.frequency_card_short), dataUIViewModel.getFrequencyText().getValue(), R.drawable.icon_function));
         items.add(new InfoCardItem(getString(R.string.frequency_band_card), dataUIViewModel.getBandwidthText().getValue(), R.drawable.icon_function));
-        items.add(new InfoCardItem(getString(R.string.ip_add_card), dataUIViewModel.getIpText().getValue(), R.drawable.icon_dns));
+        items.add(new InfoCardItem(getString(R.string.ap_ip), dataUIViewModel.getIpText().getValue(), R.drawable.icon_dns));
         items.add(new InfoCardItem(getString(R.string.ap_mac), dataUIViewModel.getBssidText().getValue(), R.drawable.icon_dns));
         items.add(new InfoCardItem(getString(R.string.link_speed_card), dataUIViewModel.getLinkSpeed().getValue(), R.drawable.icon_rocket));
         items.add(new InfoCardItem(getString(R.string.max_speed), dataUIViewModel.getMaxLinkSpeed().getValue(), R.drawable.icon_rocket));

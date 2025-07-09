@@ -1,17 +1,12 @@
-package me.theoria.wifimuscles.data.managers;
-
-import android.content.Context;
-import android.util.Log;
+package me.theoria.wifimuscles.data.managers.charts;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.List;
 
-import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.builders.LineChartBuilder;
+import me.theoria.wifimuscles.data.managers.SignalProcessManager;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 

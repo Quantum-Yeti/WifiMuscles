@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,12 +21,13 @@ import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.builders.BarChartBuilder;
-import me.theoria.wifimuscles.data.managers.BarChartManager;
+import me.theoria.wifimuscles.data.managers.charts.BarChartManager;
+import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
 import me.theoria.wifimuscles.data.model.InfoCardItem;
-import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.databinding.FragmentBarChartBinding;
+import me.theoria.wifimuscles.utils.ChartInfoUtils;
 import me.theoria.wifimuscles.utils.ToastUtils;
-import me.theoria.wifimuscles.view.adapters.InfoCardAdapter;
+import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
@@ -42,9 +42,11 @@ public class BarChartFragment extends Fragment {
     private BarDataSet barDataSet;
     private BarChart barChart;
 
-    private InfoCardAdapter adapter;
+    private ChartInfoCardAdapter adapter;
 
     private MaterialButton switchChartButton;
+
+    private ChartPopupManager chartPopupManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +56,14 @@ public class BarChartFragment extends Fragment {
         setupBarChart();
 
         setupRecyclerView();
+
+        // Popup Windows
+        chartPopupManager = new ChartPopupManager(requireContext());
+        // Set item click listener to show popup with description
+        adapter.setOnItemClickListener((item, position, view) -> {
+            String description = ChartInfoUtils.getDescriptionForKey(requireContext(), item.getTitle());
+            chartPopupManager.showChartPopup(view, item.getTitle(), description);
+        });
 
         wifiViewModel = new ViewModelProvider(this).get(WifiViewModel.class);
         dataUIViewModel = new ViewModelProvider(this).get(DataUIViewModel.class);
@@ -79,7 +89,7 @@ public class BarChartFragment extends Fragment {
     private void setupRecyclerView() {
         RecyclerView recyclerView = binding.chartInfoRecyclerView;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        adapter = new InfoCardAdapter(new ArrayList<>());
+        adapter = new ChartInfoCardAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
@@ -114,15 +124,30 @@ public class BarChartFragment extends Fragment {
 
     private void updateInfoCards() {
         List<InfoCardItem> items = new ArrayList<>();
-        items.add(new InfoCardItem("SSID", dataUIViewModel.getSSIDText().getValue(), R.drawable.icon_ssid));
-        items.add(new InfoCardItem("RSSI", dataUIViewModel.getRssiText().getValue(),
+        items.add(new InfoCardItem(getString(R.string.ssid),
+                dataUIViewModel.getSSIDText().getValue(),
+                R.drawable.icon_ssid));
+        items.add(new InfoCardItem(getString(R.string.rssi),
+                dataUIViewModel.getRssiText().getValue(),
                 dataUIViewModel.getRssiEmoji().getValue() != null ? dataUIViewModel.getRssiEmoji().getValue() : R.drawable.emoji_bad));
-        items.add(new InfoCardItem(getString(R.string.frequency_card_short), dataUIViewModel.getFrequencyText().getValue(), R.drawable.icon_function));
-        items.add(new InfoCardItem(getString(R.string.frequency_band_card), dataUIViewModel.getBandwidthText().getValue(), R.drawable.icon_function));
-        items.add(new InfoCardItem(getString(R.string.ip_add_card), dataUIViewModel.getIpText().getValue(), R.drawable.icon_dns));
-        items.add(new InfoCardItem(getString(R.string.ap_mac), dataUIViewModel.getBssidText().getValue(), R.drawable.icon_dns));
-        items.add(new InfoCardItem(getString(R.string.link_speed_card), dataUIViewModel.getLinkSpeed().getValue(), R.drawable.icon_rocket));
-        items.add(new InfoCardItem(getString(R.string.max_speed), dataUIViewModel.getMaxLinkSpeed().getValue(), R.drawable.icon_rocket));
+        items.add(new InfoCardItem(getString(R.string.frequency_card_short),
+                dataUIViewModel.getFrequencyText().getValue(),
+                R.drawable.icon_function));
+        items.add(new InfoCardItem(getString(R.string.frequency_band_card),
+                dataUIViewModel.getBandwidthText().getValue(),
+                R.drawable.icon_function));
+        items.add(new InfoCardItem(getString(R.string.ap_ip),
+                dataUIViewModel.getIpText().getValue(),
+                R.drawable.icon_dns));
+        items.add(new InfoCardItem(getString(R.string.ap_mac),
+                dataUIViewModel.getBssidText().getValue(),
+                R.drawable.icon_dns));
+        items.add(new InfoCardItem(getString(R.string.link_speed_card),
+                dataUIViewModel.getLinkSpeed().getValue(),
+                R.drawable.icon_rocket));
+        items.add(new InfoCardItem(getString(R.string.max_speed),
+                dataUIViewModel.getMaxLinkSpeed().getValue(),
+                R.drawable.icon_rocket));
 
         adapter.updateItems(items);
     }

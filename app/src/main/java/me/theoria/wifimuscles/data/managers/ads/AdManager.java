@@ -1,12 +1,10 @@
-package me.theoria.wifimuscles.data.managers;
+package me.theoria.wifimuscles.data.managers.ads;
 
 import android.app.Activity;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-
-import me.theoria.wifimuscles.R;
 
 public class AdManager {
 

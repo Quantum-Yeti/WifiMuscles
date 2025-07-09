@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.managers.PopupManager;
+import me.theoria.wifimuscles.data.managers.info.StatsPopupManager;
 import me.theoria.wifimuscles.utils.SpeedConverter;
 import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
 import me.theoria.wifimuscles.viewmodel.DHCPViewModel;
@@ -25,14 +25,14 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 public class StatsFragment extends Fragment {
 
     private TextView levelTextView, interferenceTextView, capabilitiesTextView, channelWidthTextView,
-            centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView;
+            centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView, channelNumberTextView;
     private TextView gatewayTextView, netmaskTextView, dns1TextView, dns2TextView,
             leaseDurationTextView;
     private TextView transportTypeTextView, internetCapabilityTextView,
             validatedCapabilityTextView, meteredTextView, downstreamTextView, upstreamTextView;
     private ImageView rssiEmojiView;
 
-    private PopupManager popupManager;
+    private StatsPopupManager statsPopupManager;
 
     private DataUIViewModel dataUIViewModel;
     private WifiViewModel wifiViewModel;
@@ -48,7 +48,7 @@ public class StatsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_stats, container, false);
         bindViews(root);
 
-        popupManager = new PopupManager(requireContext());
+        statsPopupManager = new StatsPopupManager(requireContext());
 
         ViewModelProvider.AndroidViewModelFactory factory =
                 ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication());
@@ -114,10 +114,10 @@ public class StatsFragment extends Fragment {
             if (network != null) {
                 levelTextView.setText(context.getString(R.string.strength_level, network.getSignalLevel()));
                 capabilitiesTextView.setText(context.getString(R.string.capability, network.getCapabilities()));
+                channelNumberTextView.setText(context.getString(R.string.channel_number_txt, network.getChannelNumber()));
                 channelWidthTextView.setText(context.getString(R.string.channel_width, network.getChannelWidth()));
                 centerFreq0TextView.setText(context.getString(R.string.center_freq_0, network.getCenterFreq0()));
                 centerFreq1TextView.setText(context.getString(R.string.center_freq_1, network.getCenterFreq1()));
-
                 passpointTextView.setText(String.format(getString(R.string.passpoint), yesNo(network.getPassPoint())));
                 responderTextView.setText(String.format(getString(R.string.responder), yesNo(network.getIs80211mcResponder())));
             } else {
@@ -158,6 +158,7 @@ public class StatsFragment extends Fragment {
         centerFreq1TextView.setText(R.string.no_data);
         passpointTextView.setText(R.string.no_data);
         responderTextView.setText(R.string.no_data);
+        channelNumberTextView.setText(R.string.no_data);
     }
 
     private void setTextOrDefault(TextView view, String text) {
@@ -193,27 +194,28 @@ public class StatsFragment extends Fragment {
         meteredTextView = root.findViewById(R.id.meteredBox);
         downstreamTextView = root.findViewById(R.id.downstreamBox);
         upstreamTextView = root.findViewById(R.id.upstreamBox);
+        channelNumberTextView = root.findViewById(R.id.channelNumberBox);
 
         // Popup Window Binding onClick
-        levelTextView.setOnClickListener(v -> popupManager.wifiLevelPopup(v));
-        capabilitiesTextView.setOnClickListener(v -> popupManager.capabilitiesPopup(v));
-        channelWidthTextView.setOnClickListener(v -> popupManager.channelWidthPopup(v));
-        centerFreq0TextView.setOnClickListener(v -> popupManager.centerFreq0Popup(v));
-        centerFreq1TextView.setOnClickListener(v -> popupManager.centerFreq1Popup(v));
-        passpointTextView.setOnClickListener(v -> popupManager.passpointPopup(v));
-        responderTextView.setOnClickListener(v -> popupManager.responderPopup(v));
-        gatewayTextView.setOnClickListener(v -> popupManager.gatewayPopup(v));
-        netmaskTextView.setOnClickListener(v -> popupManager.netmaskPopup(v));
-        dns1TextView.setOnClickListener(v -> popupManager.dns1Popup(v));
-        dns2TextView.setOnClickListener(v -> popupManager.dns2Popup(v));
-        leaseDurationTextView.setOnClickListener(v -> popupManager.leasePopup(v));
-        transportTypeTextView.setOnClickListener(v -> popupManager.transportPopup(v));
-        internetCapabilityTextView.setOnClickListener(v -> popupManager.internetPopup(v));
-        validatedCapabilityTextView.setOnClickListener(v -> popupManager.validationPopup(v));
-        meteredTextView.setOnClickListener(v -> popupManager.meteredPopup(v));
-        downstreamTextView.setOnClickListener(v -> popupManager.downstreamPopup(v));
-        upstreamTextView.setOnClickListener(v -> popupManager.upstreamPopup(v));
-        interferenceTextView.setOnClickListener(v -> popupManager.interferencePopup(v));
+        levelTextView.setOnClickListener(v -> statsPopupManager.wifiLevelPopup(v));
+        capabilitiesTextView.setOnClickListener(v -> statsPopupManager.capabilitiesPopup(v));
+        channelWidthTextView.setOnClickListener(v -> statsPopupManager.channelWidthPopup(v));
+        centerFreq0TextView.setOnClickListener(v -> statsPopupManager.centerFreq0Popup(v));
+        centerFreq1TextView.setOnClickListener(v -> statsPopupManager.centerFreq1Popup(v));
+        passpointTextView.setOnClickListener(v -> statsPopupManager.passpointPopup(v));
+        responderTextView.setOnClickListener(v -> statsPopupManager.responderPopup(v));
+        gatewayTextView.setOnClickListener(v -> statsPopupManager.gatewayPopup(v));
+        netmaskTextView.setOnClickListener(v -> statsPopupManager.netmaskPopup(v));
+        dns1TextView.setOnClickListener(v -> statsPopupManager.dns1Popup(v));
+        dns2TextView.setOnClickListener(v -> statsPopupManager.dns2Popup(v));
+        leaseDurationTextView.setOnClickListener(v -> statsPopupManager.leasePopup(v));
+        transportTypeTextView.setOnClickListener(v -> statsPopupManager.transportPopup(v));
+        internetCapabilityTextView.setOnClickListener(v -> statsPopupManager.internetPopup(v));
+        validatedCapabilityTextView.setOnClickListener(v -> statsPopupManager.validationPopup(v));
+        meteredTextView.setOnClickListener(v -> statsPopupManager.meteredPopup(v));
+        downstreamTextView.setOnClickListener(v -> statsPopupManager.downstreamPopup(v));
+        upstreamTextView.setOnClickListener(v -> statsPopupManager.upstreamPopup(v));
+        interferenceTextView.setOnClickListener(v -> statsPopupManager.interferencePopup(v));
     }
 
     @Override
@@ -259,8 +261,9 @@ public class StatsFragment extends Fragment {
         meteredTextView = null;
         downstreamTextView = null;
         upstreamTextView = null;
+        channelNumberTextView = null;
 
-        popupManager = null;
+        statsPopupManager = null;
 
         dataUIViewModel = null;
         wifiViewModel = null;
