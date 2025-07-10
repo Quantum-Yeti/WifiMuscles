@@ -42,7 +42,10 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 public class ChartFragment extends Fragment {
 
     // UI elements
-    private TextView frequencyTextView, bandwidthTextView, ipTextView, rssiTextView, ssidTextView, macTextView, rxTextView, maxLinkSpeedTextView, standardTextView, progressBarText;
+    private TextView frequencyTextView, bandwidthTextView, ipTextView,
+            rssiTextView, ssidTextView, macTextView,
+            rxTextView, maxLinkSpeedTextView, standardTextView,
+            progressBarText, latencyTextView;
     private ImageView rssiEmojiView;
     private LineChart chart;
 
@@ -114,6 +117,7 @@ public class ChartFragment extends Fragment {
         // Start data updates
         wifiViewModel.startUpdates();
 
+        // Chart Button
         switchChartButton = binding.switchChartButton;
         switchChartButton.setOnClickListener(v ->{
             openBarChartFragment();
@@ -199,6 +203,7 @@ public class ChartFragment extends Fragment {
         dataUIViewModel.getBssidText().observe(getViewLifecycleOwner(), mac -> updateInfoCards());
         dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), rx -> updateInfoCards());
         dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), max -> updateInfoCards());
+
         dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
             if (level == 3 || level == 2 || level == 1) {
                 // Show toast or Snackbar for specific levels
@@ -226,6 +231,7 @@ public class ChartFragment extends Fragment {
         items.add(new InfoCardItem(getString(R.string.ap_mac), dataUIViewModel.getBssidText().getValue(), R.drawable.icon_dns));
         items.add(new InfoCardItem(getString(R.string.link_speed_card), dataUIViewModel.getLinkSpeed().getValue(), R.drawable.icon_rocket));
         items.add(new InfoCardItem(getString(R.string.max_speed), dataUIViewModel.getMaxLinkSpeed().getValue(), R.drawable.icon_rocket));
+        items.add(new InfoCardItem(getString(R.string.ping), dataUIViewModel.getPingResult().getValue(), R.drawable.icon_avg_time));
 
         // Update RecyclerView adapter with new data
         if (items.size() > 0) {
@@ -251,6 +257,7 @@ public class ChartFragment extends Fragment {
     public void onStart() {
         super.onStart();
         wifiViewModel.startUpdates();
+        dataUIViewModel.runPingTest("8.8.8.8");
     }
 
     @Override

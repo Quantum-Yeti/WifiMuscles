@@ -89,6 +89,7 @@
     <string name="no_data">No Data</string>
     <string name="nothing">-</string>
     <string name="passpoint">- Passpoint: %1$s</string>
+    <string name="ping">Ping</string>
     <string name="responder">- 802.11mc: %1$s</string>
     <string name="rssi_dBm_txt">-00 dBm</string>
     <string name="rssi_display">RSSI: %1$d dBm</string>

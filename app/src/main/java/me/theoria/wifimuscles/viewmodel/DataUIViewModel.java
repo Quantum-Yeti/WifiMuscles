@@ -10,6 +10,7 @@ import me.theoria.wifimuscles.data.model.DHCPModel;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.FrequencyUtils;
 import me.theoria.wifimuscles.utils.NumToStringUtils;
+import me.theoria.wifimuscles.utils.PingUtil;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 
 public class DataUIViewModel extends ViewModel {
@@ -26,6 +27,7 @@ public class DataUIViewModel extends ViewModel {
         public final MutableLiveData<String> maxLinkSpeed = new MutableLiveData<>();
         public final MutableLiveData<String> bssidText = new MutableLiveData<>();
         public final MutableLiveData<Integer> toastLevelEvent = new MutableLiveData<>();
+        public final MutableLiveData<String> pingResult = new MutableLiveData<>();
     }
 
     // Nested class to hold DHCP-related LiveData
@@ -52,6 +54,7 @@ public class DataUIViewModel extends ViewModel {
     public LiveData<String> getMaxLinkSpeed() { return signalInfo.maxLinkSpeed; }
     public LiveData<String> getBssidText() { return signalInfo.bssidText; }
     public LiveData<Integer> getToastLevelEvent() { return signalInfo.toastLevelEvent; }
+    public LiveData<String> getPingResult() { return signalInfo.pingResult; }
 
     // --- DHCP getters ---
     public LiveData<String> getGatewayText() { return dhcpInfo.gatewayText; }
@@ -102,5 +105,9 @@ public class DataUIViewModel extends ViewModel {
         dhcpInfo.dns2Text.setValue("DNS 2: " + NumToStringUtils.intIPToString(model.getDns2()));
         dhcpInfo.serverAddressText.setValue("DHCP Server: " + NumToStringUtils.intIPToString(model.getServerAddress()));
         dhcpInfo.leaseDurationText.setValue("Lease Duration: " + model.getLeaseDuration() + " sec");
+    }
+
+    public void runPingTest(String ip) {
+        PingUtil.ping(ip, signalInfo.pingResult::postValue);
     }
 }
