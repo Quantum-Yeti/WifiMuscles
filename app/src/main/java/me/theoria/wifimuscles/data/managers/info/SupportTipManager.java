@@ -15,22 +15,24 @@ public class SupportTipManager {
         tips.add(new SupportModel(
                 context.getString(R.string.rebootTitle),
                 context.getString(R.string.rebootDescription),
-                context.getString(R.string.rebootInstructions)
+                context.getString(R.string.rebootInstructions),
+                R.drawable.icon_info
         ));
-        /*tips.add(new SupportModel(
-                context.
-        ));*/
-        /*tips.add(new SupportModel(
-                "Forget & Reconnect to Network",
-                "Go to Wi-Fi settings and reconnect.",
-                //"In your device settings, select the network, choose 'Forget', then rejoin with the password."
+
+        tips.add(new SupportModel(
+                context.getString(R.string.intermittency_title),
+                context.getString(R.string.intermittency_description),
+                context.getString(R.string.intermittency_instruction),
+                R.drawable.icon_info
+
         ));
         tips.add(new SupportModel(
-                "Switch Frequency Band",
-                "Try switching between 2.4GHz and 5GHz.",
-                //"5GHz is faster but has shorter range. Switch based on your distance from the router."
+                context.getString(R.string.slowSpeeds_title),
+                context.getString(R.string.slowSpeeds_description),
+                context.getString(R.string.slowSpeeds_instruction),
+                R.drawable.icon_speed
         ));
-        tips.add(new SupportModel(
+        /*tips.add(new SupportModel(
                 "Reduce Interference",
                 "Turn off unused Wi-Fi devices or move away from microwave ovens.",
                 //"Many devices emit signals that interfere with Wi-Fi. Limit them if possible."

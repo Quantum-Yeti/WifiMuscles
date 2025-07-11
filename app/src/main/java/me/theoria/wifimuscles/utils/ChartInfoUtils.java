@@ -24,6 +24,8 @@ public class ChartInfoUtils {
                 return context.getString(R.string.link_speed_txt);
             case "Max Speed":
                 return context.getString(R.string.max_link_speed_txt);
+            case "Ping":
+                return context.getString(R.string.ping);
             default:
                 return "No description available.";
         }

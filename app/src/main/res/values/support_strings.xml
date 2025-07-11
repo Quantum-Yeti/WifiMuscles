@@ -4,25 +4,32 @@
     <string name="rebootTitle">Can Not Connect</string>
     <string name="rebootDescription">How to Properly Reboot Your Modem &amp; Router</string>
     <string name="rebootInstructions">
-        1. Unplug the power cables:\n\n
+        1. Unplug the power cables:\n
            - First, unplug the modem\'s power cable.\n
            - Then, unplug the router\'s power cable (if separate devices).\n\n
         2. Wait for 30-60 seconds to let both devices fully power down.\n\n
-           - Allow full power-down: Internal components (like memory and capacitors) need time to completely discharge.\n
-           - Ensures that any temporary glitches or corrupted states are fully cleared.\n
-           - Clear cached data: During this wait, volatile memory (RAM) and caches inside the devices are erased. \n
-           - Prevent fast power cycling damage: Plugging devices back in too quickly can sometimes cause them to not reboot properly.\n
-           - Ensure complete reset: Waiting ensures they start fresh on power-up.\n\n
-        3. Plug in the modem first:\n\n
+        3. Plug in the modem first:\n
            - Wait for the modem to fully restart and all lights to stabilize.\n\n
-        4. Plug in the router next:\n\n
+        4. Plug in the router next:\n
            - Wait for the router to fully boot up and all lights to stabilize.\n\n
         5. Check your internet connection.\n\n
-        Additional tips:\n\n
+
+        Additional Tips:\n
            - Avoid pressing the reset button unless you want to restore factory settings.\n
            - If you have a combined modem/router, just unplug it once, wait, then plug it back in.\n
-           - Be patient, some modems take a bit longer to initialize after reboot.\n
+           - Be patient, some modems take a bit longer to initialize after reboot.\n\n
+           - Allowing your devices to fully power down ensures the internal components (like memory and capacitors) discharge.\n
+                - This also ensures that volatile memory (RAM) and any cache is erased.\n\n
+           - Plugging devices back in too quickly, even in the correct order, will usually cause them to not reboot properly.
     </string>
+
+    <string name="intermittency_title">Intermittent Connection</string>
+    <string name="intermittency_description">Troubleshoot Intermittency</string>
+    <string name="intermittency_instruction">Instructions</string>
+
+    <string name="slowSpeeds_title">Slow Speeds</string>
+    <string name="slowSpeeds_description">Troubleshoot Slow Speeds</string>
+    <string name="slowSpeeds_instruction">Instructions</string>
 
 
 </resources>

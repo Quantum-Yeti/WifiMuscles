@@ -8,8 +8,7 @@ import java.util.List;
 
 import me.theoria.wifimuscles.data.model.DHCPModel;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
-import me.theoria.wifimuscles.utils.FrequencyUtils;
-import me.theoria.wifimuscles.utils.NumToStringUtils;
+import me.theoria.wifimuscles.utils.CalculationUtils;
 import me.theoria.wifimuscles.utils.PingUtil;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 
@@ -80,11 +79,11 @@ public class DataUIViewModel extends ViewModel {
     private void updateRssi(int rssi) {
         signalInfo.rssiText.setValue(rssi + " dBm");
         signalInfo.rssiEmoji.setValue(RSSIUtils.getRssiEmoji(rssi));
-        signalInfo.toastLevelEvent.setValue(RSSIUtils.convertRssiToLevel(rssi));
+        signalInfo.toastLevelEvent.setValue(CalculationUtils.convertRssiToLevel(rssi));
     }
 
     private void updateNetworkDetails(WifiSignalModel signal) {
-        signalInfo.ipText.setValue(NumToStringUtils.intIPToString(signal.getIP()));
+        signalInfo.ipText.setValue(CalculationUtils.intIPToString(signal.getIP()));
         signalInfo.ssidText.setValue(signal.getSSIDText());
         signalInfo.bssidText.setValue(signal.getBssid());
         signalInfo.linkSpeed.setValue(signal.getLinkSpeed() + " Mbps");
@@ -93,17 +92,17 @@ public class DataUIViewModel extends ViewModel {
 
     private void updateFrequency(int frequency) {
         signalInfo.frequencyText.setValue(frequency + " MHz");
-        signalInfo.bandwidthText.setValue(FrequencyUtils.fqToGhz(frequency));
+        signalInfo.bandwidthText.setValue(CalculationUtils.fqToGhz(frequency));
     }
 
     public void updateFromDhcpModel(DHCPModel model) {
         if (model == null) return;
 
-        dhcpInfo.gatewayText.setValue("Gateway: " + NumToStringUtils.intIPToString(model.getGateway()));
-        dhcpInfo.netmaskText.setValue("Netmask: " + NumToStringUtils.intIPToString(model.getNetmask()));
-        dhcpInfo.dns1Text.setValue("DNS 1: " + NumToStringUtils.intIPToString(model.getDns1()));
-        dhcpInfo.dns2Text.setValue("DNS 2: " + NumToStringUtils.intIPToString(model.getDns2()));
-        dhcpInfo.serverAddressText.setValue("DHCP Server: " + NumToStringUtils.intIPToString(model.getServerAddress()));
+        dhcpInfo.gatewayText.setValue("Gateway: " + CalculationUtils.intIPToString(model.getGateway()));
+        dhcpInfo.netmaskText.setValue("Netmask: " + CalculationUtils.intIPToString(model.getNetmask()));
+        dhcpInfo.dns1Text.setValue("DNS 1: " + CalculationUtils.intIPToString(model.getDns1()));
+        dhcpInfo.dns2Text.setValue("DNS 2: " + CalculationUtils.intIPToString(model.getDns2()));
+        dhcpInfo.serverAddressText.setValue("DHCP Server: " + CalculationUtils.intIPToString(model.getServerAddress()));
         dhcpInfo.leaseDurationText.setValue("Lease Duration: " + model.getLeaseDuration() + " sec");
     }
 

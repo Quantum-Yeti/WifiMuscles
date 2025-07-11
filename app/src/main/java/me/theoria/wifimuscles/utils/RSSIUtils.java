@@ -21,15 +21,14 @@ public class RSSIUtils {
     }
 
     /**
-     * Method to return an emoji based on the RSSI signal quality.
-     *
+     * Utility method to return an emoji based on the RSSI signal quality.
      * - Very strong signal (>= -30 dBm) => Very satisfied emoji
      * - Strong signal (>= -50 dBm) => Satisfied emoji
      * - Moderate signal (>= -70 dBm) => Neutral emoji
      * - Weak signal (>= -90 dBm) => Dissatisfied emoji
      * - Very weak signal (< -90 dBm) => Bad emoji
-     * @param rssi
-     * @return
+     * @param rssi level
+     * @return emoji
      */
     public static int getRssiEmoji(int rssi) {
         if (rssi >= -30) {
@@ -42,21 +41,4 @@ public class RSSIUtils {
             return R.drawable.emoji_dissatisfied;
         } else return R.drawable.emoji_bad;
     }
-
-    public static int convertRssiToLevel(int rssi) {
-        if (rssi >= -50) {
-            return 5;
-        } else if (rssi >= -60) {
-            return 4;
-        } else if (rssi >= -70) {
-            return 3;
-        } else if (rssi >= -80) {
-            return 2;
-        } else {
-            return 1;
-        }
-    }
-
-    
-
 }

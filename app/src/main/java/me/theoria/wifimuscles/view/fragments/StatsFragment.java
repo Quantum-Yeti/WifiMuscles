@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.managers.info.StatsPopupManager;
-import me.theoria.wifimuscles.utils.SpeedConverter;
+import me.theoria.wifimuscles.utils.CalculationUtils;
 import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
 import me.theoria.wifimuscles.viewmodel.DHCPViewModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
@@ -137,8 +137,8 @@ public class StatsFragment extends Fragment {
                 validatedCapabilityTextView.setText(String.format(getString(R.string.validation), yesNo(model.isValidated())));
                 meteredTextView.setText(String.format(getString(R.string.metered), yesNo(model.isMetered())));
 
-                downstreamTextView.setText(String.format(getString(R.string.downstream_s), SpeedConverter.speedConvert(model.getDownstreamKbps())));
-                upstreamTextView.setText(String.format(getString(R.string.upstream), SpeedConverter.speedConvert(model.getUpstreamKbps())));
+                downstreamTextView.setText(String.format(getString(R.string.downstream_s), CalculationUtils.speedConvert(model.getDownstreamKbps())));
+                upstreamTextView.setText(String.format(getString(R.string.upstream), CalculationUtils.speedConvert(model.getUpstreamKbps())));
             } else {
                 transportTypeTextView.setText(R.string.no_data);
                 internetCapabilityTextView.setText(R.string.no_data);

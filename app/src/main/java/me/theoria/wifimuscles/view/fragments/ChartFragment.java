@@ -34,6 +34,7 @@ import me.theoria.wifimuscles.databinding.FragmentChartBinding;
 import me.theoria.wifimuscles.utils.ChartInfoUtils;
 import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
+import me.theoria.wifimuscles.viewmodel.NetworkViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
 /**
@@ -209,6 +210,7 @@ public class ChartFragment extends Fragment {
                 // Show toast or Snackbar for specific levels
             }
         });
+
 
         wifiViewModel.getWifiStandardLiveData().observe(getViewLifecycleOwner(), standard -> updateInfoCards());
     }

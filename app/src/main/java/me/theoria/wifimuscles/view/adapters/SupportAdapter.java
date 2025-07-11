@@ -3,6 +3,7 @@ package me.theoria.wifimuscles.view.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,16 +50,19 @@ public class SupportAdapter extends RecyclerView.Adapter<SupportAdapter.ViewHold
     protected static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView titleView;
         private final TextView descView;
+        private final ImageView supportIconView;
 
         ViewHolder(View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.supportTitle);
             descView = itemView.findViewById(R.id.supportDescription);
+            supportIconView = itemView.findViewById(R.id.supportImage);
         }
 
         void bind(SupportModel tip, OnItemClickListener listener) {
             titleView.setText(tip.getTitle());
             descView.setText(tip.getDescription());
+            supportIconView.setImageResource(tip.getSupportIcon());
             itemView.setOnClickListener(v -> {
                 listener.onItemClick(tip);
             });
