@@ -23,7 +23,7 @@ import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.builders.BarChartBuilder;
 import me.theoria.wifimuscles.data.managers.charts.BarChartManager;
 import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
-import me.theoria.wifimuscles.data.model.InfoCardItem;
+import me.theoria.wifimuscles.data.model.ChartInfoCardModel;
 import me.theoria.wifimuscles.databinding.FragmentBarChartBinding;
 import me.theoria.wifimuscles.utils.ChartInfoUtils;
 import me.theoria.wifimuscles.utils.ToastUtils;
@@ -31,61 +31,58 @@ import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
+/**
+ * Fragment that displays WiFi signal strength using a bar chart
+ * and shows network-related info cards updated from LiveData.
+ */
 public class BarChartFragment extends Fragment {
 
     private FragmentBarChartBinding binding;
 
-    private WifiViewModel wifiViewModel;
-    private DataUIViewModel dataUIViewModel;
-
-    private BarChartManager barChartManager;
-    private BarDataSet barDataSet;
+    // UI Components
     private BarChart barChart;
-
+    private MaterialButton switchChartButton;
     private ChartInfoCardAdapter adapter;
 
-    private MaterialButton switchChartButton;
+    // BarChart data and manager
+    private BarChartManager barChartManager;
+    private BarDataSet barDataSet;
 
+    // Popups
     private ChartPopupManager chartPopupManager;
+
+    // ViewModels
+    private WifiViewModel wifiViewModel;
+    private DataUIViewModel dataUIViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBarChartBinding.inflate(inflater, container, false);
 
+        // Setup UI and data bindings
         initBarChartUI();
         setupBarChart();
-
         setupRecyclerView();
-
-        // Popup Windows
-        chartPopupManager = new ChartPopupManager(requireContext());
-        // Set item click listener to show popup with description
-        adapter.setOnItemClickListener((item, position, view) -> {
-            String description = ChartInfoUtils.getDescriptionForKey(requireContext(), item.getTitle());
-            chartPopupManager.showChartPopup(view, item.getTitle(), description);
-        });
-
-        wifiViewModel = new ViewModelProvider(this).get(WifiViewModel.class);
-        dataUIViewModel = new ViewModelProvider(this).get(DataUIViewModel.class);
-
-        observeSignalData();
-        observeSignalUI();
-
-        switchChartButton = binding.switchChartButton;
-        switchChartButton.setOnClickListener(v -> openLineChartFragment());
+        setupPopupManager();
+        setupViewModels();
+        setupObservers();
+        setupChartSwitchButton();
 
         return binding.getRoot();
     }
 
+    /** Initializes BarChart UI component from layout */
     private void initBarChartUI() {
         barChart = binding.barChart;
     }
 
+    /** Sets up the BarChart with default configurations and dataset */
     private void setupBarChart() {
         barDataSet = BarChartBuilder.setupBarChart(barChart, requireContext());
         barChartManager = new BarChartManager(dataUIViewModel);
     }
 
+    /** Configures RecyclerView for displaying WiFi info cards */
     private void setupRecyclerView() {
         RecyclerView recyclerView = binding.chartInfoRecyclerView;
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -94,6 +91,29 @@ public class BarChartFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
+    /** Initializes popup manager and item click listener for info cards */
+    private void setupPopupManager() {
+        chartPopupManager = new ChartPopupManager(requireContext());
+
+        adapter.setOnItemClickListener((item, position, view) -> {
+            String description = ChartInfoUtils.getDescriptionForKey(requireContext(), item.getTitle());
+            chartPopupManager.showChartPopup(view, item.getTitle(), description);
+        });
+    }
+
+    /** Initializes ViewModels scoped to this Fragment */
+    private void setupViewModels() {
+        wifiViewModel = new ViewModelProvider(this).get(WifiViewModel.class);
+        dataUIViewModel = new ViewModelProvider(this).get(DataUIViewModel.class);
+    }
+
+    /** Subscribes to LiveData to observe real-time WiFi and UI updates */
+    private void setupObservers() {
+        observeSignalData();
+        observeSignalUI();
+    }
+
+    /** Observes real-time RSSI signal changes and updates the bar chart */
     private void observeSignalData() {
         wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
             if (signals == null || signals.isEmpty()) return;
@@ -103,6 +123,7 @@ public class BarChartFragment extends Fragment {
         });
     }
 
+    /** Observes UI-related LiveData and refreshes the info cards */
     private void observeSignalUI() {
         dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), v -> updateInfoCards());
@@ -115,43 +136,53 @@ public class BarChartFragment extends Fragment {
         dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         wifiViewModel.getWifiStandardLiveData().observe(getViewLifecycleOwner(), v -> updateInfoCards());
 
+        // Show a custom snackbar depending on toast level
         dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
-            if (level == 3 || level == 2 || level == 1) {
+            if (level == 1 || level == 2 || level == 3) {
                 ToastUtils.snackBarExtenderNotice(binding.getRoot(), level);
             }
         });
     }
 
+    /** Updates the contents of the info card RecyclerView */
     private void updateInfoCards() {
-        List<InfoCardItem> items = new ArrayList<>();
-        items.add(new InfoCardItem(getString(R.string.ssid),
-                dataUIViewModel.getSSIDText().getValue(),
-                R.drawable.icon_ssid));
-        items.add(new InfoCardItem(getString(R.string.rssi),
-                dataUIViewModel.getRssiText().getValue(),
-                dataUIViewModel.getRssiEmoji().getValue() != null ? dataUIViewModel.getRssiEmoji().getValue() : R.drawable.emoji_bad));
-        items.add(new InfoCardItem(getString(R.string.frequency_card_short),
-                dataUIViewModel.getFrequencyText().getValue(),
-                R.drawable.icon_function));
-        items.add(new InfoCardItem(getString(R.string.frequency_band_card),
-                dataUIViewModel.getBandwidthText().getValue(),
-                R.drawable.icon_function));
-        items.add(new InfoCardItem(getString(R.string.ap_ip),
-                dataUIViewModel.getIpText().getValue(),
-                R.drawable.icon_dns));
-        items.add(new InfoCardItem(getString(R.string.ap_mac),
-                dataUIViewModel.getBssidText().getValue(),
-                R.drawable.icon_dns));
-        items.add(new InfoCardItem(getString(R.string.link_speed_card),
-                dataUIViewModel.getLinkSpeed().getValue(),
-                R.drawable.icon_rocket));
-        items.add(new InfoCardItem(getString(R.string.max_speed),
-                dataUIViewModel.getMaxLinkSpeed().getValue(),
-                R.drawable.icon_rocket));
+        List<ChartInfoCardModel> items = new ArrayList<>();
+        items.add(new ChartInfoCardModel(getString(R.string.ssid),
+                safeGetValue(dataUIViewModel.getSSIDText()), R.drawable.icon_ssid));
+        items.add(new ChartInfoCardModel(getString(R.string.rssi),
+                safeGetValue(dataUIViewModel.getRssiText()),
+                dataUIViewModel.getRssiEmoji().getValue() != null
+                        ? dataUIViewModel.getRssiEmoji().getValue()
+                        : R.drawable.emoji_bad));
+        items.add(new ChartInfoCardModel(getString(R.string.frequency_card_short),
+                safeGetValue(dataUIViewModel.getFrequencyText()), R.drawable.icon_function));
+        items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card),
+                safeGetValue(dataUIViewModel.getBandwidthText()), R.drawable.icon_function));
+        items.add(new ChartInfoCardModel(getString(R.string.ap_ip),
+                safeGetValue(dataUIViewModel.getIpText()), R.drawable.icon_dns));
+        items.add(new ChartInfoCardModel(getString(R.string.ap_mac),
+                safeGetValue(dataUIViewModel.getBssidText()), R.drawable.icon_dns));
+        items.add(new ChartInfoCardModel(getString(R.string.link_speed_card),
+                safeGetValue(dataUIViewModel.getLinkSpeed()), R.drawable.icon_rocket));
+        items.add(new ChartInfoCardModel(getString(R.string.max_speed),
+                safeGetValue(dataUIViewModel.getMaxLinkSpeed()), R.drawable.icon_rocket));
 
         adapter.updateItems(items);
     }
 
+    /** Safely retrieves a LiveData<String> value or returns empty string */
+    private String safeGetValue(androidx.lifecycle.LiveData<String> liveData) {
+        String val = liveData.getValue();
+        return val != null ? val : "";
+    }
+
+    /** Sets up the switch chart button to navigate to the LineChartFragment */
+    private void setupChartSwitchButton() {
+        switchChartButton = binding.switchChartButton;
+        switchChartButton.setOnClickListener(v -> openLineChartFragment());
+    }
+
+    /** Replaces current fragment with the LineChartFragment */
     private void openLineChartFragment() {
         requireActivity()
                 .getSupportFragmentManager()
@@ -161,12 +192,14 @@ public class BarChartFragment extends Fragment {
                 .commit();
     }
 
+    /** Start collecting data when fragment becomes visible */
     @Override
     public void onStart() {
         super.onStart();
         wifiViewModel.startUpdates();
     }
 
+    /** Stop data updates when fragment is no longer visible */
     @Override
     public void onStop() {
         super.onStop();

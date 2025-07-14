@@ -1,44 +1,44 @@
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Base application theme. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base Theme: defines shared/default attributes -->
     <style name="Base.Theme.WifiMuscles" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Configure light theme -->
-
-    </style>
-
-    <style name="Theme.WifiMuscles" parent="Base.Theme.WifiMuscles">
-        <!-- Custom Theme Main Attributes -->
-        <!-- Background colors -->
-        <item name="android:windowBackground">@color/bg_primary</item>    <!-- Main background -->
-        <item name="colorPrimary">@color/bg_app_primary</item>         <!-- Surface background -->
-        <item name="colorOnBackground">@color/text_primary</item>         <!-- Text on background -->
-        <item name="colorAccent">@color/bg_accent</item>
-
-        <!-- Theme Window Settings -->
+        <!-- Default system window settings -->
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:fitsSystemWindows">true</item>
 
-        <!-- Fonts -->
-        <item name="fontFamily">@font/theme_font_family</item>
+        <!-- Backgrounds -->
+        <item name="android:windowBackground">@color/bg_primary</item>
+
+        <!-- Typography -->
         <item name="android:fontFamily">@font/theme_font_family</item>
+        <item name="fontFamily">@font/theme_font_family</item>
+
+        <!-- Text Colors -->
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorHint">@color/text_disabled</item>
 
-        <!-- Surface colors -->
-        <item name="colorSurface">@color/card_background</item>            <!-- Cards, sheets -->
+        <!-- Material 3 Colors -->
+        <item name="colorPrimary">@color/bg_app_primary</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
+
+        <item name="colorSurface">@color/card_background</item>
         <item name="colorOnSurface">@color/text_primary</item>
 
-        <!-- Error colors -->
-        <item name="colorError">#CF6679</item>                            <!-- Typical Material error color -->
+
+        <item name="colorOnBackground">@color/text_primary</item>
+
+        <item name="colorError">#CF6679</item>
         <item name="colorOnError">@color/bg_primary</item>
 
-        <!-- Ripple effect color for touch feedback -->
+        <!-- Ripple feedback -->
         <item name="colorControlHighlight">@color/gray_light</item>
-
-
     </style>
 
-
-
+    <!-- Your App's Theme (inherits Base) -->
+    <style name="Theme.WifiMuscles" parent="Base.Theme.WifiMuscles">
+        <!-- Put theme overrides here if needed -->
+    </style>
 
 </resources>

@@ -46,7 +46,8 @@ public class SupportFragment extends Fragment {
         TipFragment tipFragment = TipFragment.newInstance(
                 tip.getTitle(),
                 tip.getDescription(),
-                tip.getDetailedDescription()
+                tip.getDetailedDescription(),
+                tip.getSupportIcon()
         );
 
         // Replace the current fragment with TipFragment and add transaction to back stack

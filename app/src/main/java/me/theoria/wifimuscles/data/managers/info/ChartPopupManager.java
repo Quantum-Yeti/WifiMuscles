@@ -21,7 +21,7 @@ public class ChartPopupManager {
     }
 
     public void showChartPopup(View anchorView, String title, String description) {
-        View chartPopupView = LayoutInflater.from(context).inflate(R.layout.chart_popup_card, null);
+        View chartPopupView = LayoutInflater.from(context).inflate(R.layout.info_chart_popup, null);
 
         TextView titleView = chartPopupView.findViewById(R.id.popupTitle);
         TextView descView = chartPopupView.findViewById(R.id.popupDescription);

@@ -19,6 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <ImageView
+            android:id="@+id/tipIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription=""
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/icon_info" />
+
         <TextView
             android:id="@+id/tipDescription"
             android:layout_marginTop="8dp"

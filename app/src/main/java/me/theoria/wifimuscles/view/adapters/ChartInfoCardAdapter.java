@@ -3,28 +3,29 @@ package me.theoria.wifimuscles.view.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.model.InfoCardItem;
+import me.theoria.wifimuscles.data.model.ChartInfoCardModel;
+import me.theoria.wifimuscles.data.model.StatsInfoCardModel;
 
 public class ChartInfoCardAdapter extends RecyclerView.Adapter<ChartInfoCardAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
-        void onItemClick(InfoCardItem item, int position, View view);
+        void onItemClick(ChartInfoCardModel item, int position, View view);
     }
 
-    private List<InfoCardItem> items;
+    private List<ChartInfoCardModel> items;
     private OnItemClickListener itemClickListener;
 
-    public ChartInfoCardAdapter(List<InfoCardItem> items) {
+    public ChartInfoCardAdapter(List<ChartInfoCardModel> items) {
         this.items = items;
     }
 
@@ -41,7 +42,7 @@ public class ChartInfoCardAdapter extends RecyclerView.Adapter<ChartInfoCardAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        InfoCardItem item = items.get(position);
+        ChartInfoCardModel item = items.get(position);
         holder.bind(item, position);
     }
 
@@ -50,9 +51,13 @@ public class ChartInfoCardAdapter extends RecyclerView.Adapter<ChartInfoCardAdap
         return items.size();
     }
 
-    public void updateItems(List<InfoCardItem> newItems) {
+    public void updateItems(List<ChartInfoCardModel> newItems) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
+            new ChartDiffCallback(this.items, newItems)
+                );
+
         this.items = newItems;
-        notifyDataSetChanged();
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +72,7 @@ public class ChartInfoCardAdapter extends RecyclerView.Adapter<ChartInfoCardAdap
             emoji = itemView.findViewById(R.id.emojiIcon);
         }
 
-        public void bind(InfoCardItem item, int position) {
+        public void bind(ChartInfoCardModel item, int position) {
             titleTextView.setText(item.getTitle());
             valueTextView.setText(item.getValue());
             iconImageView.setImageResource(item.getIconResId());
@@ -84,6 +89,37 @@ public class ChartInfoCardAdapter extends RecyclerView.Adapter<ChartInfoCardAdap
                     itemClickListener.onItemClick(item, getAdapterPosition(), v);
                 }
             });
+        }
+    }
+
+    static class ChartDiffCallback extends DiffUtil.Callback {
+        private final List<ChartInfoCardModel> oldList;
+        private final List<ChartInfoCardModel> newList;
+
+        public ChartDiffCallback(List<ChartInfoCardModel> oldList, List<ChartInfoCardModel> newList) {
+            this.oldList = oldList;
+            this.newList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldList.get(oldItemPosition).getTitle()
+                    .equals(newList.get(newItemPosition).getTitle());
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldList.get(oldItemPosition).equals(newList.get(newItemPosition));
         }
     }
 }
