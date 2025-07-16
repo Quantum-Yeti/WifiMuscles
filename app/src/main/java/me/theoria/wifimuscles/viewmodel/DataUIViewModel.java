@@ -98,12 +98,14 @@ public class DataUIViewModel extends ViewModel {
     public void updateFromDhcpModel(DHCPModel model) {
         if (model == null) return;
 
-        dhcpInfo.gatewayText.setValue("Gateway: " + CalculationUtils.intIPToString(model.getGateway()));
-        dhcpInfo.netmaskText.setValue("Netmask: " + CalculationUtils.intIPToString(model.getNetmask()));
-        dhcpInfo.dns1Text.setValue("DNS 1: " + CalculationUtils.intIPToString(model.getDns1()));
-        dhcpInfo.dns2Text.setValue("DNS 2: " + CalculationUtils.intIPToString(model.getDns2()));
-        dhcpInfo.serverAddressText.setValue("DHCP Server: " + CalculationUtils.intIPToString(model.getServerAddress()));
-        dhcpInfo.leaseDurationText.setValue("Lease Duration: " + model.getLeaseDuration() + " sec");
+        dhcpInfo.gatewayText.setValue(CalculationUtils.intIPToString(model.getGateway()));
+        dhcpInfo.netmaskText.setValue(CalculationUtils.intIPToString(model.getNetmask()));
+        dhcpInfo.dns1Text.setValue(CalculationUtils.intIPToString(model.getDns1()));
+        dhcpInfo.dns2Text.setValue(CalculationUtils.intIPToString(model.getDns2()));
+        dhcpInfo.serverAddressText.setValue(CalculationUtils.intIPToString(model.getServerAddress()));
+
+        String formatLease = CalculationUtils.formatLeaseDuration(model.getLeaseDuration());
+        dhcpInfo.leaseDurationText.setValue(formatLease);
     }
 
     public void runPingTest(String ip) {

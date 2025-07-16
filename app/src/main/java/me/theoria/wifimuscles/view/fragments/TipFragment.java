@@ -33,7 +33,7 @@ public class TipFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tip, container, false);
+        View view = inflater.inflate(R.layout.fragment_support_tip, container, false);
 
         TextView title = view.findViewById(R.id.tipTitle);
         TextView description = view.findViewById(R.id.tipDescription);

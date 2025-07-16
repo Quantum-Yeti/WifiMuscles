@@ -2,6 +2,8 @@ package me.theoria.wifimuscles.data.model;
 
 import android.view.View;
 
+import java.util.Objects;
+
 public class StatsInfoCardModel {
 
     private final String label;
@@ -32,12 +34,10 @@ public class StatsInfoCardModel {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof StatsInfoCardModel)) return false;
-
+        if (o == null || getClass() != o.getClass()) return false;
         StatsInfoCardModel that = (StatsInfoCardModel) o;
-
-        if (!label.equals(that.label)) return false;
-        return value.equals(that.value);
+        return Objects.equals(label, that.label) &&
+                Objects.equals(value, that.value); // ✅ null-safe
     }
 
     @Override

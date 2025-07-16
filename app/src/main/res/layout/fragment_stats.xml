@@ -1,315 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_app_primary"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context=".view.fragments.StatsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rootConstraintLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/statsFragmentTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="12dp"
-        android:background="@color/bg_app_primary">
+        android:text="@string/advanced_info"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/statsRecyclerView"
+        tools:ignore="MissingConstraints" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/statsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            />
-
-        <!-- Card 1: Advanced Info + Wi-Fi Signal -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardAdvancedWifi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginHorizontal="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:strokeWidth="0dp"
-            android:backgroundTint="@color/card_background_one"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <!-- Advanced Info Header -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingBottom="2dp"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="2dp">
-
-                        <TextView
-                            android:id="@+id/advancedInfoTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/advanced_info"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/whiteText"
-                            android:gravity="start"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/rssiEmoji"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:contentDescription="@string/globe_icon"
-                            android:src="@drawable/emoji_happy"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
-
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="12dp"
-                    android:background="@color/dividerColor" />
-
-                <!-- Wi-Fi Signal Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="8dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="16dp"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <TextView
-                        android:id="@+id/wifiTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wi_fi_info"
-                        android:layout_weight="1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/accent_light_blue" />
-
-                    <ImageView
-                        android:id="@+id/wifiIcon"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:contentDescription="@string/wifi_icon"
-                        android:src="@drawable/icon_wifi"
-                        app:tint="@color/accent_secondary" />
-                </LinearLayout>
-
-                <!-- Wi-Fi Signal Details -->
-                <TextView android:id="@+id/levelBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/interferenceBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/capabilityBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/channelNumberBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/channelBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/centerBox0" style="@style/StatsTextView" />
-                <TextView android:id="@+id/centerBox1" style="@style/StatsTextView" />
-                <TextView android:id="@+id/passpointBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/responderBox" style="@style/StatsTextView" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Card 2: Speed Test Throughput -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardSpeedTest"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:strokeWidth="0dp"
-            android:backgroundTint="@color/card_background_one"
-            app:layout_constraintTop_toBottomOf="@id/cardAdvancedWifi"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <!-- Speed Test Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="16dp"
-                    android:paddingBottom="8dp"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/speed_test_throughput"
-                        android:layout_weight="1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/accent_light_blue" />
-
-                    <ImageView
-                        android:id="@+id/speedIcon"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:contentDescription="@string/speed_icon"
-                        android:src="@drawable/icon_rocket"
-                        app:tint="@color/accent_orange" />
-                </LinearLayout>
-
-                <!-- Speed Test Details -->
-                <TextView android:id="@+id/downstreamBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/upstreamBox" style="@style/StatsTextView" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Card 3: Network Info -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardNetworkInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:strokeWidth="0dp"
-            android:backgroundTint="@color/card_background_one"
-            app:layout_constraintTop_toBottomOf="@id/cardSpeedTest"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <!-- Network Info Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="16dp"
-                    android:paddingBottom="8dp"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/network_info"
-                        android:layout_weight="1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/accent_light_blue" />
-
-                    <ImageView
-                        android:id="@+id/networkIcon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:contentDescription="@string/network_icon"
-                        android:src="@drawable/icon_ip_globe"
-                        app:tint="@color/accent_secondary" />
-                </LinearLayout>
-
-                <!-- Network Info Details -->
-                <TextView android:id="@+id/gatewayBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/netmaskBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/dns1Box" style="@style/StatsTextView" />
-                <TextView android:id="@+id/dns2Box" style="@style/StatsTextView" />
-                <TextView android:id="@+id/leaseDurationBox" style="@style/StatsTextView" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Card 4: Connectivity Status -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardConnectivity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="12dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            app:strokeWidth="0dp"
-            android:backgroundTint="@color/card_background_one"
-            app:layout_constraintTop_toBottomOf="@id/cardNetworkInfo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <!-- Connectivity Status Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="16dp"
-                    android:paddingBottom="8dp"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/connectivity_status"
-                        android:layout_weight="1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/accent_light_blue" />
-
-                    <ImageView
-                        android:id="@+id/connectivityIcon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:contentDescription="@string/connection_info"
-                        android:src="@drawable/icon_host"
-                        app:tint="@color/red" />
-                </LinearLayout>
-
-                <!-- Connectivity Status Details -->
-                <TextView android:id="@+id/transportBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/isInternetBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/validateBox" style="@style/StatsTextView" />
-                <TextView android:id="@+id/meteredBox" style="@style/StatsTextView" />
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/statsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        tools:listitem="@layout/item_stats"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

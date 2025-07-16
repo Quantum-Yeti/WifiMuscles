@@ -51,8 +51,6 @@ public class CalculationUtils {
 
     /**
      * Utility method to return a simple strength level from the RSSI.
-     * @param rssi
-     * @return
      */
     public static int convertRssiToLevel(int rssi) {
         if (rssi >= -50) {
@@ -66,6 +64,26 @@ public class CalculationUtils {
         } else {
             return 1;
         }
+    }
+
+    /**
+     * Utility method to format Lease Duration into minutes and seconds.
+     */
+    public static String formatLeaseDuration(int totalSeconds) {
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+
+        StringBuilder builder = new StringBuilder();
+        if (hours > 0) {
+            builder.append(hours).append(" hr ");
+        }
+        if (minutes > 0 || hours > 0) { // always show minutes if hours exist
+            builder.append(minutes).append(" min ");
+        }
+        builder.append(seconds).append(" sec");
+
+        return builder.toString().trim();
     }
 
 

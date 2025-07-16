@@ -9,11 +9,12 @@
         android:id="@+id/stat_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/accent_light_blue"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/stat_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#666" />
+        android:textColor="@color/whiteText" />
 </LinearLayout>

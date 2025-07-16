@@ -1,21 +1,25 @@
 package me.theoria.wifimuscles.view.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.managers.info.StatsPopupManager;
+import me.theoria.wifimuscles.data.model.StatsInfoCardModel;
 import me.theoria.wifimuscles.utils.CalculationUtils;
+import me.theoria.wifimuscles.view.adapters.StatsAdapter;
 import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
 import me.theoria.wifimuscles.viewmodel.DHCPViewModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
@@ -24,14 +28,7 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
 public class StatsFragment extends Fragment {
 
-    private TextView levelTextView, interferenceTextView, capabilitiesTextView, channelWidthTextView,
-            centerFreq0TextView, centerFreq1TextView, passpointTextView, responderTextView, channelNumberTextView;
-    private TextView gatewayTextView, netmaskTextView, dns1TextView, dns2TextView,
-            leaseDurationTextView;
-    private TextView transportTypeTextView, internetCapabilityTextView,
-            validatedCapabilityTextView, meteredTextView, downstreamTextView, upstreamTextView;
-    private ImageView rssiEmojiView;
-
+    private StatsAdapter statsAdapter;
     private StatsPopupManager statsPopupManager;
 
     private DataUIViewModel dataUIViewModel;
@@ -40,19 +37,25 @@ public class StatsFragment extends Fragment {
     private ConnectivityViewModel connectivityViewModel;
     private DHCPViewModel dhcpViewModel;
 
+    private final List<StatsInfoCardModel> statsItems = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_stats, container, false);
-        bindViews(root);
+
+        RecyclerView recyclerView = root.findViewById(R.id.statsRecyclerView);
+        statsAdapter = new StatsAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(statsAdapter);
 
         statsPopupManager = new StatsPopupManager(requireContext());
 
-        ViewModelProvider.AndroidViewModelFactory factory =
-                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication());
-        ViewModelProvider provider = new ViewModelProvider(this, factory);
+        ViewModelProvider provider = new ViewModelProvider(
+                this,
+                ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().getApplication())
+        );
 
         wifiViewModel = provider.get(WifiViewModel.class);
         networkViewModel = provider.get(NetworkViewModel.class);
@@ -66,156 +69,72 @@ public class StatsFragment extends Fragment {
     }
 
     private void observeLiveData() {
-        observeDhcp();
-        observeDataUI();
-        observeWifi();
-        observeNetwork();
-        observeConnectivity();
-    }
-
-    private void observeDhcp() {
         dhcpViewModel.getDhcpModelLiveData().observe(getViewLifecycleOwner(), dhcpModel -> {
             if (dhcpModel != null) {
                 dataUIViewModel.updateFromDhcpModel(dhcpModel);
+                updateStatsList();
             }
         });
 
-        dataUIViewModel.getGatewayText().observe(getViewLifecycleOwner(),
-                text -> setTextOrDefault(gatewayTextView, text));
-        dataUIViewModel.getNetmaskText().observe(getViewLifecycleOwner(),
-                text -> setTextOrDefault(netmaskTextView, text));
-        dataUIViewModel.getDns1Text().observe(getViewLifecycleOwner(),
-                text -> setTextOrDefault(dns1TextView, text));
-        dataUIViewModel.getDns2Text().observe(getViewLifecycleOwner(),
-                text -> setTextOrDefault(dns2TextView, text));
-        dataUIViewModel.getLeaseDurationText().observe(getViewLifecycleOwner(),
-                text -> setTextOrDefault(leaseDurationTextView, text));
-    }
-
-    private void observeDataUI() {
-        dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), rssiEmojiView::setImageResource);
-    }
-
-    private void observeWifi() {
         wifiViewModel.getRssiLiveData().observe(getViewLifecycleOwner(), signals -> {
             if (signals != null && !signals.isEmpty()) {
                 dataUIViewModel.updateSignalUI(signals);
+                updateStatsList();
             }
         });
 
-        wifiViewModel.getInterferenceLevelLiveData().observe(getViewLifecycleOwner(),
-                interference -> interferenceTextView.setText(getString(R.string.interference, interference)));
+        wifiViewModel.getInterferenceLevelLiveData().observe(getViewLifecycleOwner(), interference -> updateStatsList());
+
+        networkViewModel.getConnectedNetworkLiveData().observe(getViewLifecycleOwner(), network -> updateStatsList());
+
+        connectivityViewModel.getConnectivityStatus().observe(getViewLifecycleOwner(), model -> updateStatsList());
     }
 
-    private void observeNetwork() {
-        Context context = requireContext();
+    private void updateStatsList() {
+        statsItems.clear();
 
-        networkViewModel.getConnectedNetworkLiveData().observe(getViewLifecycleOwner(), network -> {
-            if (network != null) {
-                levelTextView.setText(context.getString(R.string.strength_level, network.getSignalLevel()));
-                capabilitiesTextView.setText(context.getString(R.string.capability, network.getCapabilities()));
-                channelNumberTextView.setText(context.getString(R.string.channel_number_txt, network.getChannelNumber()));
-                channelWidthTextView.setText(context.getString(R.string.channel_width, network.getChannelWidth()));
-                centerFreq0TextView.setText(context.getString(R.string.center_freq_0, network.getCenterFreq0()));
-                centerFreq1TextView.setText(context.getString(R.string.center_freq_1, network.getCenterFreq1()));
-                passpointTextView.setText(String.format(getString(R.string.passpoint), yesNo(network.getPassPoint())));
-                responderTextView.setText(String.format(getString(R.string.responder), yesNo(network.getIs80211mcResponder())));
-            } else {
-                setNoDataToNetworkViews();
-            }
-        });
-    }
+        // Wi-Fi Signal Section
+        String rssi = dataUIViewModel.getRssiText().getValue();
+        if (rssi == null) rssi = getString(R.string.no_data);
+        statsItems.add(new StatsInfoCardModel("Signal Strength", rssi, v -> statsPopupManager.wifiLevelPopup(v)));
 
-    private void observeConnectivity() {
-        Context context = requireContext();
+        String interference = String.valueOf(wifiViewModel.getInterferenceLevelLiveData().getValue());
+        statsItems.add(new StatsInfoCardModel("Interference", interference, v -> statsPopupManager.interferencePopup(v)));
 
-        connectivityViewModel.getConnectivityStatus().observe(getViewLifecycleOwner(), model -> {
-            if (model != null) {
-                transportTypeTextView.setText(context.getString(R.string.transport, model.getTransportType().name()));
-
-                internetCapabilityTextView.setText(String.format(getString(R.string.internet), yesNo(model.hasInternet())));
-                validatedCapabilityTextView.setText(String.format(getString(R.string.validation), yesNo(model.isValidated())));
-                meteredTextView.setText(String.format(getString(R.string.metered), yesNo(model.isMetered())));
-
-                downstreamTextView.setText(String.format(getString(R.string.downstream_s), CalculationUtils.speedConvert(model.getDownstreamKbps())));
-                upstreamTextView.setText(String.format(getString(R.string.upstream), CalculationUtils.speedConvert(model.getUpstreamKbps())));
-            } else {
-                transportTypeTextView.setText(R.string.no_data);
-                internetCapabilityTextView.setText(R.string.no_data);
-                validatedCapabilityTextView.setText(R.string.no_data);
-                meteredTextView.setText(R.string.no_data);
-                downstreamTextView.setText(R.string.no_data);
-                upstreamTextView.setText(R.string.no_data);
-            }
-        });
-    }
-
-    private void setNoDataToNetworkViews() {
-        levelTextView.setText(R.string.no_data);
-        capabilitiesTextView.setText(R.string.no_data);
-        channelWidthTextView.setText(R.string.no_data);
-        centerFreq0TextView.setText(R.string.no_data);
-        centerFreq1TextView.setText(R.string.no_data);
-        passpointTextView.setText(R.string.no_data);
-        responderTextView.setText(R.string.no_data);
-        channelNumberTextView.setText(R.string.no_data);
-    }
-
-    private void setTextOrDefault(TextView view, String text) {
-        if (text != null) {
-            view.setText(text);
-        } else {
-            view.setText(R.string.no_data);
+        var network = networkViewModel.getConnectedNetworkLiveData().getValue();
+        if (network != null) {
+            statsItems.add(new StatsInfoCardModel("Capabilities", network.getCapabilities(), v -> statsPopupManager.capabilitiesPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Channel Width", String.valueOf(network.getChannelWidth()), v -> statsPopupManager.channelWidthPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Center Freq 0", String.valueOf(network.getCenterFreq0()), v -> statsPopupManager.centerFreq0Popup(v)));
+            statsItems.add(new StatsInfoCardModel("Center Freq 1", String.valueOf(network.getCenterFreq1()), v -> statsPopupManager.centerFreq1Popup(v)));
+            statsItems.add(new StatsInfoCardModel("Passpoint", yesNo(network.getPassPoint()), v -> statsPopupManager.passpointPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Responder", yesNo(network.getIs80211mcResponder()), v -> statsPopupManager.responderPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Channel Number", String.valueOf(network.getChannelNumber()), null));
         }
+
+        // DHCP Section
+        statsItems.add(new StatsInfoCardModel("Gateway", dataUIViewModel.getGatewayText().getValue(), v -> statsPopupManager.gatewayPopup(v)));
+        statsItems.add(new StatsInfoCardModel("Netmask", dataUIViewModel.getNetmaskText().getValue(), v -> statsPopupManager.netmaskPopup(v)));
+        statsItems.add(new StatsInfoCardModel("DNS 1", dataUIViewModel.getDns1Text().getValue(), v -> statsPopupManager.dns1Popup(v)));
+        statsItems.add(new StatsInfoCardModel("DNS 2", dataUIViewModel.getDns2Text().getValue(), v -> statsPopupManager.dns2Popup(v)));
+        statsItems.add(new StatsInfoCardModel("Lease Duration", dataUIViewModel.getLeaseDurationText().getValue(), v -> statsPopupManager.leasePopup(v)));
+
+        // Connectivity Section
+        var model = connectivityViewModel.getConnectivityStatus().getValue();
+        if (model != null) {
+            statsItems.add(new StatsInfoCardModel("Transport", model.getTransportType().name(), v -> statsPopupManager.transportPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Internet", yesNo(model.hasInternet()), v -> statsPopupManager.internetPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Validated", yesNo(model.isValidated()), v -> statsPopupManager.validationPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Metered", yesNo(model.isMetered()), v -> statsPopupManager.meteredPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Downstream", CalculationUtils.speedConvert(model.getDownstreamKbps()), v -> statsPopupManager.downstreamPopup(v)));
+            statsItems.add(new StatsInfoCardModel("Upstream", CalculationUtils.speedConvert(model.getUpstreamKbps()), v -> statsPopupManager.upstreamPopup(v)));
+        }
+
+        statsAdapter.updateItems(statsItems);
     }
 
-    private String yesNo(boolean condition) {
-        return condition ? "Yes" : "No";
-    }
-
-    private void bindViews(View root) {
-        rssiEmojiView = root.findViewById(R.id.rssiEmoji);
-        levelTextView = root.findViewById(R.id.levelBox);
-        interferenceTextView = root.findViewById(R.id.interferenceBox);
-        capabilitiesTextView = root.findViewById(R.id.capabilityBox);
-        channelWidthTextView = root.findViewById(R.id.channelBox);
-        centerFreq0TextView = root.findViewById(R.id.centerBox0);
-        centerFreq1TextView = root.findViewById(R.id.centerBox1);
-        passpointTextView = root.findViewById(R.id.passpointBox);
-        responderTextView = root.findViewById(R.id.responderBox);
-        gatewayTextView = root.findViewById(R.id.gatewayBox);
-        netmaskTextView = root.findViewById(R.id.netmaskBox);
-        dns1TextView = root.findViewById(R.id.dns1Box);
-        dns2TextView = root.findViewById(R.id.dns2Box);
-        leaseDurationTextView = root.findViewById(R.id.leaseDurationBox);
-        transportTypeTextView = root.findViewById(R.id.transportBox);
-        internetCapabilityTextView = root.findViewById(R.id.isInternetBox);
-        validatedCapabilityTextView = root.findViewById(R.id.validateBox);
-        meteredTextView = root.findViewById(R.id.meteredBox);
-        downstreamTextView = root.findViewById(R.id.downstreamBox);
-        upstreamTextView = root.findViewById(R.id.upstreamBox);
-        channelNumberTextView = root.findViewById(R.id.channelNumberBox);
-
-        // Popup Window Binding onClick
-        levelTextView.setOnClickListener(v -> statsPopupManager.wifiLevelPopup(v));
-        capabilitiesTextView.setOnClickListener(v -> statsPopupManager.capabilitiesPopup(v));
-        channelWidthTextView.setOnClickListener(v -> statsPopupManager.channelWidthPopup(v));
-        centerFreq0TextView.setOnClickListener(v -> statsPopupManager.centerFreq0Popup(v));
-        centerFreq1TextView.setOnClickListener(v -> statsPopupManager.centerFreq1Popup(v));
-        passpointTextView.setOnClickListener(v -> statsPopupManager.passpointPopup(v));
-        responderTextView.setOnClickListener(v -> statsPopupManager.responderPopup(v));
-        gatewayTextView.setOnClickListener(v -> statsPopupManager.gatewayPopup(v));
-        netmaskTextView.setOnClickListener(v -> statsPopupManager.netmaskPopup(v));
-        dns1TextView.setOnClickListener(v -> statsPopupManager.dns1Popup(v));
-        dns2TextView.setOnClickListener(v -> statsPopupManager.dns2Popup(v));
-        leaseDurationTextView.setOnClickListener(v -> statsPopupManager.leasePopup(v));
-        transportTypeTextView.setOnClickListener(v -> statsPopupManager.transportPopup(v));
-        internetCapabilityTextView.setOnClickListener(v -> statsPopupManager.internetPopup(v));
-        validatedCapabilityTextView.setOnClickListener(v -> statsPopupManager.validationPopup(v));
-        meteredTextView.setOnClickListener(v -> statsPopupManager.meteredPopup(v));
-        downstreamTextView.setOnClickListener(v -> statsPopupManager.downstreamPopup(v));
-        upstreamTextView.setOnClickListener(v -> statsPopupManager.upstreamPopup(v));
-        interferenceTextView.setOnClickListener(v -> statsPopupManager.interferencePopup(v));
+    private String yesNo(boolean value) {
+        return value ? "Yes" : "No";
     }
 
     @Override
@@ -239,36 +158,6 @@ public class StatsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        // Nullify all views to prevent memory leaks
-        rssiEmojiView = null;
-        levelTextView = null;
-        interferenceTextView = null;
-        capabilitiesTextView = null;
-        channelWidthTextView = null;
-        centerFreq0TextView = null;
-        centerFreq1TextView = null;
-        passpointTextView = null;
-        responderTextView = null;
-        gatewayTextView = null;
-        netmaskTextView = null;
-        dns1TextView = null;
-        dns2TextView = null;
-        leaseDurationTextView = null;
-        transportTypeTextView = null;
-        internetCapabilityTextView = null;
-        validatedCapabilityTextView = null;
-        meteredTextView = null;
-        downstreamTextView = null;
-        upstreamTextView = null;
-        channelNumberTextView = null;
-
-        statsPopupManager = null;
-
-        dataUIViewModel = null;
-        wifiViewModel = null;
-        networkViewModel = null;
-        connectivityViewModel = null;
-        dhcpViewModel = null;
+        statsItems.clear();
     }
 }
