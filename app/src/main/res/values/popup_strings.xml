@@ -5,6 +5,8 @@
     <string name="wifi_signal_popup">This WiFi level is rated on a 1 through 5 scale illustrating the strength of your device to the router. Higher values mean better connectivity (e.g., 5 is best and 1 is weakest). The scale is based off of the RSSI level reading from your connected device.
     </string>
 
+    <string name="wifi_standard_popup">A Wi-Fi standard refers to a specific version or generation of wireless networking technology, defined by the IEEE 802.11 family of protocols. Each standard introduces improvements in speed, range, reliability, frequency bands, and efficiency.</string>
+
     <string name="capability_popup_txt">Shows the supported Wi-Fi capabilities such as WPA/WPA2, PSK, etc.
     </string>
 

@@ -19,6 +19,7 @@ public class NavigationManager {
 
     // Reference to FragmentManager to perform transactions
     private final FragmentManager fragmentManager;
+
     // Reference to the host Activity for context-related operations
     private final Activity activity;
 
@@ -26,7 +27,6 @@ public class NavigationManager {
     private final Fragment chartFragment = new ChartFragment();
     private final Fragment statsFragment = new StatsFragment();
     private final Fragment supportFragment = new SupportFragment();
-    //private final Fragment speedFragment = new SpeedTestFragment();
 
     //private final Fragment barChartFragment = new BarChartFragment(); // Optional, currently not used.
 
@@ -81,7 +81,6 @@ public class NavigationManager {
     }
 
     // Navigation Helpers --//
-
     /**
      * Method to open Url to PayPal donations.
      */

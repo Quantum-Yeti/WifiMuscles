@@ -28,6 +28,8 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
 public class StatsFragment extends Fragment {
 
+    private String publicIp = null;
+
     private StatsAdapter statsAdapter;
     private StatsPopupManager statsPopupManager;
 
@@ -68,6 +70,9 @@ public class StatsFragment extends Fragment {
         return root;
     }
 
+    /**
+     * Method to observe the live data from the ViewModels.
+     */
     private void observeLiveData() {
         dhcpViewModel.getDhcpModelLiveData().observe(getViewLifecycleOwner(), dhcpModel -> {
             if (dhcpModel != null) {
@@ -83,6 +88,8 @@ public class StatsFragment extends Fragment {
             }
         });
 
+        wifiViewModel.getWifiStandardLiveData().observe(getViewLifecycleOwner(), standard -> updateStatsList());
+
         wifiViewModel.getInterferenceLevelLiveData().observe(getViewLifecycleOwner(), interference -> updateStatsList());
 
         networkViewModel.getConnectedNetworkLiveData().observe(getViewLifecycleOwner(), network -> updateStatsList());
@@ -90,49 +97,63 @@ public class StatsFragment extends Fragment {
         connectivityViewModel.getConnectivityStatus().observe(getViewLifecycleOwner(), model -> updateStatsList());
     }
 
+    /**
+     * Method to update the RecyclerView with fresh Wi-Fi statistics.
+     */
     private void updateStatsList() {
         statsItems.clear();
 
-        // Wi-Fi Signal Section
         String rssi = dataUIViewModel.getRssiText().getValue();
         if (rssi == null) rssi = getString(R.string.no_data);
-        statsItems.add(new StatsInfoCardModel("Signal Strength", rssi, v -> statsPopupManager.wifiLevelPopup(v)));
+        statsItems.add(new StatsInfoCardModel(getString(R.string.rssi), rssi, v -> statsPopupManager.wifiLevelPopup(v)));
+
+        String standard = wifiViewModel.getWifiStandardLiveData().getValue();
+        if (standard == null) standard = getString(R.string.no_data);
+        statsItems.add(new StatsInfoCardModel(getString(R.string.wifi_standard), standard, v -> statsPopupManager.standardPopup(v)));
 
         String interference = String.valueOf(wifiViewModel.getInterferenceLevelLiveData().getValue());
-        statsItems.add(new StatsInfoCardModel("Interference", interference, v -> statsPopupManager.interferencePopup(v)));
+        if (interference == null) interference = getString(R.string.no_data);
+        statsItems.add(new StatsInfoCardModel(getString(R.string.interference), interference, v -> statsPopupManager.interferencePopup(v)));
+
 
         var network = networkViewModel.getConnectedNetworkLiveData().getValue();
         if (network != null) {
-            statsItems.add(new StatsInfoCardModel("Capabilities", network.getCapabilities(), v -> statsPopupManager.capabilitiesPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Channel Width", String.valueOf(network.getChannelWidth()), v -> statsPopupManager.channelWidthPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Center Freq 0", String.valueOf(network.getCenterFreq0()), v -> statsPopupManager.centerFreq0Popup(v)));
-            statsItems.add(new StatsInfoCardModel("Center Freq 1", String.valueOf(network.getCenterFreq1()), v -> statsPopupManager.centerFreq1Popup(v)));
-            statsItems.add(new StatsInfoCardModel("Passpoint", yesNo(network.getPassPoint()), v -> statsPopupManager.passpointPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Responder", yesNo(network.getIs80211mcResponder()), v -> statsPopupManager.responderPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Channel Number", String.valueOf(network.getChannelNumber()), null));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.capability), network.getCapabilities(), v -> statsPopupManager.capabilitiesPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.channel_width), String.valueOf(network.getChannelWidth()), v -> statsPopupManager.channelWidthPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.center_freq_0), String.valueOf(network.getCenterFreq0()), v -> statsPopupManager.centerFreq0Popup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.center_freq_1), String.valueOf(network.getCenterFreq1()), v -> statsPopupManager.centerFreq1Popup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.passpoint), yesNo(network.getPassPoint()), v -> statsPopupManager.passpointPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.responder), yesNo(network.getIs80211mcResponder()), v -> statsPopupManager.responderPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.channel_number), String.valueOf(network.getChannelNumber()), null));
         }
 
         // DHCP Section
-        statsItems.add(new StatsInfoCardModel("Gateway", dataUIViewModel.getGatewayText().getValue(), v -> statsPopupManager.gatewayPopup(v)));
-        statsItems.add(new StatsInfoCardModel("Netmask", dataUIViewModel.getNetmaskText().getValue(), v -> statsPopupManager.netmaskPopup(v)));
-        statsItems.add(new StatsInfoCardModel("DNS 1", dataUIViewModel.getDns1Text().getValue(), v -> statsPopupManager.dns1Popup(v)));
-        statsItems.add(new StatsInfoCardModel("DNS 2", dataUIViewModel.getDns2Text().getValue(), v -> statsPopupManager.dns2Popup(v)));
-        statsItems.add(new StatsInfoCardModel("Lease Duration", dataUIViewModel.getLeaseDurationText().getValue(), v -> statsPopupManager.leasePopup(v)));
+        var dhcp = dhcpViewModel.getDhcpModelLiveData().getValue();
+        if (dhcp != null) {
+            statsItems.add(new StatsInfoCardModel(getString(R.string.gateway), dataUIViewModel.getGatewayText().getValue(), v -> statsPopupManager.gatewayPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.netmask), dataUIViewModel.getNetmaskText().getValue(), v -> statsPopupManager.netmaskPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.dns1), dataUIViewModel.getDns1Text().getValue(), v -> statsPopupManager.dns1Popup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.dns2), dataUIViewModel.getDns2Text().getValue(), v -> statsPopupManager.dns2Popup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.lease_duration), dataUIViewModel.getLeaseDurationText().getValue(), v -> statsPopupManager.leasePopup(v)));
+        }
 
         // Connectivity Section
         var model = connectivityViewModel.getConnectivityStatus().getValue();
         if (model != null) {
-            statsItems.add(new StatsInfoCardModel("Transport", model.getTransportType().name(), v -> statsPopupManager.transportPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Internet", yesNo(model.hasInternet()), v -> statsPopupManager.internetPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Validated", yesNo(model.isValidated()), v -> statsPopupManager.validationPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Metered", yesNo(model.isMetered()), v -> statsPopupManager.meteredPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Downstream", CalculationUtils.speedConvert(model.getDownstreamKbps()), v -> statsPopupManager.downstreamPopup(v)));
-            statsItems.add(new StatsInfoCardModel("Upstream", CalculationUtils.speedConvert(model.getUpstreamKbps()), v -> statsPopupManager.upstreamPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.transport), model.getTransportType().name(), v -> statsPopupManager.transportPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.internet), yesNo(model.hasInternet()), v -> statsPopupManager.internetPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.validation), yesNo(model.isValidated()), v -> statsPopupManager.validationPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.metered), yesNo(model.isMetered()), v -> statsPopupManager.meteredPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.downstream), CalculationUtils.speedConvert(model.getDownstreamKbps()), v -> statsPopupManager.downstreamPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.upstream), CalculationUtils.speedConvert(model.getUpstreamKbps()), v -> statsPopupManager.upstreamPopup(v)));
         }
 
         statsAdapter.updateItems(statsItems);
     }
 
+    /**
+     * Utility boolean method to return yes/no for the statistics in the Connectivity ViewModel.
+     */
     private String yesNo(boolean value) {
         return value ? "Yes" : "No";
     }

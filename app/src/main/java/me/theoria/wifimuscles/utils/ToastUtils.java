@@ -15,9 +15,6 @@ public class ToastUtils {
 
     /**
      * Method to display a short toast.
-     *
-     * @param context
-     * @param message
      */
     public static void showToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
@@ -25,9 +22,6 @@ public class ToastUtils {
 
     /**
      * Method to display a long toast.
-     *
-     * @param context
-     * @param message
      */
     public static void showLongToast(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -35,9 +29,6 @@ public class ToastUtils {
 
     /**
      * Method to display a short toast for the Wifi signal level.
-     *
-     * @param view
-     * @param level
      */
     public static void snackBarExtenderNotice(View view, int level) {
         String message = "";

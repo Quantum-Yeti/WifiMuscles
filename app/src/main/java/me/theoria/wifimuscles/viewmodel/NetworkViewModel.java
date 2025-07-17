@@ -19,6 +19,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import me.theoria.wifimuscles.data.model.NetworkModel;
+import me.theoria.wifimuscles.utils.CalculationUtils;
 
 public class NetworkViewModel extends AndroidViewModel {
 
@@ -71,7 +72,7 @@ public class NetworkViewModel extends AndroidViewModel {
                 matchedResult != null ? matchedResult.centerFreq1 : -1,
                 matchedResult != null && matchedResult.isPasspointNetwork(),
                 matchedResult != null && matchedResult.is80211mcResponder(),
-                calculateChannel(wifiInfo.getFrequency())
+                CalculationUtils.calculateChannel(wifiInfo.getFrequency())
         );
 
         connectedNetworkLiveData.postValue(model);
@@ -115,19 +116,6 @@ public class NetworkViewModel extends AndroidViewModel {
         return errorLiveData;
     }
 
-    private int calculateChannel(int frequency) {
-        if (frequency >= 2412 && frequency <= 2472) {
-            return (frequency - 2407) / 5; // 2.4 GHz band
-        } else if (frequency == 2484) {
-            return 14; // Special 2.4GHz channel
-        } else if (frequency >= 5180 && frequency <= 5825) {
-            return (frequency - 5000) / 5; // 5 GHz band
-        } else if (frequency >= 5955 && frequency <= 7115) {
-            return (frequency - 5950) / 5 + 1; // 6 GHz band
-        } else {
-            return -1; // Unknown
-        }
-    }
 
     @Override
     protected void onCleared() {

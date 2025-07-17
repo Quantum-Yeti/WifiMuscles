@@ -9,7 +9,7 @@ import java.util.List;
 import me.theoria.wifimuscles.data.model.DHCPModel;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.CalculationUtils;
-import me.theoria.wifimuscles.utils.PingUtil;
+import me.theoria.wifimuscles.utils.ExternalUtil;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 
 public class DataUIViewModel extends ViewModel {
@@ -60,7 +60,7 @@ public class DataUIViewModel extends ViewModel {
     public LiveData<String> getNetmaskText() { return dhcpInfo.netmaskText; }
     public LiveData<String> getDns1Text() { return dhcpInfo.dns1Text; }
     public LiveData<String> getDns2Text() { return dhcpInfo.dns2Text; }
-    public LiveData<String> getServerAddressText() { return dhcpInfo.serverAddressText; }
+    //public LiveData<String> getServerAddressText() { return dhcpInfo.serverAddressText; }
     public LiveData<String> getLeaseDurationText() { return dhcpInfo.leaseDurationText; }
 
 
@@ -109,6 +109,6 @@ public class DataUIViewModel extends ViewModel {
     }
 
     public void runPingTest(String ip) {
-        PingUtil.ping(ip, signalInfo.pingResult::postValue);
+        ExternalUtil.ping(ip, signalInfo.pingResult::postValue);
     }
 }

@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
+import me.theoria.wifimuscles.utils.CalculationUtils;
 import me.theoria.wifimuscles.utils.RSSIUtils;
-import me.theoria.wifimuscles.utils.WifiStandardUtil;
 
 public class WifiViewModel extends AndroidViewModel {
 
@@ -76,7 +76,7 @@ public class WifiViewModel extends AndroidViewModel {
             WifiInfo info = wifiManager.getConnectionInfo();
             if (info == null) return;
 
-            String wifiStandard = WifiStandardUtil.getWifiStandardName(info);
+            String wifiStandard = CalculationUtils.getWifiStandardName(info);
             wifiStandardLiveData.postValue(wifiStandard);
 
             int currentFreq = info.getFrequency();
@@ -94,13 +94,19 @@ public class WifiViewModel extends AndroidViewModel {
             int interferenceCount = 0;
 
             for (ScanResult result : results) {
-                if (result.frequency == currentFreq) continue;
-                if (Math.abs(result.frequency - currentFreq) <= 20) {
+                if (result.BSSID.equals(info.getBSSID())) continue; // skip self
+
+                int freqDiff = Math.abs(result.frequency - currentFreq);
+                boolean overlaps =
+                        (result.frequency >= 2400 && result.frequency <= 2500 && freqDiff <= 20) ||  // 2.4 GHz
+                                (result.frequency > 4900 && result.frequency < 5900 && freqDiff <= 40);       // 5 GHz
+
+                if (overlaps && result.level > -85) {
                     interferenceCount++;
                 }
             }
 
-            // Create model with interference
+            // Wi-Fi signals
             WifiSignalModel signal = new WifiSignalModel(
                     System.currentTimeMillis(),
                     info.getRssi(),

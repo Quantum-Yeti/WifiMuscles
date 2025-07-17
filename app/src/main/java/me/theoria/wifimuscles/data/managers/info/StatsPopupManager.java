@@ -131,5 +131,9 @@ public class StatsPopupManager {
         showInfoPopup(anchorView, context.getString(R.string.ssid_txt));
     }
 
+    public void standardPopup(View anchorView) {
+        showInfoPopup(anchorView, context.getString(R.string.wifi_standard_popup));
+    }
+
 
 }

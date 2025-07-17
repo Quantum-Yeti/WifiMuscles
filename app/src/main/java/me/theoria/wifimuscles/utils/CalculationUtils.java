@@ -1,5 +1,10 @@
 package me.theoria.wifimuscles.utils;
 
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
+import android.os.Build;
+
+import java.util.List;
 import java.util.Locale;
 
 public class CalculationUtils {
@@ -19,8 +24,6 @@ public class CalculationUtils {
 
     /**
      * Utility method to convert and display throughput.
-     * @param kbps
-     * @return
      */
     public static String speedConvert(int kbps) {
         if (kbps >= 1000000) {
@@ -36,8 +39,6 @@ public class CalculationUtils {
 
     /**
      * Utility method to convert frequency to common references.
-     * @param mhz
-     * @return
      */
     public static String fqToGhz (int mhz) {
         if (mhz >= 2400 && mhz <= 2500) {
@@ -86,5 +87,84 @@ public class CalculationUtils {
         return builder.toString().trim();
     }
 
+    /**
+     * Utility method to calculate the Wi-Fi channel nuymber from the MHz frequency.
+     * Calculation is based on common 2.4GHz, 5GHz, and 6GHz bands.
+     * @param frequency Frequency in MHz.
+     * @return Channel number or -1 if unknown.
+     */
+    public static int calculateChannel(int frequency) {
+        if (frequency >= 2412 && frequency <= 2472) {
+            return (frequency - 2407) / 5; // 2.4 GHz band
+        } else if (frequency == 2484) {
+            return 14; // Special 2.4GHz channel
+        } else if (frequency >= 5180 && frequency <= 5825) {
+            return (frequency - 5000) / 5; // 5 GHz band
+        } else if (frequency >= 5955 && frequency <= 7115) {
+            return (frequency - 5950) / 5 + 1; // 6 GHz band
+        } else {
+            return -1; // Unknown
+        }
+    }
 
+    public static String getWifiStandardName(WifiInfo info) {
+        if (info == null) return "Unknown";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                int standard = info.getWifiStandard();
+                switch (standard) {
+                    case ScanResult.WIFI_STANDARD_11AX:
+                        return "Wi-Fi 6 (802.11ax)";
+                    case ScanResult.WIFI_STANDARD_11AC:
+                        return "Wi-Fi 5 (802.11ac)";
+                    case ScanResult.WIFI_STANDARD_11N:
+                        return "Wi-Fi 4 (802.11n)";
+                    case ScanResult.WIFI_STANDARD_LEGACY:
+                        return "Legacy (pre-802.11n)";
+                    default:
+                        return "Unknown";
+                }
+            } catch (Exception e) {
+                return "Unknown";
+            }
+        }
+        return "Unknown";
+    }
+
+    public static int calculateInterference(List<ScanResult> scanResults, WifiInfo currentConnection) {
+        if (scanResults == null || currentConnection == null) return 0;
+
+        int currentFreq = currentConnection.getFrequency();
+        String currentBSSID = currentConnection.getBSSID();
+        int interferenceCount = 0;
+
+        for (ScanResult result : scanResults) {
+            if (result == null || result.BSSID.equals(currentBSSID)) continue;
+            if (result.level < -85) continue;
+
+            if (isOverlapping(currentFreq, result.frequency)) {
+                interferenceCount++;
+            }
+        }
+
+        return interferenceCount;
+    }
+
+    private static boolean isOverlapping(int f1, int f2) {
+        int diff = Math.abs(f1 - f2);
+        if (is2_4GHz(f1, f2)) return diff <= 20;
+        if (is5GHz(f1, f2)) return diff <= 40;
+        return false;
+    }
+
+    private static boolean is2_4GHz(int f1, int f2) {
+        return (f1 >= 2400 && f1 <= 2500) && (f2 >= 2400 && f2 <= 2500);
+    }
+
+    private static boolean is5GHz(int f1, int f2) {
+        return (f1 >= 4900 && f1 <= 5900) && (f2 >= 4900 && f2 <= 5900);
+    }
 }
+
+
