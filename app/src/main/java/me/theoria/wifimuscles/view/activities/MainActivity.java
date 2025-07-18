@@ -1,6 +1,9 @@
 package me.theoria.wifimuscles.view.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
         // Set current fragment from setCurrentFragment helper
         setCurrentFragment(new Fragment());
 
-        // Top Menu navigation
+        // Initialize top navigation from NavigationManager
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(toolbar);
 
-        // Initialize navigation from NavigationManager
+        // Initialize bottom navigation from NavigationManager
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavigationManager navigationManager = new NavigationManager(this, getSupportFragmentManager());
         navigationManager.setupBottomNavigation(bottomNavigationView, R.id.fragment_container);
@@ -64,6 +67,25 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar_menu, menu);
+        return true;  // Display the menu
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            // just a toast for now
+            Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
 
 

@@ -36,7 +36,7 @@ public class LineChartBuilder {
 
         LineDataSet rssiValueDataSet = createPrimaryDataSet(context);
 
-        // Optional: Threshold lines (currently empty datasets)
+        // Threshold lines tied to RSSI
         LineDataSet excellentSet = createLineThresholdDataSet(context, RSSILevelModel.EXCELLENT);
         LineDataSet goodSet = createLineThresholdDataSet(context, RSSILevelModel.GOOD);
         LineDataSet fairSet = createLineThresholdDataSet(context, RSSILevelModel.FAIR);
@@ -49,11 +49,13 @@ public class LineChartBuilder {
         LineData lineData = new LineData();
         lineData.addDataSet(rssiValueDataSet);
 
-        // lineData.addDataSet(excellentSet);
-        // lineData.addDataSet(goodSet);
-        // lineData.addDataSet(fairSet);
-        // lineData.addDataSet(weakSet);
-        // lineData.addDataSet(unusableSet);
+        // Threshold quality set - might use this later
+        /*lineData.addDataSet(excellentSet);
+        lineData.addDataSet(goodSet);
+        lineData.addDataSet(fairSet);
+        lineData.addDataSet(weakSet);
+        lineData.addDataSet(unusableSet);*/
+
 
         chart.setData(lineData);
         chart.animateXY(1000, 1000, Easing.EaseInQuart);
@@ -138,4 +140,5 @@ public class LineChartBuilder {
         set.setDrawFilled(false);
         return set;
     }
+
 }

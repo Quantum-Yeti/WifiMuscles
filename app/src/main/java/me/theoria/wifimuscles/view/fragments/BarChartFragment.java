@@ -160,7 +160,7 @@ public class BarChartFragment extends Fragment {
                 safeGetValue(dataUIViewModel.getBandwidthText()), R.drawable.icon_function));
         items.add(new ChartInfoCardModel(getString(R.string.ap_ip),
                 safeGetValue(dataUIViewModel.getIpText()), R.drawable.icon_dns));
-        items.add(new ChartInfoCardModel(getString(R.string.ap_mac),
+        items.add(new ChartInfoCardModel(getString(R.string.bssid),
                 safeGetValue(dataUIViewModel.getBssidText()), R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.link_speed_card),
                 safeGetValue(dataUIViewModel.getLinkSpeed()), R.drawable.icon_rocket));

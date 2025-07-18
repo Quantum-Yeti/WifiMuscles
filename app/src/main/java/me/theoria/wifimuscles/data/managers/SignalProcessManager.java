@@ -17,13 +17,6 @@ public class SignalProcessManager {
 
     /**
      * Method to process and categorize the WifiSignalModel objects.
-     * @param signals
-     * @param rssiDataSet
-     * @param excellentSet
-     * @param goodSet
-     * @param fairSet
-     * @param weakSet
-     * @param unusableSet
      */
     public void processSignals(
             List<WifiSignalModel> signals,
@@ -50,15 +43,6 @@ public class SignalProcessManager {
 
     /**
      * Method to add signal entries to the main dataset with their respective levels.
-     * @param index
-     * @param signalLevel
-     * @param levelModel
-     * @param rssiDataSet
-     * @param excellentSet
-     * @param goodSet
-     * @param fairSet
-     * @param weakSet
-     * @param unusableSet
      */
     private void addEntryToDataSets(
             int index,

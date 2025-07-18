@@ -12,17 +12,13 @@
     <!-- Top AppBar / Toolbar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/topAppBar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/bg_app_primary"
-        app:menu="@menu/top_app_bar_menu"
-        app:title="@string/app_name"
-        app:titleTextColor="@color/text_primary"
-        app:navigationIcon="@drawable/icon_menu_bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
+        android:background="?attr/colorPrimary"
+        app:title="WiFi Muscles"
+        app:titleTextColor="@android:color/white"
+        tools:ignore="MissingConstraints" />
+
 
 
 

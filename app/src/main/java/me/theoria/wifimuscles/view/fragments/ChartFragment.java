@@ -215,7 +215,7 @@ public class ChartFragment extends Fragment {
         items.add(new ChartInfoCardModel(getString(R.string.frequency_card_short), frequency, R.drawable.icon_function));
         items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card), bandwidth, R.drawable.icon_function));
         items.add(new ChartInfoCardModel(getString(R.string.ap_ip), ip, R.drawable.icon_dns));
-        items.add(new ChartInfoCardModel(getString(R.string.ap_mac), bssid, R.drawable.icon_dns));
+        items.add(new ChartInfoCardModel(getString(R.string.bssid), bssid, R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), linkSpeed, R.drawable.icon_rocket));
         items.add(new ChartInfoCardModel(getString(R.string.max_speed), maxLinkSpeed, R.drawable.icon_rocket));
         items.add(new ChartInfoCardModel(getString(R.string.ping), ping, R.drawable.icon_avg_time));
