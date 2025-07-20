@@ -19,9 +19,6 @@
         app:titleTextColor="@android:color/white"
         tools:ignore="MissingConstraints" />
 
-
-
-
     <!-- Fragment Container -->
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -64,3 +61,4 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

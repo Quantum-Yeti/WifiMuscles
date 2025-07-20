@@ -53,6 +53,7 @@ public class BarChartBuilder {
         leftAxis.setTextSize(14f);
         leftAxis.setAxisMinimum(-100f);
         leftAxis.setAxisMaximum(0f);
+        leftAxis.setLabelCount(5, true);
         leftAxis.setGranularity(20f);
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawAxisLine(false);

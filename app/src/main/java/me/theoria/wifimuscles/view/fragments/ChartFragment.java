@@ -11,10 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +26,7 @@ import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
 import me.theoria.wifimuscles.data.model.ChartInfoCardModel;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
 import me.theoria.wifimuscles.utils.ChartInfoUtils;
+import me.theoria.wifimuscles.utils.ToastUtils;
 import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
@@ -171,7 +170,7 @@ public class ChartFragment extends Fragment {
     private void observeSignalUI() {
         dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), text -> updateInfoCards());
         dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), emoji -> updateInfoCards());
-        dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), ip -> updateInfoCards());
+        dataUIViewModel.getDeviceIPText().observe(getViewLifecycleOwner(), ip -> updateInfoCards());
         dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), freq -> updateInfoCards());
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> updateInfoCards());
         dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssid -> updateInfoCards());
@@ -184,7 +183,7 @@ public class ChartFragment extends Fragment {
 
         dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
             if (level != null && (level == 1 || level == 2 || level == 3)) {
-                // TODO: Handle toast or snackbar here
+                ToastUtils.snackBarExtenderNotice(binding.getRoot(), level);
             }
         });
     }
@@ -197,9 +196,9 @@ public class ChartFragment extends Fragment {
         String ssid = safeGetValue(dataUIViewModel.getSSIDText());
         String rssi = safeGetValue(dataUIViewModel.getRssiText());
         Integer rssiEmoji = dataUIViewModel.getRssiEmoji().getValue();
-        String frequency = safeGetValue(dataUIViewModel.getFrequencyText());
+        //String frequency = safeGetValue(dataUIViewModel.getFrequencyText());
         String bandwidth = safeGetValue(dataUIViewModel.getBandwidthText());
-        String ip = safeGetValue(dataUIViewModel.getIpText());
+        String ip = safeGetValue(dataUIViewModel.getDeviceIPText());
         String bssid = safeGetValue(dataUIViewModel.getBssidText());
         String linkSpeed = safeGetValue(dataUIViewModel.getLinkSpeed());
         String maxLinkSpeed = safeGetValue(dataUIViewModel.getMaxLinkSpeed());
@@ -212,9 +211,9 @@ public class ChartFragment extends Fragment {
                 rssi,
                 rssiEmoji != null ? rssiEmoji : R.drawable.emoji_bad
         ));
-        items.add(new ChartInfoCardModel(getString(R.string.frequency_card_short), frequency, R.drawable.icon_function));
+        //items.add(new ChartInfoCardModel(getString(R.string.frequency_card_short), frequency, R.drawable.icon_function));
         items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card), bandwidth, R.drawable.icon_function));
-        items.add(new ChartInfoCardModel(getString(R.string.ap_ip), ip, R.drawable.icon_dns));
+        items.add(new ChartInfoCardModel(getString(R.string.device_ip), ip, R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.bssid), bssid, R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), linkSpeed, R.drawable.icon_rocket));
         items.add(new ChartInfoCardModel(getString(R.string.max_speed), maxLinkSpeed, R.drawable.icon_rocket));

@@ -127,13 +127,14 @@ public class BarChartFragment extends Fragment {
     private void observeSignalUI() {
         dataUIViewModel.getRssiText().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         dataUIViewModel.getRssiEmoji().observe(getViewLifecycleOwner(), v -> updateInfoCards());
-        dataUIViewModel.getIpText().observe(getViewLifecycleOwner(), v -> updateInfoCards());
+        dataUIViewModel.getDeviceIPText().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         dataUIViewModel.getFrequencyText().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         dataUIViewModel.getBssidText().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), v -> updateInfoCards());
+        dataUIViewModel.getPingResult().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         wifiViewModel.getWifiStandardLiveData().observe(getViewLifecycleOwner(), v -> updateInfoCards());
 
         // Show a custom snackbar depending on toast level
@@ -154,18 +155,13 @@ public class BarChartFragment extends Fragment {
                 dataUIViewModel.getRssiEmoji().getValue() != null
                         ? dataUIViewModel.getRssiEmoji().getValue()
                         : R.drawable.emoji_bad));
-        items.add(new ChartInfoCardModel(getString(R.string.frequency_card_short),
-                safeGetValue(dataUIViewModel.getFrequencyText()), R.drawable.icon_function));
-        items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card),
-                safeGetValue(dataUIViewModel.getBandwidthText()), R.drawable.icon_function));
-        items.add(new ChartInfoCardModel(getString(R.string.ap_ip),
-                safeGetValue(dataUIViewModel.getIpText()), R.drawable.icon_dns));
-        items.add(new ChartInfoCardModel(getString(R.string.bssid),
-                safeGetValue(dataUIViewModel.getBssidText()), R.drawable.icon_dns));
-        items.add(new ChartInfoCardModel(getString(R.string.link_speed_card),
-                safeGetValue(dataUIViewModel.getLinkSpeed()), R.drawable.icon_rocket));
-        items.add(new ChartInfoCardModel(getString(R.string.max_speed),
-                safeGetValue(dataUIViewModel.getMaxLinkSpeed()), R.drawable.icon_rocket));
+        //items.add(new ChartInfoCardModel(getString(R.string.frequency_card_short), safeGetValue(dataUIViewModel.getFrequencyText()), R.drawable.icon_function));
+        items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card), safeGetValue(dataUIViewModel.getBandwidthText()), R.drawable.icon_function));
+        items.add(new ChartInfoCardModel(getString(R.string.device_ip), safeGetValue(dataUIViewModel.getDeviceIPText()), R.drawable.icon_dns));
+        items.add(new ChartInfoCardModel(getString(R.string.bssid), safeGetValue(dataUIViewModel.getBssidText()), R.drawable.icon_dns));
+        items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), safeGetValue(dataUIViewModel.getLinkSpeed()), R.drawable.icon_rocket));
+        items.add(new ChartInfoCardModel(getString(R.string.max_speed), safeGetValue(dataUIViewModel.getMaxLinkSpeed()), R.drawable.icon_rocket));
+        items.add(new ChartInfoCardModel(getString(R.string.ping), safeGetValue(dataUIViewModel.getPingResult()), R.drawable.icon_avg_time));
 
         adapter.updateItems(items);
     }
@@ -197,6 +193,7 @@ public class BarChartFragment extends Fragment {
     public void onStart() {
         super.onStart();
         wifiViewModel.startUpdates();
+        dataUIViewModel.runPingTest("8.8.8.8");
     }
 
     /** Stop data updates when fragment is no longer visible */
@@ -204,5 +201,11 @@ public class BarChartFragment extends Fragment {
     public void onStop() {
         super.onStop();
         wifiViewModel.stopUpdates();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;  // Avoid memory leaks
     }
 }

@@ -18,7 +18,7 @@ public class DataUIViewModel extends ViewModel {
     public static class SignalInfo {
         public final MutableLiveData<String> rssiText = new MutableLiveData<>();
         public final MutableLiveData<Integer> rssiEmoji = new MutableLiveData<>();
-        public final MutableLiveData<String> ipText = new MutableLiveData<>();
+        public final MutableLiveData<String> deviceIPText = new MutableLiveData<>();
         public final MutableLiveData<String> frequencyText = new MutableLiveData<>();
         public final MutableLiveData<String> bandwidthText = new MutableLiveData<>();
         public final MutableLiveData<String> ssidText = new MutableLiveData<>();
@@ -45,7 +45,7 @@ public class DataUIViewModel extends ViewModel {
     // --- Signal getters ---
     public LiveData<String> getRssiText() { return signalInfo.rssiText; }
     public LiveData<Integer> getRssiEmoji() { return signalInfo.rssiEmoji; }
-    public LiveData<String> getIpText() { return signalInfo.ipText; }
+    public LiveData<String> getDeviceIPText() { return signalInfo.deviceIPText; }
     public LiveData<String> getFrequencyText() { return signalInfo.frequencyText; }
     public LiveData<String> getBandwidthText() { return signalInfo.bandwidthText; }
     public LiveData<String> getSSIDText() { return signalInfo.ssidText; }
@@ -83,7 +83,7 @@ public class DataUIViewModel extends ViewModel {
     }
 
     private void updateNetworkDetails(WifiSignalModel signal) {
-        signalInfo.ipText.setValue(CalculationUtils.intIPToString(signal.getIP()));
+        signalInfo.deviceIPText.setValue(CalculationUtils.intIPToString(signal.getIP()));
         signalInfo.ssidText.setValue(signal.getSSIDText());
         signalInfo.bssidText.setValue(signal.getBssid());
         signalInfo.linkSpeed.setValue(signal.getLinkSpeed() + " Mbps");

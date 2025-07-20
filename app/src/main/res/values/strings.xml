@@ -112,6 +112,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wifi_standard">WiFi Standard</string>
     <string name="calculating">Calculating...</string>
+    <string name="device_ip">Device IP</string>
 
 
 </resources>
