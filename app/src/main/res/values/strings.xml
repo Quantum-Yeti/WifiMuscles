@@ -101,6 +101,7 @@
     <string name="tx">tx</string>
     <string name="upstream">Upstream</string>
     <string name="validation">Validation</string>
+    <string name="vpn">VPN</string>
 
     <!-- Boolean -->
     <string name="yes">yes</string>

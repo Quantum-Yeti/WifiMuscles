@@ -78,6 +78,8 @@ public class ConnectivityViewModel extends AndroidViewModel {
         // domains is a String, so get directly from LinkProperties
         String domains = props != null ? props.getDomains() : null;
 
+        boolean isVpn = caps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+
         ConnectivityModel model = new ConnectivityModel(
                 caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET),
                 caps.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED),
@@ -86,7 +88,8 @@ public class ConnectivityViewModel extends AndroidViewModel {
                 caps.getLinkDownstreamBandwidthKbps(),
                 caps.getLinkUpstreamBandwidthKbps(),
                 props != null ? props.getInterfaceName() : null,
-                domains
+                domains,
+                isVpn
         );
 
         connectivityLiveData.postValue(model);

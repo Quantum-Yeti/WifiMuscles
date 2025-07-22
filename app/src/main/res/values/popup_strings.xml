@@ -107,4 +107,8 @@
         Ping measures the round-trip time that data takes to travel from your device to the target and back. A low ping of 10-30ms is great for gaming and video conferences and a high ping (>150ms) can mean there is a network problem.
     </string>
 
+    <string name="vpn_txt">
+        A VPN (Virtual Private Network) is a secure connection that routes your internet traffic through an encrypted tunnel to a private server, hiding your IP address and protecting your online activity from your ISP, hackers, and surveillance.
+    </string>
+
 </resources>

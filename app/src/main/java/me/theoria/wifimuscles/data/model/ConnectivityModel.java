@@ -14,6 +14,7 @@ public class ConnectivityModel {
     private final TransportType transportType;
     private final int downstreamKbps;
     private final int upstreamKbps;
+    private final boolean isVpn;
 
     private final String interfaceName;
     private final String domains;
@@ -25,7 +26,8 @@ public class ConnectivityModel {
                               int downstreamKbps,
                               int upstreamKbps,
                               String interfaceName,
-                              String domains) {
+                              String domains,
+                              boolean isVpn) {
 
         this.hasInternet = hasInternet;
         this.isValidated = isValidated;
@@ -35,6 +37,7 @@ public class ConnectivityModel {
         this.upstreamKbps = upstreamKbps;
         this.interfaceName = interfaceName;
         this.domains = domains;
+        this.isVpn = isVpn;
     }
 
     public boolean hasInternet() {
@@ -67,6 +70,10 @@ public class ConnectivityModel {
 
     public String getDomains() {
         return domains;
+    }
+
+    public boolean getIsVpn() {
+        return isVpn;
     }
 
 }

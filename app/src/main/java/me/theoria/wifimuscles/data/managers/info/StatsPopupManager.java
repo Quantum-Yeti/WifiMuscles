@@ -135,5 +135,8 @@ public class StatsPopupManager {
         showInfoPopup(anchorView, context.getString(R.string.wifi_standard_popup));
     }
 
+    public void vpnPopup(View anchorView) {
+        showInfoPopup(anchorView, context.getString(R.string.vpn_txt));
+    }
 
 }

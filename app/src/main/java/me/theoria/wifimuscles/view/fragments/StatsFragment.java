@@ -116,15 +116,15 @@ public class StatsFragment extends Fragment {
         statsItems.add(new StatsInfoCardModel(getString(R.string.interference), interference, v -> statsPopupManager.interferencePopup(v)));
 
 
-        var network = networkViewModel.getConnectedNetworkLiveData().getValue();
-        if (network != null) {
-            statsItems.add(new StatsInfoCardModel(getString(R.string.capability), network.getCapabilities(), v -> statsPopupManager.capabilitiesPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.channel_width), String.valueOf(network.getChannelWidth()), v -> statsPopupManager.channelWidthPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.center_freq_0), String.valueOf(network.getCenterFreq0()), v -> statsPopupManager.centerFreq0Popup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.center_freq_1), String.valueOf(network.getCenterFreq1()), v -> statsPopupManager.centerFreq1Popup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.passpoint), yesNo(network.getPassPoint()), v -> statsPopupManager.passpointPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.responder), yesNo(network.getIs80211mcResponder()), v -> statsPopupManager.responderPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.channel_number), String.valueOf(network.getChannelNumber()), null));
+        var nm = networkViewModel.getConnectedNetworkLiveData().getValue();
+        if (nm != null) {
+            statsItems.add(new StatsInfoCardModel(getString(R.string.capability), nm.getCapabilities(), v -> statsPopupManager.capabilitiesPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.channel_width), String.valueOf(nm.getChannelWidth()), v -> statsPopupManager.channelWidthPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.center_freq_0), String.valueOf(nm.getCenterFreq0()), v -> statsPopupManager.centerFreq0Popup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.center_freq_1), String.valueOf(nm.getCenterFreq1()), v -> statsPopupManager.centerFreq1Popup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.passpoint), yesNo(nm.getPassPoint()), v -> statsPopupManager.passpointPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.responder), yesNo(nm.getIs80211mcResponder()), v -> statsPopupManager.responderPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.channel_number), String.valueOf(nm.getChannelNumber()), null));
         }
 
         // DHCP Section
@@ -138,14 +138,15 @@ public class StatsFragment extends Fragment {
         }
 
         // Connectivity Section
-        var model = connectivityViewModel.getConnectivityStatus().getValue();
-        if (model != null) {
-            statsItems.add(new StatsInfoCardModel(getString(R.string.transport), model.getTransportType().name(), v -> statsPopupManager.transportPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.internet), yesNo(model.hasInternet()), v -> statsPopupManager.internetPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.validation), yesNo(model.isValidated()), v -> statsPopupManager.validationPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.metered), yesNo(model.isMetered()), v -> statsPopupManager.meteredPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.downstream), CalculationUtils.speedConvert(model.getDownstreamKbps()), v -> statsPopupManager.downstreamPopup(v)));
-            statsItems.add(new StatsInfoCardModel(getString(R.string.upstream), CalculationUtils.speedConvert(model.getUpstreamKbps()), v -> statsPopupManager.upstreamPopup(v)));
+        var cm = connectivityViewModel.getConnectivityStatus().getValue();
+        if (cm != null) {
+            statsItems.add(new StatsInfoCardModel(getString(R.string.transport), cm.getTransportType().name(), v -> statsPopupManager.transportPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.internet), yesNo(cm.hasInternet()), v -> statsPopupManager.internetPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.validation), yesNo(cm.isValidated()), v -> statsPopupManager.validationPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.vpn), yesNo(cm.getIsVpn()), v -> statsPopupManager.vpnPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.metered), yesNo(cm.isMetered()), v -> statsPopupManager.meteredPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.downstream), CalculationUtils.speedConvert(cm.getDownstreamKbps()), v -> statsPopupManager.downstreamPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.upstream), CalculationUtils.speedConvert(cm.getUpstreamKbps()), v -> statsPopupManager.upstreamPopup(v)));
         }
 
         statsAdapter.updateItems(statsItems);
