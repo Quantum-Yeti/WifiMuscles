@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.managers.info.StatsPopupManager;
@@ -91,6 +92,7 @@ public class StatsFragment extends Fragment {
         wifiViewModel.getWifiStandardLiveData().observe(getViewLifecycleOwner(), standard -> updateStatsList());
 
         wifiViewModel.getInterferenceLevelLiveData().observe(getViewLifecycleOwner(), interference -> updateStatsList());
+        wifiViewModel.getInterferencePercentLiveData().observe(getViewLifecycleOwner(), interferencePercent -> updateStatsList());
 
         networkViewModel.getConnectedNetworkLiveData().observe(getViewLifecycleOwner(), network -> updateStatsList());
 
@@ -111,9 +113,11 @@ public class StatsFragment extends Fragment {
         if (standard == null) standard = getString(R.string.no_data);
         statsItems.add(new StatsInfoCardModel(getString(R.string.wifi_standard), standard, v -> statsPopupManager.standardPopup(v)));
 
-        String interference = String.valueOf(wifiViewModel.getInterferenceLevelLiveData().getValue());
-        if (interference == null) interference = getString(R.string.no_data);
-        statsItems.add(new StatsInfoCardModel(getString(R.string.interference), interference, v -> statsPopupManager.interferencePopup(v)));
+        Float interferencePercent = wifiViewModel.getInterferencePercentLiveData().getValue();
+        String interferencePercentText = (interferencePercent != null)
+                ? String.format(Locale.getDefault(), "%.1f%%", interferencePercent)
+                : getString(R.string.no_data);
+        statsItems.add(new StatsInfoCardModel(getString(R.string.interference), interferencePercentText, v -> statsPopupManager.interferencePopup(v)));
 
 
         var nm = networkViewModel.getConnectedNetworkLiveData().getValue();
@@ -135,6 +139,8 @@ public class StatsFragment extends Fragment {
             statsItems.add(new StatsInfoCardModel(getString(R.string.dns1), dataUIViewModel.getDns1Text().getValue(), v -> statsPopupManager.dns1Popup(v)));
             statsItems.add(new StatsInfoCardModel(getString(R.string.dns2), dataUIViewModel.getDns2Text().getValue(), v -> statsPopupManager.dns2Popup(v)));
             statsItems.add(new StatsInfoCardModel(getString(R.string.lease_duration), dataUIViewModel.getLeaseDurationText().getValue(), v -> statsPopupManager.leasePopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.link_speed_name), dataUIViewModel.getLinkSpeed().getValue(), v -> statsPopupManager.linkSpeedPopup(v)));
+            statsItems.add(new StatsInfoCardModel(getString(R.string.max_link_speed_name), dataUIViewModel.getMaxLinkSpeed().getValue(), v -> statsPopupManager.maxLinkSpeedPopup(v)));
         }
 
         // Connectivity Section

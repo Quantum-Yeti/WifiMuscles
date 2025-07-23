@@ -11,7 +11,6 @@ public class CalculationUtils {
 
     /**
      * Utility method to convert an integer IP address to a String.
-     *
      * @param ip Integer IP Address
      * @return String representation of integer IP Address
      */
@@ -132,23 +131,42 @@ public class CalculationUtils {
         return "Unknown";
     }
 
-    public static int calculateInterference(List<ScanResult> scanResults, WifiInfo currentConnection) {
-        if (scanResults == null || currentConnection == null) return 0;
+    public static class InterferenceResult {
+        public final int interferenceCount;
+        public final float interferencePercent;
 
-        int currentFreq = currentConnection.getFrequency();
-        String currentBSSID = currentConnection.getBSSID();
+        public InterferenceResult (int interferenceCount, float interferencePercent) {
+            this.interferenceCount = interferenceCount;
+            this.interferencePercent = interferencePercent;
+        }
+    }
+
+    /**
+     * Calculates Wi-Fi interference based on overlapping frequencies and signal strength.
+     * @param results List of all scan results.
+     * @param selfInfo WifiInfo object representing current connection.
+     * @return InterferenceResult containing count and percentage.
+     */
+    public static InterferenceResult calculateInterference(List<ScanResult> results, WifiInfo selfInfo) {
+        if (results == null || selfInfo == null) return new InterferenceResult(0, 0f);
+
+        int currentFreq = selfInfo.getFrequency();
+        String currentBssid = selfInfo.getBSSID();
+
         int interferenceCount = 0;
+        int totalNetworksScanned = 0;
 
-        for (ScanResult result : scanResults) {
-            if (result == null || result.BSSID.equals(currentBSSID)) continue;
-            if (result.level < -85) continue;
+        for (ScanResult result : results) {
+            if (result.BSSID.equals(currentBssid)) continue;
+            totalNetworksScanned++;
 
-            if (isOverlapping(currentFreq, result.frequency)) {
+            if (isOverlapping(result.frequency, currentFreq) && result.level > -85) {
                 interferenceCount++;
             }
         }
 
-        return interferenceCount;
+        float interferencePercentage = (totalNetworksScanned > 0) ? (interferenceCount * 100f / totalNetworksScanned) : 0f;
+        return new InterferenceResult(interferenceCount, interferencePercentage);
     }
 
     private static boolean isOverlapping(int f1, int f2) {

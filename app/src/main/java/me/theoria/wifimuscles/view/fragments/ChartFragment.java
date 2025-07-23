@@ -136,7 +136,7 @@ public class ChartFragment extends Fragment {
     }
 
     /**
-     * Method to instantiate the LiveData obsers that updates the UI.
+     * Method to instantiate the LiveData observer method from the ViewModels that updates the UI.
      */
     private void observeViewModels() {
         observeSignalData();
@@ -216,7 +216,7 @@ public class ChartFragment extends Fragment {
         items.add(new ChartInfoCardModel(getString(R.string.device_ip), ip, R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.bssid), bssid, R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), linkSpeed, R.drawable.icon_rocket));
-        items.add(new ChartInfoCardModel(getString(R.string.max_speed), maxLinkSpeed, R.drawable.icon_rocket));
+        items.add(new ChartInfoCardModel(getString(R.string.max_link_speed_name), maxLinkSpeed, R.drawable.icon_rocket));
         items.add(new ChartInfoCardModel(getString(R.string.ping), ping, R.drawable.icon_avg_time));
 
         adapter.updateItems(items);

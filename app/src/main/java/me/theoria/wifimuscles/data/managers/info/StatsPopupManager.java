@@ -139,4 +139,12 @@ public class StatsPopupManager {
         showInfoPopup(anchorView, context.getString(R.string.vpn_txt));
     }
 
+    public void linkSpeedPopup(View anchorView) {
+        showInfoPopup(anchorView, context.getString(R.string.link_speed_txt));
+    }
+
+    public void maxLinkSpeedPopup(View anchorView) {
+        showInfoPopup(anchorView, context.getString(R.string.max_link_speed_txt));
+    }
+
 }

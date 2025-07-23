@@ -160,7 +160,7 @@ public class BarChartFragment extends Fragment {
         items.add(new ChartInfoCardModel(getString(R.string.device_ip), safeGetValue(dataUIViewModel.getDeviceIPText()), R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.bssid), safeGetValue(dataUIViewModel.getBssidText()), R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), safeGetValue(dataUIViewModel.getLinkSpeed()), R.drawable.icon_rocket));
-        items.add(new ChartInfoCardModel(getString(R.string.max_speed), safeGetValue(dataUIViewModel.getMaxLinkSpeed()), R.drawable.icon_rocket));
+        items.add(new ChartInfoCardModel(getString(R.string.max_link_speed_name), safeGetValue(dataUIViewModel.getMaxLinkSpeed()), R.drawable.icon_rocket));
         items.add(new ChartInfoCardModel(getString(R.string.ping), safeGetValue(dataUIViewModel.getPingResult()), R.drawable.icon_avg_time));
 
         adapter.updateItems(items);

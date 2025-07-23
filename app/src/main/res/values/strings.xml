@@ -81,9 +81,10 @@
     <string name="ip_add_card">IP</string>
     <string name="lease_duration">Lease Duration</string>
     <string name="link_speed">Link Speed: %1$d</string>
+    <string name = "link_speed_name">Link Speed</string>
     <string name="link_speed_card">Link Speed</string>
     <string name="mac">MAC</string>
-    <string name="max_speed">Max Speed</string>
+    <string name="max_link_speed_name">Max Speed</string>
     <string name="metered">Metered</string>
     <string name="mhz">MHz</string>
     <string name="netmask">Netmask</string>

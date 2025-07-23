@@ -10,8 +10,8 @@ android {
         applicationId = "me.theoria.wifimuscles"
         minSdk = 26
         targetSdk = 35
-        versionCode = 24
-        versionName = "2.1.3"
+        versionCode = 26
+        versionName = "2.1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

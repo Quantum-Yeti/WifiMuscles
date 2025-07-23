@@ -34,6 +34,7 @@ public class WifiViewModel extends AndroidViewModel {
     private final MutableLiveData<String> errorLiveData = new MutableLiveData<>();
     private final MutableLiveData<Integer> interferenceLevelLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> wifiStandardLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Float> interferencePercentLiveData = new MutableLiveData<>();
 
     private final List<WifiSignalModel> signalList = new ArrayList<>();
 
@@ -90,21 +91,13 @@ public class WifiViewModel extends AndroidViewModel {
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
+
             List<ScanResult> results = wifiManager.getScanResults();
-            int interferenceCount = 0;
+            CalculationUtils.InterferenceResult result =
+                    CalculationUtils.calculateInterference(results, info);
 
-            for (ScanResult result : results) {
-                if (result.BSSID.equals(info.getBSSID())) continue; // skip self
-
-                int freqDiff = Math.abs(result.frequency - currentFreq);
-                boolean overlaps =
-                        (result.frequency >= 2400 && result.frequency <= 2500 && freqDiff <= 20) ||  // 2.4 GHz
-                                (result.frequency > 4900 && result.frequency < 5900 && freqDiff <= 40);       // 5 GHz
-
-                if (overlaps && result.level > -85) {
-                    interferenceCount++;
-                }
-            }
+            interferenceLevelLiveData.postValue(result.interferenceCount);
+            interferencePercentLiveData.postValue(result.interferencePercent);
 
             // Wi-Fi signals
             WifiSignalModel signal = new WifiSignalModel(
@@ -121,14 +114,14 @@ public class WifiViewModel extends AndroidViewModel {
                             info.getMaxSupportedRxLinkSpeedMbps() :
                             info.getLinkSpeed(),
                     wifiStandard,
-                    interferenceCount
+                    result.interferenceCount
             );
 
             if (signalList.size() >= 30) signalList.remove(0);
             signalList.add(signal);
 
             rssiLiveData.postValue(new ArrayList<>(signalList));
-            interferenceLevelLiveData.postValue(interferenceCount);
+            interferenceLevelLiveData.postValue(result.interferenceCount);
         }
     };
 
@@ -158,6 +151,10 @@ public class WifiViewModel extends AndroidViewModel {
 
     public LiveData<String> getWifiStandardLiveData() {
         return wifiStandardLiveData;
+    }
+
+    public LiveData<Float> getInterferencePercentLiveData() {
+        return interferencePercentLiveData;
     }
 
     @Override
