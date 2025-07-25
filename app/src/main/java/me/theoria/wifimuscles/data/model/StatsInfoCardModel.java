@@ -37,7 +37,7 @@ public class StatsInfoCardModel {
         if (o == null || getClass() != o.getClass()) return false;
         StatsInfoCardModel that = (StatsInfoCardModel) o;
         return Objects.equals(label, that.label) &&
-                Objects.equals(value, that.value); // ✅ null-safe
+                Objects.equals(value, that.value); // null safety
     }
 
     @Override

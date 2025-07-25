@@ -11,15 +11,15 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.ChartMarkerModel;
-import me.theoria.wifimuscles.data.model.RSSILevelModel;
+import me.theoria.wifimuscles.data.model.RSSIQualityModel;
 
 public class LineChartBuilder {
 
@@ -37,11 +37,11 @@ public class LineChartBuilder {
         LineDataSet rssiValueDataSet = createPrimaryDataSet(context);
 
         // Threshold lines tied to RSSI
-        LineDataSet excellentSet = createLineThresholdDataSet(context, RSSILevelModel.EXCELLENT);
-        LineDataSet goodSet = createLineThresholdDataSet(context, RSSILevelModel.GOOD);
-        LineDataSet fairSet = createLineThresholdDataSet(context, RSSILevelModel.FAIR);
-        LineDataSet weakSet = createLineThresholdDataSet(context, RSSILevelModel.WEAK);
-        LineDataSet unusableSet = createLineThresholdDataSet(context, RSSILevelModel.UNUSABLE);
+        LineDataSet excellentSet = createLineThresholdDataSet(context, RSSIQualityModel.EXCELLENT);
+        LineDataSet goodSet = createLineThresholdDataSet(context, RSSIQualityModel.GOOD);
+        LineDataSet fairSet = createLineThresholdDataSet(context, RSSIQualityModel.FAIR);
+        LineDataSet weakSet = createLineThresholdDataSet(context, RSSIQualityModel.WEAK);
+        LineDataSet unusableSet = createLineThresholdDataSet(context, RSSIQualityModel.UNUSABLE);
 
         setMarkerView(chart, context);
 
@@ -94,7 +94,7 @@ public class LineChartBuilder {
         xAxis.setDrawAxisLine(false);
         xAxis.setGranularity(5f);
         xAxis.setGranularityEnabled(true);
-        xAxis.setLabelCount(8, false);
+        xAxis.setLabelCount(5, false);
         xAxis.setTextColor(Color.WHITE);
         xAxis.setGridColor(Color.TRANSPARENT);
     }
@@ -110,6 +110,15 @@ public class LineChartBuilder {
         yAxis.setTextSize(12f);
         yAxis.setTextColor(Color.WHITE);
         yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+        // Value formatter turning raw rssi to positive percentages
+        yAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                int percent = (int) ((value + 100));
+                return percent + "%";
+            }
+        });
     }
 
     private static LineDataSet createPrimaryDataSet(Context context) {
@@ -130,7 +139,7 @@ public class LineChartBuilder {
         chart.setMarker(marker);
     }
 
-    private static LineDataSet createLineThresholdDataSet(Context context, RSSILevelModel level) {
+    private static LineDataSet createLineThresholdDataSet(Context context, RSSIQualityModel level) {
         LineDataSet set = new LineDataSet(new ArrayList<>(), context.getString(level.getRssiLabel()));
         set.setColor(ContextCompat.getColor(context, R.color.accent_pink));
         set.setMode(LineDataSet.Mode.CUBIC_BEZIER);

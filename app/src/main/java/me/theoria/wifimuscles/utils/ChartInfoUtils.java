@@ -16,8 +16,8 @@ public class ChartInfoUtils {
                 return context.getString(R.string.freq_txt);
             case "Freq Band":
                 return context.getString(R.string.freq_short_txt);
-            case "AP IP":
-                return context.getString(R.string.ipv4_txt);
+            case "Private IP":
+                return context.getString(R.string.private_ip_txt);
             case "BSSID":
                 return context.getString(R.string.bssid_txt);
             case "Link Speed":

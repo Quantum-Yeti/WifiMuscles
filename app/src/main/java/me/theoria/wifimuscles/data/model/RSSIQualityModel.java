@@ -8,7 +8,7 @@ import me.theoria.wifimuscles.R;
 /**
  * Enum to represent Wifi RSSI data mapped to strength levels.
  */
-public enum RSSILevelModel {
+public enum RSSIQualityModel {
 
     // Bind RSSI String levels to drawables for gradients.
     EXCELLENT(R.string.leve_excellent, R.drawable.fill_blue), // 0 to -50
@@ -31,7 +31,7 @@ public enum RSSILevelModel {
      * @param wifiStrengthLabel String for the level (excellent, good, etc.)
      * @param fillDrawableRes Gradient drawables.
      */
-    RSSILevelModel(@StringRes int wifiStrengthLabel, @DrawableRes int fillDrawableRes) {
+    RSSIQualityModel(@StringRes int wifiStrengthLabel, @DrawableRes int fillDrawableRes) {
         this.wifiStrengthLabel = wifiStrengthLabel;
         this.fillDrawableRes = fillDrawableRes;
     }
@@ -60,7 +60,7 @@ public enum RSSILevelModel {
      * @param rssi raw rssi reading
      * @return an enum based on the rssi reading
      */
-    public static RSSILevelModel mapRssiToStringLevel(float rssi) {
+    public static RSSIQualityModel mapRssiToStringLevel(float rssi) {
         if (rssi >= -50) {
             return EXCELLENT;
         } else if (rssi >= -60) {

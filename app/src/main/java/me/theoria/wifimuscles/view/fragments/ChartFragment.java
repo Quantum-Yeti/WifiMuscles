@@ -198,7 +198,7 @@ public class ChartFragment extends Fragment {
         Integer rssiEmoji = dataUIViewModel.getRssiEmoji().getValue();
         //String frequency = safeGetValue(dataUIViewModel.getFrequencyText());
         String bandwidth = safeGetValue(dataUIViewModel.getBandwidthText());
-        String ip = safeGetValue(dataUIViewModel.getDeviceIPText());
+        String privateIP = safeGetValue(dataUIViewModel.getDeviceIPText());
         String bssid = safeGetValue(dataUIViewModel.getBssidText());
         String linkSpeed = safeGetValue(dataUIViewModel.getLinkSpeed());
         String maxLinkSpeed = safeGetValue(dataUIViewModel.getMaxLinkSpeed());
@@ -213,7 +213,7 @@ public class ChartFragment extends Fragment {
         ));
         //items.add(new ChartInfoCardModel(getString(R.string.frequency_card_short), frequency, R.drawable.icon_function));
         items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card), bandwidth, R.drawable.icon_function));
-        items.add(new ChartInfoCardModel(getString(R.string.device_ip), ip, R.drawable.icon_dns));
+        items.add(new ChartInfoCardModel(getString(R.string.private_ip), privateIP, R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.bssid), bssid, R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), linkSpeed, R.drawable.icon_rocket));
         items.add(new ChartInfoCardModel(getString(R.string.max_link_speed_name), maxLinkSpeed, R.drawable.icon_rocket));

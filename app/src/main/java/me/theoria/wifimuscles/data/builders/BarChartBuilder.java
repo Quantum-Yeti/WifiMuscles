@@ -8,10 +8,12 @@ import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 
@@ -57,6 +59,16 @@ public class BarChartBuilder {
         leftAxis.setGranularity(20f);
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawAxisLine(false);
+
+        // Value formatter turning raw rssi to positive percentages
+        leftAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                int percent = (int) ((value + 100));
+                return percent + "%";
+            }
+        });
+
 
         // Disables Y-Axis showing on the right side of chart.
         chart.getAxisRight().setEnabled(false);

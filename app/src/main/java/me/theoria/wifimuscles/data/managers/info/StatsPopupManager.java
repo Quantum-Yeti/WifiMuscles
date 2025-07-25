@@ -147,4 +147,8 @@ public class StatsPopupManager {
         showInfoPopup(anchorView, context.getString(R.string.max_link_speed_txt));
     }
 
+    public void privateIPPopup(View anchorView) {
+        showInfoPopup(anchorView, context.getString(R.string.ipv4_txt));
+    }
+
 }

@@ -29,8 +29,6 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
 public class StatsFragment extends Fragment {
 
-    private String publicIp = null;
-
     private StatsAdapter statsAdapter;
     private StatsPopupManager statsPopupManager;
 
@@ -105,6 +103,7 @@ public class StatsFragment extends Fragment {
     private void updateStatsList() {
         statsItems.clear();
 
+
         String rssi = dataUIViewModel.getRssiText().getValue();
         if (rssi == null) rssi = getString(R.string.no_data);
         statsItems.add(new StatsInfoCardModel(getString(R.string.rssi), rssi, v -> statsPopupManager.wifiLevelPopup(v)));
@@ -120,6 +119,7 @@ public class StatsFragment extends Fragment {
         statsItems.add(new StatsInfoCardModel(getString(R.string.interference), interferencePercentText, v -> statsPopupManager.interferencePopup(v)));
 
 
+        // Network Section
         var nm = networkViewModel.getConnectedNetworkLiveData().getValue();
         if (nm != null) {
             statsItems.add(new StatsInfoCardModel(getString(R.string.capability), nm.getCapabilities(), v -> statsPopupManager.capabilitiesPopup(v)));

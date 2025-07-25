@@ -83,7 +83,7 @@ public class DataUIViewModel extends ViewModel {
     }
 
     private void updateNetworkDetails(WifiSignalModel signal) {
-        signalInfo.deviceIPText.setValue(CalculationUtils.intIPToString(signal.getIP()));
+        signalInfo.deviceIPText.setValue(CalculationUtils.intIPToString(signal.getPrivateIP()));
         signalInfo.ssidText.setValue(signal.getSSIDText());
         signalInfo.bssidText.setValue(signal.getBssid());
         signalInfo.linkSpeed.setValue(signal.getLinkSpeed() + " Mbps");

@@ -111,4 +111,8 @@
         A VPN (Virtual Private Network) is a secure connection that routes your internet traffic through an encrypted tunnel to a private server, hiding your IP address and protecting your online activity from your ISP, hackers, and surveillance.
     </string>
 
+    <string name="private_ip_txt">
+        The private IP is the IP address assigned to your device by your local network/router — not the public IP seen on the internet.
+    </string>
+
 </resources>

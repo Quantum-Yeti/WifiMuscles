@@ -43,7 +43,7 @@ public class WifiSignalModel {
                            int rssi,
                            int signalLevel,
                            int frequency,
-                           int ip,
+                           int privateIP,
                            int networkID,
                            String ssid,
                            String bssid,
@@ -55,7 +55,7 @@ public class WifiSignalModel {
         this.rssi = rssi;
         this.signalLevel = signalLevel;
         this.frequency = frequency;
-        this.ip = ip;
+        this.ip = privateIP;
         this.networkID = networkID;
         this.ssid = ssid;
         this.bssid = bssid;
@@ -78,7 +78,7 @@ public class WifiSignalModel {
         return signalLevel;
     }
 
-    public int getIP() {
+    public int getPrivateIP() {
         return ip;
     }
 

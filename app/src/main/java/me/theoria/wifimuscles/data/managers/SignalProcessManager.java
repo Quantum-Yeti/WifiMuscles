@@ -2,7 +2,7 @@ package me.theoria.wifimuscles.data.managers;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
-import me.theoria.wifimuscles.data.model.RSSILevelModel;
+import me.theoria.wifimuscles.data.model.RSSIQualityModel;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 
@@ -33,11 +33,11 @@ public class SignalProcessManager {
             float rssiFloat = signal.getRssi();
 
             // Process each signal and map it to its appropriate level
-            RSSILevelModel rssiLevelModel = RSSILevelModel.mapRssiToStringLevel(rssiFloat);
+            RSSIQualityModel rssiQualityModel = RSSIQualityModel.mapRssiToStringLevel(rssiFloat);
             int signalLevel = RSSIUtils.returnRssiSignal(rssi);
 
             // Add entry to the appropriate dataset
-            addEntryToDataSets(i, signalLevel, rssiLevelModel, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
+            addEntryToDataSets(i, signalLevel, rssiQualityModel, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
         }
     }
 
@@ -47,7 +47,7 @@ public class SignalProcessManager {
     private void addEntryToDataSets(
             int index,
             int signalLevel,
-            RSSILevelModel levelModel,
+            RSSIQualityModel levelModel,
             LineDataSet rssiDataSet,
             LineDataSet excellentSet,
             LineDataSet goodSet,

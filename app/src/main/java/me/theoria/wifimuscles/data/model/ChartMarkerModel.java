@@ -29,7 +29,7 @@ public class ChartMarkerModel extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
         if (e != null) {
             float rssi = e.getY();
-            RSSILevelModel level = RSSILevelModel.mapRssiToStringLevel(rssi);
+            RSSIQualityModel level = RSSIQualityModel.mapRssiToStringLevel(rssi);
             String rssiMarker = (int) rssi + " dBm | " + level;
             markerContent.setText(rssiMarker);
         }

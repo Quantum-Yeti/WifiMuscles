@@ -9,6 +9,16 @@ import java.util.Locale;
 
 public class CalculationUtils {
 
+    public static class InterferenceResult {
+        public final int interferenceCount;
+        public final float interferencePercent;
+
+        public InterferenceResult (int interferenceCount, float interferencePercent) {
+            this.interferenceCount = interferenceCount;
+            this.interferencePercent = interferencePercent;
+        }
+    }
+
     /**
      * Utility method to convert an integer IP address to a String.
      * @param ip Integer IP Address
@@ -106,6 +116,11 @@ public class CalculationUtils {
         }
     }
 
+    /**
+     * Method to return the wifi standard from the API.
+     * @param info
+     * @return
+     */
     public static String getWifiStandardName(WifiInfo info) {
         if (info == null) return "Unknown";
 
@@ -129,16 +144,6 @@ public class CalculationUtils {
             }
         }
         return "Unknown";
-    }
-
-    public static class InterferenceResult {
-        public final int interferenceCount;
-        public final float interferencePercent;
-
-        public InterferenceResult (int interferenceCount, float interferencePercent) {
-            this.interferenceCount = interferenceCount;
-            this.interferencePercent = interferencePercent;
-        }
     }
 
     /**
@@ -171,8 +176,11 @@ public class CalculationUtils {
 
     private static boolean isOverlapping(int f1, int f2) {
         int diff = Math.abs(f1 - f2);
+
         if (is2_4GHz(f1, f2)) return diff <= 20;
         if (is5GHz(f1, f2)) return diff <= 40;
+        if (is6GHz(f1, f2)) return diff <= 80;
+        if (is7GHz(f1, f2)) return diff <= 160;
         return false;
     }
 
@@ -182,6 +190,14 @@ public class CalculationUtils {
 
     private static boolean is5GHz(int f1, int f2) {
         return (f1 >= 4900 && f1 <= 5900) && (f2 >= 4900 && f2 <= 5900);
+    }
+
+    private static boolean is6GHz(int f1, int f2) {
+        return (f1 >= 5925 && f1 <= 7125) && (f2 >= 5925 && f2 <= 7125);
+    }
+
+    private static boolean is7GHz(int f1, int f2) {
+        return (f1 >= 7126 && f1 <= 7950) && (f2 >= 7126 && f2 <= 7950);
     }
 }
 

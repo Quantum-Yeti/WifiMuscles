@@ -157,7 +157,7 @@ public class BarChartFragment extends Fragment {
                         : R.drawable.emoji_bad));
         //items.add(new ChartInfoCardModel(getString(R.string.frequency_card_short), safeGetValue(dataUIViewModel.getFrequencyText()), R.drawable.icon_function));
         items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card), safeGetValue(dataUIViewModel.getBandwidthText()), R.drawable.icon_function));
-        items.add(new ChartInfoCardModel(getString(R.string.device_ip), safeGetValue(dataUIViewModel.getDeviceIPText()), R.drawable.icon_dns));
+        items.add(new ChartInfoCardModel(getString(R.string.private_ip), safeGetValue(dataUIViewModel.getDeviceIPText()), R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.bssid), safeGetValue(dataUIViewModel.getBssidText()), R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), safeGetValue(dataUIViewModel.getLinkSpeed()), R.drawable.icon_rocket));
         items.add(new ChartInfoCardModel(getString(R.string.max_link_speed_name), safeGetValue(dataUIViewModel.getMaxLinkSpeed()), R.drawable.icon_rocket));
