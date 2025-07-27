@@ -103,10 +103,10 @@ public class LineChartBuilder {
         yAxis.setDrawGridLines(false);
         yAxis.setDrawAxisLine(false);
         yAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        yAxis.setAxisMinimum(-100f); // For RSSI
+        yAxis.setAxisMinimum(-127f); // For RSSI
         yAxis.setAxisMaximum(0f);
         yAxis.setGranularity(10f);
-        yAxis.setLabelCount(4, true);
+        yAxis.setLabelCount(5, true);
         yAxis.setTextSize(12f);
         yAxis.setTextColor(Color.WHITE);
         yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
@@ -116,7 +116,11 @@ public class LineChartBuilder {
             @Override
             public String getFormattedValue(float value) {
                 int percent = (int) ((value + 100));
+                if (value <= -101 && value >= -127) {
+                    return 0 + "%";
+                }
                 return percent + "%";
+
             }
         });
     }

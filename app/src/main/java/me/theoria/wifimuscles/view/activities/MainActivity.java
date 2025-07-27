@@ -4,20 +4,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.managers.ads.AdManager;
 import me.theoria.wifimuscles.data.managers.nav.NavigationManager;
 import me.theoria.wifimuscles.utils.PermissionUtils;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,8 +40,21 @@ public class MainActivity extends AppCompatActivity {
         setCurrentFragment(new Fragment());
 
         // Initialize top navigation from NavigationManager
-        MaterialToolbar toolbar = findViewById(R.id.topAppBar);
-        setSupportActionBar(toolbar);
+        DrawerLayout drawerLayout = findViewById(R.id.top_drawer_layout);
+        NavigationView navigationView = findViewById(R.id.top_nav_view);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        //setSupportActionBar(toolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.nav_drawer_open,
+                R.string.nav_drawer_close
+        );
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         // Initialize bottom navigation from NavigationManager
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -70,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_app_bar_menu, menu);
+        getMenuInflater().inflate(R.menu.top_drawer_menu, menu);
         return true;  // Display the menu
     }
 

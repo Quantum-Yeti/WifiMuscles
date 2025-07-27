@@ -40,10 +40,10 @@ public class ToastUtils {
                 message = "Good coverage!";
                 break;
             case 3:
-                message = "Consider placing an extender here!";
+                message = "Consider using an extender!";
                 break;
             case 2:
-                message = "Add an extender slightly closer to the router!";
+                message = "Weak signal!";
                 break;
             case 1:
                 message = "Unusable WiFi reception!";

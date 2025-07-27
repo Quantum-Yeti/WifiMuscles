@@ -11,6 +11,8 @@
 
     <!-- Top Navigation String -->
     <string name="menu">Menu</string>
+    <string name="nav_drawer_open">Open</string>
+    <string name="nav_drawer_close">Close</string>
 
     <!-- RSSI String Level UI Labels -->
     <string name="wifi_strength">Wifi Strength</string>
