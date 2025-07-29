@@ -28,6 +28,7 @@ import me.theoria.wifimuscles.databinding.FragmentChartBinding;
 import me.theoria.wifimuscles.utils.ChartInfoUtils;
 import me.theoria.wifimuscles.utils.ToastUtils;
 import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
+import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
@@ -180,12 +181,6 @@ public class ChartFragment extends Fragment {
         dataUIViewModel.getPingResult().observe(getViewLifecycleOwner(), ping -> updateInfoCards());
 
         wifiViewModel.getWifiStandardLiveData().observe(getViewLifecycleOwner(), standard -> updateInfoCards());
-
-        dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
-            if (level != null && (level == 1 || level == 2 || level == 3)) {
-                ToastUtils.snackBarExtenderNotice(binding.getRoot(), level);
-            }
-        });
     }
 
     /**
@@ -203,6 +198,8 @@ public class ChartFragment extends Fragment {
         String linkSpeed = safeGetValue(dataUIViewModel.getLinkSpeed());
         String maxLinkSpeed = safeGetValue(dataUIViewModel.getMaxLinkSpeed());
         String ping = safeGetValue(dataUIViewModel.getPingResult());
+
+
 
         List<ChartInfoCardModel> items = new ArrayList<>();
         items.add(new ChartInfoCardModel(getString(R.string.ssid), ssid, R.drawable.icon_ssid));

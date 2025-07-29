@@ -30,7 +30,7 @@ public class ToastUtils {
     /**
      * Method to display a short toast for the Wifi signal level.
      */
-    public static void snackBarExtenderNotice(View view, int level) {
+    public static String qualityNotice(int level) {
         String message = "";
         switch (level) {
             case 5:
@@ -48,11 +48,9 @@ public class ToastUtils {
             case 1:
                 message = "Unusable WiFi reception!";
                 break;
+            default:
+                return "Unreachable";
         }
-
-        if (view !=null) {
-            Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-                    .show();
-        }
+        return message;
     }
 }

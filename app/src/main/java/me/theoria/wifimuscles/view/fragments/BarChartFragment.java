@@ -137,12 +137,7 @@ public class BarChartFragment extends Fragment {
         dataUIViewModel.getPingResult().observe(getViewLifecycleOwner(), v -> updateInfoCards());
         wifiViewModel.getWifiStandardLiveData().observe(getViewLifecycleOwner(), v -> updateInfoCards());
 
-        // Show a custom snackbar depending on toast level
-        dataUIViewModel.getToastLevelEvent().observe(getViewLifecycleOwner(), level -> {
-            if (level == 1 || level == 2 || level == 3) {
-                ToastUtils.snackBarExtenderNotice(binding.getRoot(), level);
-            }
-        });
+
     }
 
     /** Updates the contents of the info card RecyclerView */
