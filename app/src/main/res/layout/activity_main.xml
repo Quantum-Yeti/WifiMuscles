@@ -80,6 +80,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:clipToPadding="false"
+        android:padding="20dp"
         android:background="@android:color/white"
         app:menu="@menu/top_drawer_menu" />
 

@@ -13,6 +13,8 @@
     <string name="menu">Menu</string>
     <string name="nav_drawer_open">Open</string>
     <string name="nav_drawer_close">Close</string>
+    <string name="about">About</string>
+    <string name="feedback">Feedback</string>
 
     <!-- RSSI String Level UI Labels -->
     <string name="wifi_strength">Wifi Strength</string>
@@ -27,6 +29,9 @@
     <string name="switch_chart">Switch Chart</string>
     <string name="line_chart">Line Chart</string>
     <string name="bar_chart">Bar Chart</string>
+
+    <!-- Actions/Events -->
+    <string name="calculating">Calculating&#8230;</string>
 
     <!-- Emoji Labels -->
     <string name="rssi_emoji_txt">RSSI Emoji Levels</string>
@@ -94,6 +99,7 @@
     <string name="nothing">-</string>
     <string name="passpoint">Passpoint</string>
     <string name="ping">Ping</string>
+    <string name="private_ip">Private IP</string>
     <string name="responder">802.11mc</string>
     <string name="rssi_dBm_txt">-00 dBm</string>
     <string name="rssi_display">RSSI: %1$d dBm</string>
@@ -104,6 +110,7 @@
     <string name="tx">tx</string>
     <string name="upstream">Upstream</string>
     <string name="validation">Validation</string>
+    <string name="wifi_standard">WiFi Standard</string>
     <string name="vpn">VPN</string>
 
     <!-- Boolean -->
@@ -114,9 +121,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="wifi_standard">WiFi Standard</string>
-    <string name="calculating">Calculating...</string>
-    <string name="private_ip">Private IP</string>
+
 
 
 </resources>

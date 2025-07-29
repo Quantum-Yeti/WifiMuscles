@@ -1,8 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_about"
-        android:title="About" />
-    <item
-        android:id="@+id/nav_feedback"
-        android:title="Send Feedback" />
+
+    <group>
+        <item
+            android:id="@+id/nav_about"
+            android:title="@string/about" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:title="@string/feedback" />
+    </group>
+
+    <group>
+
+
+    </group>
+
 </menu>
