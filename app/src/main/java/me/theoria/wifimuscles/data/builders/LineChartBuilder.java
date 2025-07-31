@@ -13,12 +13,11 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.model.ChartMarkerModel;
+import me.theoria.wifimuscles.data.model.LineChartMarkerModel;
 import me.theoria.wifimuscles.data.model.RSSIQualityModel;
 
 public class LineChartBuilder {
@@ -112,7 +111,7 @@ public class LineChartBuilder {
         yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
         // Value formatter turning raw rssi to positive percentages
-        yAxis.setValueFormatter(new ValueFormatter() {
+        /*yAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 int percent = (int) ((value + 100));
@@ -122,7 +121,7 @@ public class LineChartBuilder {
                 return percent + "%";
 
             }
-        });
+        });*/
     }
 
     private static LineDataSet createPrimaryDataSet(Context context) {
@@ -138,7 +137,7 @@ public class LineChartBuilder {
     }
 
     private static void setMarkerView(LineChart chart, Context context) {
-        ChartMarkerModel marker = new ChartMarkerModel(context, R.layout.marker_view);
+        LineChartMarkerModel marker = new LineChartMarkerModel(context, R.layout.marker_view);
         marker.setChartView(chart);
         chart.setMarker(marker);
     }

@@ -26,9 +26,7 @@ import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
 import me.theoria.wifimuscles.data.model.ChartInfoCardModel;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
 import me.theoria.wifimuscles.utils.ChartInfoUtils;
-import me.theoria.wifimuscles.utils.ToastUtils;
 import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
-import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
@@ -80,6 +78,7 @@ public class ChartFragment extends Fragment {
 
         // Initialize the progress indicator during loading of data
         showProgress(true);
+
 
         // Return the root binding
         return binding.getRoot();
@@ -230,9 +229,28 @@ public class ChartFragment extends Fragment {
     /**
      * Method to hide or show the progress bar and the calculating... text.
      */
+    private long animationStartTime = 0;
+
     private void showProgress(boolean show) {
-        binding.progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-        binding.progressBarText.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (binding == null) return;
+        if (show) {
+            binding.progressOverlay.setVisibility(View.VISIBLE);
+            binding.progressBar.playAnimation();
+            animationStartTime = System.currentTimeMillis();
+        } else {
+            long elapsed = System.currentTimeMillis() - animationStartTime;
+            long remaining = 2000 - elapsed; // 2 seconds
+
+            if (remaining > 0) {
+                binding.progressOverlay.postDelayed(() -> {
+                    binding.progressBar.cancelAnimation();
+                    binding.progressOverlay.setVisibility(View.GONE);
+                }, remaining);
+            } else {
+                binding.progressBar.cancelAnimation();
+                binding.progressOverlay.setVisibility(View.GONE);
+            }
+        }
     }
 
     /**

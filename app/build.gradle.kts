@@ -59,5 +59,6 @@ dependencies {
     // ViewPager
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
-
+    //Lottie Animation-Loading Library
+    implementation ("com.airbnb.android:lottie:6.1.0")
 }

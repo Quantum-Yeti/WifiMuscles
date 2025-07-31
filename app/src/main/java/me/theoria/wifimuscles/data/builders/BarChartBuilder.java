@@ -7,18 +7,18 @@ import android.graphics.Typeface;
 import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.model.ChartMarkerModel;
+import me.theoria.wifimuscles.data.model.BarChartMarkerModel;
+import me.theoria.wifimuscles.data.model.LineChartMarkerModel;
 
 /**
  * A utility class that sets up a BarChart with default styling and returns a pre-configured BarDataSet.
@@ -28,9 +28,6 @@ public class BarChartBuilder {
 
     /**
      * Configures the given BarChart instance with styling, axis configuration, and data binding.
-     * @param chart
-     * @param context
-     * @return
      */
     public static BarDataSet setupBarChart(BarChart chart, Context context) {
         // Overall chart settings.
@@ -53,19 +50,18 @@ public class BarChartBuilder {
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
         leftAxis.setTextSize(14f);
-        leftAxis.setAxisMinimum(-100f);
-        leftAxis.setAxisMaximum(0f);
-        leftAxis.setLabelCount(5, true);
-        leftAxis.setGranularity(20f);
+        leftAxis.setAxisMinimum(0f);   // start from zero (bottom)
+        leftAxis.setAxisMaximum(127f); // max transformed RSSI value
+        leftAxis.setLabelCount(6, true); // fixed number of labels for clarity
+        leftAxis.setGranularity(21f);    // label spacing (~127/6)
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawAxisLine(false);
 
-        // Value formatter turning raw rssi to positive percentages
         leftAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                int percent = (int) ((value + 100));
-                return percent + "%";
+                int originalRssi = (int) (value - 127);
+                return originalRssi + " dBm";
             }
         });
 
@@ -80,6 +76,15 @@ public class BarChartBuilder {
         dataSet.setValueTextSize(12f);
         dataSet.setValueTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         dataSet.setDrawValues(true);
+        // Custom value formatter to show original values inside the bar
+        dataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getBarLabel(BarEntry barEntry) {
+                float transformed = barEntry.getY(); // e.g. 77
+                float originalRssi = transformed - 127f;
+                return (int) originalRssi + "";
+            }
+        });
 
         // Bind the dataset to the BarData and set to the chart.
         BarData data = new BarData(dataSet);
@@ -93,7 +98,7 @@ public class BarChartBuilder {
     }
 
     private static void setMarkerView(BarChart chart, Context context) {
-        ChartMarkerModel marker = new ChartMarkerModel(context, R.layout.marker_view);
+        BarChartMarkerModel marker = new BarChartMarkerModel(context, R.layout.marker_view);
         marker.setChartView(chart);
         chart.setMarker(marker);
     }

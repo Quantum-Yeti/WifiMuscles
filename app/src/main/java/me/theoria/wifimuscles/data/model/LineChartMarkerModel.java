@@ -11,16 +11,16 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import me.theoria.wifimuscles.R;
 
-public class ChartMarkerModel extends MarkerView {
+public class LineChartMarkerModel extends MarkerView {
 
     private final TextView markerContent;
 
-    public ChartMarkerModel(Context context, AttributeSet attrs) {
+    public LineChartMarkerModel(Context context, AttributeSet attrs) {
         super(context, R.layout.marker_view);
         markerContent = findViewById(R.id.markerContent);
     }
 
-    public ChartMarkerModel(Context context, int layoutResource) {
+    public LineChartMarkerModel(Context context, int layoutResource) {
         super(context, layoutResource);
         markerContent = findViewById(R.id.markerContent);
     }
