@@ -68,6 +68,8 @@ public class BarChartFragment extends Fragment {
         setupObservers();
         setupChartSwitchButton();
 
+        showProgress(true);
+
         return binding.getRoot();
     }
 
@@ -181,6 +183,33 @@ public class BarChartFragment extends Fragment {
                 .replace(R.id.fragment_container, new ChartFragment())
                 .addToBackStack(null)
                 .commit();
+    }
+
+    /**
+     * Method to hide or show the progress bar and the calculating... text.
+     */
+    private long animationStartTime = 0;
+
+    private void showProgress(boolean show) {
+        if (binding == null) return;
+        if (show) {
+            binding.progressOverlay.setVisibility(View.VISIBLE);
+            binding.progressBar.playAnimation();
+            animationStartTime = System.currentTimeMillis();
+        } else {
+            long elapsed = System.currentTimeMillis() - animationStartTime;
+            long remaining = 2000 - elapsed; // 2 seconds
+
+            if (remaining > 0) {
+                binding.progressOverlay.postDelayed(() -> {
+                    binding.progressBar.cancelAnimation();
+                    binding.progressOverlay.setVisibility(View.GONE);
+                }, remaining);
+            } else {
+                binding.progressBar.cancelAnimation();
+                binding.progressOverlay.setVisibility(View.GONE);
+            }
+        }
     }
 
     /** Start collecting data when fragment becomes visible */

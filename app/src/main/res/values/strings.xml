@@ -118,9 +118,22 @@
     <string name="no">no</string>
     <string name="label_blank">""</string>
 
+    <!-- About -->
+    <string name="version">Version %s</string>
+    <string name="theoria_software">Developed by Theoria Software</string>
+    <string name="github_link">https://github.com/Quantum-Yeti</string>
+    <string name="short_about">WiFi Muscles helps visualize real-time Wi-Fi signal strength and quality using dynamic charts and signal metrics.</string>
+    <string name="version_unavailable">Version Unavailable</string>
+    <string name="libraries">Libraries</string>
+    <string name="email">mailto:theoriasoft@proton.me</string>
+    <string name="description">Description</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="troubleshoot">Troubleshoot</string>
+    <string name="group_connectionInfo">Connection</string>
+    <string name="group_aboutInfo">About</string>
+    <string name="nav_bottom_wifi_subtitle">Wi-Fi Analytics made simple.</string>
 
 
 </resources>

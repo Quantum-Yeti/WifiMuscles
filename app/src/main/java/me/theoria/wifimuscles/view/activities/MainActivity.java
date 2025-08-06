@@ -3,6 +3,8 @@ package me.theoria.wifimuscles.view.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -61,12 +64,16 @@ public class MainActivity extends AppCompatActivity {
         NavigationManager navigationManager = new NavigationManager(this, getSupportFragmentManager());
         navigationManager.setupBottomNavigation(bottomNavigationView, R.id.fragment_container);
 
+        navigationManager.setupTopNavigationDrawer(navigationView, R.id.fragment_container);
+
         // Initialize Google AdView
         AdView mAdView = findViewById(R.id.adView);
         AdManager.initAds(this, mAdView);
 
         // Check Google Play for updates
         //checkForUpdates();
+
+
 
     }
 
@@ -83,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }
+
 }
 
 

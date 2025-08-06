@@ -1,6 +1,8 @@
 package me.theoria.wifimuscles.view.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -229,29 +231,44 @@ public class ChartFragment extends Fragment {
     /**
      * Method to hide or show the progress bar and the calculating... text.
      */
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private Runnable hideProgressRunnable;
     private long animationStartTime = 0;
 
     private void showProgress(boolean show) {
         if (binding == null) return;
+
         if (show) {
+            // Show progress overlay and start animation
             binding.progressOverlay.setVisibility(View.VISIBLE);
             binding.progressBar.playAnimation();
             animationStartTime = System.currentTimeMillis();
+
+            // Cancel any existing delayed runnable
+            if (hideProgressRunnable != null) {
+                handler.removeCallbacks(hideProgressRunnable);
+            }
+
         } else {
             long elapsed = System.currentTimeMillis() - animationStartTime;
-            long remaining = 2000 - elapsed; // 2 seconds
+            long remaining = 2000 - elapsed; // Ensure 2 seconds minimum display
 
-            if (remaining > 0) {
-                binding.progressOverlay.postDelayed(() -> {
+            // Cancel any previously scheduled hide
+            if (hideProgressRunnable != null) {
+                handler.removeCallbacks(hideProgressRunnable);
+            }
+
+            hideProgressRunnable = () -> {
+                if (binding != null) {
                     binding.progressBar.cancelAnimation();
                     binding.progressOverlay.setVisibility(View.GONE);
-                }, remaining);
-            } else {
-                binding.progressBar.cancelAnimation();
-                binding.progressOverlay.setVisibility(View.GONE);
-            }
+                }
+            };
+
+            handler.postDelayed(hideProgressRunnable, Math.max(remaining, 0));
         }
     }
+
 
     /**
      * Method to initialize the onClickListener for the chart switching button that opens the barchart and vice-versa.
@@ -287,6 +304,12 @@ public class ChartFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+        // Cancel pending callbacks for loading animation
+        if (hideProgressRunnable != null) {
+            handler.removeCallbacks(hideProgressRunnable);
+        }
+
         binding = null;  // Avoid memory leaks
     }
 }

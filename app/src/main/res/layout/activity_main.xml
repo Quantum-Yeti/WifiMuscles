@@ -6,8 +6,8 @@
     android:id="@+id/top_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:clipToPadding="false">
+    android:fitsSystemWindows="false"
+    android:clipToPadding="true">
 
     <!-- Main content container -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,16 +71,19 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/top_nav_view"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:clipToPadding="false"
-        android:padding="20dp"
+        android:layout_margin="20dp"
         android:background="@android:color/white"
-        app:menu="@menu/top_drawer_menu" />
+        app:menu="@menu/top_drawer_menu"
+        app:headerLayout="@layout/nav_header"/>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

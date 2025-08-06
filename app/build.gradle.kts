@@ -10,8 +10,8 @@ android {
         applicationId = "me.theoria.wifimuscles"
         minSdk = 26
         targetSdk = 35
-        versionCode = 26
-        versionName = "2.1.5"
+        versionCode = 28
+        versionName = "2.1.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,7 +48,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     // Google Ads
-    implementation(libs.play.services.ads.v2440)
+    implementation("com.google.android.gms:play-services-ads:24.5.0")
 
     // Charting Libraries
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
@@ -58,6 +58,7 @@ dependencies {
 
     // ViewPager
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation ("com.google.android.material:material")
 
     //Lottie Animation-Loading Library
     implementation ("com.airbnb.android:lottie:6.1.0")

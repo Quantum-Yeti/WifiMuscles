@@ -37,8 +37,8 @@ public class BarChartManager {
 
         for (int i = startIndex; i < signals.size(); i++) {
             float rssi = clampRssi(signals.get(i).getRssi());
-            float transformedValue = transformRssiToBarValue(rssi);
-            entries.add(new BarEntry(i - startIndex, transformedValue));
+            //float transformedValue = transformRssiToBarValue(rssi);
+            entries.add(new BarEntry(i - startIndex, rssi));
         }
 
         dataSet.setValues(entries);

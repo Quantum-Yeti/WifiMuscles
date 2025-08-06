@@ -116,30 +116,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Progress Bar (Initially hidden) -->
-        <ProgressBar
-            android:id="@+id/progressBar"
+        <!-- Full-screen Loading Overlay -->
+        <LinearLayout
+            android:id="@+id/progressOverlay"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            android:visibility="gone"
-            android:layout_centerInParent="true"
-            android:indeterminate="true"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@id/barChartCard"
-            tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/progressBarText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:foregroundGravity="center"
-            android:visibility="gone"
-            android:textColor="@color/accent_light_blue"
-            android:textSize="36sp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/progressBar"
-            android:text="@string/calculating"/><!-- RecyclerView for Chart Info -->
+            android:visibility="gone"
+            android:background="#80000000"> <!-- semi-transparent black -->
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/progressBar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
+            <TextView
+                android:id="@+id/progressBarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calculating"
+                android:textColor="@color/accent_light_blue"
+                android:textSize="18sp"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
         
 
 

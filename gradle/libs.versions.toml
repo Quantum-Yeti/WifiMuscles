@@ -1,19 +1,20 @@
 [versions]
 agp = "8.9.3"
 appUpdate = "2.1.0"
-githubMpandroidchart = "v3.1.0"
+githubMpandroidchart = "3.1.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-appcompat = "1.7.0"
+appcompat = "1.7.1"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
-playServicesAds = "24.3.0"
-playServicesAdsVersion = "24.4.0"
+playServicesAds = "24.5.0"
+playServicesAdsVersion = "24.5.0"
 
 [libraries]
 app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
+app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
 github-mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "githubMpandroidchart" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -23,8 +24,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
-play-services-ads-v2440 = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAdsVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-
+google-services = { id = "com.google.gms.google-services", version = "4.4.1" }

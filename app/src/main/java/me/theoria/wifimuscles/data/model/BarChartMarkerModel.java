@@ -22,8 +22,8 @@ public class BarChartMarkerModel extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         if (e != null) {
-            // Convert bar value back to original RSSI value
-            float originalRssi = e.getY() - 127f;
+            // display RSSI value
+            float originalRssi = e.getY();
 
             // Map signal level
             RSSIQualityModel level = RSSIQualityModel.mapRssiToStringLevel(originalRssi);

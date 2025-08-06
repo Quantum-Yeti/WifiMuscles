@@ -1,17 +1,44 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/group_connectionInfo"
+        android:title="@string/group_connectionInfo"
+        android:enabled="false"
+        android:checkable="false" />
+    <group>
+        <item
+            android:id="@+id/nav_lineChart"
+            android:title="@string/line_chart"/>
+        <item
+            android:id="@+id/nav_barChart"
+            android:title="@string/bar_chart"/>
+        <item
+            android:id="@+id/nav_advStats"
+            android:title="@string/advanced_info"/>
+        <item
+            android:id="@+id/nav_troubleShoot"
+            android:title="@string/troubleshoot"/>
+    </group>
+
+    <item
+        android:id="@+id/group_aboutInfo"
+        android:title="@string/group_aboutInfo"
+        android:enabled="false"
+        android:checkable="false" />
     <group>
         <item
             android:id="@+id/nav_about"
             android:title="@string/about" />
         <item
+            android:id="@+id/nav_share"
+            android:title="@string/share_txt"/>
+        <item
+            android:id="@+id/nav_donate"
+            android:title="@string/donate_txt"/>
+        <item
             android:id="@+id/nav_feedback"
             android:title="@string/feedback" />
     </group>
 
-    <group>
-
-
-    </group>
 
 </menu>

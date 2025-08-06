@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.BarChartMarkerModel;
-import me.theoria.wifimuscles.data.model.LineChartMarkerModel;
 
 /**
  * A utility class that sets up a BarChart with default styling and returns a pre-configured BarDataSet.
@@ -50,20 +49,21 @@ public class BarChartBuilder {
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
         leftAxis.setTextSize(14f);
-        leftAxis.setAxisMinimum(0f);   // start from zero (bottom)
-        leftAxis.setAxisMaximum(127f); // max transformed RSSI value
+        leftAxis.setAxisMinimum(-127f);   // lowest level rssi reading -127
+        leftAxis.setAxisMaximum(0f); // max RSSI value
         leftAxis.setLabelCount(6, true); // fixed number of labels for clarity
         leftAxis.setGranularity(21f);    // label spacing (~127/6)
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawAxisLine(false);
 
-        leftAxis.setValueFormatter(new ValueFormatter() {
+        // flipping the value adding 127 to positive integer from raw rssi
+        /*leftAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 int originalRssi = (int) (value - 127);
-                return originalRssi + " dBm";
+                return originalRssi + "";
             }
-        });
+        });*/
 
 
         // Disables Y-Axis showing on the right side of chart.
@@ -75,16 +75,16 @@ public class BarChartBuilder {
         dataSet.setValueTextColor(ContextCompat.getColor(context, R.color.blackText));
         dataSet.setValueTextSize(12f);
         dataSet.setValueTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        dataSet.setDrawValues(true);
+        dataSet.setDrawValues(false);
         // Custom value formatter to show original values inside the bar
-        dataSet.setValueFormatter(new ValueFormatter() {
+        /*dataSet.setValueFormatter(new ValueFormatter() {
             @Override
             public String getBarLabel(BarEntry barEntry) {
                 float transformed = barEntry.getY(); // e.g. 77
                 float originalRssi = transformed - 127f;
                 return (int) originalRssi + "";
             }
-        });
+        });*/
 
         // Bind the dataset to the BarData and set to the chart.
         BarData data = new BarData(dataSet);
