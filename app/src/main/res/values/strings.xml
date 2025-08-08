@@ -134,6 +134,9 @@
     <string name="group_connectionInfo">Connection</string>
     <string name="group_aboutInfo">About</string>
     <string name="nav_bottom_wifi_subtitle">Wi-Fi Analytics made simple.</string>
+    <string name="wifi_list">Available Networks</string>
+    <string name="signal_strength">Signal Strength</string>
+    <string name="dbm">dBm</string>
 
 
 </resources>

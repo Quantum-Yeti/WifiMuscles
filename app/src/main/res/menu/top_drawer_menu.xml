@@ -18,6 +18,9 @@
         <item
             android:id="@+id/nav_troubleShoot"
             android:title="@string/troubleshoot"/>
+        <item
+            android:id="@+id/nav_wifiList"
+            android:title="WifiList"/>
     </group>
 
     <item

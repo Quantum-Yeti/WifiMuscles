@@ -19,6 +19,7 @@ import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
 import me.theoria.wifimuscles.view.fragments.StatsFragment;
 import me.theoria.wifimuscles.view.fragments.SupportFragment;
+import me.theoria.wifimuscles.view.fragments.WifiListFragment;
 
 public class NavigationManager {
 
@@ -33,6 +34,7 @@ public class NavigationManager {
     private final Fragment barChartFragment = new BarChartFragment();
     private final Fragment statsFragment = new StatsFragment();
     private final Fragment supportFragment = new SupportFragment();
+    private final Fragment wifiListFragment = new WifiListFragment();
 
     // References to each item within the TopNavigationDrawer
     private final Fragment aboutFragment = new AboutFragment();
@@ -74,6 +76,11 @@ public class NavigationManager {
         });
     }
 
+    /**
+     * Method for the top navigation drawer and associated logic switching between fragment onClick.
+     * @param navigationView
+     * @param fragmentContainerId
+     */
     public void setupTopNavigationDrawer(NavigationView navigationView, int fragmentContainerId) {
         navigationView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -89,6 +96,9 @@ public class NavigationManager {
                 return true;
             } else if (itemId == R.id.nav_advStats) {
                 setFragment(statsFragment, fragmentContainerId);
+                return true;
+            } else if (itemId == R.id.nav_wifiList) {
+                setFragment(wifiListFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.nav_about) {
                 setFragment(aboutFragment, fragmentContainerId);

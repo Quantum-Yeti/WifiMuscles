@@ -48,18 +48,18 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     // Google Ads
-    implementation("com.google.android.gms:play-services-ads:24.5.0")
+    implementation(libs.play.services.ads)
 
     // Charting Libraries
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation (libs.github.mpandroidchart)
 
     // In-App-Updates
-    implementation ("com.google.android.play:app-update:2.1.0")
+    implementation (libs.app.update)
 
     // ViewPager
-    implementation ("androidx.viewpager2:viewpager2:1.0.0")
-    implementation ("com.google.android.material:material")
+    implementation (libs.viewpager2)
+    implementation (libs.google.material)
 
     //Lottie Animation-Loading Library
-    implementation ("com.airbnb.android:lottie:6.1.0")
+    implementation (libs.lottie)
 }

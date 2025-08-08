@@ -51,7 +51,7 @@ public class BarChartBuilder {
         leftAxis.setTextSize(14f);
         leftAxis.setAxisMinimum(-127f);   // lowest level rssi reading -127
         leftAxis.setAxisMaximum(0f); // max RSSI value
-        leftAxis.setLabelCount(6, true); // fixed number of labels for clarity
+        leftAxis.setLabelCount(5, true); // fixed number of labels for clarity
         leftAxis.setGranularity(21f);    // label spacing (~127/6)
         leftAxis.setDrawGridLines(false);
         leftAxis.setDrawAxisLine(false);

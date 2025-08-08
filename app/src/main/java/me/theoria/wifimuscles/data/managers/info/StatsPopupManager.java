@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import me.theoria.wifimuscles.R;
 
 public class StatsPopupManager {
@@ -24,10 +26,14 @@ public class StatsPopupManager {
      * @param anchorView The view to anchor the tooltip to
      * @param message    The message to display
      */
-    public void showInfoPopup(View anchorView, String message) {
+    public void showInfoPopup(View anchorView, String title, String message) {
         View popupView = LayoutInflater.from(context).inflate(R.layout.info_popup, null);
-        TextView textView = popupView.findViewById(R.id.infoPopup);
-        textView.setText(message);
+
+        TextView titleView = popupView.findViewById(R.id.infoTitle);
+        TextView messageView = popupView.findViewById(R.id.infoPopup);
+
+        titleView.setText(title);
+        messageView.setText(message);
 
         final PopupWindow popupWindow = new PopupWindow(
                 popupView,
@@ -39,6 +45,7 @@ public class StatsPopupManager {
         popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
         popupWindow.setElevation(2f);
+        popupWindow.setClippingEnabled(true);
 
         if (anchorView.isLaidOut()) {
             popupWindow.showAsDropDown(anchorView, 0, 0, Gravity.START);
@@ -48,107 +55,190 @@ public class StatsPopupManager {
     }
 
     public void wifiLevelPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.wifi_signal_popup));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.wi_fi_signal),
+                context.getString(R.string.wifi_signal_popup)
+        );
     }
 
     public void capabilitiesPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.capability_popup_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.capability),
+                context.getString(R.string.capability_popup_txt)
+        );
     }
 
     public void channelWidthPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.channel_width_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.channel_width),
+                context.getString(R.string.channel_width_txt)
+        );
     }
 
     public void centerFreq0Popup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.center_freq_0_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.center_freq_0),
+                context.getString(R.string.center_freq_0_txt)
+        );
     }
 
     public void centerFreq1Popup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.center_freq_1_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.center_freq_1),
+                context.getString(R.string.center_freq_1_txt)
+        );
     }
 
     public void passpointPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.passpoint_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.passpoint),
+                context.getString(R.string.passpoint_txt));
     }
 
     public void responderPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.responder_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.responder),
+                context.getString(R.string.responder_txt));
     }
 
     public void downstreamPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.downstream_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.downstream),
+                context.getString(R.string.downstream_txt));
     }
 
     public void upstreamPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.upstream_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.upstream),
+                context.getString(R.string.upstream_txt));
     }
 
     public void gatewayPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.gateway_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.gateway),
+                context.getString(R.string.gateway_txt));
     }
 
     public void netmaskPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.netmask_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.netmask),
+                context.getString(R.string.netmask_txt));
     }
 
     public void dns1Popup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.dns1_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.dns1),
+                context.getString(R.string.dns1_txt));
     }
 
     public void dns2Popup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.dns2_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.dns2),
+                context.getString(R.string.dns2_txt));
     }
 
     public void leasePopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.lease_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.lease_duration),
+                context.getString(R.string.lease_txt));
     }
 
     public void transportPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.transport_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.transport),
+                context.getString(R.string.transport_txt));
     }
 
     public void internetPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.internet_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.internet),
+                context.getString(R.string.internet_txt));
     }
 
     public void validationPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.validated_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.validation),
+                context.getString(R.string.validated_txt));
     }
 
     public void meteredPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.metered_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.metered),
+                context.getString(R.string.metered_txt));
     }
 
     public void advancedPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.description_subHeader));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.advanced_info),
+                context.getString(R.string.description_subHeader));
     }
 
     public void interferencePopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.interference_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.interference),
+                context.getString(R.string.interference_txt));
     }
 
     public void ssidPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.ssid_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.ssid),
+                context.getString(R.string.ssid_txt));
     }
 
     public void standardPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.wifi_standard_popup));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.wifi_standard),
+                context.getString(R.string.wifi_standard_popup));
     }
 
     public void vpnPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.vpn_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.vpn),
+                context.getString(R.string.vpn_txt));
     }
 
     public void linkSpeedPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.link_speed_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.link_speed),
+                context.getString(R.string.link_speed_txt));
     }
 
     public void maxLinkSpeedPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.max_link_speed_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.max_link_speed_name),
+                context.getString(R.string.max_link_speed_txt));
     }
 
     public void privateIPPopup(View anchorView) {
-        showInfoPopup(anchorView, context.getString(R.string.ipv4_txt));
+        showInfoPopup(
+                anchorView,
+                context.getString(R.string.private_ip),
+                context.getString(R.string.ipv4_txt));
     }
 
 }

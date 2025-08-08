@@ -6,11 +6,13 @@ import java.util.Objects;
 
 public class StatsInfoCardModel {
 
+    private final String title;
     private final String label;
     private final String value;
     private final View.OnClickListener onClickListener;
 
-    public StatsInfoCardModel(String label, String value, View.OnClickListener onClickListener) {
+    public StatsInfoCardModel(String title, String label, String value, View.OnClickListener onClickListener) {
+        this.title = title;
         this.label = label;
         this.value = value;
         this.onClickListener = onClickListener;
@@ -18,6 +20,10 @@ public class StatsInfoCardModel {
 
 
     // -- Getters --//
+    public String getTitle() {
+        return title;
+    }
+
     public String getLabel() {
         return label;
     }
@@ -36,14 +42,13 @@ public class StatsInfoCardModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StatsInfoCardModel that = (StatsInfoCardModel) o;
-        return Objects.equals(label, that.label) &&
+        return Objects.equals(title, that.title) &&
+                Objects.equals(label, that.label) &&
                 Objects.equals(value, that.value); // null safety
     }
 
     @Override
     public int hashCode() {
-        int result = label.hashCode();
-        result = 31 * result + value.hashCode();
-        return result;
+        return Objects.hash(title, label, value);
     }
 }
