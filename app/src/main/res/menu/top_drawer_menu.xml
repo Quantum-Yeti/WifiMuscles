@@ -1,47 +1,53 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/group_connectionInfo"
-        android:title="@string/group_connectionInfo"
-        android:enabled="false"
-        android:checkable="false" />
-    <group>
+    <!-- Group: Connection Info -->
+    <group android:title="@string/group_connectionInfo">
         <item
             android:id="@+id/nav_lineChart"
-            android:title="@string/line_chart"/>
+            android:icon="@drawable/icon_chart_2"
+            android:title="@string/line_chart" />
         <item
             android:id="@+id/nav_barChart"
-            android:title="@string/bar_chart"/>
+            android:icon="@drawable/icon_bar_chart"
+            android:title="@string/bar_chart" />
         <item
             android:id="@+id/nav_advStats"
-            android:title="@string/advanced_info"/>
+            android:icon="@drawable/icon_stats"
+            android:title="@string/advanced_info" />
         <item
             android:id="@+id/nav_troubleShoot"
-            android:title="@string/troubleshoot"/>
+            android:icon="@drawable/icon_robot"
+            android:title="@string/troubleshoot" />
         <item
             android:id="@+id/nav_wifiList"
-            android:title="WifiList"/>
+            android:icon="@drawable/icon_network_check"
+            android:title="@string/wifiListScan" />
     </group>
 
+    <!-- Spacer -->
     <item
-        android:id="@+id/group_aboutInfo"
-        android:title="@string/group_aboutInfo"
+        android:title=""
         android:enabled="false"
         android:checkable="false" />
-    <group>
+
+    <!-- Group: About Info -->
+    <group android:title="@string/group_aboutInfo">
         <item
             android:id="@+id/nav_about"
+            android:icon="@drawable/icon_deploy"
             android:title="@string/about" />
         <item
             android:id="@+id/nav_share"
-            android:title="@string/share_txt"/>
+            android:icon="@drawable/icon_share"
+            android:title="@string/share_txt" />
         <item
             android:id="@+id/nav_donate"
-            android:title="@string/donate_txt"/>
+            android:icon="@drawable/icon_coffee"
+            android:title="@string/donate_txt" />
         <item
             android:id="@+id/nav_feedback"
+            android:icon="@drawable/icon_feedback"
             android:title="@string/feedback" />
     </group>
-
 
 </menu>

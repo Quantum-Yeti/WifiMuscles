@@ -15,6 +15,14 @@
     <string name="nav_drawer_close">Close</string>
     <string name="about">About</string>
     <string name="feedback">Feedback</string>
+    <string name="troubleshoot">Troubleshoot</string>
+    <string name="group_connectionInfo">Connection</string>
+    <string name="group_aboutInfo">About</string>
+    <string name="nav_bottom_wifi_subtitle">Wi-Fi Analytics made simple.</string>
+    <string name="wifi_list">Available Networks</string>
+    <string name="signal_strength">Signal Strength</string>
+    <string name="dbm">dBm</string>
+    <string name="wifiListScan">WiFi Scan</string>
 
     <!-- RSSI String Level UI Labels -->
     <string name="wifi_strength">Wifi Strength</string>
@@ -130,13 +138,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="troubleshoot">Troubleshoot</string>
-    <string name="group_connectionInfo">Connection</string>
-    <string name="group_aboutInfo">About</string>
-    <string name="nav_bottom_wifi_subtitle">Wi-Fi Analytics made simple.</string>
-    <string name="wifi_list">Available Networks</string>
-    <string name="signal_strength">Signal Strength</string>
-    <string name="dbm">dBm</string>
+
 
 
 </resources>

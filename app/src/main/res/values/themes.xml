@@ -34,6 +34,7 @@
 
         <!-- Ripple feedback -->
         <item name="colorControlHighlight">@color/gray_light</item>
+
     </style>
 
     <!-- Your App's Theme (inherits Base) -->

@@ -26,6 +26,7 @@ public class LineChartBuilder {
         public LineChart chart;
         public LineDataSet primaryDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet;
         public LineData lineData;
+        public LineDataSet interferenceDataSet;
     }
 
     public static ChartSetupResult setupChartConfig(LineChart chart, Context context) {
@@ -34,6 +35,7 @@ public class LineChartBuilder {
         configureLeftYAxis(chart.getAxisLeft());
 
         LineDataSet rssiValueDataSet = createPrimaryDataSet(context);
+        LineDataSet interferenceDataSet = createInterferenceDataSet(context);
 
         // Threshold lines tied to RSSI
         LineDataSet excellentSet = createLineThresholdDataSet(context, RSSIQualityModel.EXCELLENT);
@@ -47,6 +49,7 @@ public class LineChartBuilder {
         // Add all datasets to chart
         LineData lineData = new LineData();
         lineData.addDataSet(rssiValueDataSet);
+        lineData.addDataSet(interferenceDataSet);
 
         // Threshold quality set - might use this later
         /*lineData.addDataSet(excellentSet);
@@ -69,6 +72,8 @@ public class LineChartBuilder {
         result.weakSet = weakSet;
         result.unusableSet = unusableSet;
         result.lineData = lineData;
+        
+        result.interferenceDataSet = interferenceDataSet;
 
         return result;
     }
@@ -132,6 +137,17 @@ public class LineChartBuilder {
         dataSet.setCubicIntensity(0.3f);
         dataSet.setColor(context.getColor(R.color.accent_light_blue));
         dataSet.setLineWidth(4f);
+        dataSet.setDrawFilled(false);
+        return dataSet;
+    }
+
+    private static LineDataSet createInterferenceDataSet(Context context) {
+        LineDataSet dataSet = new LineDataSet(new ArrayList<>(), context.getString(R.string.interference));
+        dataSet.setDrawCircles(false);
+        dataSet.setDrawValues(false);
+        dataSet.setMode(LineDataSet.Mode.LINEAR);
+        dataSet.setColor(context.getColor(R.color.accent_orange));
+        dataSet.setLineWidth(3f);
         dataSet.setDrawFilled(false);
         return dataSet;
     }

@@ -10,4 +10,10 @@
         <item name="android:paddingTop">4dp</item>
     </style>
 
+    <style name="DrawMenuHeaderTextAppearance" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/accent_charcoal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
