@@ -25,8 +25,8 @@ public class SignalProcessManager {
             LineDataSet goodSet,
             LineDataSet fairSet,
             LineDataSet weakSet,
-            LineDataSet unusableSet
-    ) {
+            LineDataSet unusableSet,
+            LineDataSet interferenceSet) {
         for (int i = 0; i < signals.size(); i++) {
             WifiSignalModel signal = signals.get(i);
             int rssi = signal.getRssi();

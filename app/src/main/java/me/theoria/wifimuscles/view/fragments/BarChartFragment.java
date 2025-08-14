@@ -122,6 +122,9 @@ public class BarChartFragment extends Fragment {
 
             barChartManager.updateBarChart(signals, barChart, barDataSet);
             dataUIViewModel.updateSignalUI(signals);
+
+            showProgress(false);
+
         });
     }
 

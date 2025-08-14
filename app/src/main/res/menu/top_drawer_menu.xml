@@ -46,7 +46,7 @@
             android:title="@string/donate_txt" />
         <item
             android:id="@+id/nav_feedback"
-            android:icon="@drawable/icon_feedback"
+            android:icon="@drawable/icon_bug"
             android:title="@string/feedback" />
     </group>
 

@@ -15,6 +15,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+/.idea/appInsightsSettings.xml
 
 # Ignore all build outputs
 /app/build/

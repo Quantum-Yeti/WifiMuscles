@@ -33,6 +33,7 @@ public class LineChartBuilder {
         configureChart(chart);
         configureXAxis(chart.getXAxis());
         configureLeftYAxis(chart.getAxisLeft());
+        configureRightYAxis(chart.getAxisRight());
 
         LineDataSet rssiValueDataSet = createPrimaryDataSet(context);
         LineDataSet interferenceDataSet = createInterferenceDataSet(context);
@@ -129,6 +130,24 @@ public class LineChartBuilder {
         });*/
     }
 
+    /**
+     * Method to configure the right y-axis
+     * @param yAxis
+     */
+    private static void configureRightYAxis(YAxis yAxis) {
+        yAxis.setEnabled(true);
+        yAxis.setDrawGridLines(false);
+        yAxis.setDrawAxisLine(false);
+        yAxis.setAxisMinimum(0f); // Minimum interference
+        yAxis.setAxisMaximum(100f); // Maximum interference (percent)
+        yAxis.setGranularity(20f);
+        yAxis.setLabelCount(5, true);
+        yAxis.setTextSize(12f);
+        yAxis.setTextColor(Color.parseColor("#FFA726")); // Orange or matching color
+        yAxis.setTypeface(Typeface.DEFAULT_BOLD);
+    }
+
+
     private static LineDataSet createPrimaryDataSet(Context context) {
         LineDataSet dataSet = new LineDataSet(new ArrayList<>(), context.getString(R.string.label_blank));
         dataSet.setDrawCircles(false);
@@ -149,6 +168,7 @@ public class LineChartBuilder {
         dataSet.setColor(context.getColor(R.color.accent_orange));
         dataSet.setLineWidth(3f);
         dataSet.setDrawFilled(false);
+        dataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
         return dataSet;
     }
 

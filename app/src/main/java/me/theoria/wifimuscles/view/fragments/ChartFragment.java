@@ -18,6 +18,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.builders.LineChartBuilder;
@@ -42,7 +43,7 @@ public class ChartFragment extends Fragment {
     private ChartInfoCardAdapter adapter;
 
     // Chart datasets
-    private LineDataSet primaryLineDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet;
+    private LineDataSet primaryLineDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet, interferenceDataSet;
     private LineData lineData;
     private LineChartManager lineChartManager;
 
@@ -129,6 +130,7 @@ public class ChartFragment extends Fragment {
         fairSet = chartResults.fairSet;
         weakSet = chartResults.weakSet;
         unusableSet = chartResults.unusableSet;
+        interferenceDataSet = chartResults.interferenceDataSet;
         lineData = chartResults.lineData;
 
         binding.lineChart.setData(lineData);
@@ -157,6 +159,7 @@ public class ChartFragment extends Fragment {
             lineChartManager.updateLineChart(
                     signals, binding.lineChart,
                     primaryLineDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet,
+                    interferenceDataSet,
                     lineData
             );
             dataUIViewModel.updateSignalUI(signals);
@@ -188,6 +191,14 @@ public class ChartFragment extends Fragment {
      * Method to build and update the RecyclerView based on the LiveData values.
      */
     private void updateInfoCards() {
+
+        Float interferencePercent = wifiViewModel.getInterferencePercentLiveData().getValue();
+        String interferencePercentText = (interferencePercent != null)
+                ? String.format(Locale.getDefault(), "%.1f%%", interferencePercent)
+                : getString(R.string.no_data);
+
+
+
         // Cache values locally to avoid slow repeated getValue() calls
         String ssid = safeGetValue(dataUIViewModel.getSSIDText());
         String rssi = safeGetValue(dataUIViewModel.getRssiText());

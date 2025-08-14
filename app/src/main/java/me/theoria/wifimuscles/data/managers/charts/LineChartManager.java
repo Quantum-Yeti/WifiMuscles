@@ -1,6 +1,7 @@
 package me.theoria.wifimuscles.data.managers.charts;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
@@ -35,19 +36,29 @@ public class LineChartManager {
             LineDataSet fairSet,
             LineDataSet weakSet,
             LineDataSet unusableSet,
+            LineDataSet interferenceSet,
             LineData lineData
     ) {
         if (chart == null || rssiDataSet == null || lineData == null) return;
 
-        clearAllDataSets(rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
+        clearAllDataSets(rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet, interferenceSet);
 
-        signalProcessManager.processSignals(signals, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
+        signalProcessManager.processSignals(signals, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet, interferenceSet);
+
+        // Add entries to interference dataset linegraph
+        for (int i = 0; i < signals.size(); i++) {
+            WifiSignalModel signal = signals.get(i);
+
+            float interferenceValue = signal.getInterferenceLevel();
+            Entry entry = new Entry(i, interferenceValue);
+            interferenceSet.addEntry(entry);
+        }
 
         if (uiUpdater != null) {
             uiUpdater.updateSignalUI(signals);
         }
 
-        notifyChartUpdated(chart, lineData, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet);
+        notifyChartUpdated(chart, lineData, rssiDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet, interferenceSet);
     }
 
     /**

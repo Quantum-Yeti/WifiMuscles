@@ -14,7 +14,7 @@
     <string name="nav_drawer_open">Open</string>
     <string name="nav_drawer_close">Close</string>
     <string name="about">About</string>
-    <string name="feedback">Feedback</string>
+    <string name="feedback">Feedback/Bugs</string>
     <string name="troubleshoot">Troubleshoot</string>
     <string name="group_connectionInfo">Connection</string>
     <string name="group_aboutInfo">About</string>
