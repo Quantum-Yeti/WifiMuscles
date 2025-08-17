@@ -13,6 +13,7 @@ constraintlayout = "2.2.1"
 playServicesAds = "24.5.0"
 playServicesAdsVersion = "24.5.0"
 viewpager2 = "1.1.0"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
@@ -29,6 +30,7 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
 viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -2,7 +2,7 @@ package me.theoria.wifimuscles.view.fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.*;
+import android.os.Bundle;
 import android.view.*;
 import android.widget.Toast;
 
@@ -23,15 +23,13 @@ public class WifiListFragment extends Fragment {
     private WifiListAdapter adapter;
     private WifiScanViewModel viewModel;
 
-    // Handles requesting location permission with Activity Result API
+    // Request location permission using Activity Result API
     private final ActivityResultLauncher<String> permissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
-                    // Start Wi-Fi scan if permission granted
                     viewModel.startScan();
                 } else {
-                    // Show toast if permission is denied
-                    showToast("Permission denied");
+                    showToast("Location permission is required to scan Wi-Fi.");
                 }
             });
 
@@ -39,7 +37,6 @@ public class WifiListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        // Inflate layout using ViewBinding
         binding = FragmentWifiListBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -48,46 +45,52 @@ public class WifiListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Initialize RecyclerView and the Adapter
+        // Setup RecyclerView
         adapter = new WifiListAdapter();
         binding.wifiListRecyclerView.setAdapter(adapter);
 
-        // Obtain ViewModel
+        // Initialize ViewModel
         viewModel = new ViewModelProvider(this).get(WifiScanViewModel.class);
 
-        // Obtain LiveData from ViewModel
+        // Observe LiveData from ViewModel
         observeViewModel();
 
-        // Request location permission (required)
+        // Request permissions and trigger scan
         requestLocationPermission();
+
+        // Optional: add swipe to refresh
+        binding.swipeRefreshLayout.setOnRefreshListener(this::requestLocationPermission);
     }
 
-    /**
-     * Method to observe LiveData from the ViewModel
-     */
     private void observeViewModel() {
-        // Show or hide progress overlay
-        viewModel.getIsLoading().observe(getViewLifecycleOwner(), this::showProgress);
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (binding == null) return;
 
-        // Updates the Adapter with wifi scan results
+            binding.progressOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+            if (isLoading) {
+                binding.progressBar.playAnimation();
+            } else {
+                binding.progressBar.cancelAnimation();
+                binding.swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         viewModel.getScanResults().observe(getViewLifecycleOwner(), results -> {
             if (results != null) {
+                // Sort in descending order by RSSI
+                results.sort((a, b) -> Integer.compare(b.level, a.level));
                 adapter.setWifiList(results);
             }
         });
 
-        // Error message if wifi scan fails
         viewModel.getScanError().observe(getViewLifecycleOwner(), error -> {
-            if (error != null) {
+            if (error != null && !error.isEmpty()) {
                 showToast(error);
                 viewModel.clearError();
             }
         });
     }
 
-    /**
-     * Method to check if location permission is granted, if not - request it
-     */
     private void requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -97,32 +100,15 @@ public class WifiListFragment extends Fragment {
         }
     }
 
-    /**
-     * Method to show or hide the Lottie library loading animation
-     */
-    private void showProgress(boolean show) {
-        if (binding == null) return;
-
-        if (show) {
-            binding.progressOverlay.setVisibility(View.VISIBLE);
-            binding.progressBar.playAnimation();
-        } else {
-            binding.progressBar.cancelAnimation();
-            binding.progressOverlay.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * Method to show toast for wifi scan
-     */
     private void showToast(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        if (getContext() != null) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Avoids memory leaks
         binding = null;
     }
 }
