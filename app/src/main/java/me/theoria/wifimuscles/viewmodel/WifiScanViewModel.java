@@ -63,35 +63,37 @@ public class WifiScanViewModel extends AndroidViewModel {
         this.wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
     }
 
+    // Update isLoading LiveData when the scan starts
     public void startScan() {
         if (!wifiManager.isWifiEnabled()) {
+            wifiManager.setWifiEnabled(true);
             scanError.setValue("Wi-Fi is turned off.");
-            isLoading.setValue(false);
+            isLoading.setValue(false);  // Set loading to false on failure
             return;
         }
 
         if (!isLocationEnabled()) {
             scanError.setValue("Location services are disabled.");
-            isLoading.setValue(false);
+            isLoading.setValue(false);  // Set loading to false on failure
             return;
         }
 
         long now = System.currentTimeMillis();
         if (now - lastScanTime < SCAN_THROTTLE_MS) {
             scanError.setValue("Scan throttled. Try again later.");
-            isLoading.setValue(false);
+            isLoading.setValue(false);  // Set loading to false on failure
             return;
         }
 
         lastScanTime = now;
-        isLoading.setValue(true);
+        isLoading.setValue(true);  // Set loading to true to show animation
 
         registerReceiver();
 
         boolean started = wifiManager.startScan();
         if (!started) {
             Log.e(TAG, "wifiManager.startScan() returned false.");
-            isLoading.setValue(false);
+            isLoading.setValue(false);  // Set loading to false on failure
             scanError.setValue("Failed to start Wi-Fi scan.");
             cleanupReceiver();
             return;
@@ -102,11 +104,12 @@ public class WifiScanViewModel extends AndroidViewModel {
             if (isLoading.getValue() != null && isLoading.getValue()) {
                 Log.w(TAG, "Scan timeout fallback triggered.");
                 scanError.setValue("Wi-Fi scan timed out.");
-                isLoading.setValue(false);
+                isLoading.setValue(false);  // Set loading to false on timeout
                 cleanupReceiver();
             }
         }, SCAN_TIMEOUT_MS);
     }
+
 
     private void registerReceiver() {
         if (!isReceiverRegistered) {

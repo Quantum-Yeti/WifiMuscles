@@ -3,6 +3,7 @@ package me.theoria.wifimuscles.view.fragments;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.Toast;
 
@@ -52,37 +53,48 @@ public class WifiListFragment extends Fragment {
         // Initialize ViewModel
         viewModel = new ViewModelProvider(this).get(WifiScanViewModel.class);
 
+        // Optional: add swipe to refresh
+        binding.swipeRefreshLayout.setOnRefreshListener(this::requestLocationPermission);
+
+        tryStartScan();
+
         // Observe LiveData from ViewModel
         observeViewModel();
 
-        // Request permissions and trigger scan
-        requestLocationPermission();
-
-        // Optional: add swipe to refresh
-        binding.swipeRefreshLayout.setOnRefreshListener(this::requestLocationPermission);
     }
 
     private void observeViewModel() {
+        // Observe loading state to control Lottie animation visibility
         viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
             if (binding == null) return;
 
-            binding.progressOverlay.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+            Log.d("WifiListFragment", "isLoading: " + isLoading);
+
+            // Show or hide the progress bar (Lottie animation)
             if (isLoading) {
+                binding.progressBar.setVisibility(View.VISIBLE); // Show the Lottie animation
                 binding.progressBar.playAnimation();
             } else {
+                binding.progressBar.setVisibility(View.GONE); // Hide the Lottie animation
                 binding.progressBar.cancelAnimation();
+            }
+
+            // Hide the refresh layout spinner
+            if (!isLoading) {
                 binding.swipeRefreshLayout.setRefreshing(false);
             }
         });
 
+        // Observe scan results and update RecyclerView
         viewModel.getScanResults().observe(getViewLifecycleOwner(), results -> {
             if (results != null) {
-                // Sort in descending order by RSSI
+                // Sort results in descending order based on RSSI
                 results.sort((a, b) -> Integer.compare(b.level, a.level));
                 adapter.setWifiList(results);
             }
         });
 
+        // Observe scan error to show error message
         viewModel.getScanError().observe(getViewLifecycleOwner(), error -> {
             if (error != null && !error.isEmpty()) {
                 showToast(error);
@@ -90,6 +102,7 @@ public class WifiListFragment extends Fragment {
             }
         });
     }
+
 
     private void requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -100,15 +113,39 @@ public class WifiListFragment extends Fragment {
         }
     }
 
+    public void tryStartScan() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            viewModel.startScan();
+        } else {
+            permissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+    }
+
+
     private void showToast(String message) {
         if (getContext() != null) {
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         }
     }
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        tryStartScan();
+    }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
+    public void refreshScan() {
+        tryStartScan();
+    }
+
 }
