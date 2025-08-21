@@ -65,8 +65,8 @@ public class NavigationManager {
             } else if (itemId == R.id.support) {
                 setFragment(supportFragment, fragmentContainerId);
                 return true;
-            } else if (itemId == R.id.donate) {
-                openDonationLink();
+            } else if (itemId == R.id.wifiList) {
+                setFragment(wifiListFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.share) {
                 openShareLink();
@@ -78,8 +78,6 @@ public class NavigationManager {
 
     /**
      * Method for the top navigation drawer and associated logic switching between fragment onClick.
-     * @param navigationView
-     * @param fragmentContainerId
      */
     public void setupTopNavigationDrawer(NavigationView navigationView, int fragmentContainerId) {
         navigationView.setNavigationItemSelectedListener(item -> {

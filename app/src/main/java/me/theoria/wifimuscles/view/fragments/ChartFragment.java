@@ -13,10 +13,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,6 +30,7 @@ import me.theoria.wifimuscles.data.managers.SignalProcessManager;
 import me.theoria.wifimuscles.data.managers.charts.LineChartManager;
 import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
 import me.theoria.wifimuscles.data.model.ChartInfoCardModel;
+import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
 import me.theoria.wifimuscles.utils.ChartInfoUtils;
 import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
@@ -162,11 +166,37 @@ public class ChartFragment extends Fragment {
                     interferenceDataSet,
                     lineData
             );
+
+            updateLegendWithCurrentValues(signals);
+
             dataUIViewModel.updateSignalUI(signals);
 
             binding.lineChart.setVisibility(View.VISIBLE);
             showProgress(false);
         });
+    }
+
+    private void updateLegendWithCurrentValues(List<WifiSignalModel> signals) {
+        float rssi = signals.get(0).getRssi(); // Example RSSI value
+        float interference = signals.get(0).getInterferenceLevel(); // Example interference value
+
+        String rssiText = String.format(Locale.getDefault(), "RSSI: %.1f dBm", rssi);
+        String interferenceText = String.format(Locale.getDefault(), "Interference: %.1f%%", interference);
+
+        // Create the legend entries
+        LegendEntry rssiLegendEntry = new LegendEntry();
+        rssiLegendEntry.label = rssiText;
+        rssiLegendEntry.formColor = primaryLineDataSet.getColor();
+        rssiLegendEntry.form = Legend.LegendForm.LINE;
+
+        LegendEntry interferenceLegendEntry = new LegendEntry();
+        interferenceLegendEntry.label = interferenceText;
+        interferenceLegendEntry.formColor = interferenceDataSet.getColor();
+        interferenceLegendEntry.form = Legend.LegendForm.LINE;
+
+        // Update the legend with the new entries
+        List<LegendEntry> legendEntries = new ArrayList<>(Arrays.asList(rssiLegendEntry, interferenceLegendEntry));
+        binding.lineChart.getLegend().setCustom(legendEntries);
     }
 
     /**

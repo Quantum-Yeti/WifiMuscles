@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.MPPointF;
 
@@ -28,10 +30,24 @@ public class LineChartMarkerModel extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         if (e != null) {
+
+            // Identify the dataset being clicked
+            int dataSetIndex = highlight.getDataSetIndex();
+
+            // Initialize variables for RSSI and interference
             float rssi = e.getY();
+            float interference = e.getY();
             RSSIQualityModel level = RSSIQualityModel.mapRssiToStringLevel(rssi);
+
+            // String construction for both RSSI and interference
             String rssiMarker = (int) rssi + " dBm | " + level;
-            markerContent.setText(rssiMarker);
+            String interferenceLevel = getInterferenceLevel(interference);
+
+            // Concatenate both together
+            String combinedGraphMarker = rssiMarker + "\n" + interferenceLevel;
+
+            // Set combined concatenated values together
+            markerContent.setText(combinedGraphMarker);
         }
         super.refreshContent(e, highlight);
     }
@@ -40,4 +56,15 @@ public class LineChartMarkerModel extends MarkerView {
     public MPPointF getOffset() {
         return new MPPointF(-(getWidth() / 3f), -getHeight());
     }
+
+    private String getInterferenceLevel(float interference) {
+        if (interference <= 30) {
+            return "Low Interference";
+        } else if (interference <= 60) {
+            return "Medium Interference";
+        } else {
+            return "High Interference";
+        }
+    }
+
 }

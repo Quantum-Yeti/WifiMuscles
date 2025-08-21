@@ -9,12 +9,15 @@ import androidx.core.content.ContextCompat;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.model.LineChartMarkerModel;
@@ -27,6 +30,25 @@ public class LineChartBuilder {
         public LineDataSet primaryDataSet, excellentSet, goodSet, fairSet, weakSet, unusableSet;
         public LineData lineData;
         public LineDataSet interferenceDataSet;
+    }
+
+    private static void setupLegend(LineChart chart, LineDataSet rssiDataSet, LineDataSet interferenceDataSet, Context context) {
+        // Get the chart's legend
+        Legend legend = chart.getLegend();
+
+        // Create custom legend entries
+        LegendEntry rssiLegendEntry = new LegendEntry();
+        rssiLegendEntry.label = context.getString(R.string.line_legend_rssi); // Change the label
+        rssiLegendEntry.formColor = rssiDataSet.getColor();  // Set the color of the line
+        rssiLegendEntry.form = Legend.LegendForm.LINE; // Line type
+
+        LegendEntry interferenceLegendEntry = new LegendEntry();
+        interferenceLegendEntry.label = context.getString(R.string.line_legend_interference); // Change the label
+        interferenceLegendEntry.formColor = interferenceDataSet.getColor(); // Set the color of the line
+        interferenceLegendEntry.form = Legend.LegendForm.LINE; // Line type
+
+        // Now add the custom legend entries
+        legend.setCustom(new ArrayList<>(Arrays.asList(rssiLegendEntry, interferenceLegendEntry)));
     }
 
     public static ChartSetupResult setupChartConfig(LineChart chart, Context context) {
@@ -64,6 +86,9 @@ public class LineChartBuilder {
         chart.animateXY(1000, 1000, Easing.EaseInQuart);
         chart.invalidate();
 
+        // Update the legend with dynamic values
+        setupLegend(chart, rssiValueDataSet, interferenceDataSet, context);
+
         ChartSetupResult result = new ChartSetupResult();
         result.chart = chart;
         result.primaryDataSet = rssiValueDataSet;
@@ -85,7 +110,8 @@ public class LineChartBuilder {
         chart.setDragEnabled(true);
         chart.setScaleEnabled(true);
         chart.setExtraOffsets(5f, 10f, 5f, 10f);
-        chart.getLegend().setEnabled(false);
+        chart.getLegend().setEnabled(true);
+        chart.getLegend().setTextColor(Color.WHITE);
         chart.getAxisRight().setEnabled(false);
         Description description = new Description();
         description.setEnabled(false);
@@ -132,10 +158,9 @@ public class LineChartBuilder {
 
     /**
      * Method to configure the right y-axis
-     * @param yAxis
      */
     private static void configureRightYAxis(YAxis yAxis) {
-        yAxis.setEnabled(true);
+        yAxis.setEnabled(false);
         yAxis.setDrawGridLines(false);
         yAxis.setDrawAxisLine(false);
         yAxis.setAxisMinimum(0f); // Minimum interference
@@ -164,7 +189,7 @@ public class LineChartBuilder {
         LineDataSet dataSet = new LineDataSet(new ArrayList<>(), context.getString(R.string.interference));
         dataSet.setDrawCircles(false);
         dataSet.setDrawValues(false);
-        dataSet.setMode(LineDataSet.Mode.LINEAR);
+        dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSet.setColor(context.getColor(R.color.accent_orange));
         dataSet.setLineWidth(3f);
         dataSet.setDrawFilled(false);

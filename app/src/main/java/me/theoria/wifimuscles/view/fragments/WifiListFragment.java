@@ -3,6 +3,8 @@ package me.theoria.wifimuscles.view.fragments;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.*;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ public class WifiListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentWifiListBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 
@@ -53,7 +56,7 @@ public class WifiListFragment extends Fragment {
         // Initialize ViewModel
         viewModel = new ViewModelProvider(this).get(WifiScanViewModel.class);
 
-        // Optional: add swipe to refresh
+        // swipe to refresh
         binding.swipeRefreshLayout.setOnRefreshListener(this::requestLocationPermission);
 
         tryStartScan();
@@ -71,13 +74,16 @@ public class WifiListFragment extends Fragment {
             Log.d("WifiListFragment", "isLoading: " + isLoading);
 
             // Show or hide the progress bar (Lottie animation)
-            if (isLoading) {
+
+            showProgress(isLoading);
+
+            /*if (isLoading) {
                 binding.progressBar.setVisibility(View.VISIBLE); // Show the Lottie animation
                 binding.progressBar.playAnimation();
             } else {
                 binding.progressBar.setVisibility(View.GONE); // Hide the Lottie animation
                 binding.progressBar.cancelAnimation();
-            }
+            }*/
 
             // Hide the refresh layout spinner
             if (!isLoading) {
@@ -122,6 +128,47 @@ public class WifiListFragment extends Fragment {
         }
     }
 
+    /**
+     * Method to hide or show the progress bar and the calculating... text.
+     */
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private Runnable hideProgressRunnable;
+    private long animationStartTime = 0;
+
+    private void showProgress(boolean show) {
+        if (binding == null) return;
+
+        if (show) {
+            // Show progress overlay and start animation
+            binding.progressOverlay.setVisibility(View.VISIBLE);
+            binding.progressBar.playAnimation();
+            animationStartTime = System.currentTimeMillis();
+
+            // Cancel any existing delayed runnable
+            if (hideProgressRunnable != null) {
+                handler.removeCallbacks(hideProgressRunnable);
+            }
+
+        } else {
+            long elapsed = System.currentTimeMillis() - animationStartTime;
+            long remaining = 2000 - elapsed; // Ensure 2 seconds minimum display
+
+            // Cancel any previously scheduled hide
+            if (hideProgressRunnable != null) {
+                handler.removeCallbacks(hideProgressRunnable);
+            }
+
+            hideProgressRunnable = () -> {
+                if (binding != null) {
+                    binding.progressBar.cancelAnimation();
+                    binding.progressOverlay.setVisibility(View.GONE);
+                }
+            };
+
+            handler.postDelayed(hideProgressRunnable, Math.max(remaining, 0));
+        }
+    }
+
 
     private void showToast(String message) {
         if (getContext() != null) {
@@ -129,23 +176,15 @@ public class WifiListFragment extends Fragment {
         }
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
         tryStartScan();
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-
-    public void refreshScan() {
-        tryStartScan();
-    }
-
 }

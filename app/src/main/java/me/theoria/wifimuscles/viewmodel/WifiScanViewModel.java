@@ -65,50 +65,59 @@ public class WifiScanViewModel extends AndroidViewModel {
 
     // Update isLoading LiveData when the scan starts
     public void startScan() {
+        // Ensure Wi-Fi is enabled
         if (!wifiManager.isWifiEnabled()) {
+            Log.d(TAG, "Wi-Fi is turned off. Enabling Wi-Fi...");
             wifiManager.setWifiEnabled(true);
-            scanError.setValue("Wi-Fi is turned off.");
-            isLoading.setValue(false);  // Set loading to false on failure
-            return;
+            scanError.setValue("Wi-Fi is turned off. Enabling Wi-Fi...");
+            isLoading.setValue(false);
+            return;  // Exit early as Wi-Fi is required for scanning
         }
 
+        // Ensure location services are enabled
         if (!isLocationEnabled()) {
+            Log.d(TAG, "Location services are disabled. Cannot start scan.");
             scanError.setValue("Location services are disabled.");
-            isLoading.setValue(false);  // Set loading to false on failure
-            return;
+            isLoading.setValue(false);
+            return;  // Exit early as location services are required for scanning
         }
 
         long now = System.currentTimeMillis();
         if (now - lastScanTime < SCAN_THROTTLE_MS) {
+            Log.d(TAG, "Scan throttled. Try again later.");
             scanError.setValue("Scan throttled. Try again later.");
-            isLoading.setValue(false);  // Set loading to false on failure
-            return;
+            isLoading.setValue(false);
+            return;  // Exit early due to throttling
         }
 
+        // Proceed with the scan
         lastScanTime = now;
-        isLoading.setValue(true);  // Set loading to true to show animation
+        isLoading.setValue(true);  // Show loading state
 
+        // Register the receiver to listen for scan results
         registerReceiver();
 
+        // Start the scan
         boolean started = wifiManager.startScan();
         if (!started) {
             Log.e(TAG, "wifiManager.startScan() returned false.");
-            isLoading.setValue(false);  // Set loading to false on failure
             scanError.setValue("Failed to start Wi-Fi scan.");
+            isLoading.setValue(false);
             cleanupReceiver();
             return;
         }
 
-        // Timeout fallback: unregister and stop loading after timeout
+        // Timeout fallback in case the scan takes too long
         timeoutHandler.postDelayed(() -> {
             if (isLoading.getValue() != null && isLoading.getValue()) {
                 Log.w(TAG, "Scan timeout fallback triggered.");
                 scanError.setValue("Wi-Fi scan timed out.");
-                isLoading.setValue(false);  // Set loading to false on timeout
+                isLoading.setValue(false);
                 cleanupReceiver();
             }
         }, SCAN_TIMEOUT_MS);
     }
+
 
 
     private void registerReceiver() {

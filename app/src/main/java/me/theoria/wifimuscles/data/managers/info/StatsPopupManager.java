@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import me.theoria.wifimuscles.R;
 
 public class StatsPopupManager {
@@ -47,8 +45,20 @@ public class StatsPopupManager {
         popupWindow.setElevation(2f);
         popupWindow.setClippingEnabled(true);
 
+        // Get the position of the anchor view on the screen
+        int[] location = new int[2];
+        anchorView.getLocationOnScreen(location);
+
+        // Measure the popup view's height so we can decide where to show it
+        popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int popupHeight = popupView.getMeasuredHeight();
+
+        // Check if there is enough space above the anchor view to show the popup
+        boolean showAbove = location[1] > popupHeight;
+
+        // Show the popup above or below the anchor view depending on available space
         if (anchorView.isLaidOut()) {
-            popupWindow.showAsDropDown(anchorView, 0, 0, Gravity.START);
+            popupWindow.showAsDropDown(anchorView, 0, showAbove ? -popupHeight - anchorView.getHeight() : 0, Gravity.START);
         } else {
             popupWindow.showAtLocation(anchorView, Gravity.CENTER, 0, 0);
         }

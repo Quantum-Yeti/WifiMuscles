@@ -14,14 +14,14 @@
         android:title="@string/stats_txt"
         />
     <item
+        android:id="@+id/wifiList"
+        android:icon="@drawable/icon_network_check"
+        android:title="@string/donate_txt"
+        />
+    <item
         android:id="@+id/support"
         android:icon="@drawable/icon_robot"
         android:title="@string/support"
-        />
-    <item
-        android:id="@+id/donate"
-        android:icon="@drawable/icon_coffee"
-        android:title="@string/donate_txt"
         />
     <item
         android:id="@+id/share"

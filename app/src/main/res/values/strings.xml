@@ -121,6 +121,10 @@
     <string name="wifi_standard">WiFi Standard</string>
     <string name="vpn">VPN</string>
 
+    <!-- Chart Labels -->
+    <string name="line_legend_rssi">RSSI: %.1f dBm</string>
+    <string name="line_legend_interference">Interference: %.1f%%</string>
+
     <!-- Boolean -->
     <string name="yes">yes</string>
     <string name="no">no</string>
@@ -135,6 +139,7 @@
     <string name="libraries">Libraries</string>
     <string name="email">mailto:theoriasoft@proton.me</string>
     <string name="description">Description</string>
+    <string name="library_list">- Material Components\n- MPAndroidChart\n- Google Ads\n- ViewPager</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

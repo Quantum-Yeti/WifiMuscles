@@ -24,12 +24,6 @@
             android:title="@string/wifiListScan" />
     </group>
 
-    <!-- Spacer -->
-    <item
-        android:title=""
-        android:enabled="false"
-        android:checkable="false" />
-
     <!-- Group: About Info -->
     <group android:title="@string/group_aboutInfo">
         <item
