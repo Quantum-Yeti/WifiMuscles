@@ -97,29 +97,42 @@ public class CalculationUtils {
     }
 
     /**
-     * Utility method to calculate the Wi-Fi channel nuymber from the MHz frequency.
+     * Utility method to calculate the Wi-Fi channel number from the MHz frequency.
      * Calculation is based on common 2.4GHz, 5GHz, and 6GHz bands.
      * @param frequency Frequency in MHz.
      * @return Channel number or -1 if unknown.
      */
     public static int calculateChannel(int frequency) {
+        // 2.4 GHz band (channels 1–13)
+        // 802.11b/g/n
         if (frequency >= 2412 && frequency <= 2472) {
-            return (frequency - 2407) / 5; // 2.4 GHz band
-        } else if (frequency == 2484) {
-            return 14; // Special 2.4GHz channel
-        } else if (frequency >= 5180 && frequency <= 5825) {
-            return (frequency - 5000) / 5; // 5 GHz band
-        } else if (frequency >= 5955 && frequency <= 7115) {
-            return (frequency - 5950) / 5 + 1; // 6 GHz band
-        } else {
-            return -1; // Unknown
+            return (frequency - 2407) / 5;
         }
+
+        // Channel 14 (only used in Japan)
+        if (frequency == 2484) {
+            return 14;
+        }
+
+        // 5 GHz band (common channels: 36–165)
+        // 802.11a/n/ac
+        // TODO: May not map cleanly depending on region
+        if (frequency >= 5180 && frequency <= 5825) {
+            return (frequency - 5000) / 5;
+        }
+
+        // 6 GHz band (Wi-Fi 6E: channels 1–233)
+        // 802.11ax (Wi-Fi 6E) & 7
+        if (frequency >= 5955 && frequency <= 7115) {
+            return ((frequency - 5955) / 5) + 1;
+        }
+
+        // Unknown frequency
+        return -1;
     }
 
     /**
      * Method to return the wifi standard from the API.
-     * @param info
-     * @return
      */
     public static String getWifiStandardName(WifiInfo info) {
         if (info == null) return "Unknown";
@@ -184,6 +197,7 @@ public class CalculationUtils {
         return false;
     }
 
+    // Interference Helper Methods for specific bands TODO: refactor for flexibility
     private static boolean is2_4GHz(int f1, int f2) {
         return (f1 >= 2400 && f1 <= 2500) && (f2 >= 2400 && f2 <= 2500);
     }

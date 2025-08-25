@@ -115,4 +115,6 @@
         The private IP is the IP address assigned to your device by your local network/router — not the public IP seen on the internet.
     </string>
 
+    <string name="interference_descript">Wi-Fi interference is when other signals or physical obstacles disrupt your wireless connection, causing slower speeds or connection problems.</string>
+
 </resources>

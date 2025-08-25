@@ -32,6 +32,7 @@ import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
 import me.theoria.wifimuscles.data.model.ChartInfoCardModel;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.databinding.FragmentChartBinding;
+import me.theoria.wifimuscles.utils.CalculationUtils;
 import me.theoria.wifimuscles.utils.ChartInfoUtils;
 import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
@@ -210,7 +211,8 @@ public class ChartFragment extends Fragment {
         dataUIViewModel.getBandwidthText().observe(getViewLifecycleOwner(), bw -> updateInfoCards());
         dataUIViewModel.getSSIDText().observe(getViewLifecycleOwner(), ssid -> updateInfoCards());
         dataUIViewModel.getBssidText().observe(getViewLifecycleOwner(), bssid -> updateInfoCards());
-        dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), speed -> updateInfoCards());
+        //dataUIViewModel.getLinkSpeed().observe(getViewLifecycleOwner(), speed -> updateInfoCards());
+        wifiViewModel.getInterferencePercentLiveData().observe(getViewLifecycleOwner(), interference -> updateInfoCards());
         dataUIViewModel.getMaxLinkSpeed().observe(getViewLifecycleOwner(), maxSpeed -> updateInfoCards());
         dataUIViewModel.getPingResult().observe(getViewLifecycleOwner(), ping -> updateInfoCards());
 
@@ -222,11 +224,19 @@ public class ChartFragment extends Fragment {
      */
     private void updateInfoCards() {
 
+        // Grab the interference percentage and format
         Float interferencePercent = wifiViewModel.getInterferencePercentLiveData().getValue();
         String interferencePercentText = (interferencePercent != null)
                 ? String.format(Locale.getDefault(), "%.1f%%", interferencePercent)
                 : getString(R.string.no_data);
 
+        // Grab the channel number and format
+        String frequency = safeGetValue(dataUIViewModel.getFrequencyText());
+        int frequencyMHz = parseFrequency(frequency);
+        int wifiChannel = CalculationUtils.calculateChannel(frequencyMHz);
+        String channelText = (wifiChannel != -1)
+                ? String.valueOf(wifiChannel)
+                : getString(R.string.no_data);
 
 
         // Cache values locally to avoid slow repeated getValue() calls
@@ -254,8 +264,10 @@ public class ChartFragment extends Fragment {
         items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card), bandwidth, R.drawable.icon_function));
         items.add(new ChartInfoCardModel(getString(R.string.private_ip), privateIP, R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.bssid), bssid, R.drawable.icon_dns));
-        items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), linkSpeed, R.drawable.icon_rocket));
-        items.add(new ChartInfoCardModel(getString(R.string.max_link_speed_name), maxLinkSpeed, R.drawable.icon_rocket));
+        //items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), linkSpeed, R.drawable.icon_rocket));
+        items.add(new ChartInfoCardModel(getString(R.string.interference), interferencePercentText, R.drawable.icon_equalizer));
+        items.add(new ChartInfoCardModel(getString(R.string.channel), channelText, R.drawable.icon_channel));
+        //items.add(new ChartInfoCardModel(getString(R.string.max_link_speed_name), maxLinkSpeed, R.drawable.icon_rocket));
         items.add(new ChartInfoCardModel(getString(R.string.ping), ping, R.drawable.icon_avg_time));
 
         adapter.updateItems(items);
@@ -327,6 +339,15 @@ public class ChartFragment extends Fragment {
                 .replace(R.id.fragment_container, new BarChartFragment())
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private int parseFrequency(String frequencyString) {
+        if (frequencyString == null) return -1;
+        try {
+            return Integer.parseInt(frequencyString.replaceAll("[^0-9]", ""));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     @Override

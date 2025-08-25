@@ -22,10 +22,14 @@ public class ChartInfoUtils {
                 return context.getString(R.string.bssid_txt);
             case "Link Speed":
                 return context.getString(R.string.link_speed_txt);
+            case "Interference":
+                return context.getString(R.string.interference_descript);
             case "Max Speed":
                 return context.getString(R.string.max_link_speed_txt);
             case "Ping":
                 return context.getString(R.string.ping_txt);
+            case "Channel Number":
+                return context.getString(R.string.channel_number_txt);
             default:
                 return "No description available.";
         }

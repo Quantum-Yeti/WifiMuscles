@@ -18,9 +18,6 @@ import me.theoria.wifimuscles.view.adapters.SupportAdapter;
 
 public class SupportFragment extends Fragment {
 
-    private RecyclerView supportRecyclerView;
-    private SupportAdapter supportAdapter;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -31,10 +28,10 @@ public class SupportFragment extends Fragment {
     }
 
     private void initializeRecyclerView(View rootView) {
-        supportRecyclerView = rootView.findViewById(R.id.supportRecyclerView);
+        RecyclerView supportRecyclerView = rootView.findViewById(R.id.supportRecyclerView);
         supportRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        supportAdapter = new SupportAdapter(
+        SupportAdapter supportAdapter = new SupportAdapter(
                 SupportTipManager.getSupportTips(requireContext()),
                 this::onTipSelected
         );
@@ -53,7 +50,7 @@ public class SupportFragment extends Fragment {
         // Replace the current fragment with TipFragment and add transaction to back stack
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_container, tipFragment) // change fragment_container to your container id
+                .replace(R.id.fragment_container, tipFragment)
                 .addToBackStack(null)
                 .commit();
     }

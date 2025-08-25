@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.builders.BarChartBuilder;
@@ -25,8 +26,8 @@ import me.theoria.wifimuscles.data.managers.charts.BarChartManager;
 import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
 import me.theoria.wifimuscles.data.model.ChartInfoCardModel;
 import me.theoria.wifimuscles.databinding.FragmentBarChartBinding;
+import me.theoria.wifimuscles.utils.CalculationUtils;
 import me.theoria.wifimuscles.utils.ChartInfoUtils;
-import me.theoria.wifimuscles.utils.ToastUtils;
 import me.theoria.wifimuscles.view.adapters.ChartInfoCardAdapter;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 import me.theoria.wifimuscles.viewmodel.WifiViewModel;
@@ -147,6 +148,20 @@ public class BarChartFragment extends Fragment {
 
     /** Updates the contents of the info card RecyclerView */
     private void updateInfoCards() {
+
+        Float interferencePercent = wifiViewModel.getInterferencePercentLiveData().getValue();
+        String interferencePercentText = (interferencePercent != null)
+                ? String.format(Locale.getDefault(), "%.1f%%", interferencePercent)
+                : getString(R.string.no_data);
+
+        // Grab the channel number and format
+        String frequency = safeGetValue(dataUIViewModel.getFrequencyText());
+        int frequencyMHz = parseFrequency(frequency);
+        int wifiChannel = CalculationUtils.calculateChannel(frequencyMHz);
+        String channelText = (wifiChannel != -1)
+                ? String.valueOf(wifiChannel)
+                : getString(R.string.no_data);
+
         List<ChartInfoCardModel> items = new ArrayList<>();
         items.add(new ChartInfoCardModel(getString(R.string.ssid),
                 safeGetValue(dataUIViewModel.getSSIDText()), R.drawable.icon_ssid));
@@ -159,8 +174,10 @@ public class BarChartFragment extends Fragment {
         items.add(new ChartInfoCardModel(getString(R.string.frequency_band_card), safeGetValue(dataUIViewModel.getBandwidthText()), R.drawable.icon_function));
         items.add(new ChartInfoCardModel(getString(R.string.private_ip), safeGetValue(dataUIViewModel.getDeviceIPText()), R.drawable.icon_dns));
         items.add(new ChartInfoCardModel(getString(R.string.bssid), safeGetValue(dataUIViewModel.getBssidText()), R.drawable.icon_dns));
-        items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), safeGetValue(dataUIViewModel.getLinkSpeed()), R.drawable.icon_rocket));
-        items.add(new ChartInfoCardModel(getString(R.string.max_link_speed_name), safeGetValue(dataUIViewModel.getMaxLinkSpeed()), R.drawable.icon_rocket));
+        //items.add(new ChartInfoCardModel(getString(R.string.link_speed_card), safeGetValue(dataUIViewModel.getLinkSpeed()), R.drawable.icon_rocket));
+        items.add(new ChartInfoCardModel(getString(R.string.interference), interferencePercentText, R.drawable.icon_equalizer));
+        //items.add(new ChartInfoCardModel(getString(R.string.max_link_speed_name), safeGetValue(dataUIViewModel.getMaxLinkSpeed()), R.drawable.icon_rocket));
+        items.add(new ChartInfoCardModel(getString(R.string.channel), channelText, R.drawable.icon_channel));
         items.add(new ChartInfoCardModel(getString(R.string.ping), safeGetValue(dataUIViewModel.getPingResult()), R.drawable.icon_avg_time));
 
         adapter.updateItems(items);
@@ -186,6 +203,15 @@ public class BarChartFragment extends Fragment {
                 .replace(R.id.fragment_container, new ChartFragment())
                 .addToBackStack(null)
                 .commit();
+    }
+
+    private int parseFrequency(String frequencyString) {
+        if (frequencyString == null) return -1;
+        try {
+            return Integer.parseInt(frequencyString.replaceAll("[^0-9]", ""));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     /**
