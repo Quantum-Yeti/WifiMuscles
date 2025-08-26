@@ -11,7 +11,10 @@
 - Automatic refresh for live updates.
 
 ## Screenshots
-TODO: Take screenshots in use.
+![Screenshot1](ScreenShot1.png)
+![Screenshot2](ScreenShot2.png)
+![Screenshot3](ScreenShot3.png)
+![Screenshot4](ScreenShot4.png)
 
 ## Usage
 - Launch the app after downloading from the Google Play store to see a dashboard with Wi-Fi stats.
