@@ -92,7 +92,7 @@ public class NavigationManager {
                 setFragment(barChartFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.nav_troubleShoot) {
-                setFragment(supportFragment, fragmentContainerId);
+                setFragment(supportWizardFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.nav_advStats) {
                 setFragment(statsFragment, fragmentContainerId);
