@@ -19,6 +19,7 @@ import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
 import me.theoria.wifimuscles.view.fragments.StatsFragment;
 import me.theoria.wifimuscles.view.fragments.SupportFragment;
+import me.theoria.wifimuscles.view.fragments.SupportWizardFragment;
 import me.theoria.wifimuscles.view.fragments.WifiListFragment;
 
 public class NavigationManager {
@@ -35,6 +36,7 @@ public class NavigationManager {
     private final Fragment statsFragment = new StatsFragment();
     private final Fragment supportFragment = new SupportFragment();
     private final Fragment wifiListFragment = new WifiListFragment();
+    private final Fragment supportWizardFragment = new SupportWizardFragment();
 
     // References to each item within the TopNavigationDrawer
     private final Fragment aboutFragment = new AboutFragment();
@@ -63,7 +65,7 @@ public class NavigationManager {
                 setFragment(statsFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.support) {
-                setFragment(supportFragment, fragmentContainerId);
+                setFragment(supportWizardFragment, fragmentContainerId);
                 return true;
             } else if (itemId == R.id.wifiList) {
                 setFragment(wifiListFragment, fragmentContainerId);
