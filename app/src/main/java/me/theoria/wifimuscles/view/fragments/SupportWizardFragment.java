@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.managers.info.SupportWizardStepManager;
+import me.theoria.wifimuscles.data.managers.info.SupportWizardManager;
 import me.theoria.wifimuscles.data.model.SupportWizardModel;
 
 public class SupportWizardFragment extends Fragment {
@@ -36,7 +36,7 @@ public class SupportWizardFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_support_wizard, container, false);
 
-        steps = SupportWizardStepManager.getWizardSteps(requireContext());
+        steps = SupportWizardManager.getWizardSteps(requireContext());
         bindViews(view);
         showStep(currentIndex);
 

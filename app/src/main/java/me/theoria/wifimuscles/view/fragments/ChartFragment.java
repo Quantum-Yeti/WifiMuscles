@@ -26,7 +26,7 @@ import java.util.Locale;
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.data.builders.LineChartBuilder;
 
-import me.theoria.wifimuscles.data.managers.SignalProcessManager;
+import me.theoria.wifimuscles.data.managers.info.SignalProcessManager;
 import me.theoria.wifimuscles.data.managers.charts.LineChartManager;
 import me.theoria.wifimuscles.data.managers.info.ChartPopupManager;
 import me.theoria.wifimuscles.data.model.ChartInfoCardModel;

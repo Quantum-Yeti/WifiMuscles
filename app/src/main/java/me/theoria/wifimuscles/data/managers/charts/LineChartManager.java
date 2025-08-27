@@ -7,7 +7,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.List;
 
-import me.theoria.wifimuscles.data.managers.SignalProcessManager;
+import me.theoria.wifimuscles.data.managers.info.SignalProcessManager;
 import me.theoria.wifimuscles.data.model.WifiSignalModel;
 import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
 

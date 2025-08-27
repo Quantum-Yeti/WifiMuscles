@@ -6,10 +6,11 @@
 
     <ImageView
         android:id="@+id/wizardIcon"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/wizardTitle"
@@ -17,25 +18,35 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/accent_light_blue"
         android:layout_gravity="center_horizontal"
-        android:paddingBottom="8dp" />
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
 
     <TextView
         android:id="@+id/wizardQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
+        android:textColor="@color/whiteText"
         android:layout_gravity="center_horizontal"
-        android:paddingBottom="24dp" />
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
 
     <Button
         android:id="@+id/buttonOptionOne"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/whiteText"
+        android:backgroundTint="@color/accent_charcoal"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/buttonOptionTwo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp"
+        android:textColor="@color/whiteText"
+        android:backgroundTint="@color/accent_charcoal"
+        android:textAllCaps="false" />
 </LinearLayout>

@@ -18,7 +18,6 @@ import me.theoria.wifimuscles.view.fragments.AboutFragment;
 import me.theoria.wifimuscles.view.fragments.BarChartFragment;
 import me.theoria.wifimuscles.view.fragments.ChartFragment;
 import me.theoria.wifimuscles.view.fragments.StatsFragment;
-import me.theoria.wifimuscles.view.fragments.SupportFragment;
 import me.theoria.wifimuscles.view.fragments.SupportWizardFragment;
 import me.theoria.wifimuscles.view.fragments.WifiListFragment;
 
@@ -34,7 +33,6 @@ public class NavigationManager {
     private final Fragment chartFragment = new ChartFragment();
     private final Fragment barChartFragment = new BarChartFragment();
     private final Fragment statsFragment = new StatsFragment();
-    private final Fragment supportFragment = new SupportFragment();
     private final Fragment wifiListFragment = new WifiListFragment();
     private final Fragment supportWizardFragment = new SupportWizardFragment();
 
