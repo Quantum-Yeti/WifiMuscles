@@ -177,6 +177,9 @@ public class ChartFragment extends Fragment {
         });
     }
 
+    /**
+     * Method to obtain and update the legend values for the line chart.
+     */
     private void updateLegendWithCurrentValues(List<WifiSignalModel> signals) {
         float rssi = signals.get(0).getRssi(); // Example RSSI value
         float interference = signals.get(0).getInterferenceLevel(); // Example interference value

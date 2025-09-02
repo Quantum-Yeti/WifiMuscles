@@ -162,9 +162,9 @@ public class BarChartFragment extends Fragment {
                 ? String.valueOf(wifiChannel)
                 : getString(R.string.no_data);
 
+        // Create an array list of data and add the cards
         List<ChartInfoCardModel> items = new ArrayList<>();
-        items.add(new ChartInfoCardModel(getString(R.string.ssid),
-                safeGetValue(dataUIViewModel.getSSIDText()), R.drawable.icon_ssid));
+        items.add(new ChartInfoCardModel(getString(R.string.ssid), safeGetValue(dataUIViewModel.getSSIDText()), R.drawable.icon_ssid));
         items.add(new ChartInfoCardModel(getString(R.string.rssi),
                 safeGetValue(dataUIViewModel.getRssiText()),
                 dataUIViewModel.getRssiEmoji().getValue() != null
@@ -205,6 +205,9 @@ public class BarChartFragment extends Fragment {
                 .commit();
     }
 
+    /**
+     * Method to parse and format the wi-fi frequency reading.
+     */
     private int parseFrequency(String frequencyString) {
         if (frequencyString == null) return -1;
         try {

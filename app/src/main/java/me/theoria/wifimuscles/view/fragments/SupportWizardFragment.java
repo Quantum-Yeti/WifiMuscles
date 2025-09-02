@@ -64,7 +64,15 @@ public class SupportWizardFragment extends Fragment {
         wizardTitle.setText(step.getTitle());
         wizardQuestion.setText(step.getQuestion());
         buttonOptionOne.setText(step.getOptionOne());
-        buttonOptionTwo.setText(step.getOptionTwo());
+
+        // Hide second button if string is empty/null
+        String optionTwoText = step.getOptionTwo();
+        if (optionTwoText == null || optionTwoText.trim().isEmpty()) {
+            buttonOptionTwo.setVisibility(View.GONE);
+        } else {
+            buttonOptionTwo.setVisibility(View.VISIBLE);
+            buttonOptionTwo.setText(optionTwoText);
+        }
     }
 
     private void goToNext(boolean choseOptionOne) {

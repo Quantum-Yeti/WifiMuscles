@@ -28,8 +28,8 @@ public class ChartInfoUtils {
                 return context.getString(R.string.max_link_speed_txt);
             case "Ping":
                 return context.getString(R.string.ping_txt);
-            case "Channel Number":
-                return context.getString(R.string.channel_number_txt);
+            case "Channel":
+                return context.getString(R.string.channel_txt);
             default:
                 return "No description available.";
         }

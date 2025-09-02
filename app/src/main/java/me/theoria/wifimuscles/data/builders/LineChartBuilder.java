@@ -74,14 +74,6 @@ public class LineChartBuilder {
         lineData.addDataSet(rssiValueDataSet);
         lineData.addDataSet(interferenceDataSet);
 
-        // Threshold quality set - might use this later
-        /*lineData.addDataSet(excellentSet);
-        lineData.addDataSet(goodSet);
-        lineData.addDataSet(fairSet);
-        lineData.addDataSet(weakSet);
-        lineData.addDataSet(unusableSet);*/
-
-
         chart.setData(lineData);
         chart.animateXY(1000, 1000, Easing.EaseInQuart);
         chart.invalidate();
@@ -141,19 +133,6 @@ public class LineChartBuilder {
         yAxis.setTextSize(12f);
         yAxis.setTextColor(Color.WHITE);
         yAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-
-        // Value formatter turning raw rssi to positive percentages
-        /*yAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                int percent = (int) ((value + 100));
-                if (value <= -101 && value >= -127) {
-                    return 0 + "%";
-                }
-                return percent + "%";
-
-            }
-        });*/
     }
 
     /**

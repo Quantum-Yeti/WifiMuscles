@@ -117,4 +117,5 @@
 
     <string name="interference_descript">Wi-Fi interference is when other signals or physical obstacles disrupt your wireless connection, causing slower speeds or connection problems.</string>
 
+    <string name="channel_txt">A Wi-Fi channel can be thought of like a TV channel - each channel is a lane for your data. Choosing the right channel reduces interference and improves performance.</string>
 </resources>

@@ -4,14 +4,14 @@ plugins {
 
 android {
     namespace = "me.theoria.wifimuscles"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "me.theoria.wifimuscles"
         minSdk = 26
         targetSdk = 35
-        versionCode = 32
-        versionName = "2.2.1"
+        versionCode = 34
+        versionName = "2.2.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
