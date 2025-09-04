@@ -9,6 +9,9 @@
 - Helpful network connection statistics.
 - Interactive popups explaining each stat in more detail.
 - Automatic refresh for live updates.
+- Swipe to refresh surrounding networks list.
+- Troubleshoot your Wi-Fi connection for common issues.
+- Easy, simple navigation.
 
 ## Screenshots
 ![Screenshot1](ScreenShot1.png)
@@ -21,6 +24,7 @@
 - Choose between line chart and bar chart live views on the dashboard.
 - Monitor your Wi-Fi health and identify issues such as a poor signal.
 - Great for learning where to place extenders/mesh nodes.
+- Troubleshoot your Wi-Fi connection for common issues such as intermittency, weak signal, and more.
 
 ## Tech Stack
 - **Language:** Java/Kotlin
