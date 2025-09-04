@@ -124,7 +124,7 @@ public class SupportWizardManager {
         // Step 12 - Windows Wi-Fi fix
         wizardSteps.add(new SupportWizardModel(
                 "Windows Wi-Fi Fix",
-                "Forget the Wi-Fi network and reconnect. Reboot your PC if needed.",
+                "If everything else in your home is connected, your Wi-Fi is working. Try forgetting the Wi-Fi network and reconnect. Rebooting your PC is also suggested.",
                 "Restart Wizard", "Exit",
                 0, 0,
                 R.drawable.icon_windows
@@ -178,8 +178,8 @@ public class SupportWizardManager {
         // Step 18 - Unplug devices
         wizardSteps.add(new SupportWizardModel(
                 "Unplug Devices",
-                "Unplug both your modem and router from the power source.",
-                "Done", "Exit",
+                "Unplug both your modem and router from the back of each device.",
+                "Continue", "Exit",
                 19, 0,
                 R.drawable.icon_power
         ));
@@ -187,8 +187,8 @@ public class SupportWizardManager {
         // Step 19 - Wait before reconnecting
         wizardSteps.add(new SupportWizardModel(
                 "Wait Before Reconnecting",
-                "Wait at least 30 seconds before plugging anything back in.",
-                "Done", "Exit",
+                "Important: Wait at least 30 seconds before plugging anything back in.",
+                "Continue", "Exit",
                 20, 0,
                 R.drawable.icon_avg_time
         ));
@@ -196,8 +196,8 @@ public class SupportWizardManager {
         // Step 20 - Plug in modem first
         wizardSteps.add(new SupportWizardModel(
                 "Plug in Modem",
-                "Plug in your modem first. Wait until the lights are stable.",
-                "Done", "Exit",
+                "Plug in your modem first. Wait until the lights are stable. This make take a few moments.",
+                "Continue", "Exit",
                 21, 0,
                 R.drawable.icon_mode
         ));
@@ -206,7 +206,7 @@ public class SupportWizardManager {
         wizardSteps.add(new SupportWizardModel(
                 "Plug in Router",
                 "Now plug in your router. Wait for all lights to turn on and stabilize.",
-                "Done", "Exit",
+                "Continue", "Exit",
                 22, 0,
                 R.drawable.icon_router
         ));
@@ -216,7 +216,7 @@ public class SupportWizardManager {
                 "Check Connection",
                 "Are you now able to connect to your Wi-Fi network?",
                 "Yes", "No",
-                -1, 2,
+                0, 1,
                 R.drawable.icon_wifi
         ));
 
@@ -279,7 +279,7 @@ public class SupportWizardManager {
                 "Final Check",
                 "Are you now able to connect to your Wi-Fi network?",
                 "Yes", "No",
-                -1, 9,
+                0, 9,
                 R.drawable.icon_wifi
         ));
 
@@ -324,7 +324,7 @@ public class SupportWizardManager {
                 "Signal Check",
                 "Has the signal strength improved after moving or adjusting the router?",
                 "Yes", "No",
-                -1, 35,
+                38, 35,
                 R.drawable.icon_network_check
         ));
 
