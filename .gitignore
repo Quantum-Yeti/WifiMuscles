@@ -1,6 +1,56 @@
 *.iml
 .gradle
 *.aab
+
+# Gradle
+.gradle/
+build/
+*/build/
+!gradle-wrapper.jar
+local.properties
+
+# Android Studio
+.idea/
+*.iws
+*.ipr
+*.bak
+*.swp
+captures/
+.externalNativeBuild/
+
+# Signing files
+*.jks
+*.keystore
+*.pem
+*.key
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Crashlytics/Firebase
+crashlytics-build.properties
+fabric.properties
+
+# Misc
+*.log
+*.tmp
+
+# Unit test reports
+test-output/
+
+# Kotlin
+*.class
+*.kt.bak
+
+# Generated
+.navigation/
+.generated/
+.cxx/
+
+# NDK
+obj/
+
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -8,13 +58,11 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.DS_Store
 /build
 /releases
 /captures
 .externalNativeBuild
 .cxx
-local.properties
 /.idea/appInsightsSettings.xml
 
 # Ignore all build outputs

@@ -13,12 +13,6 @@
 - Troubleshoot your Wi-Fi connection for common issues.
 - Easy, simple navigation.
 
-## Screenshots
-![Screenshot1](ScreenShot1.png)
-![Screenshot2](ScreenShot2.png)
-![Screenshot3](ScreenShot3.png)
-![Screenshot4](ScreenShot4.png)
-
 ## Usage
 - Launch the app after downloading from the Google Play store to see a dashboard with Wi-Fi stats.
 - Choose between line chart and bar chart live views on the dashboard.
@@ -30,4 +24,10 @@
 - **Language:** Java/Kotlin
 - **Architecture:** MVVM with LiveData
 - **Minimum API:** 21 (Android 5.0 Lollipop)
-- **Libraries:** AndroidX, RecyclerView, Lifecycle components, MP Chart
+- **Libraries:** - AndroidX, RecyclerView, Lifecycle Components, MP Chart, LiveData, Wifi Manager
+
+## Screenshots
+![Screenshot1](ScreenShot1.png)
+![Screenshot2](ScreenShot2.png)
+![Screenshot3](ScreenShot3.png)
+![Screenshot4](ScreenShot4.png)
