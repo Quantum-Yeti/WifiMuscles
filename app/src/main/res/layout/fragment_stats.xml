@@ -35,4 +35,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_stats" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

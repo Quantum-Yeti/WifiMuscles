@@ -12,6 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,15 +34,22 @@ import me.theoria.wifimuscles.viewmodel.WifiViewModel;
 
 public class StatsFragment extends Fragment {
 
+    // Stats Adapter and Manager
     private StatsAdapter statsAdapter;
     private StatsPopupManager statsPopupManager;
 
+    // View Models
     private DataUIViewModel dataUIViewModel;
     private WifiViewModel wifiViewModel;
     private NetworkViewModel networkViewModel;
     private ConnectivityViewModel connectivityViewModel;
     private DHCPViewModel dhcpViewModel;
 
+    // Google AdMob
+    private InterstitialAd mInterstitialAd;
+    private boolean adLoaded = false;
+
+    // Array list for stats info cards
     private final List<StatsInfoCardModel> statsItems = new ArrayList<>();
 
     @Nullable
@@ -65,6 +77,28 @@ public class StatsFragment extends Fragment {
         dataUIViewModel = provider.get(DataUIViewModel.class);
 
         observeLiveData();
+
+        // Build the google admob interstitial popup
+        // Set for once every 30 minutes per user
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(
+                requireContext(),
+                getString(R.string.admob_interstitial_id),
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                        adLoaded = true;
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                        mInterstitialAd = null;
+                        adLoaded = false;
+                    }
+        });
 
         return root;
     }
@@ -152,6 +186,11 @@ public class StatsFragment extends Fragment {
             statsItems.add(new StatsInfoCardModel("Connectivity", getString(R.string.metered), yesNo(cm.isMetered()), v -> statsPopupManager.meteredPopup(v)));
             statsItems.add(new StatsInfoCardModel("Connectivity", getString(R.string.downstream), CalculationUtils.speedConvert(cm.getDownstreamKbps()), v -> statsPopupManager.downstreamPopup(v)));
             statsItems.add(new StatsInfoCardModel("Connectivity", getString(R.string.upstream), CalculationUtils.speedConvert(cm.getUpstreamKbps()), v -> statsPopupManager.upstreamPopup(v)));
+        }
+
+        if (adLoaded && mInterstitialAd != null) {
+            mInterstitialAd.show(requireActivity());
+            adLoaded = false;
         }
 
         statsAdapter.updateItems(statsItems);
