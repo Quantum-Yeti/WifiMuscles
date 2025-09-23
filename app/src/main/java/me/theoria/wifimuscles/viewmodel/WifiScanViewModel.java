@@ -83,12 +83,12 @@ public class WifiScanViewModel extends AndroidViewModel {
         }
 
         long now = System.currentTimeMillis();
-        if (now - lastScanTime < SCAN_THROTTLE_MS) {
+        /*if (now - lastScanTime < SCAN_THROTTLE_MS) {
             Log.d(TAG, "Scan throttled. Try again later.");
             scanError.setValue("Scan throttled. Try again later.");
             isLoading.setValue(false);
             return;  // Exit early due to throttling
-        }
+        }*/
 
         // Proceed with the scan
         lastScanTime = now;

@@ -3,6 +3,7 @@ package me.theoria.wifimuscles.view.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,51 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.StatViewHold
         holder.label.setText(item.getLabel());
         holder.value.setText(item.getValue());
 
+        switch (item.getLabel().toLowerCase()) {
+            case "rssi":
+                holder.icon.setImageResource(R.drawable.icon_ssid);
+                break;
+            case "wifi standard":
+                holder.icon.setImageResource(R.drawable.icon_airwave);
+                break;
+            case "interference":
+                holder.icon.setImageResource(R.drawable.icon_equalizer);
+                break;
+            case "capability":
+                holder.icon.setImageResource(R.drawable.icon_radar);
+                break;
+            case "channel width":
+            case "center frequency 0":
+            case "center frequency 1":
+            case "passpoint":
+            case "802.11mc":
+            case "channel number":
+                holder.icon.setImageResource(R.drawable.icon_channel);
+                break;
+            case "gateway":
+            case "netmask":
+            case "dns 1":
+            case "dns 2":
+            case "lease duration":
+                holder.icon.setImageResource(R.drawable.icon_dns);
+                break;
+            case "link speed":
+            case "max speed":
+                holder.icon.setImageResource(R.drawable.icon_speed);
+                break;
+            case "transport":
+            case "internet":
+            case "validation":
+            case "vpn":
+            case "metered":
+                holder.icon.setImageResource(R.drawable.icon_ip_globe);
+                break;
+            case "downstream":
+            case "upstream":
+                holder.icon.setImageResource(R.drawable.icon_avg_time);
+                break;
+        }
+
         // On Click null check
         if (item.getOnClickListener() != null) {
             holder.itemView.setOnClickListener(item.getOnClickListener());
@@ -55,9 +101,11 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.StatViewHold
 
     public static class StatViewHolder extends RecyclerView.ViewHolder {
         TextView label, value;
+        ImageView icon;
 
         StatViewHolder(View itemView) {
             super(itemView);
+            icon = itemView.findViewById(R.id.stat_icon);
             label = itemView.findViewById(R.id.stat_label);
             value = itemView.findViewById(R.id.stat_value);
         }

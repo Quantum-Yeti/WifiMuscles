@@ -79,7 +79,7 @@ public class StatsFragment extends Fragment {
         observeLiveData();
 
         // Build the google admob interstitial popup
-        // Set for once every 30 minutes per user
+        // Set for once every 10 minutes per user
         AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(

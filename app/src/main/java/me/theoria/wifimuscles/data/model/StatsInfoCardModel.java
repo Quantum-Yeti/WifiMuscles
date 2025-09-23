@@ -11,7 +11,7 @@ public class StatsInfoCardModel {
     private final String value;
     private final View.OnClickListener onClickListener;
 
-    public StatsInfoCardModel(String title, String label, String value, View.OnClickListener onClickListener) {
+    public StatsInfoCardModel( String title, String label, String value, View.OnClickListener onClickListener) {
         this.title = title;
         this.label = label;
         this.value = value;

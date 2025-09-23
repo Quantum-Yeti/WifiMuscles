@@ -31,21 +31,22 @@ public class LineChartMarkerModel extends MarkerView {
 
             // Identify the dataset being clicked
             int dataSetIndex = highlight.getDataSetIndex();
+            String markerText;
 
-            // Initialize variables for RSSI and interference
-            float rssi = e.getY();
-            float interference = e.getY();
-            RSSIQualityModel level = RSSIQualityModel.mapRssiToStringLevel(rssi);
-
-            // String construction for both RSSI and interference
-            String rssiMarker = (int) rssi + " dBm | " + level;
-            String interferenceLevel = getInterferenceLevel(interference);
-
-            // Concatenate both together
-            String combinedGraphMarker = rssiMarker + "\n" + interferenceLevel;
-
-            // Set combined concatenated values together
-            markerContent.setText(combinedGraphMarker);
+            if (dataSetIndex == 0) {
+                // RSSI dataset
+                float rssi = e.getY();
+                RSSIQualityModel level = RSSIQualityModel.mapRssiToStringLevel(rssi);
+                markerText = (int) rssi + " dBm | " + level;
+            } else if (dataSetIndex == 1) {
+                // Interference dataset
+                float interference = e.getY();
+                String interferenceLevel = getInterferenceLevel(interference);
+                markerText = (int) interference + "% | " + interferenceLevel;
+            } else {
+                markerText = "";
+            }
+            markerContent.setText(markerText);
         }
         super.refreshContent(e, highlight);
     }
@@ -56,13 +57,17 @@ public class LineChartMarkerModel extends MarkerView {
     }
 
     private String getInterferenceLevel(float interference) {
-        if (interference <= 30) {
+        if (interference <= 10) {
             return "Low Interference";
-        } else if (interference <= 60) {
-            return "Medium Interference";
-        } else {
+        } else if (interference <= 30) {
+            return "Minor Interference";
+        } else if (interference <= 60){
+            return "Moderate Interference";
+        } else if (interference <= 80) {
             return "High Interference";
-        }
+        } else if (interference <= 100) {
+            return "Severe Interference";
+        } else return "Error";
     }
 
 }

@@ -5,18 +5,39 @@
     android:padding="12dp"
     android:background="?attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/stat_label"
+    <!-- Horizontal row: Icon + Label -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/accent_light_blue"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="4dp">
 
-    <TextView
-        android:id="@+id/stat_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/whiteText" />
+        <ImageView
+            android:id="@+id/stat_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/icon_stats"
+            android:contentDescription="Icon" />
+
+        <TextView
+            android:id="@+id/stat_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/accent_light_blue"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/stat_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/whiteText"
+            android:layout_marginStart="32dp"/>
+
+
 </LinearLayout>
