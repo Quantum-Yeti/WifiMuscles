@@ -17,7 +17,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import me.theoria.wifimuscles.data.model.ConnectivityModel;
+import me.theoria.wifimuscles.model.ConnectivityModel;
 
 public class ConnectivityViewModel extends AndroidViewModel {
 

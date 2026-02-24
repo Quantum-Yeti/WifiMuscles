@@ -1,4 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.android.application) apply false
+
+    // Gradle Versions Plugin
+    id("com.github.ben-manes.versions") version "0.53.0"
 }

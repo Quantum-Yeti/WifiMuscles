@@ -24,7 +24,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.theoria.wifimuscles.data.model.WifiSignalModel;
+import me.theoria.wifimuscles.model.WifiSignalModel;
 import me.theoria.wifimuscles.utils.CalculationUtils;
 import me.theoria.wifimuscles.utils.RSSIUtils;
 

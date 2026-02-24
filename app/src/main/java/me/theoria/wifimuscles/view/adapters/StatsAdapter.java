@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.model.StatsInfoCardModel;
+import me.theoria.wifimuscles.model.StatsInfoCardModel;
 
 public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.StatViewHolder> {
 

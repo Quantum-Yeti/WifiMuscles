@@ -12,7 +12,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import me.theoria.wifimuscles.data.model.DHCPModel;
+import me.theoria.wifimuscles.model.DHCPModel;
 
 public class DHCPViewModel extends AndroidViewModel {
 

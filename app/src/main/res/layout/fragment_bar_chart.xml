@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_app_primary"
     android:fitsSystemWindows="true"
-    tools:context=".view.fragments.BarChartFragment">
+    tools:context=".feature.chart.BarChartFragment">
 
     <!-- Main Scrollable Content -->
     <androidx.core.widget.NestedScrollView

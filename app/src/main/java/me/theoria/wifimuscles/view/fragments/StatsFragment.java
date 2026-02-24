@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Locale;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.managers.info.StatsPopupManager;
-import me.theoria.wifimuscles.data.model.StatsInfoCardModel;
+import me.theoria.wifimuscles.feature.stats.StatsPopupManager;
+import me.theoria.wifimuscles.model.StatsInfoCardModel;
 import me.theoria.wifimuscles.utils.CalculationUtils;
 import me.theoria.wifimuscles.view.adapters.StatsAdapter;
 import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;

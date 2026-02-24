@@ -8,7 +8,7 @@
     android:background="?android:attr/windowBackground"
     android:fitsSystemWindows="true"
     android:clipToPadding="false"
-    tools:context=".view.fragments.AboutFragment">
+    tools:context=".feature.about.AboutFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

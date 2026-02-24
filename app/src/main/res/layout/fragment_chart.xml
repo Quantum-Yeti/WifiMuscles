@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_app_primary"
-    tools:context=".view.fragments.ChartFragment">
+    tools:context=".feature.chart.LineChartFragment">
 
     <!-- Main Scrollable Content -->
     <androidx.core.widget.NestedScrollView

@@ -18,7 +18,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
-import me.theoria.wifimuscles.data.model.NetworkModel;
+import me.theoria.wifimuscles.model.NetworkModel;
 import me.theoria.wifimuscles.utils.CalculationUtils;
 
 public class NetworkViewModel extends AndroidViewModel {

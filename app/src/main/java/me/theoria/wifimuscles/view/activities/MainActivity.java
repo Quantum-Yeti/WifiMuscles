@@ -15,8 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.data.managers.ads.AdManager;
-import me.theoria.wifimuscles.data.managers.nav.NavigationManager;
+import me.theoria.wifimuscles.core.ads.AdManager;
+import me.theoria.wifimuscles.core.navigation.NavigationManager;
 import me.theoria.wifimuscles.utils.PermissionUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         PermissionUtils.checkWifiAndLocationEnabled(this);
 
         // Fragment declaration
-        //Fragment mainFragment = new ChartFragment();
+        //Fragment mainFragment = new LineChartFragment();
 
         // Set current fragment from setCurrentFragment helper
         setCurrentFragment(new Fragment());
