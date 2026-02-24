@@ -1,10 +1,7 @@
-package me.theoria.wifimuscles.utils;
+package me.theoria.wifimuscles.core.utils;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
 
 /**
  * ToastUtils is a reusable utility class for displaying common toast

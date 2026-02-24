@@ -2,6 +2,8 @@ package me.theoria.wifimuscles.utils;
 
 import junit.framework.TestCase;
 
+import me.theoria.wifimuscles.core.utils.CalculationUtils;
+
 public class CalculationUtilsTest extends TestCase {
 
     public void testIntIPToString() {

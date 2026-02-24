@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.view.fragments;
+package me.theoria.wifimuscles.feature.podplacer;
 
 import android.os.Bundle;
 

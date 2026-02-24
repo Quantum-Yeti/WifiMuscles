@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.view.activities;
+package me.theoria.wifimuscles;
 
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -14,10 +14,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.core.ads.AdManager;
 import me.theoria.wifimuscles.core.navigation.NavigationManager;
-import me.theoria.wifimuscles.utils.PermissionUtils;
+import me.theoria.wifimuscles.core.permissions.Permission;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Location + Wifi Permission Check from Utils Class
-        PermissionUtils.checkWifiAndLocationEnabled(this);
+        Permission.checkWifiAndLocationEnabled(this);
 
         // Fragment declaration
         //Fragment mainFragment = new LineChartFragment();

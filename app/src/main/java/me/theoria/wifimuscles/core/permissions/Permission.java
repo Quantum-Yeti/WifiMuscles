@@ -1,7 +1,6 @@
-package me.theoria.wifimuscles.utils;
+package me.theoria.wifimuscles.core.permissions;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,9 +12,9 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import me.theoria.wifimuscles.view.activities.MainActivity;
+import me.theoria.wifimuscles.MainActivity;
 
-public class PermissionUtils {
+public class Permission {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
 

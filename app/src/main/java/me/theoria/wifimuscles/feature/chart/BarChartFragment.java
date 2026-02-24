@@ -23,10 +23,10 @@ import java.util.Locale;
 import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.model.ChartInfoCardModel;
 import me.theoria.wifimuscles.databinding.FragmentBarChartBinding;
-import me.theoria.wifimuscles.utils.CalculationUtils;
-import me.theoria.wifimuscles.utils.ChartInfoUtils;
-import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
-import me.theoria.wifimuscles.viewmodel.WifiViewModel;
+import me.theoria.wifimuscles.core.utils.CalculationUtils;
+import me.theoria.wifimuscles.core.utils.ChartInfoUtils;
+import me.theoria.wifimuscles.core.viewmodel.DataUIViewModel;
+import me.theoria.wifimuscles.core.viewmodel.WifiViewModel;
 
 /**
  * Fragment that displays WiFi signal strength using a bar chart

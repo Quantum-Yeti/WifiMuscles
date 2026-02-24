@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.viewmodel;
+package me.theoria.wifimuscles.core.viewmodel;
 
 import android.Manifest;
 import android.app.Application;
@@ -19,7 +19,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 import me.theoria.wifimuscles.model.NetworkModel;
-import me.theoria.wifimuscles.utils.CalculationUtils;
+import me.theoria.wifimuscles.core.utils.CalculationUtils;
 
 public class NetworkViewModel extends AndroidViewModel {
 

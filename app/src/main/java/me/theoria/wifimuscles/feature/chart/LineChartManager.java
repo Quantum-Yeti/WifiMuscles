@@ -9,7 +9,7 @@ import java.util.List;
 
 import me.theoria.wifimuscles.feature.signal.SignalProcessManager;
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
+import me.theoria.wifimuscles.core.viewmodel.DataUIViewModel;
 
 /**
  * LineChartManager updates and renders the LineChart.

@@ -4,7 +4,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
 import me.theoria.wifimuscles.model.RSSIQualityModel;
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.utils.RSSIUtils;
+import me.theoria.wifimuscles.core.utils.RSSIUtils;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.utils;
+package me.theoria.wifimuscles.core.utils;
 
 import me.theoria.wifimuscles.R;
 

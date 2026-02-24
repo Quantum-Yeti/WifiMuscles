@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.view.fragments;
+package me.theoria.wifimuscles.feature.wifi;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import me.theoria.wifimuscles.databinding.FragmentWifiListBinding;
-import me.theoria.wifimuscles.view.adapters.WifiListAdapter;
-import me.theoria.wifimuscles.viewmodel.WifiScanViewModel;
+import me.theoria.wifimuscles.core.adapters.WifiListAdapter;
+import me.theoria.wifimuscles.core.viewmodel.WifiScanViewModel;
 
 public class WifiListFragment extends Fragment {
 

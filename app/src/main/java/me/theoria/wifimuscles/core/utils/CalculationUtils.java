@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.utils;
+package me.theoria.wifimuscles.core.utils;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;

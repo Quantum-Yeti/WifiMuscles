@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.viewmodel;
+package me.theoria.wifimuscles.core.viewmodel;
 
 import android.Manifest;
 import android.app.Application;
@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.utils.CalculationUtils;
-import me.theoria.wifimuscles.utils.RSSIUtils;
+import me.theoria.wifimuscles.core.utils.CalculationUtils;
+import me.theoria.wifimuscles.core.utils.RSSIUtils;
 
 public class WifiViewModel extends AndroidViewModel {
 

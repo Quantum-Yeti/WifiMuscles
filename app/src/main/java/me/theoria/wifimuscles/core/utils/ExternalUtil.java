@@ -1,7 +1,4 @@
-package me.theoria.wifimuscles.utils;
-
-import android.content.Intent;
-import android.net.Uri;
+package me.theoria.wifimuscles.core.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +8,6 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import me.theoria.wifimuscles.R;
 
 public class ExternalUtil {
 

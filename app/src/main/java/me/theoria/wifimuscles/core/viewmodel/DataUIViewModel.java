@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.viewmodel;
+package me.theoria.wifimuscles.core.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -8,9 +8,9 @@ import java.util.List;
 
 import me.theoria.wifimuscles.model.DHCPModel;
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.utils.CalculationUtils;
-import me.theoria.wifimuscles.utils.ExternalUtil;
-import me.theoria.wifimuscles.utils.RSSIUtils;
+import me.theoria.wifimuscles.core.utils.CalculationUtils;
+import me.theoria.wifimuscles.core.utils.ExternalUtil;
+import me.theoria.wifimuscles.core.utils.RSSIUtils;
 
 public class DataUIViewModel extends ViewModel {
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.theoria.wifimuscles.model.WifiSignalModel;
-import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
+import me.theoria.wifimuscles.core.viewmodel.DataUIViewModel;
 
 public class BarChartManager {
 

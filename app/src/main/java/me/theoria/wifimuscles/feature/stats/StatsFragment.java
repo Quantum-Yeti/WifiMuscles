@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.view.fragments;
+package me.theoria.wifimuscles.feature.stats;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,15 +22,14 @@ import java.util.List;
 import java.util.Locale;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.feature.stats.StatsPopupManager;
 import me.theoria.wifimuscles.model.StatsInfoCardModel;
-import me.theoria.wifimuscles.utils.CalculationUtils;
-import me.theoria.wifimuscles.view.adapters.StatsAdapter;
-import me.theoria.wifimuscles.viewmodel.ConnectivityViewModel;
-import me.theoria.wifimuscles.viewmodel.DHCPViewModel;
-import me.theoria.wifimuscles.viewmodel.DataUIViewModel;
-import me.theoria.wifimuscles.viewmodel.NetworkViewModel;
-import me.theoria.wifimuscles.viewmodel.WifiViewModel;
+import me.theoria.wifimuscles.core.utils.CalculationUtils;
+import me.theoria.wifimuscles.core.adapters.StatsAdapter;
+import me.theoria.wifimuscles.core.viewmodel.ConnectivityViewModel;
+import me.theoria.wifimuscles.core.viewmodel.DHCPViewModel;
+import me.theoria.wifimuscles.core.viewmodel.DataUIViewModel;
+import me.theoria.wifimuscles.core.viewmodel.NetworkViewModel;
+import me.theoria.wifimuscles.core.viewmodel.WifiViewModel;
 
 public class StatsFragment extends Fragment {
 

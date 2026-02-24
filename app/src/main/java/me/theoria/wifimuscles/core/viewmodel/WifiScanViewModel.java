@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.viewmodel;
+package me.theoria.wifimuscles.core.viewmodel;
 
 import android.annotation.SuppressLint;
 import android.app.Application;

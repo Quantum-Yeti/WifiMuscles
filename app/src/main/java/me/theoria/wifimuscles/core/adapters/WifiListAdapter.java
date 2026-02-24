@@ -1,10 +1,9 @@
-package me.theoria.wifimuscles.view.adapters;
+package me.theoria.wifimuscles.core.adapters;
 
 import android.net.wifi.ScanResult;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.theoria.wifimuscles.R;
-import me.theoria.wifimuscles.utils.RSSIUtils;
+import me.theoria.wifimuscles.core.utils.RSSIUtils;
 
 public class WifiListAdapter extends RecyclerView.Adapter<WifiListAdapter.WifiViewHolder> {
 

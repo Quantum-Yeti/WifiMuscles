@@ -17,9 +17,9 @@ import me.theoria.wifimuscles.R;
 import me.theoria.wifimuscles.feature.chart.LineChartFragment;
 import me.theoria.wifimuscles.feature.about.AboutFragment;
 import me.theoria.wifimuscles.feature.chart.BarChartFragment;
-import me.theoria.wifimuscles.view.fragments.StatsFragment;
+import me.theoria.wifimuscles.feature.stats.StatsFragment;
 import me.theoria.wifimuscles.feature.wizard.SupportWizardFragment;
-import me.theoria.wifimuscles.view.fragments.WifiListFragment;
+import me.theoria.wifimuscles.feature.wifi.WifiListFragment;
 
 public class NavigationManager {
 

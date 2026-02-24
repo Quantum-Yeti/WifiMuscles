@@ -1,4 +1,4 @@
-package me.theoria.wifimuscles.view.adapters;
+package me.theoria.wifimuscles.core.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
